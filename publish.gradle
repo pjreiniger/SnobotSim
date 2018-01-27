@@ -9,7 +9,7 @@ task gatherWpiLibs(type: Zip) {
     classifier = "wpi_native-" + os_name;
     destinationDir = file("build")
     
-    print "GATHERING WPILIBS: " + os_name + ", " + classifier
+    println "GATHERING WPILIBS: " + os_name + ", " + classifier
     
     from('build/dependencies/wpiutil-cpp/' + os_name + 'x86-64/' + os_name + '/x86-64/shared') {
         into "lib"
@@ -42,7 +42,7 @@ task gatherWpiHeaders(type: Zip) {
     classifier = "wpi_headers";
     destinationDir = file("build")
     
-    print "GATHERING WPILIBS HEADERS: " + os_name + ", " + classifier
+    println "GATHERING WPILIBS HEADERS: " + classifier
     
     from('build/dependencies/wpiutil-cpp/headers') {
         into "include"
