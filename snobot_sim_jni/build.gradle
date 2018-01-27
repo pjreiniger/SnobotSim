@@ -36,7 +36,7 @@ sourceSets {
     }
 }
 test {
-    ignoreFailures = !OperatingSystem.current().isWindows()
+    ignoreFailures = OperatingSystem.current().isLinux()
 }
 
 task packageNativeFilesInJar(type: Jar) {
