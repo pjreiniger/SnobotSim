@@ -87,7 +87,7 @@ publishing {
 
     publications {
         wpilibCopies(MavenPublication) {
-            artifact gatherWpiLibs
+            //artifact gatherWpiLibs
             artifact gatherWpiHeaders
         
             groupId 'com.snobot.simulator'
