@@ -110,6 +110,7 @@ task unzipNativeLibraries(type: Copy) {
         include "**/*.pdb"
         include "**/*.so*"
         include "**/*.a"
+        include "**/*.dylib*"
     }
     
     includeEmptyDirs = false

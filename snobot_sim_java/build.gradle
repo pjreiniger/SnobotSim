@@ -95,6 +95,16 @@ task combineNativeLibrariesIntoOne(type: Jar) {
     from(ctre_path + 'libCtreMockHooks.so') { 
         into "linux/x86-64"
     }
+    
+    FileTree tempNavxTree = fileTree(dir: navx_path)
+	tempNavxTree.visit {element ->
+	    println "XXX NAVX LIB: $element.relativePath => $element.file"
+	}
+    
+    FileTree tempCtreTree = fileTree(dir: ctre_path)
+	tempCtreTree.visit {element ->
+	    println "XXX CTRE LIB: $element.relativePath => $element.file"
+	}
 }
 build.dependsOn packageNativeFilesInJar
 

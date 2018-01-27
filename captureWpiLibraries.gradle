@@ -47,6 +47,7 @@ task captureWpiLibraries(type: Jar, dependsOn: extractWpilibjJniShared) {
             into output_path
             include "*.dll"
             include "*.so"
+            include "*.dylib"
         }
  	}
 }
