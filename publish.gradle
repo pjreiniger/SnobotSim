@@ -5,7 +5,7 @@ apply plugin: 'maven-publish'
 
 task gatherWpiLibs(type: Zip) {
     def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
-    if(org.gradle.internal.os.OperatingSystem.current())
+    if(org.gradle.internal.os.OperatingSystem.current().isMacOsX())
     {
         os_name = "osxx"
     }
@@ -40,9 +40,14 @@ task gatherWpiLibs(type: Zip) {
         include "*.dylib"
     }
     
-    FileTree tempDependencyTree = fileTree(dir: 'build/dependencies/')
-    tempDependencyTree.visit {element ->
-        println "YYYYYYYYYYY: $element.relativePath => $element.file"
+    println "Dumping dep tree1111"
+    
+    doLast {
+        println "Dumping dep tree2222"
+        FileTree tempDependencyTree = fileTree(dir: 'build/dependencies/')
+        tempDependencyTree.visit {element ->
+            println "YYYYYYYYYYY: $element.relativePath => $element.file"
+        }
     }
 }
     
