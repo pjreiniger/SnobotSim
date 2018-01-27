@@ -81,7 +81,7 @@ public:
         PushValue(buffer, param0, offset);
         Send(aName, buffer);
 
-        delete buffer;
+        delete[] buffer;
 
     }
 
@@ -98,7 +98,7 @@ public:
         PushValue(buffer, param1, offset);
         Send(aName, buffer);
 
-        delete buffer;
+        delete[] buffer;
     }
 
     template<typename T0, typename T1, typename T2>
@@ -115,7 +115,7 @@ public:
         PushValue(buffer, param2, offset);
         Send(aName, buffer);
 
-        delete buffer;
+        delete[] buffer;
     }
 
     template<typename T0, typename T1, typename T2, typename T3, typename T4>
@@ -134,7 +134,7 @@ public:
         PushValue(buffer, param4, offset);
         Send(aName, buffer);
 
-        delete buffer;
+        delete[] buffer;
     }
 
     template <typename T>

@@ -84,7 +84,7 @@ public:
         PushValue(buffer, param0, offset);
         Send(aName, buffer);
 
-        delete buffer;
+        delete[] buffer;
 
     }
 
@@ -101,7 +101,7 @@ public:
         PushValue(buffer, param1, offset);
         Send(aName, buffer);
 
-        delete buffer;
+        delete[] buffer;
     }
 
     template<typename T0, typename T1, typename T2>
@@ -118,7 +118,7 @@ public:
         PushValue(buffer, param2, offset);
         Send(aName, buffer);
 
-        delete buffer;
+        delete[] buffer;
     }
 
     template<typename T0, typename T1, typename T2, typename T3>
@@ -136,7 +136,7 @@ public:
         PushValue(buffer, param3, offset);
         Send(aName, buffer);
 
-        delete buffer;
+        delete[] buffer;
     }
     template<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
     void Send(const std::string& aName, T0& param0, T1& param1, T2& param2, T3& param3, T4& param4, T5& param5)
@@ -155,7 +155,7 @@ public:
         PushValue(buffer, param5, offset);
         Send(aName, buffer);
 
-        delete buffer;
+        delete[] buffer;
     }
     template<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
         void Send(const std::string& aName, T0& param0, T1& param1, T2& param2, T3& param3, T4& param4, T5& param5, T6& param6)
@@ -175,7 +175,7 @@ public:
             PushValue(buffer, param6, offset);
             Send(aName, buffer);
 
-            delete buffer;
+            delete[] buffer;
         }
 
     template <typename T>
