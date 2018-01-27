@@ -9,7 +9,7 @@ task gatherWpiLibs(type: Zip) {
     {
         os_name = "osxx"
     }
-
+    
     classifier = "wpi_native-" + os_name;
     destinationDir = file("build")
     
@@ -38,6 +38,11 @@ task gatherWpiLibs(type: Zip) {
         include "*.lib"
         include "*.so"
         include "*.dylib"
+    }
+    
+    FileTree tempDependencyTree = fileTree(dir: 'build/dependencies/')
+    tempDependencyTree.visit {element ->
+        println "YYYYYYYYYYY: $element.relativePath => $element.file"
     }
 }
     
