@@ -6,8 +6,8 @@ matrix:
     sudo: required
     group: edge
     
-  //- os: osx
-  //  osx_image: xcode8
+  - os: osx
+    osx_image: xcode8
   
 notifications:
   email: false
