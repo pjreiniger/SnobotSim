@@ -30,7 +30,7 @@ cache:
   - "$HOME/.gradle/wrapper/"
 script:
 - git clone --depth=50 --branch=master https://github.com/pjreiniger/maven_repo.git ../../pjreiniger/maven_repo
-- "./gradlew build -i jacocoTestReport --refresh-dependencies -Pmaven_repo=../../pjreiniger/maven_repo -x test -x checkstyleTest -x findbugsTest -x pmdTest"
+- "./gradlew build -i jacocoTestReport publish --refresh-dependencies -Pmaven_repo=../../pjreiniger/maven_repo -x test -x checkstyleTest -x findbugsTest -x pmdTest"
 - echo "built..."
 - ls
 - ls ..
