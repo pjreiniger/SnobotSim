@@ -5,6 +5,10 @@ apply plugin: 'maven-publish'
 
 task gatherWpiLibs(type: Zip) {
     def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
+    if(org.gradle.internal.os.OperatingSystem.current())
+    {
+        os_name = "osxx"
+    }
 
     classifier = "wpi_native-" + os_name;
     destinationDir = file("build")
@@ -73,7 +77,7 @@ publishing {
 
     publications {
         wpilibCopies(MavenPublication) {
-            //artifact gatherWpiLibs
+            artifact gatherWpiLibs
             artifact gatherWpiHeaders
         
             groupId 'com.snobot.simulator'
