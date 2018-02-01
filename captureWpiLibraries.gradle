@@ -19,10 +19,10 @@ task extractWpilibjJniShared(type: Copy) {
     def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
 
     destinationDir = file("$rootDir/build/dependencies/wpilibj-jniShared")
-	configurations.wpilibjJni.each {
-	    from(zipTree(it)) {
-	        into os_name + "x86-64/"
-	    }
+    configurations.wpilibjJni.each {
+        from(zipTree(it)) {
+            into os_name + "x86-64/"
+        }
     }
 }
 
@@ -30,7 +30,6 @@ task extractWpilibjJniShared(type: Copy) {
 task captureWpiLibraries(type: Jar, dependsOn: extractWpilibjJniShared) {
 
     def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
-    def output_path = os_name + "/x86-64/"
     
     destinationDir = file("$rootDir/build/wpi_libraries")
     classifier = "wpi_native-" + os_name;
@@ -40,14 +39,25 @@ task captureWpiLibraries(type: Jar, dependsOn: extractWpilibjJniShared) {
                      "halsim-adx_gyro_accelerometer",
                      "hal"]
                  
- 	libraries.each{
- 	    def full_path = "$rootDir/build/dependencies/" + it + "/" + os_name + "x86-64/" + os_name + "/x86-64/shared"
- 	    println full_path
- 	    from(full_path) {
-            into output_path
+    libraries.each{
+        def full_path = "$rootDir/build/dependencies/" + it + "/" + os_name + "x86-64/" + os_name + "/x86-64/shared"
+        println full_path
+        from(full_path) {
+            into os_name + "/x86-64/"
             include "*.dll"
             include "*.so"
             include "*.dylib"
         }
- 	}
+    }
+                 
+    libraries.each{
+        def full_path = "$rootDir/build/dependencies/" + it + "/" + os_name + "x86/" + os_name + "/x86/shared"
+        println full_path
+        from(full_path) {
+            into os_name + "/x86/"
+            include "*.dll"
+            include "*.so"
+            include "*.dylib"
+        }
+    }
 }
