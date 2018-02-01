@@ -80,12 +80,12 @@ task combineNativeLibrariesIntoOne(type: Jar) {
 
     from(zipTree('../snobot_sim/build/snobotSim-native-' + os_name + ".jar"))
     
-    def navx_path = '../sim_extension_navx/build/libs/navx_simulator/shared/'
-    from(navx_path + 'navx_simulator.dll') { 
-        into "windows/x86-64"
+    project(':ctre_override').packageNativeCtreFilesInJar.outputs.files.each {
+        from(zipTree(it))
     }
-    from(navx_path + 'libnavx_simulator.so') { 
-        into "linux/x86-64"
+    
+    project(':sim_extension_navx').packageNativeNavxFilesInJar.outputs.files.each {
+        from(zipTree(it))
     }
 }
 build.dependsOn packageNativeFilesInJar

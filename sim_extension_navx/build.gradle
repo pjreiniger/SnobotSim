@@ -1,3 +1,4 @@
+import edu.wpi.first.nativeutils.NativeUtils
 
 apply plugin: 'edu.wpi.first.NativeUtils'
 apply plugin: 'cpp'
@@ -12,6 +13,26 @@ repositories {
 ext.addNavxToLinker = { binary->
     binary.lib project: ':sim_extension_navx', library: 'navx_simulator', linkage: 'shared'
 }
+
+task packageNativeNavxFilesInJar(type: Jar) {
+    destinationDir = project.buildDir
+    classifier = "native-" + org.gradle.internal.os.OperatingSystem.current().getFamilyName();
+
+    project.model {
+        binaries {
+            withType(SharedLibraryBinarySpec) { binary ->
+                if (binary.component.name == 'navx_simulator') 
+                {
+                    from(binary.sharedLibraryFile) {
+                        into NativeUtils.getPlatformPath(binary)
+                    }
+                }
+            }
+        }
+    }
+}
+
+build.dependsOn packageNativeNavxFilesInJar
 
 if (!project.hasProperty('onlyAthena')) {
     ext.skipAthena = true

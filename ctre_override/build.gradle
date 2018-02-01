@@ -43,8 +43,9 @@ task packageNativeCtreFilesInJar(type: Jar) {
                 if (binary.component.name == 'CtrePhoenixJava' || 
                     binary.component.name == 'CtreMockHooks') 
                 {
-                    from(binary.sharedLibraryFile)
-                    dependsOn binary.buildTask
+                    from(binary.sharedLibraryFile) {
+                        into NativeUtils.getPlatformPath(binary)
+                    }
                 }
             }
         }
