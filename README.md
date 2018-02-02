@@ -5,6 +5,8 @@
 [![codecov](https://codecov.io/gh/pjreiniger/SnobotSim/branch/master/graph/badge.svg)](https://codecov.io/gh/pjreiniger/SnobotSim)
 
 # SnobotSim
+
+[![Join the chat at https://gitter.im/SnobotSim/Lobby](https://badges.gitter.im/SnobotSim/Lobby.svg)](https://gitter.im/SnobotSim/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 SnobotSim is a java-based simulator that can simulate FRC Robots written in Java, with incubating support for C++ and Python.
 
 Check out the [Release Notes](ReleaseNotes.md) to keep up with all the updates and bug fixes going on througout the season
