@@ -74,12 +74,13 @@ public class CtreManager
             case 7:
                 wrapper.setMotionMagicGoal(param0);
                 break;
+            case 15:
+                wrapper.set(0);
+                break;
             default:
                 sLOGGER.log(Level.ERROR, String.format("Unknown demand mode %d", mode));
                 break;
-
             }
-
         }
         else if ("ConfigSelectedFeedbackSensor".equals(aCallback))
         {
@@ -170,7 +171,7 @@ public class CtreManager
         {
             CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
 
-            int speed = (int) Math.ceil(wrapper.getPosition());
+            int speed = wrapper.getBinnedPosition();
             aData.putInt(0, speed);
 
         }
@@ -178,9 +179,14 @@ public class CtreManager
         {
             CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
 
-            int speed = (int) Math.ceil(wrapper.getVelocity());
+            int speed = wrapper.getBinnedVelocity();
             aData.putInt(0, speed);
 
+        }
+        else if ("SetSelectedSensorPosition".equals(aCallback))
+        {
+            CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
+            wrapper.reset();
         }
         else if ("GetClosedLoopError".equals(aCallback))
         {
@@ -215,7 +221,6 @@ public class CtreManager
             CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
             MotionProfilePoint point = wrapper.getMotionProfilePoint();
             aData.putInt(point == null ? 0 : (int) point.mVelocity);
-
         }
         else
         {

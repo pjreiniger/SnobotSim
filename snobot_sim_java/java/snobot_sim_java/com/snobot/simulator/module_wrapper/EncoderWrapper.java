@@ -7,6 +7,7 @@ public class EncoderWrapper extends ASensorWrapper implements IMotorFeedbackSens
 {
 
     private final DistanceSetterHelper mSetterHelper;
+    private final ResetHelper mResetHelper;
     private double mDistancePerTick;
     private double mEncodingFactor;
     private double mPosition;
@@ -16,16 +17,43 @@ public class EncoderWrapper extends ASensorWrapper implements IMotorFeedbackSens
         public void setDistance(double aDistance);
     }
 
-    public EncoderWrapper(int aIndex, DistanceSetterHelper aSetterHelper)
+    private static class NullDistanceSetterHelper implements DistanceSetterHelper
     {
-        this("Encoder " + aIndex, aSetterHelper);
+        public void setDistance(double aDistance)
+        {
+            // Nothing to do
+        }
     }
 
-    public EncoderWrapper(String aName, DistanceSetterHelper aSetterHelper)
+    public static interface ResetHelper
+    {
+        public void onReset();
+    }
+
+    private static class NullResetHelper implements ResetHelper
+    {
+        public void onReset()
+        {
+            // Nothing to do
+        }
+    }
+
+    public EncoderWrapper(String aName)
+    {
+        this(aName, new NullDistanceSetterHelper(), new NullResetHelper());
+    }
+
+    public EncoderWrapper(int aIndex, DistanceSetterHelper aSetterHelper, ResetHelper aResetHelper)
+    {
+        this("Encoder " + aIndex, aSetterHelper, aResetHelper);
+    }
+
+    public EncoderWrapper(String aName, DistanceSetterHelper aSetterHelper, ResetHelper aResetHelper)
     {
         super(aName);
 
         mSetterHelper = aSetterHelper;
+        mResetHelper = aResetHelper;
         mPosition = 0;
         mEncodingFactor = 4;
         mDistancePerTick = 1;
@@ -64,6 +92,8 @@ public class EncoderWrapper extends ASensorWrapper implements IMotorFeedbackSens
                 setPosition(0);
             }
         }
+
+        mResetHelper.onReset();
     }
 
     public void setDistancePerTick(double aDistancePerTick)

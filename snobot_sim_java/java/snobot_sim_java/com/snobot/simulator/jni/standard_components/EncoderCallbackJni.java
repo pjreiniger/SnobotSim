@@ -7,6 +7,7 @@ import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.jni.HalCallbackValue;
 import com.snobot.simulator.module_wrapper.EncoderWrapper;
 import com.snobot.simulator.module_wrapper.EncoderWrapper.DistanceSetterHelper;
+import com.snobot.simulator.module_wrapper.EncoderWrapper.ResetHelper;
 
 public final class EncoderCallbackJni
 {
@@ -32,7 +33,7 @@ public final class EncoderCallbackJni
     {
         if ("Initialized".equals(aCallbackType))
         {
-            SensorActuatorRegistry.get().register(new EncoderWrapper(aPort, new DistanceSetterHelper()
+            DistanceSetterHelper setterHelper = new DistanceSetterHelper()
             {
 
                 @Override
@@ -40,7 +41,20 @@ public final class EncoderCallbackJni
                 {
                     setEncoderDistance(aPort, aDistance);
                 }
-            }), aPort);
+            };
+
+            // TODO this should be removed when WPI fixes their dependency
+            ResetHelper resetHelper = new ResetHelper()
+            {
+
+                @Override
+                public void onReset()
+                {
+                    clearResetFlag(aPort);
+                }
+            };
+
+            SensorActuatorRegistry.get().register(new EncoderWrapper(aPort, setterHelper, resetHelper), aPort);
         }
         else if ("Count".equals(aCallbackType))
         {
@@ -59,4 +73,6 @@ public final class EncoderCallbackJni
             sLOGGER.log(Level.ERROR, "Unknown Encoder callback " + aCallbackType + " - " + aHalValue);
         }
     }
+
+    private static native void clearResetFlag(int aPort);
 }

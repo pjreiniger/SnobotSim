@@ -65,14 +65,17 @@ public class TestCtreCanTalon_ControlPosition extends BaseSimulatorTest
         talon.config_kI(0, .005, 5);
         talon.config_IntegralZone(0, 2, 5);
 
-        talon.set(ControlMode.Position, 36);
+        talon.set(ControlMode.Position, 36 * 4096);
 
         simulateForTime(1, () ->
         {
         });
 
         Assert.assertEquals(36, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPosition(mRawHandle), .5);
-        Assert.assertEquals(36, talon.getSelectedSensorPosition(0), .05);
+        Assert.assertEquals(36, talon.getSelectedSensorPosition(0) / 4096.0, .5);
+
+        talon.setSelectedSensorPosition(0, 0, 0);
+        Assert.assertEquals(0, talon.getSelectedSensorPosition(0), .000001);
     }
 
     private void checkForFeedbackDevice()

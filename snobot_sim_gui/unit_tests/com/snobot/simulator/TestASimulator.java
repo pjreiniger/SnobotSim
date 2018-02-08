@@ -88,7 +88,5 @@ public class TestASimulator extends BaseSimulatorTest
         }
 
         Assert.assertEquals(3, DataAccessorFactory.getInstance().getSimulatorDataAccessor().getSimulatorComponentConfigs().size());
-
-        baseSimulator.shutdown();
     }
 }

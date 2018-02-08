@@ -1,5 +1,6 @@
 package com.snobot.simulator.simulator_components.ctre;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +12,6 @@ import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.AnalogWrapper;
 import com.snobot.simulator.module_wrapper.AnalogWrapper.VoltageSetterHelper;
 import com.snobot.simulator.module_wrapper.EncoderWrapper;
-import com.snobot.simulator.module_wrapper.EncoderWrapper.DistanceSetterHelper;
 import com.snobot.simulator.module_wrapper.PwmWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
@@ -272,25 +272,17 @@ public class CtreTalonSrxSpeedControllerSim extends PwmWrapper
         output = Math.max(output, -1.0);
 
         mLastError = error;
-
-//        DecimalFormat df = new DecimalFormat("#.##");
-//        System.out.println("Motion Magic... " + 
-//                "Goal: " + aControlGoal + ", " + 
-//                "CurPos: " + df.format(aCurrentPosition) + ", " + 
-//                "CurVel: " + df.format(aCurrentVelocity) + ", " + 
-//                "TimeToStop: " + df.format(time_to_stop) + ", " + 
-//                "TimeToDestination: " + df.format(time_to_destination) + ", " + 
-//                "err: " + df.format(error) + ", " +
-//                "maxa: " + df.format(mMotionMagicMaxAcceleration) + ", " + "maxv: " + df.format(mMotionMagicMaxVelocity));
-//
-//        if (time_to_destination > time_to_stop)
-//        {
-        // LOGGER.log(Level.DEBUG, " In constant velocity " + output);
-//        }
-//        else
-//        {
-        // LOGGER.log(Level.DEBUG, " In decel " + output);
-//        }
+        
+        if (sLOGGER.isDebugEnabled())
+        {
+            DecimalFormat df = new DecimalFormat("#.##");
+            sLOGGER.log(Level.DEBUG, "Motion Magic... " 
+                    + "Goal: " + aControlGoal + ", " 
+                    + "CurPos: " + df.format(aCurrentPosition) + ", " 
+                    + "CurVel: " + df.format(aCurrentVelocity) + ", " 
+                    + "err: " + df.format(error) + ", " 
+                    + "maxa: " + df.format(mMotionMagicMaxAcceleration) + ", " + "maxv: " + df.format(mMotionMagicMaxVelocity));
+        }
 
         return output;
     }
@@ -332,7 +324,24 @@ public class CtreTalonSrxSpeedControllerSim extends PwmWrapper
 
     public double getLastClosedLoopError()
     {
-        return mLastError;
+        double multiplier = 1.0;
+
+        switch (mControlType)
+        {
+        case MotionMagic:
+        case MotionProfile:
+        case Position:
+            multiplier = getPositionUnitConversion();
+            break;
+        case Speed:
+            multiplier = getVelocityUnitConversion();
+            break;
+        default:
+            sLOGGER.log(Level.WARN, "I don't think get closed loop error should be called with " + mControlType);
+            break;
+
+        }
+        return mLastError * multiplier;
     }
 
     public void addMotionProfilePoint(MotionProfilePoint aPoint)
@@ -457,15 +466,7 @@ public class CtreTalonSrxSpeedControllerSim extends PwmWrapper
         switch (mFeedbackDevice)
         {
         case Encoder:
-            SensorActuatorRegistry.get().register(new EncoderWrapper("CAN Encoder (" + mCanHandle + ")", new DistanceSetterHelper()
-            {
-
-                @Override
-                public void setDistance(double aDistance)
-                {
-                    // Nothing to do
-                }
-            }), getHandle());
+            SensorActuatorRegistry.get().register(new EncoderWrapper("CAN Encoder (" + mCanHandle + ")"), getHandle());
 
             DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(getHandle(), getHandle());
             sLOGGER.log(Level.INFO, "Created CAN Encoder for port " + mCanHandle);
@@ -489,22 +490,22 @@ public class CtreTalonSrxSpeedControllerSim extends PwmWrapper
 
     private double getPositionUnitConversion()
     {
-        return 1;
+        return 4096;
     }
 
     private double getVelocityUnitConversion()
     {
-        return 1;
+        return 600;
     }
 
     private double getMotionMagicAccelerationUnitConversion()
     {
-        return 1;
+        return 600;
     }
 
     private double getMotionMagicVelocityUnitConversion()
     {
-        return 1;
+        return 600;
     }
 
     public int getBinnedPosition()

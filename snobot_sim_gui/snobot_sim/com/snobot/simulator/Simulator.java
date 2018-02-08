@@ -269,6 +269,7 @@ public class Simulator
                     while (mRunningSimulator)
                     {
                         DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForNextUpdateLoop();
+                        DataAccessorFactory.getInstance().getSimulatorDataAccessor().updateSimulatorComponents();
 
                         mSimulator.update();
                         frame.updateLoop();
@@ -322,11 +323,6 @@ public class Simulator
     protected void stop()
     {
         sLOGGER.log(Level.INFO, "Stopping simulator");
-
-        if (mSimulator != null)
-        {
-            mSimulator.shutdown();
-        }
 
         if (mSimulatorThread != null)
         {

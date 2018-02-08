@@ -55,6 +55,16 @@ JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_standard_1components_Encode
         gEncoderArrayIndices[i] = i;
         HALSIM_RegisterEncoderAllCallbacks(i, &EncoderCallback, &gEncoderArrayIndices[i], false);
     }
+}
 
 
+/*
+ * Class:     com_snobot_simulator_jni_standard_components_EncoderCallbackJni
+ * Method:    clearResetFlag
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_standard_1components_EncoderCallbackJni_clearResetFlag
+  (JNIEnv *, jclass, jint aPort)
+{
+    HALSIM_SetEncoderReset(aPort, false);
 }

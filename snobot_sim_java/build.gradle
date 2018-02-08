@@ -233,6 +233,7 @@ tasks.withType(Test) {
 checkstyle {
     toolVersion = "8.1"
     configFile = new File(rootDir, "styleguide/checkstyle.xml")
+    checkstyleTest.enabled = false
 }
 
 pmd {
@@ -240,11 +241,13 @@ pmd {
     reportsDir = file("${project.buildDir}/reports/pmd")
     ruleSetFiles = files(file("$rootDir/styleguide/pmd-ruleset.xml"))
     ruleSets = []
+    pmdTest.enabled = false
 }
 
 findbugs {
     excludeFilter = file("$rootDir/styleguide/findbugs_suppressions.xml")
     effort = "max"
+    findbugsTest.enabled = false
 }
 tasks.withType(FindBugs) {
     reports {

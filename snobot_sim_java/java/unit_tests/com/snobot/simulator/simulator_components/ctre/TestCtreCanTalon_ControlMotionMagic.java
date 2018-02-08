@@ -65,15 +65,16 @@ public class TestCtreCanTalon_ControlMotionMagic extends BaseSimulatorTest
         talon.config_IntegralZone(0, 2, 5);
 
         talon.configSelectedFeedbackSensor(mFeedbackDevice, 0, 5);
-        talon.configMotionCruiseVelocity(12, 0);
-        talon.configMotionAcceleration(24, 0);
-        talon.set(ControlMode.MotionMagic, 30 * 12);
+        talon.configMotionCruiseVelocity(12 * 600, 0);
+        talon.configMotionAcceleration(24 * 600, 0);
+        talon.set(ControlMode.MotionMagic, 30 * 12 * 4096);
 
         simulateForTime(8, () ->
         {
+            System.out.println(talon.getClosedLoopError(0));
         });
 
-        Assert.assertEquals(0, talon.getClosedLoopError(0), 2);
+        Assert.assertEquals(0, talon.getClosedLoopError(0), 2 * 4096);
     }
 
 }
