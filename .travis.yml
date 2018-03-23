@@ -14,7 +14,9 @@ notifications:
 
 addons:
   apt:
-    sources: [ 'ubuntu-toolchain-r-test']
+    sources: 
+    - 'deadsnakes'
+    - 'ubuntu-toolchain-r-test'
     packages:
     - g++-multilib
     - lib32stdc++6
