@@ -36,7 +36,7 @@ DcMotorModelConfig::DcMotorModelConfig(
                 aHasBrake,
                 aInverted,
                 aStallTorque / aStallCurrent,
-                (aFreeSpeedRpm / aNominalVoltage) * (M_PI * 2.0) / 60.0,
+                (aFreeSpeedRpm / aNominalVoltage) * (3.14159265359 * 2.0) / 60.0, // wpiformat removes M_PI
                 aNominalVoltage / aStallCurrent)
 {
 }
