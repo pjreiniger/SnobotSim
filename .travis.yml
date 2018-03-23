@@ -23,8 +23,11 @@ addons:
     - libstdc++6
     - python3.5-dev
 before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo sh -c 'echo "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main" > /etc/apt/sources.list.d/llvm.list'; fi;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -; fi;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -q || true; fi;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install clang-format-5.0 -y; fi;
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install libstdc++6; fi;
-  - sudo apt-get install clang-format-5.0 -y
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 install:
