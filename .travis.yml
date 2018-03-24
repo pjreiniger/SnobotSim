@@ -32,9 +32,9 @@ before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 install:
   - wget https://bootstrap.pypa.io/get-pip.py
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo python3.5 get-pip.py; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; python3.5 -m pip install --user wpiformat; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; python3.5 -m pip install --user yapf; fi;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo python3.5 get-pip.py; fi;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python3.5 -m pip install --user wpiformat; fi;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python3.5 -m pip install --user yapf; fi;
 cache:
   directories:
   - "$HOME/.gradle/caches/"
