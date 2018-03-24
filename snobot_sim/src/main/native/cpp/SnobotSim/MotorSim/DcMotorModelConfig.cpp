@@ -12,7 +12,6 @@
 #endif
 
 #include <cmath>
-#include <math.h>
 
 DcMotorModelConfig::DcMotorModelConfig(
         const FactoryParams& aFactoryParams,
