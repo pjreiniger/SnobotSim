@@ -74,6 +74,7 @@ enum ErrorCode
 	ControlModeNotSupportedYet = 106,
 	CascadedPIDNotSupporteYet= 107,
 	RemoteSensorsNotSupportedYet= 108,
+	MotProfFirmThreshold= 109,
 };
 
 } // namespace phoenix

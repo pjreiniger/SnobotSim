@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim.MotionProfilePoint;
@@ -152,6 +152,15 @@ public class CtreManager
             MotionProfilePoint point = new MotionProfilePoint(wrapper.getMotionProfileSize() + 1, position, velocity);
             wrapper.addMotionProfilePoint(point);
         }
+        else if ("PushMotionProfileTrajectory_2".equals(aCallback))
+        {
+            double position = aData.getDouble();
+            double velocity = aData.getDouble();
+
+            CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
+            MotionProfilePoint point = new MotionProfilePoint(wrapper.getMotionProfileSize() + 1, position, velocity);
+            wrapper.addMotionProfilePoint(point);
+        }
         else if ("ProcessMotionProfileBuffer".equals(aCallback))
         { // NOPMD
             // Nothing to do
@@ -222,6 +231,20 @@ public class CtreManager
             CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
             MotionProfilePoint point = wrapper.getMotionProfilePoint();
             aData.putInt(point == null ? 0 : (int) point.mVelocity);
+        }
+        else if ("GetQuadraturePosition".equals(aCallback))
+        {
+            CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
+
+            int speed = wrapper.getBinnedPosition();
+            aData.putInt(0, speed);
+        }
+        else if ("GetQuadratureVelocity".equals(aCallback))
+        {
+            CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
+
+            int speed = wrapper.getBinnedVelocity();
+            aData.putInt(0, speed);
         }
         else
         {

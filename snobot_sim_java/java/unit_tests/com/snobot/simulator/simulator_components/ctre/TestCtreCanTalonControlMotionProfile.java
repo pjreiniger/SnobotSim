@@ -13,6 +13,7 @@ import org.junit.runners.Parameterized.Parameters;
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.TrajectoryPoint;
+import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
@@ -107,6 +108,10 @@ public class TestCtreCanTalonControlMotionProfile extends BaseSimulatorTest
 
         double pos = 0.0;
         double vel = 0.0;
+        
+        int durationMs = (int) (aDt * 1e3);
+        TrajectoryDuration duration = TrajectoryDuration.Trajectory_Duration_20ms;
+        Assert.assertEquals(durationMs, duration.value);
 
         for (double t = 0; t < aT1; t += aDt)
         {
@@ -117,8 +122,11 @@ public class TestCtreCanTalonControlMotionProfile extends BaseSimulatorTest
             point.isLastPoint = false;
             point.position = pos;
             point.velocity = vel;
-            point.profileSlotSelect = 0;
+            point.profileSlotSelect0 = 0;
+            point.profileSlotSelect1 = 0;
             point.zeroPos = t == 0;
+            point.headingDeg = 0;
+            point.timeDur = duration;
             output.add(point);
         }
 
@@ -131,8 +139,11 @@ public class TestCtreCanTalonControlMotionProfile extends BaseSimulatorTest
             point.isLastPoint = false;
             point.position = pos;
             point.velocity = vel;
-            point.profileSlotSelect = 0;
+            point.profileSlotSelect0 = 0;
+            point.profileSlotSelect1 = 0;
             point.zeroPos = t == 0;
+            point.headingDeg = 0;
+            point.timeDur = duration;
             output.add(point);
         }
 
@@ -145,8 +156,11 @@ public class TestCtreCanTalonControlMotionProfile extends BaseSimulatorTest
             point.isLastPoint = false;
             point.position = pos;
             point.velocity = vel;
-            point.profileSlotSelect = 0;
+            point.profileSlotSelect0 = 0;
+            point.profileSlotSelect1 = 0;
             point.zeroPos = t == 0;
+            point.headingDeg = 0;
+            point.timeDur = duration;
             output.add(point);
         }
 

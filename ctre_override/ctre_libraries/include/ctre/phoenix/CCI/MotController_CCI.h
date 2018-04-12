@@ -66,7 +66,7 @@ extern "C"{
 	EXPORT_ ctre::phoenix::ErrorCode c_MotController_GetMotionProfileTopLevelBufferCount(void *handle, int * value);
 	EXPORT_ ctre::phoenix::ErrorCode c_MotController_PushMotionProfileTrajectory(void *handle, double position,
 			double velocity, double headingDeg, int profileSlotSelect, bool isLastPoint, bool zeroPos);
-ctre::phoenix::ErrorCode c_MotController_PushMotionProfileTrajectory_2(
+	EXPORT_ ctre::phoenix::ErrorCode c_MotController_PushMotionProfileTrajectory_2(
 		void *handle, double position, double velocity, double headingDeg,
 		int profileSlotSelect0, int profileSlotSelect1, bool isLastPoint, bool zeroPos, int durationMs);
 	EXPORT_ ctre::phoenix::ErrorCode c_MotController_IsMotionProfileTopLevelBufferFull(void *handle, bool * value);
