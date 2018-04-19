@@ -22,8 +22,8 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="dependencies/snobot_sim_java-uber_native-windows.jar"/>
 	<classpathentry kind="lib" path="dependencies/snobot_sim_gui-all.jar"/>
-	<classpathentry kind="lib" path="dependencies/cscore-jni-1.1.0-all.jar"/>
-	<classpathentry kind="lib" path="dependencies/ntcore-jni-4.0.0-all.jar"/>
+	<classpathentry kind="lib" path="dependencies/cscore-jni-1.3.0-all.jar"/>
+	<classpathentry kind="lib" path="dependencies/ntcore-jni-4.1.0-all.jar"/>
 	<classpathentry kind="lib" path="dependencies/opencv-jni-3.2.0-all.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
