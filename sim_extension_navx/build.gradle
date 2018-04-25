@@ -2,6 +2,7 @@ import edu.wpi.first.nativeutils.NativeUtils
 
 apply plugin: 'edu.wpi.first.NativeUtils'
 apply plugin: 'cpp'
+apply plugin: 'java'
 
 repositories {
     mavenCentral()
@@ -21,7 +22,7 @@ task packageNativeNavxFilesInJar(type: Jar) {
     project.model {
         binaries {
             withType(SharedLibraryBinarySpec) { binary ->
-                if (binary.component.name == 'navx_simulator') 
+                if (binary.component.name == 'navx_simulator_jni') 
                 {
                     from(binary.sharedLibraryFile) {
                         into NativeUtils.getPlatformPath(binary)
@@ -34,6 +35,12 @@ task packageNativeNavxFilesInJar(type: Jar) {
 
 build.dependsOn packageNativeNavxFilesInJar
 
+
+def jniClasses = [
+    'com.snobot.simulator.navx.I2CNavxSimulatorJni',
+    'com.snobot.simulator.navx.SpiNavxSimulatorJni'
+]
+
 if (!project.hasProperty('onlyAthena')) {
     ext.skipAthena = true
 
@@ -41,6 +48,13 @@ if (!project.hasProperty('onlyAthena')) {
 
 
     model {
+        jniConfigs {
+            navx_simulator_jni(JNIConfig) {
+                jniDefinitionClasses = jniClasses
+                jniArmHeaderLocations = [ all: file("${projectDir}/src/arm-linux-jni") ]
+                sourceSets = [ project.sourceSets.main ]
+            }
+        }
         dependencyConfigs {
             wpiutil(DependencyConfig) {
                 groupId = 'edu.wpi.first.wpiutil'
@@ -48,7 +62,8 @@ if (!project.hasProperty('onlyAthena')) {
                 headerClassifier = 'headers'
                 ext = 'zip'
             version = getWpiUtilVersion()
-                sharedConfigs = [ navx_simulator: [] ]
+                sharedConfigs = [ navx_simulator: [],
+                                  navx_simulator_jni: [] ]
             }
             halsim(DependencyConfig) {
                 groupId = 'edu.wpi.first.hal'
@@ -56,7 +71,8 @@ if (!project.hasProperty('onlyAthena')) {
                 headerClassifier = 'headers'
                 ext = 'zip'
                 version = getHalHeadersVersion()
-                sharedConfigs = [ navx_simulator: [] ]
+                sharedConfigs = [ navx_simulator: [],
+                                  navx_simulator_jni: []  ]
             }
         }
         exportsConfigs {
@@ -82,6 +98,24 @@ if (!project.hasProperty('onlyAthena')) {
                         exportedHeaders {
                             srcDirs = ["src/main/native/include"]
                         }
+                    }
+                }
+            }
+            
+            
+            navx_simulator_jni(NativeLibrarySpec) {
+                baseName = 'navx_simulator_jni'
+                sources {
+                    cpp {
+                        println "FJLDSJFLKDSJF"
+                        source {
+                            srcDirs = ['src/main/native/sim']
+                            includes = ['**/*.cpp']
+                        }
+                        exportedHeaders {
+                            srcDirs = ["cpp/lib"]
+                        }
+                        lib project: ':sim_extension_navx', library: 'navx_simulator', linkage: 'static'
                     }
                 }
             }

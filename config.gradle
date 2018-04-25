@@ -20,7 +20,7 @@ def macReleaseCompilerArgs = ['-O2']
 def macDebugCompilerArgs = ['-O0']
 def mac32BitArg = '-m32'
 
-def buildAll = !project.hasProperty('dontBuildAll')
+def buildAll = false //!project.hasProperty('dontBuildAll')
 
 def windows64PlatformDetect = {
     def arch = System.getProperty("os.arch")

@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.jni.HalCallbackValue;
@@ -15,11 +15,18 @@ import com.snobot.simulator.simulator_components.ISpiWrapper;
 import com.snobot.simulator.simulator_components.components_factory.DefaultSpiSimulatorFactory;
 import com.snobot.simulator.simulator_components.components_factory.ISpiSimulatorFactory;
 
+import edu.wpi.first.hal.sim.mockdata.SPIDataJNI;
+import edu.wpi.first.wpilibj.sim.BufferCallback;
+import edu.wpi.first.wpilibj.sim.ConstBufferCallback;
+import edu.wpi.first.wpilibj.sim.SimValue;
+
 public final class SpiCallbackJni
 {
     private static final Logger sLOGGER = LogManager.getLogger(SpiCallbackJni.class);
     private static ISpiSimulatorFactory sSPI_FACTORY = new DefaultSpiSimulatorFactory();
     private static final Map<Integer, ISpiWrapper> sCUSTOM_WRAPPERS = new HashMap<>();
+
+    private static final String sUNKNOWN_CALLBACK_STR = "Unknown SPI callback ";
 
     private SpiCallbackJni()
     {
@@ -31,26 +38,22 @@ public final class SpiCallbackJni
         sSPI_FACTORY = aFactory;
     }
 
-    public static native void resetNative();
-
     public static void reset()
     {
         sCUSTOM_WRAPPERS.clear();
-        resetNative();
+
+        for (int i = 0; i < 5; ++i)
+        {
+            SPIDataJNI.resetData(i);
+
+            SPIDataJNI.registerInitializedCallback(i, new SpiCallback(i), false);
+        }
     }
-
-    public static native void registerSpiCallback(String aFunctionName);
-
-    public static void registerSpiCallback()
-    {
-        registerSpiCallback("spiCallback");
-    }
-
-    public static native void registerSpiReadWriteCallback(int aPort);
 
     public static void registerSpiReadWriteCallback(int aPort, ISpiWrapper aWrapper)
     {
-        registerSpiReadWriteCallback(aPort);
+        SPIDataJNI.registerReadCallback(aPort, new SpiReadCallback(aPort));
+        SPIDataJNI.registerWriteCallback(aPort, new SpiWriteCallback(aPort));
         sCUSTOM_WRAPPERS.put(aPort, aWrapper);
     }
 
@@ -63,35 +66,9 @@ public final class SpiCallbackJni
         }
         else
         {
-            sLOGGER.log(Level.ERROR, "Unknown SPI callback " + aCallbackType + " - " + aHalValue);
+            sLOGGER.log(Level.ERROR, sUNKNOWN_CALLBACK_STR + aCallbackType + " - " + aHalValue);
         }
     }
-
-    public static void spiCallback(String aCallbackType, int aPort, ByteBuffer aBuffer)
-    {
-        if (sCUSTOM_WRAPPERS.containsKey(aPort))
-        {
-            ISpiWrapper wrapper = sCUSTOM_WRAPPERS.get(aPort);
-            if ("Read".equals(aCallbackType))
-            {
-                wrapper.handleRead(aBuffer);
-            }
-            else if ("Write".equals(aCallbackType))
-            {
-                wrapper.handleWrite(aBuffer);
-            }
-            else
-            {
-                sLOGGER.log(Level.ERROR, "Unknown SPI callback " + aCallbackType);
-            }
-
-        }
-        else
-        {
-            sLOGGER.log(Level.ERROR, "Calling read/write for unregistered wrapper " + aPort);
-        }
-    }
-
 
     public static void setDefaultWrapper(int aPort, String aType)
     {
@@ -106,5 +83,91 @@ public final class SpiCallbackJni
     public static Map<Integer, String> getDefaults()
     {
         return sSPI_FACTORY.getDefaults();
+    }
+
+    private static class SpiWriteCallback implements ConstBufferCallback
+    {
+        private final int mPort;
+
+        public SpiWriteCallback(int aIndex)
+        {
+            mPort = aIndex;
+        }
+
+        @Override
+        public void callback(String aCallbackType, byte[] aBuffer, int aCount)
+        {
+            if (sCUSTOM_WRAPPERS.containsKey(mPort))
+            {
+                ISpiWrapper wrapper = sCUSTOM_WRAPPERS.get(mPort);
+                if ("Write".equals(aCallbackType))
+                {
+                    wrapper.handleWrite(ByteBuffer.wrap(aBuffer));
+                }
+                else
+                {
+                    sLOGGER.log(Level.ERROR, sUNKNOWN_CALLBACK_STR + aCallbackType);
+                }
+
+            }
+            else
+            {
+                sLOGGER.log(Level.ERROR, "Calling read/write for unregistered wrapper " + mPort);
+            }
+        }
+    }
+
+    private static class SpiReadCallback implements BufferCallback
+    {
+        private final int mPort;
+
+        public SpiReadCallback(int aIndex)
+        {
+            mPort = aIndex;
+        }
+
+        @Override
+        public void callback(String aCallbackType, byte[] aBuffer, int aCount)
+        {
+            if (sCUSTOM_WRAPPERS.containsKey(mPort))
+            {
+                ISpiWrapper wrapper = sCUSTOM_WRAPPERS.get(mPort);
+                if ("Read".equals(aCallbackType))
+                {
+                    wrapper.handleRead(ByteBuffer.wrap(aBuffer));
+                }
+                else
+                {
+                    sLOGGER.log(Level.ERROR, sUNKNOWN_CALLBACK_STR + aCallbackType);
+                }
+
+            }
+            else
+            {
+                sLOGGER.log(Level.ERROR, "Calling read/write for unregistered wrapper " + mPort);
+            }
+        }
+    }
+
+    private static class SpiCallback extends PortBasedNotifyCallback
+    {
+        public SpiCallback(int aIndex)
+        {
+            super(aIndex);
+        }
+
+        @Override
+        public void callback(String aCallbackType, SimValue aHalValue)
+        {
+            if ("Initialized".equals(aCallbackType))
+            {
+                ISpiWrapper wrapper = sSPI_FACTORY.createSpiWrapper(mPort);
+                SensorActuatorRegistry.get().register(wrapper, mPort);
+            }
+            else
+            {
+                sLOGGER.log(Level.ERROR, sUNKNOWN_CALLBACK_STR + aCallbackType + " - " + aHalValue);
+            }
+        }
     }
 }

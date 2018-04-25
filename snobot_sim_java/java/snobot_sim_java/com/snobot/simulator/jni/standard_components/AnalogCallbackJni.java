@@ -1,13 +1,17 @@
 package com.snobot.simulator.jni.standard_components;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.jni.HalCallbackValue;
 import com.snobot.simulator.module_wrapper.AnalogWrapper;
 import com.snobot.simulator.module_wrapper.AnalogWrapper.VoltageSetterHelper;
+
+import edu.wpi.first.hal.sim.mockdata.AnalogInDataJNI;
+import edu.wpi.first.hal.sim.mockdata.AnalogOutDataJNI;
+import edu.wpi.first.wpilibj.SensorBase;
+import edu.wpi.first.wpilibj.sim.SimValue;
 
 public final class AnalogCallbackJni
 {
@@ -18,34 +22,59 @@ public final class AnalogCallbackJni
 
     }
 
-    public static native void setAnalogVoltage(int aHandle, double aVoltage);
-
-    public static native void registerAnalogCallback(String aFunctionName);
-
-    public static void registerAnalogCallback()
+    private static class AnalogCallback extends PortBasedNotifyCallback
     {
-        registerAnalogCallback("analogCallback");
+        public AnalogCallback(int aIndex)
+        {
+            super(aIndex);
+        }
+
+        @Override
+        public void callback(String aCallbackType, SimValue aHalValue)
+        {
+            if ("Initialized".equals(aCallbackType))
+            {
+                SensorActuatorRegistry.get().register(new AnalogWrapper(mPort, new VoltageSetterHelper()
+                {
+
+                    @Override
+                    public void setVoltage(double aVoltage)
+                    {
+                        AnalogInDataJNI.setVoltage(mPort, aVoltage);
+                    }
+                }), mPort);
+            }
+            else
+            {
+                sLOGGER.log(Level.ERROR, "Unknown Analog callback " + aCallbackType + " - " + aHalValue);
+            }
+        }
     }
 
-    public static native void reset();
-
-    public static void analogCallback(String aCallbackType, int aPort, HalCallbackValue aHalValue)
+    public static void reset()
     {
-        if ("Initialized".equals(aCallbackType))
+        for (int i = 0; i < SensorBase.kAnalogInputChannels; ++i)
         {
-            SensorActuatorRegistry.get().register(new AnalogWrapper(aPort, new VoltageSetterHelper()
-            {
+            AnalogInDataJNI.resetData(i);
 
-                @Override
-                public void setVoltage(double aVoltage)
-                {
-                    setAnalogVoltage(aPort, aVoltage);
-                }
-            }), aPort);
+            AnalogCallback callback = new AnalogCallback(i);
+            AnalogInDataJNI.registerInitializedCallback(i, callback, false);
+            AnalogInDataJNI.registerAverageBitsCallback(i, callback, false);
+            AnalogInDataJNI.registerOversampleBitsCallback(i, callback, false);
+            AnalogInDataJNI.registerVoltageCallback(i, callback, false);
+            AnalogInDataJNI.registerAccumulatorInitializedCallback(i, callback, false);
+            AnalogInDataJNI.registerAccumulatorValueCallback(i, callback, false);
+            AnalogInDataJNI.registerAccumulatorCountCallback(i, callback, false);
+            AnalogInDataJNI.registerAccumulatorCenterCallback(i, callback, false);
+            AnalogInDataJNI.registerAccumulatorDeadbandCallback(i, callback, false);
         }
-        else
+        for (int i = 0; i < SensorBase.kAnalogOutputChannels; ++i)
         {
-            sLOGGER.log(Level.ERROR, "Unknown Analog callback " + aCallbackType + " - " + aHalValue);
+            AnalogOutDataJNI.resetData(i);
+
+            AnalogCallback callback = new AnalogCallback(i);
+            AnalogOutDataJNI.registerInitializedCallback(i, callback, false);
+            AnalogOutDataJNI.registerVoltageCallback(i, callback, false);
         }
     }
 }

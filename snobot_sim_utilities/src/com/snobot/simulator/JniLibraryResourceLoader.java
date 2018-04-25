@@ -12,11 +12,10 @@ import java.util.Set;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 import edu.wpi.first.wpiutil.RuntimeDetector;
 
-public class JniLibraryResourceLoader
+public final class JniLibraryResourceLoader
 {
     private static final Logger sLOGGER = LogManager.getLogger(JniLibraryResourceLoader.class);
 
@@ -30,24 +29,39 @@ public class JniLibraryResourceLoader
         removeOldLibraries(TEMP_DIR_ROOT, "");
 
         long rando = new Random().nextLong();
-        TEMP_DIR = new File(TEMP_DIR_ROOT, "" + rando);
-        TEMP_DIR.mkdirs();
+        TEMP_DIR = new File(TEMP_DIR_ROOT, Long.toString(rando));
+        if (!TEMP_DIR.mkdirs())
+        {
+            sLOGGER.log(Level.ERROR, "Could not create temp directory!");
+        }
         TEMP_DIR.deleteOnExit();
 
         LOADED_LIBS = new HashSet<>();
     }
 
-    private static void removeOldLibraries(File f, String indent)
+    private JniLibraryResourceLoader()
     {
-        if (f.isDirectory())
+
+    }
+
+    private static void removeOldLibraries(File aFile, String aIndent)
+    {
+        if (aFile.isDirectory())
         {
-            for (File childFile : f.listFiles())
+            File[] children = aFile.listFiles();
+            if (children != null)
             {
-                removeOldLibraries(childFile, indent + " ");
+                for (File childFile : children)
+                {
+                    removeOldLibraries(childFile, aIndent + " ");
+                }
             }
         }
 
-        f.delete();
+        if (!aFile.delete())
+        {
+            sLOGGER.log(Level.ERROR, "Could not delete old temporary directory!");
+        }
     }
 
     public static boolean copyResourceFromJar(String aResourceName, File aResourceFile) throws IOException
@@ -59,40 +73,41 @@ public class JniLibraryResourceLoader
     {
         boolean success = false;
 
-        InputStream is = JniLibraryResourceLoader.class.getResourceAsStream(aResourceName);
-        if (is != null)
+        try (InputStream is = JniLibraryResourceLoader.class.getResourceAsStream(aResourceName))
         {
-
-            // flag for delete on exit
-            if (aDeleteOnExit)
+            if (is == null)
             {
-                aResourceFile.deleteOnExit();
+                sLOGGER.log(Level.FATAL, "Could not find resource at " + aResourceName);
             }
-            OutputStream os = new FileOutputStream(aResourceFile);
-
-            byte[] buffer = new byte[1024];
-            int readBytes;
-            try
+            else
             {
-                while ((readBytes = is.read(buffer)) != -1)
+
+                // flag for delete on exit
+                if (aDeleteOnExit)
                 {
-                    os.write(buffer, 0, readBytes);
+                    aResourceFile.deleteOnExit();
+                }
+                OutputStream os = new FileOutputStream(aResourceFile);
+
+                byte[] buffer = new byte[1024];
+                int readBytes;
+                try
+                {
+                    while ((readBytes = is.read(buffer)) != -1)
+                    {
+                        os.write(buffer, 0, readBytes);
+                    }
+
+                    success = true;
+                }
+                finally
+                {
+                    os.close();
+                    is.close();
                 }
 
-                success = true;
+                sLOGGER.log(Level.DEBUG, "Copied resource to " + aResourceFile.getAbsolutePath() + " from resource " + aResourceName);
             }
-            finally
-            {
-                os.close();
-                is.close();
-            }
-
-            sLOGGER.log(Level.DEBUG,
-                    "Copied resource to " + aResourceFile.getAbsolutePath() + " from resource " + aResourceName);
-        }
-        else
-        {
-            sLOGGER.log(Level.FATAL, "Could not find resource at " + aResourceName);
         }
 
         return success;
@@ -100,7 +115,7 @@ public class JniLibraryResourceLoader
 
     private static boolean createAndLoadTempLibrary(File aTempDir, String aResourceName) throws IOException
     {
-        String fileName = aResourceName.substring(aResourceName.lastIndexOf("/") + 1);
+        String fileName = aResourceName.substring(aResourceName.lastIndexOf('/') + 1);
         File resourceFile = new File(aTempDir, fileName);
         boolean success = false;
 
@@ -135,7 +150,6 @@ public class JniLibraryResourceLoader
         catch (Exception e)
         {
             sLOGGER.log(Level.ERROR, e);
-            throw new RuntimeException("Could not load " + resname);
         }
 
         return output;

@@ -1,6 +1,5 @@
 package com.snobot.simulator.jni;
 
-import com.snobot.simulator.jni.can.CanCallbackJni;
 import com.snobot.simulator.jni.standard_components.AnalogCallbackJni;
 import com.snobot.simulator.jni.standard_components.AnalogGyroCallbackJni;
 import com.snobot.simulator.jni.standard_components.DigitalCallbackJni;
@@ -12,6 +11,8 @@ import com.snobot.simulator.jni.standard_components.PwmCallbackJni;
 import com.snobot.simulator.jni.standard_components.RelayCallbackJni;
 import com.snobot.simulator.jni.standard_components.SpiCallbackJni;
 
+import edu.wpi.first.hal.sim.mockdata.SimulatorJNI;
+
 public final class RegisterCallbacksJni extends BaseSnobotJni
 {
     private RegisterCallbacksJni()
@@ -21,11 +22,10 @@ public final class RegisterCallbacksJni extends BaseSnobotJni
 
     public static void reset()
     {
-        resetWpiHal();
+        SimulatorJNI.initialize();
 
         AnalogCallbackJni.reset();
         AnalogGyroCallbackJni.reset();
-        CanCallbackJni.reset();
         DigitalCallbackJni.reset();
         EncoderCallbackJni.reset();
         I2CCallbackJni.reset();
@@ -38,19 +38,17 @@ public final class RegisterCallbacksJni extends BaseSnobotJni
 
     public static void registerAllCallbacks()
     {
-        AnalogCallbackJni.registerAnalogCallback();
-        AnalogGyroCallbackJni.registerAnalogGyroCallback();
-        CanCallbackJni.registerCanCallback();
-        DigitalCallbackJni.registerDigitalCallback();
-        EncoderCallbackJni.registerEncoderCallback();
-        I2CCallbackJni.registerI2CCallback();
-        PcmCallbackJni.registerPcmCallback();
-        PdpCallbackJni.registerPdpCallback();
-        PwmCallbackJni.registerPwmCallback();
-        RelayCallbackJni.registerRelayCallback();
-        SpiCallbackJni.registerSpiCallback();
+        // AnalogCallbackJni.registerAnalogCallback();
+        // AnalogGyroCallbackJni.registerAnalogGyroCallback();
+        // CanCallbackJni.registerCanCallback();
+        // DigitalCallbackJni.registerDigitalCallback();
+        // EncoderCallbackJni.registerEncoderCallback();
+        // I2CCallbackJni.registerI2CCallback();
+        // PcmCallbackJni.registerPcmCallback();
+        // PdpCallbackJni.registerPdpCallback();
+        // PwmCallbackJni.registerPwmCallback();
+        // RelayCallbackJni.registerRelayCallback();
+        // SpiCallbackJni.registerSpiCallback();
     }
-
-    public static native void resetWpiHal();
 
 }

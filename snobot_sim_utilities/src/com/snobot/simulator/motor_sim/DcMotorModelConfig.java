@@ -11,11 +11,11 @@ public class DcMotorModelConfig
 
         // Indicates you want a positive voltage to move the system backwards
         // instead of forwards
-        public boolean mInverted;
+        private boolean mInverted;
 
         // Indicates the motor has a brake, i.e. when givin 0 volts it will stay
         // put
-        public boolean mHasBrake;
+        private boolean mHasBrake;
 
         @SuppressWarnings("unused")
         private FactoryParams()
@@ -55,24 +55,34 @@ public class DcMotorModelConfig
             return mGearboxEfficiency;
         }
 
-        public void setmMotorType(String mMotorType)
+        public boolean ismInverted()
         {
-            this.mMotorType = mMotorType;
+            return mInverted;
         }
 
-        public void setmNumMotors(int mNumMotors)
+        public void setmInverted(boolean aInverted)
         {
-            this.mNumMotors = mNumMotors;
+            this.mInverted = aInverted;
         }
 
-        public void setmGearReduction(double mGearReduction)
+        public void setmMotorType(String aMotorType)
         {
-            this.mGearReduction = mGearReduction;
+            this.mMotorType = aMotorType;
         }
 
-        public void setmGearboxEfficiency(double mGearboxEfficiency)
+        public void setmNumMotors(int aNumMotors)
         {
-            this.mGearboxEfficiency = mGearboxEfficiency;
+            this.mNumMotors = aNumMotors;
+        }
+
+        public void setmGearReduction(double aGearReduction)
+        {
+            this.mGearReduction = aGearReduction;
+        }
+
+        public void setmGearboxEfficiency(double aGearboxEfficiency)
+        {
+            this.mGearboxEfficiency = aGearboxEfficiency;
         }
 
         public void setInverted(boolean aInverted)
@@ -83,6 +93,16 @@ public class DcMotorModelConfig
         public void setHasBrake(boolean aHasBrake)
         {
             mHasBrake = aHasBrake;
+        }
+
+        public boolean ismHasBrake()
+        {
+            return mHasBrake;
+        }
+
+        public void setmHasBrake(boolean aHasBrake)
+        {
+            this.mHasBrake = aHasBrake;
         }
 
         @Override
@@ -108,28 +128,44 @@ public class DcMotorModelConfig
         }
 
         @Override
-        public boolean equals(Object obj)
+        public boolean equals(Object aObj)
         {
-            if (this == obj)
+            if (this == aObj)
+            {
                 return true;
-            if (obj == null)
+            }
+            if (aObj == null)
+            {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != aObj.getClass())
+            {
                 return false;
-            FactoryParams other = (FactoryParams) obj;
+            }
+            FactoryParams other = (FactoryParams) aObj;
             if (Double.doubleToLongBits(mGearReduction) != Double.doubleToLongBits(other.mGearReduction))
+            {
                 return false;
+            }
             if (Double.doubleToLongBits(mGearboxEfficiency) != Double.doubleToLongBits(other.mGearboxEfficiency))
+            {
                 return false;
+            }
             if (mMotorType == null)
             {
                 if (other.mMotorType != null)
+                {
                     return false;
+                }
             }
             else if (!mMotorType.equals(other.mMotorType))
+            {
                 return false;
-            if (mNumMotors != other.mNumMotors)
+            }
+            if (mNumMotors != other.mNumMotors) // NOPMD
+            {
                 return false;
+            }
             return true;
         }
 
@@ -137,12 +173,12 @@ public class DcMotorModelConfig
 
     public static class MotorParams
     {
-        public final double NOMINAL_VOLTAGE;
-        public final double FREE_SPEED_RPM;
-        public final double FREE_CURRENT;
-        public final double STALL_TORQUE;
-        public final double STALL_CURRENT;
-        public final double MOTOR_INERTIA;
+        public final double mNominalVoltage;
+        public final double mFreeSpeedRpm;
+        public final double mFreeCurrent;
+        public final double mStallTorque;
+        public final double mStallCurrent;
+        public final double mMortorInertia;
         public final double mKT;
         public final double mKV;
         public final double mResistance;
@@ -185,12 +221,12 @@ public class DcMotorModelConfig
                 double aKv,
                 double aResistance)
         {
-            NOMINAL_VOLTAGE = aNominalVoltage;
-            FREE_SPEED_RPM = aFreeSpeedRpm;
-            FREE_CURRENT = aFreeCurrent;
-            STALL_TORQUE = aStallTorque;
-            STALL_CURRENT = aStallCurrent;
-            MOTOR_INERTIA = aMotorInertia;
+            mNominalVoltage = aNominalVoltage;
+            mFreeSpeedRpm = aFreeSpeedRpm;
+            mFreeCurrent = aFreeCurrent;
+            mStallTorque = aStallTorque;
+            mStallCurrent = aStallCurrent;
+            mMortorInertia = aMotorInertia;
 
             mKT = aKt;
             mKV = aKv;
@@ -199,24 +235,24 @@ public class DcMotorModelConfig
 
         public double calculateKt()
         {
-            return STALL_TORQUE / STALL_CURRENT;
+            return mStallTorque / mStallCurrent;
         }
 
         public double calculateKv()
         {
-            return (FREE_SPEED_RPM / NOMINAL_VOLTAGE) * (Math.PI * 2.0) / 60.0;
+            return (mFreeSpeedRpm / mNominalVoltage) * (Math.PI * 2.0) / 60.0;
         }
 
         public double calculateResistance()
         {
-            return NOMINAL_VOLTAGE / STALL_CURRENT;
+            return mNominalVoltage / mStallCurrent;
         }
 
         @Override
         public String toString()
         {
-            return "MotorParams [NOMINAL_VOLTAGE=" + NOMINAL_VOLTAGE + ", FREE_SPEED_RPM=" + FREE_SPEED_RPM + ", FREE_CURRENT=" + FREE_CURRENT
-                    + ", STALL_TORQUE=" + STALL_TORQUE + ", STALL_CURRENT=" + STALL_CURRENT + ", MOTOR_INERTIA=" + MOTOR_INERTIA + ", mKT=" + mKT
+            return "MotorParams [NOMINAL_VOLTAGE=" + mNominalVoltage + ", FREE_SPEED_RPM=" + mFreeSpeedRpm + ", FREE_CURRENT=" + mFreeCurrent
+                    + ", STALL_TORQUE=" + mStallTorque + ", STALL_CURRENT=" + mStallCurrent + ", MOTOR_INERTIA=" + mMortorInertia + ", mKT=" + mKT
                     + ", mKV=" + mKV + ", mResistance=" + mResistance + "]";
         }
 
@@ -226,17 +262,17 @@ public class DcMotorModelConfig
             final int prime = 31;
             int result = 1;
             long temp;
-            temp = Double.doubleToLongBits(FREE_CURRENT);
+            temp = Double.doubleToLongBits(mFreeCurrent);
             result = prime * result + (int) (temp ^ (temp >>> 32));
-            temp = Double.doubleToLongBits(FREE_SPEED_RPM);
+            temp = Double.doubleToLongBits(mFreeSpeedRpm);
             result = prime * result + (int) (temp ^ (temp >>> 32));
-            temp = Double.doubleToLongBits(MOTOR_INERTIA);
+            temp = Double.doubleToLongBits(mMortorInertia);
             result = prime * result + (int) (temp ^ (temp >>> 32));
-            temp = Double.doubleToLongBits(NOMINAL_VOLTAGE);
+            temp = Double.doubleToLongBits(mNominalVoltage);
             result = prime * result + (int) (temp ^ (temp >>> 32));
-            temp = Double.doubleToLongBits(STALL_CURRENT);
+            temp = Double.doubleToLongBits(mStallCurrent);
             result = prime * result + (int) (temp ^ (temp >>> 32));
-            temp = Double.doubleToLongBits(STALL_TORQUE);
+            temp = Double.doubleToLongBits(mStallTorque);
             result = prime * result + (int) (temp ^ (temp >>> 32));
             temp = Double.doubleToLongBits(mKT);
             result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -248,33 +284,57 @@ public class DcMotorModelConfig
         }
 
         @Override
-        public boolean equals(Object obj)
+        public boolean equals(Object aObj)
         {
-            if (this == obj)
+            if (this == aObj)
+            {
                 return true;
-            if (obj == null)
+            }
+            if (aObj == null)
+            {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != aObj.getClass())
+            {
                 return false;
-            MotorParams other = (MotorParams) obj;
-            if (Double.doubleToLongBits(FREE_CURRENT) != Double.doubleToLongBits(other.FREE_CURRENT))
+            }
+            MotorParams other = (MotorParams) aObj;
+            if (Double.doubleToLongBits(mFreeCurrent) != Double.doubleToLongBits(other.mFreeCurrent))
+            {
                 return false;
-            if (Double.doubleToLongBits(FREE_SPEED_RPM) != Double.doubleToLongBits(other.FREE_SPEED_RPM))
+            }
+            if (Double.doubleToLongBits(mFreeSpeedRpm) != Double.doubleToLongBits(other.mFreeSpeedRpm))
+            {
                 return false;
-            if (Double.doubleToLongBits(MOTOR_INERTIA) != Double.doubleToLongBits(other.MOTOR_INERTIA))
+            }
+            if (Double.doubleToLongBits(mMortorInertia) != Double.doubleToLongBits(other.mMortorInertia))
+            {
                 return false;
-            if (Double.doubleToLongBits(NOMINAL_VOLTAGE) != Double.doubleToLongBits(other.NOMINAL_VOLTAGE))
+            }
+            if (Double.doubleToLongBits(mNominalVoltage) != Double.doubleToLongBits(other.mNominalVoltage))
+            {
                 return false;
-            if (Double.doubleToLongBits(STALL_CURRENT) != Double.doubleToLongBits(other.STALL_CURRENT))
+            }
+            if (Double.doubleToLongBits(mStallCurrent) != Double.doubleToLongBits(other.mStallCurrent))
+            {
                 return false;
-            if (Double.doubleToLongBits(STALL_TORQUE) != Double.doubleToLongBits(other.STALL_TORQUE))
+            }
+            if (Double.doubleToLongBits(mStallTorque) != Double.doubleToLongBits(other.mStallTorque))
+            {
                 return false;
+            }
             if (Double.doubleToLongBits(mKT) != Double.doubleToLongBits(other.mKT))
+            {
                 return false;
+            }
             if (Double.doubleToLongBits(mKV) != Double.doubleToLongBits(other.mKV))
+            {
                 return false;
-            if (Double.doubleToLongBits(mResistance) != Double.doubleToLongBits(other.mResistance))
+            }
+            if (Double.doubleToLongBits(mResistance) != Double.doubleToLongBits(other.mResistance)) // NOPMD
+            {
                 return false;
+            }
             return true;
         }
 
@@ -308,29 +368,43 @@ public class DcMotorModelConfig
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(Object aObj)
     {
-        if (this == obj)
+        if (this == aObj)
+        {
             return true;
-        if (obj == null)
+        }
+        if (aObj == null)
+        {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != aObj.getClass())
+        {
             return false;
-        DcMotorModelConfig other = (DcMotorModelConfig) obj;
+        }
+        DcMotorModelConfig other = (DcMotorModelConfig) aObj;
         if (mFactoryParams == null)
         {
             if (other.mFactoryParams != null)
+            {
                 return false;
+            }
         }
         else if (!mFactoryParams.equals(other.mFactoryParams))
+        {
             return false;
+        }
         if (mMotorParams == null)
         {
             if (other.mMotorParams != null)
+            {
                 return false;
+            }
         }
         else if (!mMotorParams.equals(other.mMotorParams))
+        {
             return false;
+        }
         return true;
     }
 

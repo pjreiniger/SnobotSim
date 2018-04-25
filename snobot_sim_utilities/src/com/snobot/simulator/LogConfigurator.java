@@ -6,8 +6,13 @@ import java.net.URI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 
-public class LogConfigurator
+public final class LogConfigurator
 {
+    private LogConfigurator()
+    {
+
+    }
+
     public static void loadLog4jConfig()
     {
         File logFile = new File("log4j2.properties");
@@ -17,10 +22,13 @@ public class LogConfigurator
             fileUri = logFile.toURI();
         }
 
-        if (fileUri == null)
+        if (fileUri != null)
         {
-            LoggerContext context = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(false);
-            context.setConfigLocation(fileUri);
+            LoggerContext context = (LoggerContext) LogManager.getContext(false);
+            if (context != null)
+            {
+                context.setConfigLocation(fileUri);
+            }
         }
     }
 }

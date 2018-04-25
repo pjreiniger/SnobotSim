@@ -2,7 +2,7 @@ package com.snobot.simulator.motor_sim;
 
 public class GravityLoadMotorSimulationConfig implements IMotorSimulatorConfig
 {
-    public double mLoad;
+    private double mLoad;
 
     @SuppressWarnings("unused")
     private GravityLoadMotorSimulationConfig()
@@ -13,6 +13,11 @@ public class GravityLoadMotorSimulationConfig implements IMotorSimulatorConfig
     public GravityLoadMotorSimulationConfig(double aLoad)
     {
         mLoad = aLoad;
+    }
+
+    public double getLoad()
+    {
+        return mLoad;
     }
 
 }

@@ -6,14 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import com.snobot.simulator.jni.adx_family.SpiI2CSimulatorJni;
-import com.snobot.simulator.jni.navx.NavxSimulatorJni;
+import com.snobot.simulator.navx.I2CNavxSimulator;
 import com.snobot.simulator.simulator_components.II2CWrapper;
-import com.snobot.simulator.simulator_components.accelerometer.SpiI2CAccelerometer;
+import com.snobot.simulator.simulator_components.accelerometer.ADXFamily3AxisAccelerometer;
 import com.snobot.simulator.simulator_components.navx.NavxSimulatorWrapper;
+
+import edu.wpi.first.wpilibj.sim.ADXL345_I2CSim;
 
 public class DefaultI2CSimulatorFactory implements II2cSimulatorFactory
 {
@@ -61,11 +62,11 @@ public class DefaultI2CSimulatorFactory implements II2cSimulatorFactory
         String fullType = "I2C " + aType;
         if ("NavX".equals(aType))
         {
-            return new NavxSimulatorWrapper(fullType, NavxSimulatorJni.createNavx(fullType, aPort), 250 + aPort * 3);
+            return new NavxSimulatorWrapper(fullType, new I2CNavxSimulator(aPort), 250 + aPort * 3);
         }
         if ("ADXL345".equals(aType))
         {
-            return new SpiI2CAccelerometer(fullType, SpiI2CSimulatorJni.createSpiI2cAccelerometer(fullType, aPort), 50 + aPort * 3);
+            return new ADXFamily3AxisAccelerometer(new ADXL345_I2CSim(aPort), 50 + aPort * 3);
         }
 
         return null;

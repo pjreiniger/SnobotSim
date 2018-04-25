@@ -5,11 +5,10 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.jni.DriverStationSimulatorJni;
 import com.snobot.simulator.jni.RegisterCallbacksJni;
 import com.snobot.simulator.jni.standard_components.I2CCallbackJni;
 import com.snobot.simulator.jni.standard_components.SpiCallbackJni;
@@ -183,27 +182,28 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     @Override
     public void setDisabled(boolean aDisabled)
     {
-        DriverStationSimulatorJni.setEnabled(!aDisabled);
+        // DriverStationSimulatorJni.setEnabled(!aDisabled);
         mEnabledTime = System.currentTimeMillis() * 1e-3;
     }
 
     @Override
     public void setAutonomous(boolean aAuton)
     {
-        DriverStationSimulatorJni.setAutonomous(aAuton);
+        // DriverStationSimulatorJni.setAutonomous(aAuton);
         mEnabledTime = System.currentTimeMillis() * 1e-3;
     }
 
     @Override
     public double getMatchTime()
     {
-        return DriverStationSimulatorJni.getMatchTime();
+        // return DriverStationSimulatorJni.getMatchTime();
+        return 0;
     }
 
     @Override
     public void waitForProgramToStart()
     {
-        DriverStationSimulatorJni.waitForProgramToStart();
+        // DriverStationSimulatorJni.waitForProgramToStart();
     }
 
     @Override
@@ -245,19 +245,22 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
             sLOGGER.log(Level.ERROR, e);
         }
 
-        DriverStationSimulatorJni.delayForNextUpdateLoop(aUpdatePeriod);
+        // DriverStationSimulatorJni.delayForNextUpdateLoop(aUpdatePeriod);
     }
 
     @Override
     public void setJoystickInformation(int aJoystickHandle, float[] aAxesArray, short[] aPovsArray, int aButtonCount, int aButtonMask)
     {
-        DriverStationSimulatorJni.setJoystickInformation(aJoystickHandle, aAxesArray, aPovsArray, aButtonCount, aButtonMask);
+        // DriverStationSimulatorJni.setJoystickInformation(aJoystickHandle,
+        // aAxesArray, aPovsArray, aButtonCount, aButtonMask);
     }
 
     @Override
     public void setMatchInfo(String aEventName, MatchType aMatchType, int aMatchNumber, int aReplayNumber, String aGameSpecificMessage)
     {
-        DriverStationSimulatorJni.setMatchInfo(aEventName, aMatchType.ordinal(), aMatchNumber, aReplayNumber, aGameSpecificMessage);
+        // DriverStationSimulatorJni.setMatchInfo(aEventName,
+        // aMatchType.ordinal(), aMatchNumber, aReplayNumber,
+        // aGameSpecificMessage);
     }
 
     @Override

@@ -1,12 +1,15 @@
 package com.snobot.simulator.jni.standard_components;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.jni.HalCallbackValue;
 import com.snobot.simulator.module_wrapper.RelayWrapper;
+
+import edu.wpi.first.hal.sim.mockdata.RelayDataJNI;
+import edu.wpi.first.wpilibj.SensorBase;
+import edu.wpi.first.wpilibj.sim.SimValue;
 
 public final class RelayCallbackJni
 {
@@ -17,37 +20,50 @@ public final class RelayCallbackJni
 
     }
 
-    public static native void reset();
-
-    public static native void registerRelayCallback(String aFunctionName);
-
-    public static void registerRelayCallback()
+    private static class RelayCallback extends PortBasedNotifyCallback
     {
-        registerRelayCallback("relayCallback");
+        public RelayCallback(int aIndex)
+        {
+            super(aIndex);
+        }
+
+        @Override
+        public void callback(String aCallbackType, SimValue aHalValue)
+        {
+            if ("InitializedForward".equals(aCallbackType))
+            {
+                SensorActuatorRegistry.get().register(new RelayWrapper(mPort), mPort);
+            }
+            else if ("InitializedReverse".equals(aCallbackType))
+            { // NOPMD
+              // Nothing to do, assume it was initialized in forwards call
+            }
+            else if ("Forward".equals(aCallbackType))
+            {
+                SensorActuatorRegistry.get().getRelays().get(mPort).setRelayForwards(aHalValue.getBoolean());
+            }
+            else if ("Reverse".equals(aCallbackType))
+            {
+                SensorActuatorRegistry.get().getRelays().get(mPort).setRelayReverse(aHalValue.getBoolean());
+            }
+            else
+            {
+                sLOGGER.log(Level.ERROR, "Unknown Relay callback " + aCallbackType + " - " + aHalValue);
+            }
+        }
     }
 
-    public static void relayCallback(String aCallbackType, int aPort, HalCallbackValue aHalValue)
+    public static void reset()
     {
-        if ("InitializedForward".equals(aCallbackType))
+        for (int i = 0; i < SensorBase.kRelayChannels; ++i)
         {
-            SensorActuatorRegistry.get().register(new RelayWrapper(aPort), aPort);
-        }
-        else if ("InitializedReverse".equals(aCallbackType))
-        { // NOPMD
-            // Nothing to do, assume it was initialized in forwards call
-        }
-        else if ("Forward".equals(aCallbackType))
-        {
-            SensorActuatorRegistry.get().getRelays().get(aPort).setRelayForwards(aHalValue.mBoolean);
-        }
-        else if ("Reverse".equals(aCallbackType))
-        {
-            SensorActuatorRegistry.get().getRelays().get(aPort).setRelayReverse(aHalValue.mBoolean);
-        }
-        else
-        {
-            sLOGGER.log(Level.ERROR, "Unknown Relay callback " + aCallbackType + " - " + aHalValue);
+            RelayDataJNI.resetData(i);
+
+            RelayCallback callback = new RelayCallback(i);
+            RelayDataJNI.registerInitializedForwardCallback(i, callback, false);
+            RelayDataJNI.registerInitializedReverseCallback(i, callback, false);
+            RelayDataJNI.registerForwardCallback(i, callback, false);
+            RelayDataJNI.registerReverseCallback(i, callback, false);
         }
     }
-
 }

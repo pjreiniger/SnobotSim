@@ -49,7 +49,7 @@ public interface SpeedControllerWrapperAccessor extends IBasicSensorActuatorWrap
 
     public double getAcceleration(int aHandle);
 
-    default public void reset(int aHandle)
+    public default void reset(int aHandle)
     {
         reset(aHandle, 0, 0, 0);
     }

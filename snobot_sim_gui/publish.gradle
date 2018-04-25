@@ -27,11 +27,11 @@ task createReleaseJar(type: Jar) {
         }
     }
 
-    configurations.subproject_jars.each {
-        if (it.toString().contains("snobot_sim")) {
-            from zipTree(it)
-        }
-    }
+    //configurations.subproject_jars.each {
+    //    if (it.toString().contains("snobot_sim")) {
+    //        from zipTree(it)
+    //    }
+    //}
 }
 
 

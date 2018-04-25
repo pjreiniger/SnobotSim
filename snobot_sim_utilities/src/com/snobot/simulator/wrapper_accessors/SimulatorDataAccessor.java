@@ -18,24 +18,24 @@ public interface SimulatorDataAccessor
 
     public static final double sDEFAULT_LOOP_PERIOD = .02;
 
-    void setLogLevel(SnobotLogLevel logLevel);
+    void setLogLevel(SnobotLogLevel aLogLevel);
 
     String getNativeBuildVersion();
 
     void reset();
 
-    boolean connectTankDriveSimulator(int leftEncHandle, int rightEncHandle, int gyroHandle, double turnKp);
+    boolean connectTankDriveSimulator(int aLeftEncHandle, int aRightEncHandle, int aGyroHandle, double aTurnKp);
 
     Collection<Object> getSimulatorComponentConfigs();
 
-    default DcMotorModelConfig createMotor(String selectedMotor, int numMotors, double gearReduction, double efficiency)
+    default DcMotorModelConfig createMotor(String aSelectedMotor, int aNumMotors, double aGearReduction, double aEfficiency)
     {
-        return createMotor(selectedMotor, numMotors, gearReduction, efficiency, false, false);
+        return createMotor(aSelectedMotor, aNumMotors, aGearReduction, aEfficiency, false, false);
     }
 
-    DcMotorModelConfig createMotor(String selectedMotor, int numMotors, double gearReduction, double efficiency, boolean inverted, boolean brake);
+    DcMotorModelConfig createMotor(String aSelectedMotor, int aNumMotors, double aGearReduction, double aEfficiency, boolean aInverted, boolean aBrake);
 
-    DcMotorModelConfig createMotor(String motorType);
+    DcMotorModelConfig createMotor(String aMotorType);
 
     boolean setSpeedControllerModel_Simple(int aScHandle, SimpleMotorSimulationConfig aConfig);
 
@@ -45,9 +45,9 @@ public interface SimulatorDataAccessor
 
     boolean setSpeedControllerModel_Rotational(int aScHandle, DcMotorModelConfig aMotorConfig, RotationalLoadMotorSimulationConfig aConfig);
 
-    void setDisabled(boolean b);
+    void setDisabled(boolean aDisabled);
 
-    void setAutonomous(boolean b);
+    void setAutonomous(boolean aAutonomous);
 
     double getMatchTime();
 
@@ -92,7 +92,7 @@ public interface SimulatorDataAccessor
      */
     void waitForNextUpdateLoop(double aUpdatePeriod);
 
-    void setJoystickInformation(int aJoystick, float[] axisValues, short[] povValues, int buttonCount, int buttonMask);
+    void setJoystickInformation(int aJoystick, float[] aAxisValues, short[] aPovValues, int aButtonCount, int aButtonMask);
 
     void setDefaultSpiSimulator(int aPort, String aType);
 
@@ -111,9 +111,9 @@ public interface SimulatorDataAccessor
         None, Practice, Qualification, Elimination
     }
 
-    void setMatchInfo(String eventName, MatchType matchType, int matchNumber, int replayNumber, String gameSpecificMessage);
+    void setMatchInfo(String aEventName, MatchType aMatchType, int aMatchNumber, int aReplayNumber, String aGameSpecificMessage);
 
-    void removeSimulatorComponent(Object comp);
+    void removeSimulatorComponent(Object aComp);
 
     double getTimeSinceEnabled();
 

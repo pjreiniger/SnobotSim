@@ -3,46 +3,23 @@ package com.snobot.simulator.simulator_components.gyro;
 import java.nio.ByteBuffer;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.jni.adx_family.SpiI2CSimulatorJni;
-import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.simulator_components.ISpiWrapper;
 
-public class SpiGyro extends ASensorWrapper implements IGyroWrapper, ISpiWrapper
+import edu.wpi.first.wpilibj.sim.ADXRS450_GyroSim;
+
+public class SpiGyro extends BaseGyroWrapper implements ISpiWrapper
 {
     private static final Logger sLOGGER = LogManager.getLogger(SpiGyro.class);
 
-    private final String mType;
-    private final long mNativePointer;
-
-    public SpiGyro(String aType, long aNativePointer, int aBasePort)
+    public SpiGyro(ADXRS450_GyroSim aWpiSim, int aBasePort)
     {
-        super(aType);
-
-        mType = aType;
-        mNativePointer = aNativePointer;
-
-        if (aNativePointer == -1)
-        {
-            throw new IllegalArgumentException("Native pointer not set up correctly");
-        }
+        super("", aWpiSim::getAngle, aWpiSim::setAngle);
 
         SensorActuatorRegistry.get().register((IGyroWrapper) this, aBasePort);
-    }
-
-    @Override
-    public double getAngle()
-    {
-        return SpiI2CSimulatorJni.getSpiGyroAngle(mType, mNativePointer);
-    }
-
-    @Override
-    public void setAngle(double aAngle)
-    {
-        SpiI2CSimulatorJni.setSpiGyroAngle(mType, mNativePointer, aAngle);
     }
 
     @Override
@@ -60,6 +37,6 @@ public class SpiGyro extends ASensorWrapper implements IGyroWrapper, ISpiWrapper
     @Override
     public void shutdown()
     {
-        SpiI2CSimulatorJni.deleteSpiGyro(mType, mNativePointer);
+        // Nothing to do
     }
 }

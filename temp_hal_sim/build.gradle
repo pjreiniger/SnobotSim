@@ -1,0 +1,128 @@
+import edu.wpi.first.nativeutils.NativeUtils
+
+apply plugin: 'edu.wpi.first.NativeUtils'
+
+repositories {
+    mavenCentral()
+    maven {
+        url getJaci3rdPartyMirror()
+    }
+    maven {
+        url "http://first.wpi.edu/FRC/roborio/maven/release/"
+    }
+}
+
+apply plugin: 'cpp'
+apply plugin: 'visual-studio'
+apply plugin: 'edu.wpi.first.NativeUtils'
+apply plugin: 'java'
+
+apply from: '../config.gradle'
+
+ 
+
+task packageNativeTempHalFilesInJar(type: Jar) {
+    destinationDir = project.buildDir
+    classifier = "native-" + org.gradle.internal.os.OperatingSystem.current().getFamilyName();
+
+    project.model {
+        binaries {
+            withType(SharedLibraryBinarySpec) { binary ->
+                println binary.component.name
+                if (binary.component.name == 'tempHalSimShared') 
+                {
+                    from(binary.sharedLibraryFile) {
+                        into NativeUtils.getPlatformPath(binary)
+                    }
+                }
+            }
+        }
+    }
+}
+
+build.dependsOn packageNativeTempHalFilesInJar
+
+def jniClasses = [
+    'edu.wpi.first.hal.sim.mockdata.AccelerometerDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.AnalogGyroDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.AnalogInDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.AnalogOutDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.AnalogTriggerDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.DigitalPWMDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.DIODataJNI',
+    'edu.wpi.first.hal.sim.mockdata.DriverStationDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.EncoderDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.I2CDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.PCMDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.PDPDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.PWMDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.RelayDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.RoboRioDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.SimulatorJNI',
+    'edu.wpi.first.hal.sim.mockdata.SPIAccelerometerDataJNI',
+    'edu.wpi.first.hal.sim.mockdata.SPIDataJNI',
+]
+
+model {
+    jniConfigs {
+        tempHalSimShared(JNIConfig) {
+            jniDefinitionClasses = jniClasses
+            jniArmHeaderLocations = [ all: file("${projectDir}/src/arm-linux-jni") ]
+            sourceSets = [ project.sourceSets.main ]
+        }
+        tempHalSimStatic(JNIConfig) {
+            jniDefinitionClasses = jniClasses
+            jniArmHeaderLocations = [ all: file("${projectDir}/src/arm-linux-jni") ]
+            sourceSets = [ project.sourceSets.main ]
+        }
+    }
+    exportsConfigs {
+        tempHalSimShared(ExportsConfig) {
+            x86SymbolFilter = { symbols->
+                def retList = []
+                return retList
+            }
+            x64SymbolFilter = { symbols->
+                def retList = []
+                return retList
+            }
+        }
+    }
+    
+    dependencyConfigs {
+        wpiutil(DependencyConfig) {
+            groupId = 'edu.wpi.first.wpiutil'
+            artifactId = 'wpiutil-cpp'
+            headerClassifier = 'headers'
+            ext = 'zip'
+            version = '+'
+            sharedConfigs = [ tempHalSimShared: [] ]
+        }
+        halsim(DependencyConfig) {
+            groupId = 'edu.wpi.first.hal'
+            artifactId = 'hal'
+            headerClassifier = 'headers'
+            ext = 'zip'
+            version = getHalHeadersVersion()
+            sharedConfigs = [ tempHalSimShared: [] ]
+        }
+    
+    }
+
+    components {
+        tempHalSimShared(NativeLibrarySpec) {
+            baseName = 'tempHalSimShared'
+            sources {
+                cpp {
+                    source {
+                        srcDirs = ['src/main/native/sim']
+                        includes = ['**/*.cpp']
+                    }
+                    exportedHeaders {
+                        srcDirs = ['src/main/native/include']
+                    }
+                }
+            }
+        }
+    }
+}

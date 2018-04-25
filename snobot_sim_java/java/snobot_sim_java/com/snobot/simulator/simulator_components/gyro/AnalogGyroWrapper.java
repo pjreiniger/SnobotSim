@@ -1,7 +1,8 @@
 package com.snobot.simulator.simulator_components.gyro;
 
-import com.snobot.simulator.jni.standard_components.AnalogGyroCallbackJni;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
+
+import edu.wpi.first.hal.sim.mockdata.AnalogGyroDataJNI;
 
 public class AnalogGyroWrapper extends ASensorWrapper implements IGyroWrapper
 {
@@ -20,7 +21,7 @@ public class AnalogGyroWrapper extends ASensorWrapper implements IGyroWrapper
         mAngle = aAngle;
         if (isUpdate)
         {
-            AnalogGyroCallbackJni.setAnalogGyroAngle(mPort, aAngle);
+            AnalogGyroDataJNI.setAngle(mPort, aAngle);
         }
     }
 

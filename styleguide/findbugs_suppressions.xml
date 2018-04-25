@@ -1,5 +1,11 @@
 <FindBugsFilter>
 
+
+    <!-- temp -->
+    <Match>
+        <Package name="~edu\.wpi\.first.*"/>
+    </Match>
+
     <!-- Test Classes -->
 
     <Match>
