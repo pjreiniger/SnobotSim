@@ -74,11 +74,11 @@ public class DefaultSpiSimulatorFactory implements ISpiSimulatorFactory
         }
         else if ("ADXL345".equals(aType))
         {
-            return new ADXFamily3AxisAccelerometer(new ADXL345_SpiSim(aPort), 100 + aPort * 3);
+            return new ADXFamily3AxisAccelerometer(fullType, new ADXL345_SpiSim(aPort), 100 + aPort * 3);
         }
         else if ("ADXL362".equals(aType))
         {
-            return new ADXFamily3AxisAccelerometer(new ADXL362Sim(aPort), 150 + aPort * 3);
+            return new ADXFamily3AxisAccelerometer(fullType, new ADXL362Sim(aPort), 150 + aPort * 3);
         }
 
         return null;

@@ -50,7 +50,7 @@ public class GravityLoadDcMotorSimTest extends BaseSimulatorTest
         Assert.assertEquals(MotorSimType.GravitationalLoad, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getMotorSimType(0));
         GravityLoadMotorSimulationConfig simConfig = DataAccessorFactory.getInstance().getSpeedControllerAccessor()
                 .getMotorSimGravitationalModelConfig(0);
-        Assert.assertEquals(.01, simConfig.mLoad, DOUBLE_EPSILON);
+        Assert.assertEquals(.01, simConfig.getLoad(), DOUBLE_EPSILON);
     }
 
     @Test

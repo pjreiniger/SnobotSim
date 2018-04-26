@@ -165,9 +165,17 @@ JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setSam
   HALSIM_SetEncoderSamplesToAverage(index, value);
 }
 
-JNIEXPORT jint JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_registerDistancePerPulseCallback
+int hackhack(int32_t index,
+        HAL_NotifyCallback callback,
+        void* param, HAL_Bool initialNotify)
+{
+    HALSIM_RegisterEncoderAllCallbacks(index, callback, param, initialNotify);
+    return 0;
+}
+
+JNIEXPORT jint JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_registerAllCallbacks
   (JNIEnv * env, jclass, jint index, jobject callback, jboolean initialNotify) {
-    return sim::AllocateCallback(env, index, callback, initialNotify, &HALSIM_RegisterEncoderDistancePerPulseCallback);
+    return sim::AllocateCallback(env, index, callback, initialNotify, &hackhack);
 }
 
 JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_resetData

@@ -18,13 +18,13 @@ public class MotorFactoryTest extends BaseSimulatorTest
     {
         DcMotorModelConfig config = VexMotorFactory.createMotor("DoesNotExist");
 
-        Assert.assertEquals(0, config.mMotorParams.FREE_CURRENT, DOUBLE_EPSILON);
-        Assert.assertEquals(0, config.mMotorParams.FREE_SPEED_RPM, DOUBLE_EPSILON);
-        Assert.assertEquals(0, config.mMotorParams.FREE_CURRENT, DOUBLE_EPSILON);
-        Assert.assertEquals(0, config.mMotorParams.STALL_TORQUE, DOUBLE_EPSILON);
-        Assert.assertEquals(0, config.mMotorParams.STALL_CURRENT, DOUBLE_EPSILON);
-        Assert.assertEquals(0, config.mMotorParams.FREE_CURRENT, DOUBLE_EPSILON);
-        Assert.assertEquals(0, config.mMotorParams.MOTOR_INERTIA, DOUBLE_EPSILON);
+        Assert.assertEquals(0, config.mMotorParams.mFreeCurrent, DOUBLE_EPSILON);
+        Assert.assertEquals(0, config.mMotorParams.mFreeSpeedRpm, DOUBLE_EPSILON);
+        Assert.assertEquals(0, config.mMotorParams.mFreeCurrent, DOUBLE_EPSILON);
+        Assert.assertEquals(0, config.mMotorParams.mStallTorque, DOUBLE_EPSILON);
+        Assert.assertEquals(0, config.mMotorParams.mStallCurrent, DOUBLE_EPSILON);
+        Assert.assertEquals(0, config.mMotorParams.mFreeCurrent, DOUBLE_EPSILON);
+        Assert.assertEquals(0, config.mMotorParams.mMortorInertia, DOUBLE_EPSILON);
     }
 
     @Test

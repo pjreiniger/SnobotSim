@@ -9,7 +9,6 @@ import com.snobot.simulator.simulator_components.gyro.AnalogGyroWrapper;
 
 import edu.wpi.first.hal.sim.mockdata.AnalogInDataJNI;
 import edu.wpi.first.wpilibj.SensorBase;
-import edu.wpi.first.wpilibj.sim.NotifyCallback;
 import edu.wpi.first.wpilibj.sim.SimValue;
 
 public final class AnalogGyroCallbackJni
@@ -21,34 +20,37 @@ public final class AnalogGyroCallbackJni
 
     }
 
-    private static final NotifyCallback mCallback = new NotifyCallback()
+    private static class AnalogGyroCallback extends PortBasedNotifyCallback
     {
+        public AnalogGyroCallback(int aIndex)
+        {
+            super(aIndex);
+        }
 
         @Override
         public void callback(String aCallbackType, SimValue aHalValue)
         {
-            int port = (int) aHalValue.getLong();
             if ("Initialized".equals(aCallbackType))
             {
-                AnalogGyroWrapper wrapper = new AnalogGyroWrapper(port, "Analog Gyro");
-                SensorActuatorRegistry.get().register(wrapper, port);
+                AnalogGyroWrapper wrapper = new AnalogGyroWrapper(mPort, "Analog Gyro");
+                SensorActuatorRegistry.get().register(wrapper, mPort);
             }
             else if ("Angle".equals(aCallbackType))
             {
-                SensorActuatorRegistry.get().getGyros().get(port).setAngle(aHalValue.getDouble());
+                SensorActuatorRegistry.get().getGyros().get(mPort).setAngle(aHalValue.getDouble());
             }
             else
             {
                 sLOGGER.log(Level.ERROR, "Unknown AnalogGyro callback " + aCallbackType + " - " + aHalValue);
             }
         }
-    };
+    }
 
     public static void reset()
     {
         for (int i = 0; i < SensorBase.kAnalogInputChannels; ++i)
         {
-            AnalogInDataJNI.registerInitializedCallback(i, mCallback, false);
+            AnalogInDataJNI.registerInitializedCallback(i, new AnalogGyroCallback(i), false);
         }
     }
 }

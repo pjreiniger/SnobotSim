@@ -11,11 +11,11 @@
 using namespace wpi::java;
 using namespace sim;
 
-static hal::UnlimitedHandleResource<SIM_JniHandle, BufferCallbackStore, hal::HAL_HandleEnum::SimulationJni>* callbackHandles;
+static hal::UnlimitedHandleResource<SIM_JniHandle, BufferCallbackStore, hal::HAL_HandleEnum::Vendor>* callbackHandles;
 
 namespace sim {
 void InitializeBufferStore() {
-  static hal::UnlimitedHandleResource<SIM_JniHandle, BufferCallbackStore, hal::HAL_HandleEnum::SimulationJni> cb;
+  static hal::UnlimitedHandleResource<SIM_JniHandle, BufferCallbackStore, hal::HAL_HandleEnum::Vendor> cb;
   callbackHandles = &cb;
 }
 }

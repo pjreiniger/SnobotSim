@@ -66,7 +66,7 @@ public class DefaultI2CSimulatorFactory implements II2cSimulatorFactory
         }
         if ("ADXL345".equals(aType))
         {
-            return new ADXFamily3AxisAccelerometer(new ADXL345_I2CSim(aPort), 50 + aPort * 3);
+            return new ADXFamily3AxisAccelerometer(fullType, new ADXL345_I2CSim(aPort), 50 + aPort * 3);
         }
 
         return null;

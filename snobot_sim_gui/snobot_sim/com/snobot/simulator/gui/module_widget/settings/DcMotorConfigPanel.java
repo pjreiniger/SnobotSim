@@ -95,13 +95,13 @@ public class DcMotorConfigPanel extends JPanel
                 mGearReduction.setText(Double.toString(aConfig.mFactoryParams.mGearReduction));
                 mGearboxEfficiency.setText(Double.toString(aConfig.mFactoryParams.mGearboxEfficiency));
 
-                mMotorParams_NominalVoltage.setText(mDecimalFormat.format(aConfig.mMotorParams.NOMINAL_VOLTAGE));
-                mMotorParams_FreeSpeedRpm.setText(mDecimalFormat.format(aConfig.mMotorParams.FREE_SPEED_RPM));
-                mMotorParams_FreeCurrent.setText(mDecimalFormat.format(aConfig.mMotorParams.FREE_CURRENT));
-                mMotorParams_StallTorque.setText(mDecimalFormat.format(aConfig.mMotorParams.STALL_TORQUE));
-                mMotorParams_StallCurrent.setText(mDecimalFormat.format(aConfig.mMotorParams.STALL_CURRENT));
-                mMotorParams_Inverted.setSelected(aConfig.mFactoryParams.mInverted);
-                mMotorParams_Brake.setSelected(aConfig.mFactoryParams.mHasBrake);
+                mMotorParams_NominalVoltage.setText(mDecimalFormat.format(aConfig.mMotorParams.mNominalVoltage));
+                mMotorParams_FreeSpeedRpm.setText(mDecimalFormat.format(aConfig.mMotorParams.mFreeSpeedRpm));
+                mMotorParams_FreeCurrent.setText(mDecimalFormat.format(aConfig.mMotorParams.mFreeCurrent));
+                mMotorParams_StallTorque.setText(mDecimalFormat.format(aConfig.mMotorParams.mStallTorque));
+                mMotorParams_StallCurrent.setText(mDecimalFormat.format(aConfig.mMotorParams.mStallCurrent));
+                mMotorParams_Inverted.setSelected(aConfig.mFactoryParams.ismInverted());
+                mMotorParams_Brake.setSelected(aConfig.mFactoryParams.ismHasBrake());
 
                 mMotorCurveDisplay.setCurveParams(aConfig);
             }

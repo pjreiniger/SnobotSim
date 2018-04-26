@@ -2,11 +2,11 @@ package com.snobot.simulator.jni.can;
 
 import java.nio.ByteBuffer;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import com.snobot.simulator.jni.HalCallbackValue;
+import com.snobot.simulator.ctre.CtreCallback;
+import com.snobot.simulator.ctre.CtreJni;
 import com.snobot.simulator.simulator_components.ctre.CtreManager;
 
 public final class CanCallbackJni
@@ -20,28 +20,30 @@ public final class CanCallbackJni
 
     }
 
-    public static native void registerCanCallback(String aFunctionName);
-
-    public static void registerCanCallback()
+    private static class CtreMotorControllerCallback implements CtreCallback
     {
-        registerCanCallback("canCallback");
+        @Override
+        public void callback(String aName, int aDeviceId, ByteBuffer aBuffer, int aCount)
+        {
+            sCAN_MANAGER.handleMotorControllerMessage(aName, aDeviceId, aBuffer);
+        }
     }
 
-    public static native void reset();
-
-    public static void canCallback(String aCallbackType, int aPort, HalCallbackValue aHalValue)
+    private static class CtrePigeonImuCallback implements CtreCallback
     {
-        sLOGGER.log(Level.ERROR, "Unsupported");
+        @Override
+        public void callback(String aName, int aDeviceId, ByteBuffer aBuffer, int aCount)
+        {
+            sCAN_MANAGER.handlePigeonMessage(aName, aDeviceId, aBuffer);
+        }
     }
 
-    public static void canCallbackMotorController(String aName, int aPort, ByteBuffer aData)
-    {
-        sCAN_MANAGER.handleMotorControllerMessage(aName, aPort, aData);
-    }
+    private static final CtreMotorControllerCallback MOTOR_CALL = new CtreMotorControllerCallback();
 
-    public static void canCallbackPigeon(String aName, int aPort, ByteBuffer aData)
+    public static void reset()
     {
-        sCAN_MANAGER.handlePigeonMessage(aName, aPort, aData);
+        CtreJni.registerCanMotorCallback(MOTOR_CALL);
+        CtreJni.registerCanPigeonImuCallback(new CtrePigeonImuCallback());
     }
 
 }

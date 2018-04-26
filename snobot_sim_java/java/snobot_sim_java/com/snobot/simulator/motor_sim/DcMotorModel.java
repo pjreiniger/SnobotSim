@@ -46,7 +46,7 @@ public class DcMotorModel
      */
     public void step(double aAppliedVoltage, double aLoad, double aExternalTorque, double aTimestep) // NOPMD
     {
-        if (mConfig.mFactoryParams.mInverted)
+        if (mConfig.mFactoryParams.ismInverted())
         {
             aAppliedVoltage *= -1;
         }
@@ -60,7 +60,7 @@ public class DcMotorModel
          * dw/dt = (V - Kv * w) * Kt / (R * J) - external_torque / J
          */
 
-        if (mConfig.mFactoryParams.mHasBrake && aAppliedVoltage == 0)
+        if (mConfig.mFactoryParams.ismHasBrake() && aAppliedVoltage == 0)
         {
             mAcceleration = 0;
             mVelocity = 0;
@@ -68,7 +68,7 @@ public class DcMotorModel
         }
         else
         {
-            aLoad += mConfig.mMotorParams.MOTOR_INERTIA;
+            aLoad += mConfig.mMotorParams.mMortorInertia;
             mAcceleration = (aAppliedVoltage - mVelocity / mConfig.mMotorParams.mKV) * mConfig.mMotorParams.mKT
                     / (mConfig.mMotorParams.mResistance * aLoad) + aExternalTorque / aLoad;
             mVelocity += mAcceleration * aTimestep;

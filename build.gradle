@@ -33,7 +33,7 @@ ext.build_simulator_java = true
 // Specify WPI Versions
 
 ext.allwpilibVersion = {
-    return 'ZzZzZz'
+    return '2018.4.1'
 }
 
 ext.getHalHeadersVersion = {

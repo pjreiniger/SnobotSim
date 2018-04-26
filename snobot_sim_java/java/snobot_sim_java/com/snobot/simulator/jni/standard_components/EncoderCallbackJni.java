@@ -10,7 +10,6 @@ import com.snobot.simulator.module_wrapper.EncoderWrapper.DistanceSetterHelper;
 import com.snobot.simulator.module_wrapper.EncoderWrapper.ResetHelper;
 
 import edu.wpi.first.hal.sim.mockdata.EncoderDataJNI;
-import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.sim.SimValue;
 
 public final class EncoderCallbackJni
@@ -44,9 +43,9 @@ public final class EncoderCallbackJni
                     }
 
                     @Override
-                    public void setVelocity(double aDistance)
+                    public void setVelocity(double aVelocity)
                     {
-                        EncoderDataJNI.setPeriod(mPort, aDistance);
+                        EncoderDataJNI.setPeriod(mPort, 1 / aVelocity);
                     }
                 };
 
@@ -57,7 +56,7 @@ public final class EncoderCallbackJni
                     @Override
                     public void onReset()
                     {
-                        // clearResetFlag(port);
+                        EncoderDataJNI.setReset(mPort, false);
                     }
                 };
 
@@ -84,20 +83,22 @@ public final class EncoderCallbackJni
 
     public static void reset()
     {
-        for (int i = 0; i < SensorBase.kAnalogOutputChannels; ++i)
+        for (int i = 0; i < 8; ++i)
         {
             EncoderDataJNI.resetData(i);
 
             EncoderCallback callback = new EncoderCallback(i);
-            EncoderDataJNI.registerInitializedCallback(i, callback, false);
-            EncoderDataJNI.registerCountCallback(i, callback, false);
-            EncoderDataJNI.registerPeriodCallback(i, callback, false);
-            EncoderDataJNI.registerResetCallback(i, callback, false);
-            EncoderDataJNI.registerMaxPeriodCallback(i, callback, false);
-            EncoderDataJNI.registerDirectionCallback(i, callback, false);
-            EncoderDataJNI.registerReverseDirectionCallback(i, callback, false);
-            EncoderDataJNI.registerSamplesToAverageCallback(i, callback, false);
-            EncoderDataJNI.registerDistancePerPulseCallback(i, callback, false);
+            // EncoderDataJNI.registerInitializedCallback(i, callback, false);
+            // EncoderDataJNI.registerCountCallback(i, callback, false);
+            // EncoderDataJNI.registerPeriodCallback(i, callback, false);
+            // EncoderDataJNI.registerResetCallback(i, callback, false);
+            // EncoderDataJNI.registerMaxPeriodCallback(i, callback, false);
+            // EncoderDataJNI.registerDirectionCallback(i, callback, false);
+            // EncoderDataJNI.registerReverseDirectionCallback(i, callback,
+            // false);
+            // EncoderDataJNI.registerSamplesToAverageCallback(i, callback,
+            // false);
+            EncoderDataJNI.registerAllCallbacks(i, callback, false);
         }
     }
 

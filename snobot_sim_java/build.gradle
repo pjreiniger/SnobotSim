@@ -37,73 +37,43 @@ sourceSets {
             srcDirs = ["java/unit_tests"]
         }
     }
-    
-    temp {
-        java {
-            srcDirs = ["../temp_hal_sim/src/main/java"]
-        }
-    }
 }
 test {
     ignoreFailures = OperatingSystem.current().isLinux()
-}
-
-task packageNativeFilesInJar(type: Jar) {
-    
-    dependsOn jar
-    
-    destinationDir = project.buildDir
-    classifier = "native-" + org.gradle.internal.os.OperatingSystem.current().getFamilyName();
-
-    project.model {
-        binaries {
-            withType(SharedLibraryBinarySpec) { binary ->
-                if (binary.component.name == 'snobotSimJavaJniShared') {
-                    from(binary.sharedLibraryFile) {
-                        into NativeUtils.getPlatformPath(binary)
-                    }
-                }
-            }
-        }
-    }
 }
 
 apply from: "$rootDir/captureWpiLibraries.gradle"
 
 task combineNativeLibrariesIntoOne(type: Jar) {
 
-    dependsOn packageNativeFilesInJar
     dependsOn captureWpiLibraries
 
     def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
 
     classifier = "uber_native-" + os_name;
     
-    packageNativeFilesInJar.outputs.files.each { 
-        from(zipTree(it))
-    }
-    
     captureWpiLibraries.outputs.files.each {
         from(zipTree(it))
     }
     
-    project(':ctre_override').packageNativeCtreFilesInJar.outputs.files.each {
+    project(':ctre_override').packageNativeCtreSimulationFilesInJar.outputs.files.each {
         from(zipTree(it))
     }
     
-    project(':sim_extension_navx').packageNativeNavxFilesInJar.outputs.files.each {
+    project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files.each {
         from(zipTree(it))
     }
     
-    project(':sim_adx_family').packageNativeAdxFamilyFilesInJar.outputs.files.each {
+    project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files.each {
         from(zipTree(it))
     }
     
-    project(':temp_hal_sim').packageNativeTempHalFilesInJar.outputs.files.each {
+    project(':temp_hal_sim').packageNativetempHalSimSharedFilesInJar.outputs.files.each {
         from(zipTree(it))
     }
 }
-build.dependsOn packageNativeFilesInJar
+
+build.dependsOn project(':temp_hal_sim').build
 
 jacocoTestReport {
     reports {

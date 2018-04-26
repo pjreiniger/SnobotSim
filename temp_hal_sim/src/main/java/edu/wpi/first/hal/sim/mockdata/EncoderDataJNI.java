@@ -51,7 +51,7 @@ public class EncoderDataJNI extends XXJNIWrapper {
   public static native int getSamplesToAverage(int index);
   public static native void setSamplesToAverage(int index, int samplesToAverage);
 
-    public static native int registerDistancePerPulseCallback(int index, NotifyCallback callback, boolean initialNotify);
+    public static native int registerAllCallbacks(int index, NotifyCallback callback, boolean initialNotify);
 
   public static native void resetData(int index);
 }

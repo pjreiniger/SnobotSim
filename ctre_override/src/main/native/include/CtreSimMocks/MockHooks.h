@@ -12,7 +12,8 @@ namespace SnobotSim
 
 typedef void (*CTRE_CallbackFunc)(const char* name,
                                   uint32_t messageId,
-                                  uint8_t* buffer);
+                                  uint8_t* buffer,
+                                  int size);
 
 
 void EXPORT_ SetMotControllerCallback(CTRE_CallbackFunc callback);

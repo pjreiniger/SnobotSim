@@ -10,7 +10,7 @@
     PigeonImuSimulatorWrapper* wrapper = ConvertToPigeonWrapper(handle); \
     uint8_t buffer[size]; /* NOLINT */                                   \
     std::memset(&buffer[0], 0, size);                                    \
-    wrapper->Receive(paramName, buffer);                                 \
+    wrapper->Receive(paramName, buffer, size);                           \
     uint32_t offset = 0;
 
 std::vector<SnobotSim::CTRE_CallbackFunc> gPigeonCallbacks;
@@ -39,11 +39,11 @@ public:
         Send("Create");
     }
 
-    void Send(const std::string& aName, uint8_t* aBuffer)
+    void Send(const std::string& aName, uint8_t* aBuffer, int aSize)
     {
         if (!gPigeonCallbacks.empty())
         {
-            gPigeonCallbacks[0](aName.c_str(), mDeviceId, aBuffer);
+            gPigeonCallbacks[0](aName.c_str(), mDeviceId, aBuffer, aSize);
         }
         else
         {
@@ -51,11 +51,11 @@ public:
         }
     }
 
-    void Receive(const std::string& aName, uint8_t* aBuffer)
+    void Receive(const std::string& aName, uint8_t* aBuffer, int aSize)
     {
         if (!gPigeonCallbacks.empty())
         {
-            gPigeonCallbacks[0](aName.c_str(), mDeviceId, aBuffer);
+            gPigeonCallbacks[0](aName.c_str(), mDeviceId, aBuffer, aSize);
         }
         else
         {
@@ -65,7 +65,7 @@ public:
     void Send(const std::string& aName)
     {
         uint8_t buffer[1];
-        Send(aName, buffer);
+        Send(aName, buffer, 1);
     }
 
     template <typename T0>
@@ -78,7 +78,7 @@ public:
 
         uint32_t offset = 0;
         PushValue(buffer, param0, offset);
-        Send(aName, buffer);
+        Send(aName, buffer, size);
 
         delete[] buffer;
     }
@@ -94,7 +94,7 @@ public:
         uint32_t offset = 0;
         PushValue(buffer, param0, offset);
         PushValue(buffer, param1, offset);
-        Send(aName, buffer);
+        Send(aName, buffer, size);
 
         delete[] buffer;
     }
@@ -111,7 +111,7 @@ public:
         PushValue(buffer, param0, offset);
         PushValue(buffer, param1, offset);
         PushValue(buffer, param2, offset);
-        Send(aName, buffer);
+        Send(aName, buffer, size);
 
         delete[] buffer;
     }
@@ -130,7 +130,7 @@ public:
         PushValue(buffer, param2, offset);
         PushValue(buffer, param3, offset);
         PushValue(buffer, param4, offset);
-        Send(aName, buffer);
+        Send(aName, buffer, size);
 
         delete[] buffer;
     }

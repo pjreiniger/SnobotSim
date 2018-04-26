@@ -55,8 +55,8 @@ public class JniSimulatorDataAccessor implements SimulatorDataAccessor
     public DcMotorModelConfig createMotor(String aMotorType, int aNumMotors, double aGearReduction, double aEfficiency, boolean aInverted, boolean aBrake)
     {
         LocalDcMotorModelConfig config = MotorConfigFactoryJni.createMotor(aMotorType, aNumMotors, aGearReduction, aEfficiency);
-        config.getConfig().mFactoryParams.mHasBrake = aBrake;
-        config.getConfig().mFactoryParams.mInverted = aInverted;
+        config.getConfig().mFactoryParams.setHasBrake(aBrake);
+        config.getConfig().mFactoryParams.setInverted(aInverted);
         return config.getConfig();
     }
 
@@ -84,7 +84,7 @@ public class JniSimulatorDataAccessor implements SimulatorDataAccessor
     public boolean setSpeedControllerModel_Gravitational(int aScHandle, DcMotorModelConfig aMotorConfig, GravityLoadMotorSimulationConfig aConfig)
     {
         LocalDcMotorModelConfig config = new LocalDcMotorModelConfig(aMotorConfig);
-        return SimulationConnectorJni.setSpeedControllerModel_Gravitational(aScHandle, config, aConfig.mLoad);
+        return SimulationConnectorJni.setSpeedControllerModel_Gravitational(aScHandle, config, aConfig.getLoad());
     }
 
     @Override

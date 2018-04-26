@@ -98,8 +98,8 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     public DcMotorModelConfig createMotor(String aMotorType, int aNumMotors, double aGearReduction, double aEfficiency, boolean aInverted, boolean aBrake)
     {
         DcMotorModelConfig config = createMotor(aMotorType);
-        config.mFactoryParams.mHasBrake = aBrake;
-        config.mFactoryParams.mInverted = aInverted;
+        config.mFactoryParams.setHasBrake(aBrake);
+        config.mFactoryParams.setInverted(aInverted);
         return MakeTransmission.makeTransmission(config, aNumMotors, aGearReduction, aEfficiency);
     }
 

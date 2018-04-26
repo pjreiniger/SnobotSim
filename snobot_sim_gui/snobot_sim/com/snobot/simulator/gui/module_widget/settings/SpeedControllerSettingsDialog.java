@@ -263,6 +263,6 @@ class GravitationalLoadSimConfigPanel extends MotorSimWithModelPanel
     {
         GravityLoadMotorSimulationConfig config = DataAccessorFactory.getInstance().getSpeedControllerAccessor()
                 .getMotorSimGravitationalModelConfig(mHandle);
-        mLoadField.setText(Double.toString(config.mLoad));
+        mLoadField.setText(Double.toString(config.getLoad()));
     }
 }

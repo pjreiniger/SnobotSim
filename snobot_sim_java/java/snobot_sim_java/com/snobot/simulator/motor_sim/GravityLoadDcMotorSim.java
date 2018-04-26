@@ -19,7 +19,7 @@ public class GravityLoadDcMotorSim extends BaseDcMotorSimulator
     {
         double extraAcceleration = -sGRAVITY;
 
-        mMotorModel.step(mVoltagePercentage * 12, mConfig.mLoad, extraAcceleration, aCycleTime);
+        mMotorModel.step(mVoltagePercentage * 12, mConfig.getLoad(), extraAcceleration, aCycleTime);
     }
 
     public GravityLoadMotorSimulationConfig getConfig()

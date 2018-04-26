@@ -12,14 +12,14 @@ public final class MakeTransmission
     public static DcMotorModelConfig makeTransmission(DcMotorModelConfig aMotor, int aNumMotors, double aGearReduction, double aEfficiency)
     {
         DcMotorModelConfig.FactoryParams factoryParams = new DcMotorModelConfig.FactoryParams(aMotor.mFactoryParams.mMotorType, aNumMotors,
-                aGearReduction, aEfficiency, aMotor.mFactoryParams.mInverted, aMotor.mFactoryParams.mHasBrake);
+                aGearReduction, aEfficiency, aMotor.mFactoryParams.ismInverted(), aMotor.mFactoryParams.ismHasBrake());
         DcMotorModelConfig.MotorParams modifiedMotorParams = new DcMotorModelConfig.MotorParams(
-                aMotor.mMotorParams.NOMINAL_VOLTAGE,
-                aMotor.mMotorParams.FREE_SPEED_RPM / aGearReduction,
-                aMotor.mMotorParams.FREE_CURRENT  * aNumMotors,
-                aMotor.mMotorParams.STALL_TORQUE  * aNumMotors,
-                aMotor.mMotorParams.STALL_CURRENT * aNumMotors,
-                aMotor.mMotorParams.MOTOR_INERTIA * aNumMotors * aGearReduction * aGearReduction,
+                aMotor.mMotorParams.mNominalVoltage,
+                aMotor.mMotorParams.mFreeSpeedRpm / aGearReduction,
+                aMotor.mMotorParams.mFreeCurrent  * aNumMotors,
+                aMotor.mMotorParams.mStallTorque  * aNumMotors,
+                aMotor.mMotorParams.mStallCurrent * aNumMotors,
+                aMotor.mMotorParams.mMortorInertia * aNumMotors * aGearReduction * aGearReduction,
                 aEfficiency * aNumMotors * aGearReduction);
 
         return new DcMotorModelConfig(factoryParams, modifiedMotorParams);

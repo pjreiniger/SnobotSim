@@ -20,4 +20,14 @@ public class GravityLoadMotorSimulationConfig implements IMotorSimulatorConfig
         return mLoad;
     }
 
+    public double getmLoad()
+    {
+        return mLoad;
+    }
+
+    public void setmLoad(double mLoad)
+    {
+        this.mLoad = mLoad;
+    }
+
 }

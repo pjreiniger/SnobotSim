@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.sim.IThreeAxisAccelerometer;
 
 public class ADXFamily3AxisAccelerometer implements II2CWrapper, ISpiWrapper
 {
-    public ADXFamily3AxisAccelerometer(IThreeAxisAccelerometer aWpiAccel, int aBasePort)
+    public ADXFamily3AxisAccelerometer(String aBaseName, IThreeAxisAccelerometer aWpiAccel, int aBasePort)
     {
-        IAccelerometerWrapper xWrapper = new BaseAccelerometerWrapper(" X Accel", aWpiAccel::getX, aWpiAccel::setX);
-        IAccelerometerWrapper yWrapper = new BaseAccelerometerWrapper(" Y Accel", aWpiAccel::getY, aWpiAccel::setY);
-        IAccelerometerWrapper zWrapper = new BaseAccelerometerWrapper(" Z Accel", aWpiAccel::getZ, aWpiAccel::setZ);
+        IAccelerometerWrapper xWrapper = new BaseAccelerometerWrapper(aBaseName + " X Accel", aWpiAccel::getX, aWpiAccel::setX);
+        IAccelerometerWrapper yWrapper = new BaseAccelerometerWrapper(aBaseName + " Y Accel", aWpiAccel::getY, aWpiAccel::setY);
+        IAccelerometerWrapper zWrapper = new BaseAccelerometerWrapper(aBaseName + " Z Accel", aWpiAccel::getZ, aWpiAccel::setZ);
 
         SensorActuatorRegistry.get().register(xWrapper, aBasePort + 0);
         SensorActuatorRegistry.get().register(yWrapper, aBasePort + 1);

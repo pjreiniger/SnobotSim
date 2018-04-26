@@ -1,0 +1,83 @@
+
+import org.gradle.internal.os.OperatingSystem
+
+repositories {
+    mavenCentral()
+    
+    maven {
+        url "http://dev.imjac.in/maven/"
+    }
+    maven {
+        url "http://first.wpi.edu/FRC/roborio/maven/release/"
+    }
+}
+
+apply plugin: 'cpp'
+apply plugin: 'java'
+apply plugin: 'visual-studio'
+apply plugin: 'edu.wpi.first.NativeUtils'
+
+apply from: '../config.gradle'
+
+
+dependencies {
+    compile project(":snobot_sim_utilities")
+}
+
+task "packageNative${libraryName}FilesInJar"(type: Jar) {
+    destinationDir = project.buildDir
+    classifier = "native-" + org.gradle.internal.os.OperatingSystem.current().getFamilyName();
+
+    project.model {
+        binaries {
+            withType(SharedLibraryBinarySpec) { binary ->
+                if (binary.component.name == project.libraryName) 
+                {
+                    from(binary.sharedLibraryFile) {
+                        into project.getNativeVersion(binary)
+                    }
+                }
+            }
+        }
+    }
+}
+
+build.dependsOn "packageNative${libraryName}FilesInJar"
+
+test {
+    ignoreFailures = !OperatingSystem.current().isWindows()
+}
+
+
+model {
+    jniConfigs {
+        "${libraryName}"(JNIConfig) {
+            jniDefinitionClasses = jniClasses
+            jniArmHeaderLocations = [ all: file("${projectDir}/../snobot_sim_gui/src/arm-linux-jni") ]
+            sourceSets = [ project.sourceSets.main ]
+        }
+    }
+    
+    components {
+        "${libraryName}"(NativeLibrarySpec) {
+            baseName = project.libraryBaseName
+
+            sources {
+                cpp {
+                    source {
+                        srcDirs = project.librarySrcDirs
+                        includes = ["**/*.cpp"]
+                    }
+                    exportedHeaders {
+                        srcDirs = project.libraryHeaderDirs
+                    }
+                    
+                    if(project.hasProperty("include_navx_lib"))
+                    {
+                        lib project: ':sim_extension_navx', library: 'navx_simulator', linkage: 'static'
+                    }
+                }
+            }
+        }
+    }
+}

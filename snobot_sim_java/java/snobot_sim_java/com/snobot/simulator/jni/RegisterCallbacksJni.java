@@ -1,5 +1,6 @@
 package com.snobot.simulator.jni;
 
+import com.snobot.simulator.jni.can.CanCallbackJni;
 import com.snobot.simulator.jni.standard_components.AnalogCallbackJni;
 import com.snobot.simulator.jni.standard_components.AnalogGyroCallbackJni;
 import com.snobot.simulator.jni.standard_components.DigitalCallbackJni;
@@ -34,6 +35,8 @@ public final class RegisterCallbacksJni extends BaseSnobotJni
         PwmCallbackJni.reset();
         RelayCallbackJni.reset();
         SpiCallbackJni.reset();
+
+        CanCallbackJni.reset();
     }
 
     public static void registerAllCallbacks()
