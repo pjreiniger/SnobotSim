@@ -7,6 +7,7 @@ ext
     libraryName = "navx_simulator_jni"
     getNativeVersion = { binary -> NativeUtils.getPlatformPath(binary) }
     jniClasses = ['com.snobot.simulator.navx.I2CNavxSimulatorJni', 'com.snobot.simulator.navx.SpiNavxSimulatorJni']
+    extra_libraries = ['navx_simulator']
     
     libraryBaseName = 'navx_simulator_jni'
     librarySrcDirs = [ 'src/main/native/sim']

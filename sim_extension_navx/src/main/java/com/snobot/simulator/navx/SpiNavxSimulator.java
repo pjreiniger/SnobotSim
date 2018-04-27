@@ -7,13 +7,6 @@ public class SpiNavxSimulator implements INavxSimulator
     public SpiNavxSimulator(int aPort)
     {
         mNativePointer = SpiNavxSimulatorJni.createNavx(aPort);
-        System.out.println("Creating SPI : " + mNativePointer);
-    }
-
-    @Override
-    protected void finalize()
-    {
-        System.out.println("Cleaning up");
     }
 
     @Override
@@ -35,21 +28,21 @@ public class SpiNavxSimulator implements INavxSimulator
     }
 
     @Override
-    public void setXAccel(double x)
+    public void setXAccel(double aX)
     {
-        SpiNavxSimulatorJni.setXAccel(mNativePointer, x);
+        SpiNavxSimulatorJni.setXAccel(mNativePointer, aX);
     }
 
     @Override
-    public void setYAccel(double y)
+    public void setYAccel(double aY)
     {
-        SpiNavxSimulatorJni.setYAccel(mNativePointer, y);
+        SpiNavxSimulatorJni.setYAccel(mNativePointer, aY);
     }
 
     @Override
-    public void setZAccel(double z)
+    public void setZAccel(double aZ)
     {
-        SpiNavxSimulatorJni.setZAccel(mNativePointer, z);
+        SpiNavxSimulatorJni.setZAccel(mNativePointer, aZ);
     }
 
     @Override
@@ -71,20 +64,20 @@ public class SpiNavxSimulator implements INavxSimulator
     }
 
     @Override
-    public void setYaw(double yaw)
+    public void setYaw(double aYaw)
     {
-        SpiNavxSimulatorJni.setYaw(mNativePointer, yaw);
+        SpiNavxSimulatorJni.setYaw(mNativePointer, aYaw);
     }
 
     @Override
-    public void setPitch(double pitch)
+    public void setPitch(double aPitch)
     {
-        SpiNavxSimulatorJni.setPitch(mNativePointer, pitch);
+        SpiNavxSimulatorJni.setPitch(mNativePointer, aPitch);
     }
 
     @Override
-    public void setRoll(double roll)
+    public void setRoll(double aRoll)
     {
-        SpiNavxSimulatorJni.setRoll(mNativePointer, roll);
+        SpiNavxSimulatorJni.setRoll(mNativePointer, aRoll);
     }
 }

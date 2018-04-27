@@ -9,11 +9,11 @@ public interface INavxSimulator
 
     double getZAccel();
 
-    void setXAccel(double x);
+    void setXAccel(double aX);
 
-    void setYAccel(double y);
+    void setYAccel(double aY);
 
-    void setZAccel(double z);
+    void setZAccel(double aZ);
 
     double getYaw();
 
@@ -21,10 +21,10 @@ public interface INavxSimulator
 
     double getRoll();
 
-    void setYaw(double yaw);
+    void setYaw(double aYaw);
 
-    void setPitch(double pitch);
+    void setPitch(double aPitch);
 
-    void setRoll(double roll);
+    void setRoll(double aRoll);
 
 }

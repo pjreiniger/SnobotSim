@@ -1,25 +1,38 @@
 import edu.wpi.first.nativeutils.NativeUtils
-import org.gradle.api.file.FileCollection
-import org.gradle.internal.os.OperatingSystem
 
 
-repositories {
-    mavenCentral()
-    maven {
-        url getJaci3rdPartyMirror()
-    }
+ext
+{
+    // Things for the base script
+    libraryName = "snobotSimJniShared"
+    getNativeVersion = { binary -> NativeUtils.getPlatformPath(binary) }
+
+    jniClasses = [
+        'com.snobot.simulator.jni.JoystickJni',
+        'com.snobot.simulator.jni.MotorConfigFactoryJni',
+        'com.snobot.simulator.jni.RobotStateSingletonJni',
+        'com.snobot.simulator.jni.SimulationConnectorJni',
+        'com.snobot.simulator.jni.SnobotSimulatorJni',
+        'com.snobot.simulator.jni.module_wrapper.AccelerometerWrapperJni',
+        'com.snobot.simulator.jni.module_wrapper.AnalogSourceWrapperJni',
+        'com.snobot.simulator.jni.module_wrapper.DigitalSourceWrapperJni',
+        'com.snobot.simulator.jni.module_wrapper.EncoderWrapperJni',
+        'com.snobot.simulator.jni.module_wrapper.GyroWrapperJni',
+        'com.snobot.simulator.jni.module_wrapper.RelayWrapperJni',
+        'com.snobot.simulator.jni.module_wrapper.SolenoidWrapperJni',
+        'com.snobot.simulator.jni.module_wrapper.SpeedControllerWrapperJni'
+    ]
+    
+    libraryBaseName = 'snobotSimJniShared'
+    librarySrcDirs = [ 'cpp']
+    libraryHeaderDirs = [  ]
+    
+    include_navx_lib = true
 }
 
-apply plugin: 'cpp'
-apply plugin: 'visual-studio'
-apply plugin: 'edu.wpi.first.NativeUtils'
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'checkstyle'
-apply plugin: 'pmd'
-apply plugin: 'findbugs'
 
-apply from: '../config.gradle'
+apply from: "${rootDir}/common/base_jni_script.gradle"
+
 
 sourceSets {
     main {
@@ -39,38 +52,18 @@ test {
     ignoreFailures = true //OperatingSystem.current().isLinux()
 }
 
-task packageNativeFilesInJar(type: Jar) {
-    
-    dependsOn jar
-    
-    destinationDir = project.buildDir
-    classifier = "native-" + org.gradle.internal.os.OperatingSystem.current().getFamilyName();
-
-    project.model {
-        binaries {
-            withType(SharedLibraryBinarySpec) { binary ->
-                if (binary.component.name == 'snobotSimJniShared') {
-                    from(binary.sharedLibraryFile) {
-                        into NativeUtils.getPlatformPath(binary)
-                    }
-                }
-            }
-        }
-    }
-}
-
 apply from: "$rootDir/captureWpiLibraries.gradle"
 
 task combineNativeLibrariesIntoOne(type: Jar) {
 
-    dependsOn packageNativeFilesInJar
+    dependsOn packageNativesnobotSimJniSharedFilesInJar
     dependsOn captureWpiLibraries
 
     def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
 
     classifier = "uber_native-" + os_name;
     
-    packageNativeFilesInJar.outputs.files.each { 
+    packageNativesnobotSimJniSharedFilesInJar.outputs.files.each { 
         from(zipTree(it))
     }
     
@@ -88,14 +81,6 @@ task combineNativeLibrariesIntoOne(type: Jar) {
         from(zipTree(it))
     }
 }
-build.dependsOn packageNativeFilesInJar
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-}
 
 dependencies {
     compile project(":snobot_sim_utilities")
@@ -110,6 +95,7 @@ dependencies {
     testRuntime 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
     testRuntime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
     testRuntime combineNativeLibrariesIntoOne.outputs.files
+    testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
     
     testCompile project(':ctre_override')
     testCompile "openrio.mirror.third.ctre:CTRE-phoenix-java:" + getCtreVersion()
@@ -117,36 +103,8 @@ dependencies {
     
 }
 
-def jniClasses = [
-    'com.snobot.simulator.jni.JoystickJni',
-    'com.snobot.simulator.jni.MotorConfigFactoryJni',
-    'com.snobot.simulator.jni.RobotStateSingletonJni',
-    'com.snobot.simulator.jni.SimulationConnectorJni',
-    'com.snobot.simulator.jni.SnobotSimulatorJni',
-    'com.snobot.simulator.jni.module_wrapper.AccelerometerWrapperJni',
-    'com.snobot.simulator.jni.module_wrapper.AnalogSourceWrapperJni',
-    'com.snobot.simulator.jni.module_wrapper.DigitalSourceWrapperJni',
-    'com.snobot.simulator.jni.module_wrapper.EncoderWrapperJni',
-    'com.snobot.simulator.jni.module_wrapper.GyroWrapperJni',
-    'com.snobot.simulator.jni.module_wrapper.RelayWrapperJni',
-    'com.snobot.simulator.jni.module_wrapper.SolenoidWrapperJni',
-    'com.snobot.simulator.jni.module_wrapper.SpeedControllerWrapperJni'
-]
-
 
 model {
-    jniConfigs {
-        snobotSimJniShared(JNIConfig) {
-            jniDefinitionClasses = jniClasses
-            jniArmHeaderLocations = [ all: file("${projectDir}/src/arm-linux-jni") ]
-            sourceSets = [ project.sourceSets.main ]
-        }
-        snobotSimJniStatic(JNIConfig) {
-            jniDefinitionClasses = jniClasses
-            jniArmHeaderLocations = [ all: file("${projectDir}/src/arm-linux-jni") ]
-            sourceSets = [ project.sourceSets.main ]
-        }
-    }
     exportsConfigs {
         snobotSimJniShared(ExportsConfig) {
             x86SymbolFilter = { symbols->
@@ -177,20 +135,6 @@ model {
             sharedConfigs = [ snobotSimJniShared: [] ]
         }
     }
-    components {
-        snobotSimJniShared(NativeLibrarySpec) {
-            baseName = 'snobotSimJni'
-            sources {
-                cpp {
-                    source {
-                        srcDirs = ['cpp']
-                        includes = ['**/*.cpp']
-                    }
-                }
-            }
-        }
-
-    }
     binaries {
         withType(NativeBinarySpec) {
         
@@ -208,31 +152,5 @@ model {
         }
     }
 }
-
-/////////////////////////////////////////////////////////////////////////////////
-// Style/Formatting stuff
-checkstyle {
-    toolVersion = "8.1"
-    configFile = new File(rootDir, "styleguide/checkstyle.xml")
-}
-
-pmd {
-    consoleOutput  = true
-    reportsDir = file("${project.buildDir}/reports/pmd")
-    ruleSetFiles = files(file("$rootDir/styleguide/pmd-ruleset.xml"))
-    ruleSets = []
-}
-
-findbugs {
-    excludeFilter = file("$rootDir/styleguide/findbugs_suppressions.xml")
-    effort = "max"
-}
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled false
-        html.enabled true
-    }
-}
-/////////////////////////////////////////////////////////////////////////////////
 
 apply from: "publish.gradle"

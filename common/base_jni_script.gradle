@@ -1,22 +1,11 @@
 
 import org.gradle.internal.os.OperatingSystem
 
-repositories {
-    mavenCentral()
-    
-    maven {
-        url "http://dev.imjac.in/maven/"
-    }
-    maven {
-        url "http://first.wpi.edu/FRC/roborio/maven/release/"
-    }
-}
 
 apply plugin: 'cpp'
-apply plugin: 'java'
-apply plugin: 'visual-studio'
 apply plugin: 'edu.wpi.first.NativeUtils'
 
+apply from: "${rootDir}/common/base_java_script.gradle"
 apply from: '../config.gradle'
 
 

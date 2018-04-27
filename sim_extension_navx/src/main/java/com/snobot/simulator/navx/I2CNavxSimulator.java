@@ -28,21 +28,21 @@ public class I2CNavxSimulator implements INavxSimulator
     }
 
     @Override
-    public void setXAccel(double x)
+    public void setXAccel(double aX)
     {
-        I2CNavxSimulatorJni.setXAccel(mNativePointer, x);
+        I2CNavxSimulatorJni.setXAccel(mNativePointer, aX);
     }
 
     @Override
-    public void setYAccel(double y)
+    public void setYAccel(double aY)
     {
-        I2CNavxSimulatorJni.setYAccel(mNativePointer, y);
+        I2CNavxSimulatorJni.setYAccel(mNativePointer, aY);
     }
 
     @Override
-    public void setZAccel(double z)
+    public void setZAccel(double aZ)
     {
-        I2CNavxSimulatorJni.setZAccel(mNativePointer, z);
+        I2CNavxSimulatorJni.setZAccel(mNativePointer, aZ);
     }
 
     @Override
@@ -64,20 +64,20 @@ public class I2CNavxSimulator implements INavxSimulator
     }
 
     @Override
-    public void setYaw(double yaw)
+    public void setYaw(double aYaw)
     {
-        I2CNavxSimulatorJni.setYaw(mNativePointer, yaw);
+        I2CNavxSimulatorJni.setYaw(mNativePointer, aYaw);
     }
 
     @Override
-    public void setPitch(double pitch)
+    public void setPitch(double aPitch)
     {
-        I2CNavxSimulatorJni.setPitch(mNativePointer, pitch);
+        I2CNavxSimulatorJni.setPitch(mNativePointer, aPitch);
     }
 
     @Override
-    public void setRoll(double roll)
+    public void setRoll(double aRoll)
     {
-        I2CNavxSimulatorJni.setRoll(mNativePointer, roll);
+        I2CNavxSimulatorJni.setRoll(mNativePointer, aRoll);
     }
 }

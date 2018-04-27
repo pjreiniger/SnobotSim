@@ -1,14 +1,18 @@
 
 package com.snobot.simulator.ctre;
 
-public class CtreJni
+public final class CtreJni
 {
+    private CtreJni()
+    {
 
-    public static native int registerCanMotorCallback(CtreCallback callback);
+    }
 
-    public static native void cancelCanMotorCallback(int uid);
+    public static native int registerCanMotorCallback(CtreCallback aCallback);
 
-    public static native int registerCanPigeonImuCallback(CtreCallback callback);
+    public static native void cancelCanMotorCallback(int aUid);
 
-    public static native void cancelCanPigeonImuCallback(int uid);
+    public static native int registerCanPigeonImuCallback(CtreCallback aCallback);
+
+    public static native void cancelCanPigeonImuCallback(int aUid);
 }

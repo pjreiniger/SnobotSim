@@ -1,20 +1,8 @@
 
 import org.gradle.internal.os.OperatingSystem
 
-repositories {
-    mavenCentral()
-    maven {
-        url "http://first.wpi.edu/FRC/roborio/maven/release/"
-    }
-}
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'jacoco'
 apply plugin: 'application'
-apply plugin: 'checkstyle'
-apply plugin: 'pmd'
-apply plugin: 'findbugs'
+apply from: "${rootDir}/common/base_java_script.gradle"
 
 sourceSets {
     main {
@@ -30,24 +18,6 @@ sourceSets {
 }
 test {
     ignoreFailures = true //!OperatingSystem.current().isWindows()
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-    
-    afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, 
-                     exclude: [
-                               'com/snobot/simulator/Main.class',
-                               //'com/snobot/simulator/joysticks/**',
-                               //'com/snobot/simulator/gui/**'
-                               ])
-        })
-    }
 }
 
 configurations {
@@ -162,6 +132,11 @@ clean {
 
 apply from: "publish.gradle"
 
+
+findbugs {
+    ignoreFailures = true
+}
+
 ///////////////////////////////////////////////////////////
 // Build Application
 mainClassName = "com.snobot.simulator.Main"
@@ -181,31 +156,3 @@ distributions {
 }
 
 ///////////////////////////////////////////////////////////
-
-
-/////////////////////////////////////////////////////////////////////////////////
-// Style/Formatting stuff
-checkstyle {
-    toolVersion = "8.1"
-    configFile = new File(rootDir, "styleguide/checkstyle.xml")
-}
-
-pmd {
-    consoleOutput  = true
-    reportsDir = file("${project.buildDir}/reports/pmd")
-    ruleSetFiles = files(file("$rootDir/styleguide/pmd-ruleset.xml"))
-    ruleSets = []
-}
-
-findbugs {
-    excludeFilter = file("$rootDir/styleguide/findbugs_suppressions.xml")
-    effort = "max"
-    ignoreFailures = true
-}
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled false
-        html.enabled true
-    }
-}
-/////////////////////////////////////////////////////////////////////////////////

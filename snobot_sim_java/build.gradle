@@ -12,16 +12,7 @@ repositories {
     }
 }
 
-apply plugin: 'visual-studio'
-apply plugin: 'edu.wpi.first.NativeUtils'
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'checkstyle'
-apply plugin: 'pmd'
-apply plugin: 'findbugs'
-
-apply from: '../config.gradle'
-
+apply from: "${rootDir}/common/base_java_script.gradle"
 
 apply from: "../create_version_file.gradle"
 createJavaVersion("java/snobot_sim_java/com/snobot/simulator/wrapper_accessors/java", "JaveSimulatorVersion", "com.snobot.simulator.wrapper_accessors.java", getVersionName())
@@ -41,46 +32,6 @@ sourceSets {
 test {
     ignoreFailures = OperatingSystem.current().isLinux()
 }
-
-apply from: "$rootDir/captureWpiLibraries.gradle"
-
-task combineNativeLibrariesIntoOne(type: Jar) {
-
-    dependsOn captureWpiLibraries
-
-    def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
-
-    classifier = "uber_native-" + os_name;
-    
-    captureWpiLibraries.outputs.files.each {
-        from(zipTree(it))
-    }
-    
-    project(':ctre_override').packageNativeCtreSimulationFilesInJar.outputs.files.each {
-        from(zipTree(it))
-    }
-    
-    project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files.each {
-        from(zipTree(it))
-    }
-    
-    project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files.each {
-        from(zipTree(it))
-    }
-    
-    project(':temp_hal_sim').packageNativetempHalSimSharedFilesInJar.outputs.files.each {
-        from(zipTree(it))
-    }
-}
-
-build.dependsOn project(':temp_hal_sim').build
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-}
     
 dependencies {
     compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
@@ -97,9 +48,15 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
+    testRuntime 'edu.wpi.first.wpilibj:wpilibj-jni:' + getWpilibjVersion() + ':all'
+    testRuntime 'edu.wpi.first.hal:hal-jni:' + getWpilibjVersion() + ':all'
     testRuntime 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
     testRuntime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
-    testRuntime combineNativeLibrariesIntoOne.outputs.files
+    
+    testRuntime project(':ctre_override').packageNativeCtreSimulationFilesInJar.outputs.files
+    testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
+    testRuntime project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files
+    testRuntime project(':temp_hal_sim').packageNativetempHalSimSharedFilesInJar.outputs.files
     
     testCompile "openrio.mirror.third.ctre:CTRE-phoenix-java:" + getCtreVersion()
     testCompile "openrio.mirror.third.kauailabs:navx-java:" + getNavxVersion()
@@ -108,31 +65,5 @@ dependencies {
 tasks.withType(Test) {
     systemProperty "java.library.path", "$rootDir/ctre_override/build/libs/ctreSimulation/shared"
 }
-
-/////////////////////////////////////////////////////////////////////////////////
-// Style/Formatting stuff
-checkstyle {
-    toolVersion = "8.1"
-    configFile = new File(rootDir, "styleguide/checkstyle.xml")
-}
-
-pmd {
-    consoleOutput  = true
-    reportsDir = file("${project.buildDir}/reports/pmd")
-    ruleSetFiles = files(file("$rootDir/styleguide/pmd-ruleset.xml"))
-    ruleSets = []
-}
-
-findbugs {
-    excludeFilter = file("$rootDir/styleguide/findbugs_suppressions.xml")
-    effort = "max"
-}
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled false
-        html.enabled true
-    }
-}
-/////////////////////////////////////////////////////////////////////////////////
 
 apply from: "publish.gradle"
