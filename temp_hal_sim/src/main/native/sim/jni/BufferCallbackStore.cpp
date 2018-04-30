@@ -1,30 +1,44 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 #include "BufferCallbackStore.h"
 
-#include "support/jni_util.h"
 #include <jni.h>
+
+#include <support/jni_util.h>
+
+#include "HAL/Types.h"
 #include "HAL/handles/UnlimitedHandleResource.h"
 #include "MockData/HAL_Value.h"
 #include "MockData/NotifyListener.h"
-#include "HAL/types.h"
 #include "SimulatorJNI.h"
 
 using namespace wpi::java;
 using namespace sim;
 
-static hal::UnlimitedHandleResource<SIM_JniHandle, BufferCallbackStore, hal::HAL_HandleEnum::Vendor>* callbackHandles;
+static hal::UnlimitedHandleResource<SIM_JniHandle, BufferCallbackStore,
+                                    hal::HAL_HandleEnum::Vendor>*
+    callbackHandles;
 
 namespace sim {
 void InitializeBufferStore() {
-  static hal::UnlimitedHandleResource<SIM_JniHandle, BufferCallbackStore, hal::HAL_HandleEnum::Vendor> cb;
+  static hal::UnlimitedHandleResource<SIM_JniHandle, BufferCallbackStore,
+                                      hal::HAL_HandleEnum::Vendor>
+      cb;
   callbackHandles = &cb;
 }
-}
+}  // namespace sim
 
 void BufferCallbackStore::create(JNIEnv* env, jobject obj) {
   m_call = JGlobal<jobject>(env, obj);
 }
 
-void BufferCallbackStore::performCallback(const char* name, uint8_t* buffer, uint32_t length) {
+void BufferCallbackStore::performCallback(const char* name, uint8_t* buffer,
+                                          uint32_t length) {
   JNIEnv* env;
   JavaVM* vm = sim::GetJVM();
   bool didAttachThread = false;
@@ -43,14 +57,17 @@ void BufferCallbackStore::performCallback(const char* name, uint8_t* buffer, uin
     llvm::outs().flush();
   }
 
-  auto toCallbackArr = MakeJByteArray(env, llvm::StringRef{reinterpret_cast<const char*>(buffer),
-                        static_cast<size_t>(length)});
+  auto toCallbackArr =
+      MakeJByteArray(env, llvm::StringRef{reinterpret_cast<const char*>(buffer),
+                                          static_cast<size_t>(length)});
 
-  env->CallVoidMethod(m_call, sim::GetBufferCallback(), MakeJString(env, name), toCallbackArr, (jint)length);
+  env->CallVoidMethod(m_call, sim::GetBufferCallback(), MakeJString(env, name),
+                      toCallbackArr, (jint)length);
 
-  jbyte* fromCallbackArr = reinterpret_cast<jbyte*>(env->GetPrimitiveArrayCritical(toCallbackArr, nullptr));
+  jbyte* fromCallbackArr = reinterpret_cast<jbyte*>(
+      env->GetPrimitiveArrayCritical(toCallbackArr, nullptr));
 
-  for (unsigned int i = 0; i < length; i++) {
+  for (size_t i = 0; i < length; i++) {
     buffer[i] = fromCallbackArr[i];
   }
 
@@ -65,12 +82,11 @@ void BufferCallbackStore::performCallback(const char* name, uint8_t* buffer, uin
   }
 }
 
-void BufferCallbackStore::free(JNIEnv* env) {
-  m_call.free(env);
-}
+void BufferCallbackStore::free(JNIEnv* env) { m_call.free(env); }
 
-SIM_JniHandle sim::AllocateBufferCallback(JNIEnv* env, jint index, jobject callback, RegisterBufferCallbackFunc createCallback) {
-
+SIM_JniHandle sim::AllocateBufferCallback(
+    JNIEnv* env, jint index, jobject callback,
+    RegisterBufferCallbackFunc createCallback) {
   auto callbackStore = std::make_shared<BufferCallbackStore>();
 
   auto handle = callbackHandles->Allocate(callbackStore);
@@ -84,10 +100,10 @@ SIM_JniHandle sim::AllocateBufferCallback(JNIEnv* env, jint index, jobject callb
 
   callbackStore->create(env, callback);
 
-  auto callbackFunc = [](const char* name, void* param, uint8_t* buffer, uint32_t length){
+  auto callbackFunc = [](const char* name, void* param, uint8_t* buffer,
+                         uint32_t length) {
     uintptr_t handleTmp = reinterpret_cast<uintptr_t>(param);
-    SIM_JniHandle handle =
-        static_cast<SIM_JniHandle>(handleTmp);
+    SIM_JniHandle handle = static_cast<SIM_JniHandle>(handleTmp);
     auto data = callbackHandles->Get(handle);
     if (!data) return;
 
@@ -101,7 +117,8 @@ SIM_JniHandle sim::AllocateBufferCallback(JNIEnv* env, jint index, jobject callb
   return handle;
 }
 
-void sim::FreeBufferCallback(JNIEnv* env, SIM_JniHandle handle, jint index, FreeBufferCallbackFunc freeCallback) {
+void sim::FreeBufferCallback(JNIEnv* env, SIM_JniHandle handle, jint index,
+                             FreeBufferCallbackFunc freeCallback) {
   auto callback = callbackHandles->Free(handle);
   freeCallback(index, callback->getCallbackId());
   callback->free(env);

@@ -1,30 +1,45 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 #include "SpiReadAutoReceiveBufferCallbackStore.h"
 
-#include "support/jni_util.h"
 #include <jni.h>
+
+#include <support/jni_util.h>
+
+#include "HAL/Types.h"
 #include "HAL/handles/UnlimitedHandleResource.h"
 #include "MockData/HAL_Value.h"
 #include "MockData/NotifyListener.h"
-#include "HAL/types.h"
 #include "SimulatorJNI.h"
 
 using namespace wpi::java;
 using namespace sim;
 
-static hal::UnlimitedHandleResource<SIM_JniHandle, SpiReadAutoReceiveBufferCallbackStore, hal::HAL_HandleEnum::Vendor>* callbackHandles;
+static hal::UnlimitedHandleResource<
+    SIM_JniHandle, SpiReadAutoReceiveBufferCallbackStore,
+    hal::HAL_HandleEnum::Vendor>* callbackHandles;
 
 namespace sim {
 void InitializeSpiBufferStore() {
-  static hal::UnlimitedHandleResource<SIM_JniHandle, SpiReadAutoReceiveBufferCallbackStore, hal::HAL_HandleEnum::Vendor> cb;
+  static hal::UnlimitedHandleResource<SIM_JniHandle,
+                                      SpiReadAutoReceiveBufferCallbackStore,
+                                      hal::HAL_HandleEnum::Vendor>
+      cb;
   callbackHandles = &cb;
 }
-}
+}  // namespace sim
 
 void SpiReadAutoReceiveBufferCallbackStore::create(JNIEnv* env, jobject obj) {
   m_call = JGlobal<jobject>(env, obj);
 }
 
-int32_t SpiReadAutoReceiveBufferCallbackStore::performCallback(const char* name, unsigned char* buffer, int32_t numToRead) {
+int32_t SpiReadAutoReceiveBufferCallbackStore::performCallback(
+    const char* name, unsigned char* buffer, int32_t numToRead) {
   JNIEnv* env;
   JavaVM* vm = sim::GetJVM();
   bool didAttachThread = false;
@@ -43,12 +58,16 @@ int32_t SpiReadAutoReceiveBufferCallbackStore::performCallback(const char* name,
     llvm::outs().flush();
   }
 
-  auto toCallbackArr = MakeJByteArray(env, llvm::StringRef{reinterpret_cast<const char*>(buffer),
-                        static_cast<size_t>(numToRead)});
+  auto toCallbackArr =
+      MakeJByteArray(env, llvm::StringRef{reinterpret_cast<const char*>(buffer),
+                                          static_cast<size_t>(numToRead)});
 
-  jint ret = env->CallIntMethod(m_call, sim::GetBufferCallback(), MakeJString(env, name), toCallbackArr, (jint)numToRead);
+  jint ret = env->CallIntMethod(m_call, sim::GetBufferCallback(),
+                                MakeJString(env, name), toCallbackArr,
+                                (jint)numToRead);
 
-  jbyte* fromCallbackArr = reinterpret_cast<jbyte*>(env->GetPrimitiveArrayCritical(toCallbackArr, nullptr));
+  jbyte* fromCallbackArr = reinterpret_cast<jbyte*>(
+      env->GetPrimitiveArrayCritical(toCallbackArr, nullptr));
 
   for (int i = 0; i < ret; i++) {
     buffer[i] = fromCallbackArr[i];
@@ -70,9 +89,11 @@ void SpiReadAutoReceiveBufferCallbackStore::free(JNIEnv* env) {
   m_call.free(env);
 }
 
-SIM_JniHandle sim::AllocateSpiBufferCallback(JNIEnv* env, jint index, jobject callback, RegisterSpiBufferCallbackFunc createCallback) {
-
-  auto callbackStore = std::make_shared<SpiReadAutoReceiveBufferCallbackStore>();
+SIM_JniHandle sim::AllocateSpiBufferCallback(
+    JNIEnv* env, jint index, jobject callback,
+    RegisterSpiBufferCallbackFunc createCallback) {
+  auto callbackStore =
+      std::make_shared<SpiReadAutoReceiveBufferCallbackStore>();
 
   auto handle = callbackHandles->Allocate(callbackStore);
 
@@ -85,10 +106,10 @@ SIM_JniHandle sim::AllocateSpiBufferCallback(JNIEnv* env, jint index, jobject ca
 
   callbackStore->create(env, callback);
 
-  auto callbackFunc = [](const char* name, void* param, unsigned char* buffer, int32_t numToRead, int32_t* outputCount){
+  auto callbackFunc = [](const char* name, void* param, unsigned char* buffer,
+                         int32_t numToRead, int32_t* outputCount) {
     uintptr_t handleTmp = reinterpret_cast<uintptr_t>(param);
-    SIM_JniHandle handle =
-        static_cast<SIM_JniHandle>(handleTmp);
+    SIM_JniHandle handle = static_cast<SIM_JniHandle>(handleTmp);
     auto data = callbackHandles->Get(handle);
     if (!data) return;
 
@@ -102,7 +123,8 @@ SIM_JniHandle sim::AllocateSpiBufferCallback(JNIEnv* env, jint index, jobject ca
   return handle;
 }
 
-void sim::FreeSpiBufferCallback(JNIEnv* env, SIM_JniHandle handle, jint index, FreeSpiBufferCallbackFunc freeCallback) {
+void sim::FreeSpiBufferCallback(JNIEnv* env, SIM_JniHandle handle, jint index,
+                                FreeSpiBufferCallbackFunc freeCallback) {
   auto callback = callbackHandles->Free(handle);
   freeCallback(index, callback->getCallbackId());
   callback->free(env);

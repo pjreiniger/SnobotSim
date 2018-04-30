@@ -1,18 +1,28 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 #pragma once
 
 #ifndef __FRC_ROBORIO__
 
 #include <functional>
+
 #include <llvm/StringRef.h>
+
 #include "MockData/HAL_Value.h"
 
 namespace frc {
 namespace sim {
 
 using NotifyCallback = std::function<void(llvm::StringRef, const HAL_Value*)>;
-typedef void(*CancelCallbackFunc)(int32_t index, int32_t uid);
-typedef void(*CancelCallbackNoIndexFunc)(int32_t uid);
-typedef void(*CancelCallbackChannelFunc)(int32_t index, int32_t channel, int32_t uid);
+typedef void (*CancelCallbackFunc)(int32_t index, int32_t uid);
+typedef void (*CancelCallbackNoIndexFunc)(int32_t uid);
+typedef void (*CancelCallbackChannelFunc)(int32_t index, int32_t channel,
+                                          int32_t uid);
 
 void CallbackStoreThunk(const char* name, void* param, const HAL_Value* value);
 
@@ -24,14 +34,16 @@ class CallbackStore {
     this->ccnif = ccf;
     cancelType = NoIndex;
   }
-  CallbackStore(int32_t i, int32_t u, NotifyCallback cb, CancelCallbackFunc ccf) {
+  CallbackStore(int32_t i, int32_t u, NotifyCallback cb,
+                CancelCallbackFunc ccf) {
     index = i;
     uid = u;
     callback = cb;
     this->ccf = ccf;
     cancelType = Normal;
   }
-  CallbackStore(int32_t i, int32_t c, int32_t u, NotifyCallback cb, CancelCallbackChannelFunc ccf) {
+  CallbackStore(int32_t i, int32_t c, int32_t u, NotifyCallback cb,
+                CancelCallbackChannelFunc ccf) {
     index = i;
     channel = c;
     uid = u;
@@ -40,7 +52,7 @@ class CallbackStore {
     cancelType = Channel;
   }
   ~CallbackStore() {
-    switch(cancelType) {
+    switch (cancelType) {
       case Normal:
         ccf(index, uid);
         break;
@@ -53,14 +65,12 @@ class CallbackStore {
     }
   }
 
-  void SetUid(int32_t uid) {
-    this->uid = uid;
-  }
+  void SetUid(int32_t uid) { this->uid = uid; }
 
-  friend void CallbackStoreThunk(const char* name, void* param, const HAL_Value* value);
+  friend void CallbackStoreThunk(const char* name, void* param,
+                                 const HAL_Value* value);
 
  private:
-
   int32_t index;
   int32_t channel;
   int32_t uid;
@@ -71,10 +81,10 @@ class CallbackStore {
     CancelCallbackChannelFunc cccf;
     CancelCallbackNoIndexFunc ccnif;
   };
-    enum CancelType { Normal, Channel, NoIndex };
-    CancelType cancelType;
+  enum CancelType { Normal, Channel, NoIndex };
+  CancelType cancelType;
 };
-}
-}
+}  // namespace sim
+}  // namespace frc
 
 #endif

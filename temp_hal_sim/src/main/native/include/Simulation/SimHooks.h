@@ -13,15 +13,9 @@
 
 namespace frc {
 namespace sim {
-  void WaitForProgramStart() {
-    HALSIM_WaitForProgramStart();
-  }
-  void SetProgramStarted() {
-    HALSIM_SetProgramStarted();
-  }
-  void RestartTiming() {
-    HALSIM_RestartTiming();
-  }
+void WaitForProgramStart() { HALSIM_WaitForProgramStart(); }
+void SetProgramStarted() { HALSIM_SetProgramStarted(); }
+void RestartTiming() { HALSIM_RestartTiming(); }
 }  // namespace sim
 }  // namespace frc
 
