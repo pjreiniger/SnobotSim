@@ -1,17 +1,6 @@
 
 apply plugin: 'maven-publish'
 
-task cppSourcesZip(type: Zip) {
-    destinationDir = project.buildDir
-
-    classifier = "sources"
-
-    from('cpp') {
-        into 'SnobotSim'
-    }
-}
-
-
 task javadoc(type: Javadoc, overwrite: true) {
     source = sourceSets.main.allJava
     classpath = configurations.compile
@@ -44,7 +33,6 @@ publishing {
             version maven_version
 
             artifact jar
-            artifact cppSourcesZip
             artifact javadocJar
             artifact sourcesJar
             //artifact combineNativeLibrariesIntoOne
