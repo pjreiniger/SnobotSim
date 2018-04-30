@@ -23,7 +23,7 @@ JNIEXPORT jlong JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_creat
  */
 JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_deleteNavx(JNIEnv*, jclass, jlong aPointerAddress)
 {
-    SpiNavxSimulator* simulator = static_cast<SpiNavxSimulator*>(aPointerAddress);
+    SpiNavxSimulator* simulator = reinterpret_cast<SpiNavxSimulator*>(aPointerAddress);
     delete simulator;
 }
 
@@ -34,7 +34,7 @@ JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_delete
  */
 JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_getXAccel(JNIEnv*, jclass, jlong aPointerAddress)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     return simulator->GetX();
 }
 
@@ -45,7 +45,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_get
  */
 JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_getYAccel(JNIEnv*, jclass, jlong aPointerAddress)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     return simulator->GetY();
 }
 
@@ -56,7 +56,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_get
  */
 JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_getZAccel(JNIEnv*, jclass, jlong aPointerAddress)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     return simulator->GetZ();
 }
 
@@ -67,7 +67,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_get
  */
 JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_setXAccel(JNIEnv*, jclass, jlong aPointerAddress, jdouble value)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     simulator->SetX(value);
 }
 
@@ -78,7 +78,7 @@ JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_setXAc
  */
 JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_setYAccel(JNIEnv*, jclass, jlong aPointerAddress, jdouble value)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     simulator->SetY(value);
 }
 
@@ -89,7 +89,7 @@ JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_setYAc
  */
 JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_setZAccel(JNIEnv*, jclass, jlong aPointerAddress, jdouble value)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     simulator->SetZ(value);
 }
 
@@ -100,7 +100,7 @@ JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_setZAc
  */
 JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_getYaw(JNIEnv*, jclass, jlong aPointerAddress)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     return simulator->GetYaw();
 }
 
@@ -111,7 +111,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_get
  */
 JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_getPitch(JNIEnv*, jclass, jlong aPointerAddress)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     return simulator->GetPitch();
 }
 
@@ -122,7 +122,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_get
  */
 JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_getRoll(JNIEnv*, jclass, jlong aPointerAddress)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     return simulator->GetRoll();
 }
 
@@ -133,7 +133,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_get
  */
 JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_setYaw(JNIEnv*, jclass, jlong aPointerAddress, jdouble value)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     simulator->SetYaw(value);
 }
 
@@ -144,7 +144,7 @@ JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_setYaw
  */
 JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_setPitch(JNIEnv*, jclass, jlong aPointerAddress, jdouble value)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     simulator->SetPitch(value);
 }
 
@@ -155,6 +155,6 @@ JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_setPit
  */
 JNIEXPORT void JNICALL Java_com_snobot_simulator_navx_SpiNavxSimulatorJni_setRoll(JNIEnv*, jclass, jlong aPointerAddress, jdouble value)
 {
-    NavxSimulator* simulator = static_cast<NavxSimulator*>(aPointerAddress);
+    NavxSimulator* simulator = reinterpret_cast<NavxSimulator*>(aPointerAddress);
     simulator->SetRoll(value);
 }
