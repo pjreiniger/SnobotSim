@@ -16,15 +16,14 @@ sourceSets {
         }
     }
 }
-test {
-    ignoreFailures = true //!OperatingSystem.current().isWindows()
-}
 
 configurations {
     native3rdPartyDeps
     compile.extendsFrom(native3rdPartyDeps)
 }
-    
+
+evaluationDependsOn(':temp_hal_sim')
+apply from: "$rootDir/captureWpiLibraries.gradle"
 dependencies {
     
     // WPILib
@@ -49,6 +48,11 @@ dependencies {
     
     // Internal
     compile project(":snobot_sim_utilities")
+    testRuntime captureWpiLibraries.outputs.files
+    testRuntime project(':ctre_override').packageNativeCtreSimulationFilesInJar.outputs.files
+    testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
+    testRuntime project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files
+    testRuntime project(':temp_hal_sim').packageNativetempHalSimSharedFilesInJar.outputs.files
     
     def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
     if(build_simulator_cpp)
@@ -61,8 +65,6 @@ dependencies {
     if(build_simulator_java)
     {
         compile project(":snobot_sim_java")
-        runtime     files("${rootDir}/snobot_sim_java/build/libs/snobot_sim_java-uber_native-" + os_name  +".jar")
-        testRuntime files("${rootDir}/snobot_sim_java/build/libs/snobot_sim_java-uber_native-" + os_name  +".jar")
     }
     
     // Test

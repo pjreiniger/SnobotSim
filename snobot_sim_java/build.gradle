@@ -49,17 +49,17 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
-    testRuntime captureWpiLibraries.outputs.files
     testRuntime 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
     testRuntime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
     
+    testCompile "openrio.mirror.third.ctre:CTRE-phoenix-java:" + getCtreVersion()
+    testCompile "openrio.mirror.third.kauailabs:navx-java:" + getNavxVersion()
+    
+    testRuntime captureWpiLibraries.outputs.files
     testRuntime project(':ctre_override').packageNativeCtreSimulationFilesInJar.outputs.files
     testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
     testRuntime project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files
     testRuntime project(':temp_hal_sim').packageNativetempHalSimSharedFilesInJar.outputs.files
-    
-    testCompile "openrio.mirror.third.ctre:CTRE-phoenix-java:" + getCtreVersion()
-    testCompile "openrio.mirror.third.kauailabs:navx-java:" + getNavxVersion()
 }
 
 tasks.withType(Test) {

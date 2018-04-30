@@ -29,7 +29,6 @@ public class TestPotentiometerSimulator extends BaseSimulatorTest
 
         AnalogWrapper analogWrapper = SensorActuatorRegistry.get().getAnalog().get(0);
         PwmWrapper pwmWrapper = SensorActuatorRegistry.get().getSpeedControllers().get(0);
-        System.out.println(SensorActuatorRegistry.get().getSpeedControllers());
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().setSpeedControllerModel_Simple(0, new SimpleMotorSimulationConfig(1));
 
         PotentiometerSimulator potSim = new PotentiometerSimulator(analogWrapper, pwmWrapper);
