@@ -1,7 +1,6 @@
 package edu.wpi.first.hal.sim.mockdata;
 
 public class ADXL362AccelerometerDataJNI {
-
     public static native long createAccelerometer(int aPort);
 
     public static native void deleteAccelerometer(long aNativePointer);

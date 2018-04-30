@@ -21,7 +21,7 @@ task "packageNative${libraryName}FilesInJar"(type: Jar) {
         binaries {
             println "Unpacking ${libraryName}"
             withType(SharedLibraryBinarySpec) { binary ->
-                if (binary.component.name == project.libraryName) 
+                if (binary.component.name == project.libraryName)
                 {
                     from(binary.sharedLibraryFile) {
                         into project.getNativeVersion(binary)
@@ -30,7 +30,7 @@ task "packageNative${libraryName}FilesInJar"(type: Jar) {
                 if(project.hasProperty("extra_libraries"))
                 {
                     project.extra_libraries.each {
-                        if (binary.component.name == it[1]) 
+                        if (binary.component.name == it[1])
                         {
                             from(binary.sharedLibraryFile) {
                                 into project.getNativeVersion(binary)
@@ -58,7 +58,7 @@ model {
             sourceSets = [ project.sourceSets.main ]
         }
     }
-    
+
     components {
         "${libraryName}"(NativeLibrarySpec) {
             baseName = project.libraryBaseName
@@ -72,7 +72,7 @@ model {
                     exportedHeaders {
                         srcDirs = project.libraryHeaderDirs
                     }
-                    
+
                     if(project.hasProperty("extra_libraries"))
                     {
                         project.extra_libraries.each {

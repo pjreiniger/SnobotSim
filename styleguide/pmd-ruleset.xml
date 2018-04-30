@@ -7,8 +7,8 @@
     <exclude-pattern>.*/com/kauailabs/navx/frc/.*</exclude-pattern>
     <exclude-pattern>.*/edu/wpi/first/wpilibj/.*</exclude-pattern>
     <exclude-pattern>.*/com/snobot/test/utilities/MockRobot.*</exclude-pattern>
-    
-    
+
+
     <!-- temp -->
     <exclude-pattern>.*/edu/wpi/first/.*</exclude-pattern>
 
