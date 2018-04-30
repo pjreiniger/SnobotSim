@@ -1,7 +1,6 @@
 
-#ifndef SNOBOTSIM_CTRE_OVERRIDE_MOCK_HOOKS_INCLUDE_MOCKHOOKS_H_
-#define SNOBOTSIM_CTRE_OVERRIDE_MOCK_HOOKS_INCLUDE_MOCKHOOKS_H_
-
+#ifndef SNOBOTSIM_CTRE_OVERRIDE_SRC_MAIN_NATIVE_INCLUDE_CTRESIMMOCKS_MOCKHOOKS_H_
+#define SNOBOTSIM_CTRE_OVERRIDE_SRC_MAIN_NATIVE_INCLUDE_CTRESIMMOCKS_MOCKHOOKS_H_
 
 #include <stdint.h>
 
@@ -11,10 +10,9 @@ namespace SnobotSim
 {
 
 typedef void (*CTRE_CallbackFunc)(const char* name,
-                                  uint32_t messageId,
-                                  uint8_t* buffer,
-                                  int size);
-
+        uint32_t messageId,
+        uint8_t* buffer,
+        int size);
 
 void EXPORT_ SetMotControllerCallback(CTRE_CallbackFunc callback);
 void EXPORT_ SetPigeonCallback(CTRE_CallbackFunc callback);
@@ -99,4 +97,4 @@ void EXPORT_ SetPigeonCallback(CTRE_CallbackFunc callback);
 
 } // namespace SnobotSim
 
-#endif  // SNOBOTSIM_CTRE_OVERRIDE_MOCK_HOOKS_INCLUDE_MOCKHOOKS_H_
+#endif // SNOBOTSIM_CTRE_OVERRIDE_SRC_MAIN_NATIVE_INCLUDE_CTRESIMMOCKS_MOCKHOOKS_H_

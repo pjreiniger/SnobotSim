@@ -50,7 +50,7 @@ void BufferCallbackStore::performCallback(const char* name, uint8_t* buffer, uin
 
   jbyte* fromCallbackArr = reinterpret_cast<jbyte*>(env->GetPrimitiveArrayCritical(toCallbackArr, nullptr));
 
-  for (int i = 0; i < length; i++) {
+  for (unsigned int i = 0; i < length; i++) {
     buffer[i] = fromCallbackArr[i];
   }
 
