@@ -28,12 +28,12 @@ namespace ConversionUtils
 
         DcMotorModelConfig config(
                 factoryParams,
-                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "NOMINAL_VOLTAGE", "D")),
-                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "FREE_SPEED_RPM", "D")),
-                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "FREE_CURRENT", "D")),
-                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "STALL_TORQUE", "D")),
-                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "STALL_CURRENT", "D")),
-                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "MOTOR_INERTIA", "D")),
+                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "mNominalVoltage", "D")),
+                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "mFreeSpeedRpm", "D")),
+                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "mFreeCurrent", "D")),
+                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "mStallTorque", "D")),
+                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "mStallCurrent", "D")),
+                env->GetDoubleField(motorParamsObj, env->GetFieldID(env->GetObjectClass(motorParamsObj), "mMortorInertia", "D")),
 
                 env->GetBooleanField(factoryParamsObj, env->GetFieldID(env->GetObjectClass(factoryParamsObj), "mHasBrake", "Z")),
                 env->GetBooleanField(factoryParamsObj, env->GetFieldID(env->GetObjectClass(factoryParamsObj), "mInverted", "Z")),

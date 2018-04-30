@@ -106,7 +106,7 @@ public final class JniLibraryResourceLoader
                     is.close();
                 }
 
-                sLOGGER.log(Level.DEBUG, "Copied resource to " + aResourceFile.getAbsolutePath() + " from resource " + aResourceName);
+                sLOGGER.log(Level.ERROR, "Copied resource to " + aResourceFile.getAbsolutePath() + " from resource " + aResourceName);
             }
         }
 
@@ -132,7 +132,7 @@ public final class JniLibraryResourceLoader
     {
         if (LOADED_LIBS.contains(aLibraryName))
         {
-            sLOGGER.log(Level.TRACE, "Already loaded " + aLibraryName);
+            sLOGGER.log(Level.ERROR, "Already loaded " + aLibraryName);
             return true;
         }
 

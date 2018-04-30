@@ -4,7 +4,7 @@ import edu.wpi.first.nativeutils.NativeUtils
 ext
 {
     // Things for the base script
-    libraryName = "snobotSimJniShared"
+    libraryName = "snobotSimJni"
     getNativeVersion = { binary -> NativeUtils.getPlatformPath(binary) }
 
     jniClasses = [
@@ -23,7 +23,7 @@ ext
         'com.snobot.simulator.jni.module_wrapper.SpeedControllerWrapperJni'
     ]
     
-    libraryBaseName = 'snobotSimJniShared'
+    libraryBaseName = 'snobotSimJni'
     librarySrcDirs = [ 'cpp']
     libraryHeaderDirs = [  ]
     
@@ -48,22 +48,19 @@ sourceSets {
         }
     }
 }
-test {
-    ignoreFailures = true //OperatingSystem.current().isLinux()
-}
 
 apply from: "$rootDir/captureWpiLibraries.gradle"
 
 task combineNativeLibrariesIntoOne(type: Jar) {
 
-    dependsOn packageNativesnobotSimJniSharedFilesInJar
+    dependsOn packageNativesnobotSimJniFilesInJar
     dependsOn captureWpiLibraries
 
     def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
 
     classifier = "uber_native-" + os_name;
     
-    packageNativesnobotSimJniSharedFilesInJar.outputs.files.each { 
+    packageNativesnobotSimJniFilesInJar.outputs.files.each { 
         from(zipTree(it))
     }
     
@@ -96,6 +93,7 @@ dependencies {
     testRuntime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
     testRuntime combineNativeLibrariesIntoOne.outputs.files
     testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
+    testRuntime project(':snobot_sim_jni').packageNativesnobotSimJniFilesInJar.outputs.files
     
     testCompile project(':ctre_override')
     testCompile "openrio.mirror.third.ctre:CTRE-phoenix-java:" + getCtreVersion()
@@ -106,7 +104,7 @@ dependencies {
 
 model {
     exportsConfigs {
-        snobotSimJniShared(ExportsConfig) {
+        snobotSimJni(ExportsConfig) {
             x86SymbolFilter = { symbols->
                 def retList = []
                 return retList
@@ -124,7 +122,7 @@ model {
             headerClassifier = 'headers'
             ext = 'zip'
             version = '+'
-            sharedConfigs = [ snobotSimJniShared: [] ]
+            sharedConfigs = [ snobotSimJni: [] ]
         }
         halsim(DependencyConfig) {
             groupId = 'edu.wpi.first.hal'
@@ -132,7 +130,7 @@ model {
             headerClassifier = 'headers'
             ext = 'zip'
             version = getHalHeadersVersion()
-            sharedConfigs = [ snobotSimJniShared: [] ]
+            sharedConfigs = [ snobotSimJni: [] ]
         }
     }
     binaries {

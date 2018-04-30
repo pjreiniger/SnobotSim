@@ -32,7 +32,8 @@ sourceSets {
 test {
     ignoreFailures = OperatingSystem.current().isLinux()
 }
-    
+
+apply from: "$rootDir/captureWpiLibraries.gradle"
 dependencies {
     compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
     compile 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
@@ -48,8 +49,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
-    testRuntime 'edu.wpi.first.wpilibj:wpilibj-jni:' + getWpilibjVersion() + ':all'
-    testRuntime 'edu.wpi.first.hal:hal-jni:' + getWpilibjVersion() + ':all'
+    testRuntime captureWpiLibraries.outputs.files
     testRuntime 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
     testRuntime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
     

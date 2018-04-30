@@ -7,13 +7,13 @@ ext
     libraryName = "navx_simulator_jni"
     getNativeVersion = { binary -> NativeUtils.getPlatformPath(binary) }
     jniClasses = ['com.snobot.simulator.navx.I2CNavxSimulatorJni', 'com.snobot.simulator.navx.SpiNavxSimulatorJni']
-    extra_libraries = ['navx_simulator']
+    extra_libraries = [
+                        [':sim_extension_navx', 'navx_simulator', 'shared']
+                      ]
     
     libraryBaseName = 'navx_simulator_jni'
     librarySrcDirs = [ 'src/main/native/sim']
     libraryHeaderDirs = [ "cpp/lib", ]
-    
-    include_navx_lib = true
 }
 
 apply from: "${rootDir}/common/base_jni_script.gradle"
@@ -73,22 +73,6 @@ if (!project.hasProperty('onlyAthena')) {
                     }
                 }
             }
-            
-            
-            //navx_simulator_jni(NativeLibrarySpec) {
-            //    sources {
-            //        cpp {
-            //            source {
-            //                srcDirs = ['src/main/native/sim']
-            //                includes = ['**/*.cpp']
-            //            }
-            //            exportedHeaders {
-            //                srcDirs = []
-            //            }
-            //            lib project: ':sim_extension_navx', library: 'navx_simulator', linkage: 'static'
-            //        }
-            //    }
-            //}
         }
     }
     apply from: 'publish.gradle'

@@ -30,6 +30,7 @@ public final class PwmCallbackJni
         @Override
         public void callback(String aCallbackType, SimValue aHalValue)
         {
+            System.out.println(aCallbackType);
             if ("Initialized".equals(aCallbackType))
             {
                 SensorActuatorRegistry.get().register(new PwmWrapper(mPort), mPort);
@@ -51,6 +52,7 @@ public final class PwmCallbackJni
 
     public static void reset()
     {
+        System.out.println("Reset");
         for (int i = 0; i < SensorBase.kPwmChannels; ++i)
         {
             PWMDataJNI.resetData(i);

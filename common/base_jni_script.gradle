@@ -19,11 +19,23 @@ task "packageNative${libraryName}FilesInJar"(type: Jar) {
 
     project.model {
         binaries {
+            println "Unpacking ${libraryName}"
             withType(SharedLibraryBinarySpec) { binary ->
                 if (binary.component.name == project.libraryName) 
                 {
                     from(binary.sharedLibraryFile) {
                         into project.getNativeVersion(binary)
+                    }
+                }
+                if(project.hasProperty("extra_libraries"))
+                {
+                    project.extra_libraries.each {
+                        if (binary.component.name == it[1]) 
+                        {
+                            from(binary.sharedLibraryFile) {
+                                into project.getNativeVersion(binary)
+                            }
+                        }
                     }
                 }
             }
@@ -61,9 +73,11 @@ model {
                         srcDirs = project.libraryHeaderDirs
                     }
                     
-                    if(project.hasProperty("include_navx_lib"))
+                    if(project.hasProperty("extra_libraries"))
                     {
-                        lib project: ':sim_extension_navx', library: 'navx_simulator', linkage: 'static'
+                        project.extra_libraries.each {
+                             lib project: it[0], library: it[1], linkage:it[2]
+                        }
                     }
                 }
             }
