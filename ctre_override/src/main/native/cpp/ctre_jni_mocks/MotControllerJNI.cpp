@@ -3,7 +3,7 @@
 
 #include <cassert>
 
-#include "com_ctre_phoenix_motorcontrol_can_MotControllerJNI.h"
+#include "com_ctre_phoenix_MotorControl_CAN_MotControllerJNI.h"
 #include "ctre/phoenix/CCI/MotController_CCI.h"
 
 /*
