@@ -48,5 +48,8 @@ public class DriverStationDataJNI extends XXJNIWrapper {
   public static native void registerAllCallbacks(NotifyCallback callback, boolean initialNotify);
   public static native void notifyNewData();
 
+  public static native double getMatchTime();
+  public static native void setMatchTime(double matchTime);
+
   public static native void resetData();
 }

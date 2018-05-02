@@ -31,6 +31,9 @@ import com.snobot.simulator.simulator_components.ISimulatorUpdater;
 import com.snobot.simulator.simulator_components.TankDriveGyroSimulator;
 import com.snobot.simulator.wrapper_accessors.SimulatorDataAccessor;
 
+import edu.wpi.first.hal.sim.mockdata.DriverStationDataJNI;
+import edu.wpi.first.hal.sim.mockdata.SimulatorJNI;
+
 public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
 {
     private static final Logger sLOGGER = LogManager.getLogger(JavaSimulatorDataAccessor.class);
@@ -182,28 +185,28 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     @Override
     public void setDisabled(boolean aDisabled)
     {
-        // DriverStationSimulatorJni.setEnabled(!aDisabled);
+        DriverStationDataJNI.setEnabled(!aDisabled);
+        DriverStationDataJNI.setDsAttached(!aDisabled);
         mEnabledTime = System.currentTimeMillis() * 1e-3;
     }
 
     @Override
     public void setAutonomous(boolean aAuton)
     {
-        // DriverStationSimulatorJni.setAutonomous(aAuton);
+        DriverStationDataJNI.setAutonomous(aAuton);
         mEnabledTime = System.currentTimeMillis() * 1e-3;
     }
 
     @Override
     public double getMatchTime()
     {
-        // return DriverStationSimulatorJni.getMatchTime();
-        return 0;
+        return DriverStationDataJNI.getMatchTime();
     }
 
     @Override
     public void waitForProgramToStart()
     {
-        // DriverStationSimulatorJni.waitForProgramToStart();
+        SimulatorJNI.waitForProgramStart();
     }
 
     @Override
@@ -212,7 +215,6 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
         for (PwmWrapper wrapper : SensorActuatorRegistry.get().getSpeedControllers().values())
         {
             wrapper.update(aUpdatePeriod);
-            // tankDriveSimulator.update();
         }
 
         for (ISimulatorUpdater updater : SensorActuatorRegistry.get().getSimulatorComponents())
@@ -245,19 +247,24 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
             sLOGGER.log(Level.ERROR, e);
         }
 
+        DriverStationDataJNI.notifyNewData();
+        DriverStationDataJNI.setMatchTime(DriverStationDataJNI.getMatchTime() + aUpdatePeriod);
         // DriverStationSimulatorJni.delayForNextUpdateLoop(aUpdatePeriod);
     }
 
     @Override
     public void setJoystickInformation(int aJoystickHandle, float[] aAxesArray, short[] aPovsArray, int aButtonCount, int aButtonMask)
     {
-        // DriverStationSimulatorJni.setJoystickInformation(aJoystickHandle,
-        // aAxesArray, aPovsArray, aButtonCount, aButtonMask);
+        System.out.println("Settings stuff...");
+        DriverStationDataJNI.setJoystickAxes((byte) aJoystickHandle, aAxesArray);
+        DriverStationDataJNI.setJoystickPOVs((byte) aJoystickHandle, aPovsArray);
+        DriverStationDataJNI.setJoystickButtons((byte) aJoystickHandle, aButtonMask, aButtonCount);
     }
 
     @Override
     public void setMatchInfo(String aEventName, MatchType aMatchType, int aMatchNumber, int aReplayNumber, String aGameSpecificMessage)
     {
+        // SimulatorJNI.set
         // DriverStationSimulatorJni.setMatchInfo(aEventName,
         // aMatchType.ordinal(), aMatchNumber, aReplayNumber,
         // aGameSpecificMessage);

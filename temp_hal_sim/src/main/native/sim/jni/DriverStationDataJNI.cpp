@@ -274,6 +274,28 @@ Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_notifyNewData(JNIEnv*,
   HALSIM_NotifyDriverStationNewData();
 }
 
+/*
+ * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI
+ * Method:    getMatchTime
+ * Signature: ()D
+ */
+JNIEXPORT jdouble JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_getMatchTime
+  (JNIEnv *, jclass)
+{
+    return HALSIM_GetDriverStationMatchTime();
+}
+
+/*
+ * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI
+ * Method:    setMatchTime
+ * Signature: (D)V
+ */
+JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setMatchTime
+  (JNIEnv *, jclass, jdouble matchTime)
+{
+    HALSIM_SetDriverStationMatchTime(matchTime);
+}
+
 JNIEXPORT void JNICALL
 Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_resetData(JNIEnv*,
                                                                    jclass) {
