@@ -25,9 +25,13 @@ ext
     
     libraryBaseName = 'snobotSimJni'
     librarySrcDirs = [ 'cpp']
-    libraryHeaderDirs = [  ]
+    libraryHeaderDirs = [ 'cpp' ]
     
     include_navx_lib = true
+    
+    baseId = "snobot_sim_jni"
+    baseArtifactId = 'snobot_sim_jni'
+    artifactGroupId = 'com.snobot.simulator.snobot_sim_jni'
 }
 
 
@@ -150,5 +154,3 @@ model {
         }
     }
 }
-
-apply from: "publish.gradle"

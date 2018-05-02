@@ -1,6 +1,11 @@
 
 import org.gradle.internal.os.OperatingSystem
 
+ext
+{
+    baseId = "snobot_sim_gui"
+}
+
 apply plugin: 'application'
 apply from: "${rootDir}/common/base_java_script.gradle"
 
@@ -48,11 +53,6 @@ dependencies {
     
     // Internal
     compile project(":snobot_sim_utilities")
-    testRuntime captureWpiLibraries.outputs.files
-    testRuntime project(':ctre_override').packageNativeCtreSimulationFilesInJar.outputs.files
-    testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
-    testRuntime project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files
-    testRuntime project(':temp_hal_sim').packageNativetempHalSimSharedFilesInJar.outputs.files
     
     def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
     if(build_simulator_cpp)
@@ -65,6 +65,11 @@ dependencies {
     if(build_simulator_java)
     {
         compile project(":snobot_sim_java")
+        runtime captureWpiLibraries.outputs.files
+        runtime project(':ctre_override').packageNativeCtreSimulationFilesInJar.outputs.files
+        runtime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
+        runtime project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files
+        runtime project(':temp_hal_sim').packageNativetempHalSimSharedFilesInJar.outputs.files
     }
     
     // Test
@@ -130,9 +135,6 @@ compileJava {
 clean {
     delete "snobot_sim/com/snobot/simulator/SnobotSimGuiVersion.java"
 }
-
-
-apply from: "publish.gradle"
 
 
 findbugs {

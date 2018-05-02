@@ -31,6 +31,7 @@ task captureWpiLibraries(type: Jar, dependsOn: extractWpilibjJniShared) {
 
     def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
 
+    baseName = "wpilib_capture"
     destinationDir = file("$rootDir/build/wpi_libraries")
     classifier = "wpi_native-" + os_name;
 

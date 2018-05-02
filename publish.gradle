@@ -1,6 +1,7 @@
 import org.gradle.internal.os.OperatingSystem
 
 apply plugin: 'maven-publish'
+apply from: "captureWpiLibraries.gradle"
 
 
 task gatherWpiLibs(type: Zip) {
@@ -74,6 +75,7 @@ publishing {
                 artifact gatherWpiLibs
             }
             artifact gatherWpiHeaders
+            artifact captureWpiLibraries
 
             groupId 'com.snobot.simulator'
             artifactId 'wpilib'

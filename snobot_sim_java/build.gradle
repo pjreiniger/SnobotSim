@@ -12,6 +12,10 @@ repositories {
     }
 }
 
+ext {
+    baseId = "snobot_sim_java"
+}
+
 apply from: "${rootDir}/common/base_java_script.gradle"
 
 apply from: "../create_version_file.gradle"
@@ -65,5 +69,3 @@ dependencies {
 tasks.withType(Test) {
     systemProperty "java.library.path", "$rootDir/ctre_override/build/libs/ctreSimulation/shared"
 }
-
-apply from: "publish.gradle"

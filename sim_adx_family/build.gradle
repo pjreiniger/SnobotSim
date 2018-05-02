@@ -14,8 +14,12 @@ ext
     ]
     
     libraryBaseName = 'adx_family_jni'
-    librarySrcDirs = ['src/main/native/sim']
-    libraryHeaderDirs = ["cpp/lib"]
+    librarySrcDirs = ['src/main/native/cpp/sim']
+    libraryHeaderDirs = ['src/main/native/cpp/sim']
+    
+    baseId = "adx_family"
+    baseArtifactId = 'adx_family'
+    artifactGroupId = 'com.snobot.simulator'
 }
 
 if (!project.hasProperty('onlyAthena')) {

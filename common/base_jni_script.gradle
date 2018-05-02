@@ -84,3 +84,5 @@ model {
         }
     }
 }
+
+apply from: "${rootDir}/common/base_jni_publish.gradle"

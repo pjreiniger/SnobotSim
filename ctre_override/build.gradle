@@ -17,6 +17,10 @@ ext
                           ctreHeaders + "/ctre/phoenix/jni",
                           "${rootDir}/snobot_sim_gui/src/arm-linux-jni",
                           "${rootDir}/snobot_sim_gui/src/arm-linux-jni/linux", ]
+                          
+    baseId = "ctre_override"
+    baseArtifactId = 'ctre_override'
+    artifactGroupId = 'com.snobot.simulator'
 }
 
 

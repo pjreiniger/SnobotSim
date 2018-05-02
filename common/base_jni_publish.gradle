@@ -1,6 +1,7 @@
 apply plugin: 'maven-publish'
 apply plugin: 'edu.wpi.first.wpilib.versioning.WPILibVersioningPlugin'
 
+
 if (!hasProperty('releaseType')) {
     WPILibVersion {
         releaseType = 'dev'
@@ -14,43 +15,38 @@ if (project.hasProperty("publishVersion")) {
     pubVersion = WPILibVersion.version
 }
 
-def baseArtifactId = 'navx_simulator'
-def artifactGroupId = 'com.snobot.simulator.navx_sim'
-
 def outputsFolder = file("$project.buildDir/outputs")
+
+def baseArtifactId = libraryName
+def artifactGroupId = "edu.wpi.first.${libraryName}"
+def zipBaseName = "_GROUP_edu_wpi_first_${libraryName}_ID_${libraryName}-cpp_CLS"
+def jniBaseName = "_GROUP_edu_wpi_first_${libraryName}_ID_${libraryName}-jni_CLS"
 
 task cppHeadersZip(type: Zip) {
     destinationDir = outputsFolder
-    baseName = 'navx_simulator'
+    baseName = zipBaseName
     classifier = "headers"
 
-    from('src/main/native/include') {
+    from(project.libraryHeaderDirs) {
         into '/'
     }
 }
 
 task cppSourcesZip(type: Zip) {
     destinationDir = outputsFolder
-    baseName = 'navx_simulator'
+    baseName = zipBaseName
     classifier = "sources"
+    
+    println project.librarySrcDirs
 
-    from('src/main/native/cpp') {
+    from(project.librarySrcDirs) {
         into '/'
     }
 }
 
+
 model {
     publishing {
-        def libSpec
-        $.components.each {
-            if (it in NativeLibrarySpec) {
-                $.binaries.each {
-                    if (it in SharedLibraryBinarySpec) {
-                        libSpec = it.sharedLibraryFile
-                    }
-                }
-            }
-        }
         repositories {
            maven {
                url maven_publishing_path
@@ -58,13 +54,13 @@ model {
         }
         publications {
             cpp(MavenPublication) {
-                artifact libSpec
-                artifactId = baseArtifactId
-                groupId artifactGroupId
+                artifactId = project.baseArtifactId
+                groupId project.artifactGroupId
                 version maven_version
 
                 artifact cppHeadersZip
                 artifact cppSourcesZip
+                artifact project."packageNative${libraryName}FilesInJar"
             }
         }
     }
