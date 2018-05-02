@@ -191,10 +191,7 @@ MotorControllerWrapper* ConvertToMotorControllerWrapper(void* param)
 }
 
 extern "C" {
-void c_Testblah(void)
-{
-    LOG_UNSUPPORTED_CAN_FUNC("");
-}
+
 void* c_MotController_Create1(int baseArbId)
 {
     MotorControllerWrapper* output = new MotorControllerWrapper(baseArbId);
@@ -207,10 +204,20 @@ ctre::phoenix::ErrorCode c_MotController_GetDeviceNumber(void* handle, int* devi
     *deviceNumber = wrapper->mDeviceId;
     return (ctre::phoenix::ErrorCode)0;
 }
+ctre::phoenix::ErrorCode c_MotController_GetDescription(void *handle, char * toFill, int toFillByteSz, int * numBytesFilled)
+{
+    LOG_UNSUPPORTED_CAN_FUNC("");
+    return (ctre::phoenix::ErrorCode)0;
+}
 ctre::phoenix::ErrorCode c_MotController_SetDemand(void* handle, int mode, int demand0, int demand1)
 {
     MotorControllerWrapper* wrapper = ConvertToMotorControllerWrapper(handle);
     wrapper->Send("SetDemand", mode, demand0, demand1);
+    return (ctre::phoenix::ErrorCode)0;
+}
+ctre::phoenix::ErrorCode c_MotController_Set_4(void *handle, int mode, double demand0, double demand1, int demand1Type)
+{
+    LOG_UNSUPPORTED_CAN_FUNC("");
     return (ctre::phoenix::ErrorCode)0;
 }
 void c_MotController_SetNeutralMode(void* handle, int neutralMode)
@@ -309,6 +316,11 @@ ctre::phoenix::ErrorCode c_MotController_GetTemperature(void* handle, double* te
 {
     RECEIVE_HELPER("GetTemperature", sizeof(*temperature));
     PoplateReceiveResults(buffer, temperature, buffer_pos);
+    return (ctre::phoenix::ErrorCode)0;
+}
+ctre::phoenix::ErrorCode c_MotController_ConfigSelectedFeedbackCoefficient(void *handle, double coefficient, int pidIdx, int timeoutMs)
+{
+    LOG_UNSUPPORTED_CAN_FUNC("");
     return (ctre::phoenix::ErrorCode)0;
 }
 ctre::phoenix::ErrorCode c_MotController_ConfigRemoteFeedbackFilter(void* handle, int arbId, int peripheralIdx, int reserved, int timeoutMs)
@@ -465,6 +477,16 @@ ctre::phoenix::ErrorCode c_MotController_ConfigMaxIntegralAccumulator(void* hand
 {
     MotorControllerWrapper* wrapper = ConvertToMotorControllerWrapper(handle);
     wrapper->Send("ConfigMaxIntegralAccumulator", slotIdx, iaccum);
+    return (ctre::phoenix::ErrorCode)0;
+}
+ctre::phoenix::ErrorCode c_MotController_ConfigClosedLoopPeakOutput(void *handle, int slotIdx, double percentOut, int timeoutMs)
+{
+    LOG_UNSUPPORTED_CAN_FUNC("");
+    return (ctre::phoenix::ErrorCode)0;
+}
+ctre::phoenix::ErrorCode c_MotController_ConfigClosedLoopPeriod(void *handle, int slotIdx, int loopTimeMs, int timeoutMs)
+{
+    LOG_UNSUPPORTED_CAN_FUNC("");
     return (ctre::phoenix::ErrorCode)0;
 }
 ctre::phoenix::ErrorCode c_MotController_SetIntegralAccumulator(void* handle, double iaccum, int pidIdx, int timeoutMs)

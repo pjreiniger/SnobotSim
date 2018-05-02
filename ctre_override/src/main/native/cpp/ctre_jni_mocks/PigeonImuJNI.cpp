@@ -5,6 +5,7 @@
 
 #include "com_ctre_phoenix_Sensors_PigeonImuJNI.h"
 #include "ctre/phoenix/CCI/PigeonIMU_CCI.h"
+#include "MockHookUtilities.h"
 
 #define GET_THREE_AXIS(type, capType, funcName, size)      \
                                                            \
@@ -48,6 +49,20 @@ JNIEXPORT jlong JNICALL Java_com_ctre_phoenix_sensors_PigeonImuJNI_JNI_1new_1Pig
 JNIEXPORT jint JNICALL Java_com_ctre_phoenix_sensors_PigeonImuJNI_JNI_1ConfigSetCustomParam(JNIEnv*, jclass, jlong handle, jint newValue, jint paramIndex, jint timeoutMs)
 {
     return (jint)c_PigeonIMU_ConfigSetCustomParam(&handle, newValue, paramIndex, timeoutMs);
+}
+
+
+/*
+ * Class:     com_ctre_phoenix_sensors_PigeonImuJNI
+ * Method:    JNI_ConfigGetCustomParam
+ * Signature: (JII)I
+ */
+JNIEXPORT jint JNICALL Java_com_ctre_phoenix_sensors_PigeonImuJNI_JNI_1ConfigGetCustomParam
+  (JNIEnv *, jclass, jlong aHandle, jint paramIndex, jint timoutMs)
+{
+    int output = 0;
+    c_PigeonIMU_ConfigGetCustomParam(&aHandle, &output, paramIndex, timoutMs);
+    return output;
 }
 
 /*
