@@ -66,6 +66,10 @@ public final class EncoderCallbackJni
             {
                 sLOGGER.log(Level.DEBUG, "Ignoring count feedback");
             }
+            else if ("Period".equals(aCallbackType))
+            {
+                sLOGGER.log(Level.DEBUG, "Ignoring period feedback");
+            }
             else if ("Reset".equals(aCallbackType))
             {
                 SensorActuatorRegistry.get().getEncoders().get(mPort).reset();

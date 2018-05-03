@@ -240,15 +240,6 @@ Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setJoystickButtons(
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationSim
- * Method:    setMatchInfo
- * Signature: (Ledu/wpi/first/wpilibj/hal/MatchInfoData;)V
- */
-JNIEXPORT void JNICALL
-Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setMatchInfo(
-    JNIEnv* env, jclass, jobject info) {}
-
-/*
- * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationSim
  * Method:    registerAllCallbacks
  * Signature: (Ledu/wpi/first/hal/sim/NotifyCallback;Z)V
  */
@@ -294,6 +285,28 @@ JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_
   (JNIEnv *, jclass, jdouble matchTime)
 {
     HALSIM_SetDriverStationMatchTime(matchTime);
+}
+
+
+/*
+ * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI
+ * Method:    setMatchInfo
+ * Signature: (Ljava/lang/String;IIILjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setMatchInfo
+(JNIEnv * env, jclass, jstring aEventName, jint aMatchTypeVal, jint aMatchNumber, jint aReplayNumber, jstring aGameSpecificMessage)
+{
+  std::string eventName = env->GetStringUTFChars(aEventName, NULL);
+  std::string gameSpecificMessage = env->GetStringUTFChars(aGameSpecificMessage, NULL);
+
+  HAL_MatchInfo matchInfo;
+  matchInfo.eventName = const_cast<char*>(eventName.c_str());
+  matchInfo.gameSpecificMessage = const_cast<char*>(gameSpecificMessage.c_str());
+  matchInfo.matchType = (HAL_MatchType) aMatchTypeVal;
+  matchInfo.replayNumber = aReplayNumber;
+  matchInfo.matchNumber  = aMatchNumber;
+
+  HALSIM_SetMatchInfo(&matchInfo);
 }
 
 JNIEXPORT void JNICALL

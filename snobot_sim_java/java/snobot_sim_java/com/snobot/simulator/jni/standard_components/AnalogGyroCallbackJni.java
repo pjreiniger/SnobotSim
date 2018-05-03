@@ -7,8 +7,7 @@ import org.apache.logging.log4j.Logger;
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.simulator_components.gyro.AnalogGyroWrapper;
 
-import edu.wpi.first.hal.sim.mockdata.AnalogInDataJNI;
-import edu.wpi.first.wpilibj.SensorBase;
+import edu.wpi.first.hal.sim.mockdata.AnalogGyroDataJNI;
 import edu.wpi.first.wpilibj.sim.SimValue;
 
 public final class AnalogGyroCallbackJni
@@ -48,9 +47,11 @@ public final class AnalogGyroCallbackJni
 
     public static void reset()
     {
-        for (int i = 0; i < SensorBase.kAnalogInputChannels; ++i)
+        for (int i = 0; i < 2; ++i)
         {
-            AnalogInDataJNI.registerInitializedCallback(i, new AnalogGyroCallback(i), false);
+            AnalogGyroDataJNI.resetData(i);
+
+            AnalogGyroDataJNI.registerInitializedCallback(i, new AnalogGyroCallback(i), false);
         }
     }
 }

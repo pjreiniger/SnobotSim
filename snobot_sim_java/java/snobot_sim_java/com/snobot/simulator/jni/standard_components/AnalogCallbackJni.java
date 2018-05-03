@@ -22,9 +22,9 @@ public final class AnalogCallbackJni
 
     }
 
-    private static class AnalogCallback extends PortBasedNotifyCallback
+    private static class AnalogInCallback extends PortBasedNotifyCallback
     {
-        public AnalogCallback(int aIndex)
+        public AnalogInCallback(int aIndex)
         {
             super(aIndex);
         }
@@ -44,6 +44,43 @@ public final class AnalogCallbackJni
                     }
                 }), mPort);
             }
+            else if ("Voltage".equals(aCallbackType))
+            {
+                sLOGGER.log(Level.DEBUG, "Ignoring voltage feedback");
+            }
+            else
+            {
+                sLOGGER.log(Level.ERROR, "Unknown Analog callback " + aCallbackType + " - " + aHalValue);
+            }
+        }
+    }
+
+    private static class AnalogOutCallback extends PortBasedNotifyCallback
+    {
+        public AnalogOutCallback(int aIndex)
+        {
+            super(aIndex);
+        }
+
+        @Override
+        public void callback(String aCallbackType, SimValue aHalValue)
+        {
+            if ("Initialized".equals(aCallbackType))
+            {
+                SensorActuatorRegistry.get().register(new AnalogWrapper(mPort, new VoltageSetterHelper()
+                {
+
+                    @Override
+                    public void setVoltage(double aVoltage)
+                    {
+                        AnalogOutDataJNI.setVoltage(mPort, aVoltage);
+                    }
+                }), mPort);
+            }
+            else if ("Voltage".equals(aCallbackType))
+            {
+                sLOGGER.log(Level.DEBUG, "Ignoring voltage feedback");
+            }
             else
             {
                 sLOGGER.log(Level.ERROR, "Unknown Analog callback " + aCallbackType + " - " + aHalValue);
@@ -57,7 +94,7 @@ public final class AnalogCallbackJni
         {
             AnalogInDataJNI.resetData(i);
 
-            AnalogCallback callback = new AnalogCallback(i);
+            AnalogInCallback callback = new AnalogInCallback(i);
             AnalogInDataJNI.registerInitializedCallback(i, callback, false);
             AnalogInDataJNI.registerAverageBitsCallback(i, callback, false);
             AnalogInDataJNI.registerOversampleBitsCallback(i, callback, false);
@@ -72,7 +109,7 @@ public final class AnalogCallbackJni
         {
             AnalogOutDataJNI.resetData(i);
 
-            AnalogCallback callback = new AnalogCallback(i);
+            AnalogOutCallback callback = new AnalogOutCallback(i);
             AnalogOutDataJNI.registerInitializedCallback(i, callback, false);
             AnalogOutDataJNI.registerVoltageCallback(i, callback, false);
         }

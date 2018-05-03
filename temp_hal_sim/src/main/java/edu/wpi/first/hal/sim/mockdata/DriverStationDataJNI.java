@@ -51,5 +51,7 @@ public class DriverStationDataJNI extends XXJNIWrapper {
   public static native double getMatchTime();
   public static native void setMatchTime(double matchTime);
 
+    public static native void setMatchInfo(String aEventName, int aMatchTypeVal, int aMatchNumber, int aReplayNumber, String aGameSpecificMessage);
+
   public static native void resetData();
 }

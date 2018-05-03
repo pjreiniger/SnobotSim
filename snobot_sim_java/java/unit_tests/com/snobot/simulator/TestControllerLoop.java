@@ -2,6 +2,7 @@ package com.snobot.simulator;
 
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
@@ -64,7 +65,7 @@ public class TestControllerLoop extends BaseSimulatorTest
         }
     }
 
-    // @Ignore("Match Time isn't sim friendly")
+    @Ignore("Match Time isn't sim friendly")
     @Test
     public void testControlLoop() throws Exception
     {

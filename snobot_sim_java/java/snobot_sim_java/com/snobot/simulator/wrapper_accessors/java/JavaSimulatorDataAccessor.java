@@ -255,7 +255,6 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     @Override
     public void setJoystickInformation(int aJoystickHandle, float[] aAxesArray, short[] aPovsArray, int aButtonCount, int aButtonMask)
     {
-        System.out.println("Settings stuff...");
         DriverStationDataJNI.setJoystickAxes((byte) aJoystickHandle, aAxesArray);
         DriverStationDataJNI.setJoystickPOVs((byte) aJoystickHandle, aPovsArray);
         DriverStationDataJNI.setJoystickButtons((byte) aJoystickHandle, aButtonMask, aButtonCount);
@@ -264,10 +263,7 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     @Override
     public void setMatchInfo(String aEventName, MatchType aMatchType, int aMatchNumber, int aReplayNumber, String aGameSpecificMessage)
     {
-        // SimulatorJNI.set
-        // DriverStationSimulatorJni.setMatchInfo(aEventName,
-        // aMatchType.ordinal(), aMatchNumber, aReplayNumber,
-        // aGameSpecificMessage);
+        DriverStationDataJNI.setMatchInfo(aEventName, aMatchType.ordinal(), aMatchNumber, aReplayNumber, aGameSpecificMessage);
     }
 
     @Override
