@@ -19,9 +19,9 @@ def linux32BitArg = '-m32'
 
 def macCompilerArgs = ['-std=c++11', '-Wall', '-Wextra', '-Werror', '-pedantic-errors', '-fPIC', '-g',
                        '-Wno-unused-parameter', '-Wno-error=deprecated-declarations', '-Wno-missing-field-initializers',
-                       '-Wno-unused-private-field', '-Wno-unused-const-variable', '-pthread']
+                       '-Wno-unused-private-field', '-Wno-unused-const-variable', '-Wno-nullability-extension', '-pthread']
 def macCCompilerArgs = ['-Wall', '-Wextra', '-Werror', '-pedantic-errors', '-fPIC', '-g',
-                        '-Wno-unused-parameter', '-Wno-missing-field-initializers', '-Wno-unused-private-field']
+                        '-Wno-unused-parameter', '-Wno-missing-field-initializers', '-Wno-unused-private-field', '-Wno-nullability-extension']
 def macObjCLinkerArgs = ['-std=c++11', '-stdlib=libc++','-fobjc-arc', '-g', '-fPIC', '-Wall', '-Wextra', '-Werror']
 def macReleaseCompilerArgs = ['-O2']
 def macDebugCompilerArgs = ['-O0']
