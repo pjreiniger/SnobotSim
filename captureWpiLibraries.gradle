@@ -16,6 +16,7 @@ dependencies {
     wpilibNativeDeps 'edu.wpi.first.wpiutil:wpiutil-cpp:' + allwpilibVersion() + ':all@zip'
     wpilibNativeDeps 'edu.wpi.first.hal:hal-cpp:' + allwpilibVersion() + ':all@zip'
     wpilibNativeDeps 'edu.wpi.first.halsim:halsim_adx_gyro_accelerometer:' + allwpilibVersion() + ':all@zip'
+    wpilibNativeDeps 'edu.wpi.first.thirdparty.frc2018:uvw:1.8.1-1.20.3:all@zip'
 }
 
 task extractWpilibNativeDeps(type: Copy) {

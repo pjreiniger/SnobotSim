@@ -98,25 +98,6 @@ def mac32PlatformDetect = {
     }
 }
 
-if (!project.hasProperty('skipAthena')) {
-    model {
-        buildConfigs {
-            roboRio(CrossBuildConfig) {
-                architecture = 'athena'
-                operatingSystem = 'linux'
-                toolChainPrefix = 'arm-frc-linux-gnueabi-'
-                compilerArgs = linuxCompilerArgs
-                CCompilerArgs = linuxCCompilerArgs
-                linkerArgs = linuxLinkerArgs
-                debugCompilerArgs = linuxDebugCompilerArgs
-                releaseCompilerArgs = linuxReleaseCompilerArgs
-                releaseStripBinaries = true
-                compilerFamily = 'Gcc'
-            }
-        }
-    }
-}
-
 if (!project.hasProperty('onlyAthena')) {
     model {
         buildConfigs {
