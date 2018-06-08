@@ -1,6 +1,6 @@
 
 #include <jni.h>
-#include <support/jni_util.h>
+#include <wpi/jni_util.h>
 
 #include <iostream>
 

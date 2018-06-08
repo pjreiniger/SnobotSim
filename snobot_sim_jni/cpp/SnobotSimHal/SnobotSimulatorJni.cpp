@@ -13,7 +13,7 @@
 #include "SnobotSim/SimulatorComponents/Spi/SpiWrapperFactory.h"
 #include "SnobotSim/SnobotSimHalVersion.h"
 #include "com_snobot_simulator_jni_SnobotSimulatorJni.h"
-#include "support/jni_util.h"
+#include "wpi/jni_util.h"
 
 using namespace wpi::java;
 

@@ -11,7 +11,7 @@
 #include <jni.h>
 
 #include "SnobotSim/MotorSim/DcMotorModelConfig.h"
-#include "support/jni_util.h"
+#include "wpi/jni_util.h"
 
 namespace ConversionUtils
 {

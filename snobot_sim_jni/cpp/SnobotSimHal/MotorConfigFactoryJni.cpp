@@ -6,7 +6,7 @@
 #include "ConversionUtils.h"
 #include "SnobotSim/MotorFactory/VexMotorFactory.h"
 #include "com_snobot_simulator_jni_MotorConfigFactoryJni.h"
-#include "support/jni_util.h"
+#include "wpi/jni_util.h"
 
 extern "C"
 {
