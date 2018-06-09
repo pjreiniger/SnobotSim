@@ -47,6 +47,14 @@ tasks.withType(Test) {
     systemProperty "java.library.path", "$rootDir/ctre_override/build/libs/ctreSimulation/shared"
 }
 
+eclipse.classpath.file.whenMerged { classpath ->
+    classpath.entries.each {
+        if(it.path.contains("ctre_override")) {
+            it.setNativeLibraryLocation("$rootDir/ctre_override/build/libs/ctreSimulation/shared")
+        }
+    }
+}
+
 test {
     useJUnitPlatform {
         excludeTags 'NavX'

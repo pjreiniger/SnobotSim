@@ -9,7 +9,9 @@ import com.snobot.simulator.DefaultDataAccessorFactory;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.simulator.wrapper_accessors.SimulatorDataAccessor.SnobotLogLevel;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpiutil.RuntimeDetector;
 
 public class BaseSimulatorTest
 {
@@ -58,5 +60,9 @@ public class BaseSimulatorTest
     public void cleanup()
     {
         // Nothing to do
+        if (!RuntimeDetector.isWindows())
+        {
+            DriverStation.getInstance().release();
+        }
     }
 }
