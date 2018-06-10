@@ -35,4 +35,6 @@ cache:
     - $HOME/.gradle/wrapper/
 
 script:
+  - gcc --version
+  - g++ --version
   - ./gradlew build
