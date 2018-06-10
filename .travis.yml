@@ -16,7 +16,7 @@ before_install:
   - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
   - sudo apt-get update -q || true
   - sudo apt-get install clang-format-5.0 -y
-  - sudo '\n' | add-apt-repository ppa:ubuntu-toolchain-r/test 
+  - sudo sh -c "'\n' | add-apt-repository ppa:ubuntu-toolchain-r/test" 
   - sudo apt-get update
   - sudo apt-get upgrade
   - sudo apt-get dist-upgrade
