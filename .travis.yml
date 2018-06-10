@@ -1,76 +1,38 @@
+sudo: true
+dist: trusty
 language: java
-matrix:
-  include:
-  - os: linux
-    dist: trusty
-    sudo: required
-    group: edge
-
-  - os: osx
-    osx_image: xcode8
-
-notifications:
-  email: false
 
 addons:
   apt:
     sources:
-    - 'deadsnakes'
-    - 'ubuntu-toolchain-r-test'
+      - deadsnakes
+      - ubuntu-toolchain-r-test
     packages:
-    - g++-multilib
-    - lib32stdc++6
-    - libstdc++6
-    - python3.5-dev
+      - g++-6
+      - python3.5-dev
+
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo sh -c 'echo "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main" > /etc/apt/sources.list.d/llvm.list'; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -q || true; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install clang-format-5.0 -y; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install libstdc++6; fi;
-before_cache:
-- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - sudo sh -c 'echo "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main" > /etc/apt/sources.list.d/llvm.list'
+  - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+  - sudo apt-get update -q || true
+  - sudo apt-get install clang-format-5.0 -y
+
 install:
   - wget https://bootstrap.pypa.io/get-pip.py
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo python3.5 get-pip.py; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python3.5 -m pip install --user wpiformat; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python3.5 -m pip install --user yapf; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then mkdir -p $HOME/latest-gcc-symlinks; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ln -s /usr/bin/g++-6 $HOME/latest-gcc-symlinks/g++; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ln -s /usr/bin/gcc-6 $HOME/latest-gcc-symlinks/gcc; fi;
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=$HOME/latest-gcc-symlinks:$PATH; fi;
+  - sudo python3.5 get-pip.py
+  - python3.5 -m pip install --user wpiformat
+  - mkdir -p $HOME/latest-gcc-symlinks  # see travis-ci/travis-ci#3668
+  - ln -s /usr/bin/g++-6 $HOME/latest-gcc-symlinks/g++
+  - ln -s /usr/bin/gcc-6 $HOME/latest-gcc-symlinks/gcc
+  - export PATH=$HOME/latest-gcc-symlinks:$PATH
+
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+
 cache:
   directories:
-  - "$HOME/.gradle/caches/"
-  - "$HOME/.gradle/wrapper/"
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
 script:
-#- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python3.5 -m wpiformat -y 2018 -clang 5.0; fi;
-#- git --no-pager diff --exit-code HEAD  # Ensure formatter made no changes
-- "./gradlew build -i jacocoTestReport"
-- git clone --depth=50 --branch=master https://github.com/pjreiniger/maven_repo.git ../../pjreiniger/maven_repo
-- "./gradlew build publish -Pmaven_repo=../../pjreiniger/maven_repo"
-- echo "built..."
-- ls
-- ls ..
-- ls ../..
-- ls ../../pjreiniger
-- ls ../../pjreiniger/maven_repo
-
-#after_success:
-#  - bash <(curl -s https://codecov.io/bash)
-
-deploy:
-  - provider: script
-    script: pwd; cd ../../pjreiniger/maven_repo; pwd; ls; chmod +x commit_updates.sh; ./commit_updates.sh
-    skip_cleanup: true
-    on:
-      branch: master
-  - provider: script
-    script: pwd; cd ../../pjreiniger/maven_repo; pwd; ls; chmod +x commit_updates.sh; ./commit_updates.sh
-    skip_cleanup: true
-    on:
-      branch: dev-2019
-
-env:
-  global:
-    secure: J81JK5zokRdrB8TfUC/sF0kXzrlAO7C2GN0nEOGJK22FMm0LlT/ECd1GrCjRWc/eHDQAXZVNliBVr9l5lXmt3iOxwAeBK/kMI/pxL5VMz7WelRBM8ibPtW5Tuj5JRpviCYygXVl8maOFVACWCovsZoJFot7DVEn+l20WfItmuZ0lyUmRT4+aS4OumxYO/LMS21Okw6xPYqixmb2MAetfmsDN13M2SUQY6KWbxUrrL3HyADSMLtI7ojquetAt0SBXBAnQ1VgLMvBw9Km4K2iKnKMUnEvadLGFFZu8Z2Q7bbDZyvKuU3KXeyzWFkskOmmw4cBw3egzfLXas+W4eJ9wOUnYrF5zI3VDP4tamDpLJEBalg36+dAy2eccQxbF5/4GRk4S5aLc0ZIkrVwWm+qc1Tht8oNCsesrVM5geQZRu3tUJgHECQu6Gc8ubCOVN8pAAVVZki5q1VHiLm08huAlVmnc7L549k1Y3Gj/qPc54enySSK0qAeCwult0cEO0w6KjahLGh+xqX08iWr/KXeZezM7HKcEMljnssCvp94VP7dhwjaskwd4Xw8e4n5yl2cLEGc+8MnvAeQXg9gnz1mn2fiBhAdMeTlnXgb6BrqiQ3toPTxOvOpzalBGL+93EPczlu2S1oNMEvxEFy9ATH236suuHQcEvbm9jebqPrbhi4k=
+  - ./gradlew build
