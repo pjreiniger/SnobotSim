@@ -12,17 +12,20 @@ addons:
       - python3.5-dev
 
 before_install:
+  - strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
   - sudo sh -c 'echo "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main" > /etc/apt/sources.list.d/llvm.list'
   - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
   - sudo apt-get update -q || true
   - sudo apt-get install clang-format-5.0 -y
+  - strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
   - sudo sh -c "'\n' | add-apt-repository ppa:ubuntu-toolchain-r/test" 
+  - strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
   - sudo apt-get update
-  - sudo apt-get upgrade
-  - sudo apt-get dist-upgrade
+  - strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
+  #- sudo apt-get upgrade
+  #- sudo apt-get dist-upgrade
 
 install:
-  - strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
   - wget https://bootstrap.pypa.io/get-pip.py
   - sudo python3.5 get-pip.py
   - python3.5 -m pip install --user wpiformat
