@@ -23,7 +23,7 @@ before_install:
   - sudo apt-get update
   - strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
   #- sudo apt-get upgrade
-  #- sudo apt-get dist-upgrade
+  - sudo apt-get dist-upgrade
 
 install:
   - wget https://bootstrap.pypa.io/get-pip.py
