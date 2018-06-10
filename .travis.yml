@@ -10,7 +10,7 @@ language: java
 //    packages:
 //      - g++-6
 //      - python3.5-dev
-//
+// 
 //before_install:
 //  - strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
 //  - sudo sh -c 'echo "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main" > /etc/apt/sources.list.d/llvm.list'
