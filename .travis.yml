@@ -8,7 +8,7 @@ addons:
       - deadsnakes
       - ubuntu-toolchain-r-test
     packages:
-      - g++-5
+      - g++-6
       - python3.5-dev
 
 before_install:
