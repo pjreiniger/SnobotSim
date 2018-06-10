@@ -35,6 +35,11 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo python3.5 get-pip.py; fi;
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python3.5 -m pip install --user wpiformat; fi;
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python3.5 -m pip install --user yapf; fi;
+  
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; mkdir -p $HOME/latest-gcc-symlinks; fi;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; ln -s /usr/bin/g++-6 $HOME/latest-gcc-symlinks/g++; fi;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; ln -s /usr/bin/gcc-6 $HOME/latest-gcc-symlinks/gcc; fi;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; export PATH=$HOME/latest-gcc-symlinks:$PATH; fi;
 cache:
   directories:
   - "$HOME/.gradle/caches/"

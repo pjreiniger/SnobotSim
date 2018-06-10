@@ -7,7 +7,7 @@ def windowsReleaseCompilerArgs = ['/O2']
 def windowsLinkerArgs = ['/DEBUG:FULL']
 def windowsReleaseLinkerArgs = ['/OPT:REF', '/OPT:ICF']
 
-def linuxCompilerArgs = ['-std=c++1y', '-Wformat=2', '-Wall', '-Wextra', '-Werror', '-pedantic', '-Wno-psabi', '-g',
+def linuxCompilerArgs = ['-std=c++14', '-Wformat=2', '-Wall', '-Wextra', '-Werror', '-pedantic', '-Wno-psabi', '-g',
                          '-Wno-unused-parameter', '-Wno-error=deprecated-declarations', '-fPIC', '-rdynamic',
                          '-pthread']
 def linuxCCompilerArgs = ['-Wformat=2', '-Wall', '-Wextra', '-Werror', '-pedantic', '-Wno-psabi', '-g',
@@ -17,12 +17,12 @@ def linuxReleaseCompilerArgs = ['-Og']
 def linuxDebugCompilerArgs = ['-O0']
 def linux32BitArg = '-m32'
 
-def macCompilerArgs = ['-std=c++11', '-Wall', '-Wextra', '-Werror', '-pedantic-errors', '-fPIC', '-g',
+def macCompilerArgs = ['-std=c++14', '-Wall', '-Wextra', '-Werror', '-pedantic-errors', '-fPIC', '-g',
                        '-Wno-unused-parameter', '-Wno-error=deprecated-declarations', '-Wno-missing-field-initializers',
                        '-Wno-unused-private-field', '-Wno-unused-const-variable', '-Wno-nullability-extension', '-Wno-nullability-completeness', '-pthread']
 def macCCompilerArgs = ['-Wall', '-Wextra', '-Werror', '-pedantic-errors', '-fPIC', '-g',
                         '-Wno-unused-parameter', '-Wno-missing-field-initializers', '-Wno-unused-private-field', '-Wno-nullability-extension', '-Wno-nullability-completeness']
-def macObjCLinkerArgs = ['-std=c++11', '-stdlib=libc++','-fobjc-arc', '-g', '-fPIC', '-Wall', '-Wextra', '-Werror']
+def macObjCLinkerArgs = ['-std=c++14', '-stdlib=libc++','-fobjc-arc', '-g', '-fPIC', '-Wall', '-Wextra', '-Werror']
 def macReleaseCompilerArgs = ['-O2']
 def macDebugCompilerArgs = ['-O0']
 def macLinkerArgs = ['-framework', 'CoreFoundation', '-framework', 'AVFoundation', '-framework', 'Foundation', '-framework', 'CoreMedia', '-framework', 'CoreVideo']
