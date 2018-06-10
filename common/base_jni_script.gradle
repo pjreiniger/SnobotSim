@@ -20,7 +20,6 @@ task "packageNative${libraryName}FilesInJar"(type: Jar) {
 
     project.model {
         binaries {
-            println "Unpacking ${libraryName}"
             withType(SharedLibraryBinarySpec) { binary ->
                 if (binary.component.name == project.libraryName)
                 {
