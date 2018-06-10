@@ -16,12 +16,13 @@ before_install:
   - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
   - sudo apt-get update -q || true
   - sudo apt-get install clang-format-5.0 -y
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test 
+  - sudo '\n' | add-apt-repository ppa:ubuntu-toolchain-r/test 
   - sudo apt-get update
   - sudo apt-get upgrade
   - sudo apt-get dist-upgrade
 
 install:
+  - strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
   - wget https://bootstrap.pypa.io/get-pip.py
   - sudo python3.5 get-pip.py
   - python3.5 -m pip install --user wpiformat
