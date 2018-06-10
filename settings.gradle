@@ -1,7 +1,7 @@
 
 import org.gradle.internal.os.OperatingSystem
 
-ext.build_simulator_cpp = org.gradle.internal.os.OperatingSystem.current().getFamilyName() == "windows"
+ext.build_simulator_cpp = true
 ext.build_simulator_java = true
 
 if(build_simulator_cpp)

@@ -26,54 +26,49 @@ ext.addNavxToLinker = { binary->
     binary.lib project: ':sim_extension_navx', library: 'navx_simulator', linkage: 'shared'
 }
 
-if (!project.hasProperty('onlyAthena')) {
-    ext.skipAthena = true
-
-
-    model {
-        dependencyConfigs {
-            wpiutil(DependencyConfig) {
-                groupId = 'edu.wpi.first.wpiutil'
-                artifactId = 'wpiutil-cpp'
-                headerClassifier = 'headers'
-                ext = 'zip'
-                version = allwpilibVersion()
-                sharedConfigs = [ navx_simulator: [],
-                                  navx_simulator_jni: [] ]
-            }
-            halsim(DependencyConfig) {
-                groupId = 'edu.wpi.first.hal'
-                artifactId = 'hal-cpp'
-                headerClassifier = 'headers'
-                ext = 'zip'
-                version = allwpilibVersion()
-                sharedConfigs = [ navx_simulator: [],
-                                  navx_simulator_jni: []  ]
-            }
+model {
+    dependencyConfigs {
+        wpiutil(DependencyConfig) {
+            groupId = 'edu.wpi.first.wpiutil'
+            artifactId = 'wpiutil-cpp'
+            headerClassifier = 'headers'
+            ext = 'zip'
+            version = allwpilibVersion()
+            sharedConfigs = [ navx_simulator: [],
+                              navx_simulator_jni: [] ]
         }
-        exportsConfigs {
-            navx_simulator(ExportsConfig) {
-                x86ExcludeSymbols = [ '_CT??_R0?AV_System_error', '_CT??_R0?AVexception', '_CT??_R0?AVfailure',
-                                      '_CT??_R0?AVbad_cast',
-                                      '_CT??_R0?AVruntime_error', '_CT??_R0?AVsystem_error', '_CTA5?AVfailure',
-                                      '_TI5?AVfailure' ]
-                x64ExcludeSymbols = [ '_CT??_R0?AV_System_error', '_CT??_R0?AVexception', '_CT??_R0?AVfailure',
-                                      '_CT??_R0?AVbad_cast',
-                                      '_CT??_R0?AVruntime_error', '_CT??_R0?AVsystem_error', '_CTA5?AVfailure',
-                                      '_TI5?AVfailure' ]
-            }
+        halsim(DependencyConfig) {
+            groupId = 'edu.wpi.first.hal'
+            artifactId = 'hal-cpp'
+            headerClassifier = 'headers'
+            ext = 'zip'
+            version = allwpilibVersion()
+            sharedConfigs = [ navx_simulator: [],
+                              navx_simulator_jni: []  ]
         }
-        components {
-            navx_simulator(NativeLibrarySpec) {
-                sources {
-                    cpp {
-                        source {
-                            srcDirs = [ 'src/main/native/cpp' ]
-                            includes = ["**/*.cpp"]
-                        }
-                        exportedHeaders {
-                            srcDirs = ["src/main/native/include"]
-                        }
+    }
+    exportsConfigs {
+        navx_simulator(ExportsConfig) {
+            x86ExcludeSymbols = [ '_CT??_R0?AV_System_error', '_CT??_R0?AVexception', '_CT??_R0?AVfailure',
+                                  '_CT??_R0?AVbad_cast',
+                                  '_CT??_R0?AVruntime_error', '_CT??_R0?AVsystem_error', '_CTA5?AVfailure',
+                                  '_TI5?AVfailure' ]
+            x64ExcludeSymbols = [ '_CT??_R0?AV_System_error', '_CT??_R0?AVexception', '_CT??_R0?AVfailure',
+                                  '_CT??_R0?AVbad_cast',
+                                  '_CT??_R0?AVruntime_error', '_CT??_R0?AVsystem_error', '_CTA5?AVfailure',
+                                  '_TI5?AVfailure' ]
+        }
+    }
+    components {
+        navx_simulator(NativeLibrarySpec) {
+            sources {
+                cpp {
+                    source {
+                        srcDirs = [ 'src/main/native/cpp' ]
+                        includes = ["**/*.cpp"]
+                    }
+                    exportedHeaders {
+                        srcDirs = ["src/main/native/include"]
                     }
                 }
             }

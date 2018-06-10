@@ -23,6 +23,10 @@ ext
         'com.snobot.simulator.jni.module_wrapper.SpeedControllerWrapperJni'
     ]
     
+    extra_libraries = [
+                        [':snobot_sim', 'snobotSimCpp', 'shared']
+                      ]
+    
     libraryBaseName = 'snobotSimJni'
     librarySrcDirs = [ 'cpp']
     libraryHeaderDirs = [ 'cpp' ]
@@ -39,36 +43,7 @@ apply from: "${rootDir}/common/base_jni_script.gradle"
 
 apply from: "$rootDir/captureWpiLibraries.gradle"
 
-task combineNativeLibrariesIntoOne(type: Jar) {
-
-    dependsOn packageNativesnobotSimJniFilesInJar
-    dependsOn captureWpiLibraries
-
-    def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
-
-    classifier = "uber_native-" + os_name;
-    
-    packageNativesnobotSimJniFilesInJar.outputs.files.each { 
-        from(zipTree(it))
-    }
-    
-    captureWpiLibraries.outputs.files.each {
-        from(zipTree(it))
-    }
-
-    from(zipTree('../snobot_sim/build/snobotSim-native-' + os_name + ".jar"))
-    
-    project(':ctre_override').packageNativeCtreSimulationFilesInJar.outputs.files.each {
-        from(zipTree(it))
-    }
-    
-    project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files.each {
-        from(zipTree(it))
-    }
-}
-
 dependencies {
-    compile project(":snobot_sim_utilities")
     
     compile 'edu.wpi.first.ntcore:ntcore-java:' + allwpilibVersion()
     compile 'edu.wpi.first.cscore:cscore-java:' + allwpilibVersion()
@@ -81,19 +56,23 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    
     testCompile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
     testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + allwpilibVersion() + ':all'
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + allwpilibVersion() + ':all'
     testRuntime 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
     testRuntime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
-    testRuntime combineNativeLibrariesIntoOne.outputs.files
-    testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
-    testRuntime project(':snobot_sim_jni').packageNativesnobotSimJniFilesInJar.outputs.files
     
-    testCompile project(':ctre_override')
     testCompile "openrio.mirror.third.ctre:CTRE-phoenix-java:" + getCtreVersion()
     testCompile "openrio.mirror.third.kauailabs:navx-java:" + getNavxVersion()
+    
+    compile project(":snobot_sim_utilities")
+    testRuntime captureWpiLibraries.outputs.files
+    testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
+    testRuntime project(':snobot_sim_jni').packageNativesnobotSimJniFilesInJar.outputs.files
+    testRuntime project(':snobot_sim').packageNativeFilesInJar.outputs.files
+    
     
 }
 
@@ -117,7 +96,7 @@ model {
             artifactId = 'wpiutil-cpp'
             headerClassifier = 'headers'
             ext = 'zip'
-            version = '+'
+            version = allwpilibVersion()
             sharedConfigs = [ snobotSimJni: [] ]
         }
         halsim(DependencyConfig) {
@@ -127,22 +106,6 @@ model {
             ext = 'zip'
             version = allwpilibVersion()
             sharedConfigs = [ snobotSimJni: [] ]
-        }
-    }
-    binaries {
-        withType(NativeBinarySpec) {
-        
-            if(it.targetPlatform.architecture.name != "athena")
-            {
-                project(':snobot_sim').addSnobotSimToLinker(it)
-            }
-            else
-            {
-                buildable = false
-            }
-        }
-        withType(StaticLibraryBinarySpec) {
-            it.buildable = false
         }
     }
 }

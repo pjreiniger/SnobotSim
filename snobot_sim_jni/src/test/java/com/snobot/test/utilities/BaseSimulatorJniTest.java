@@ -4,12 +4,14 @@ import java.io.File;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import com.snobot.simulator.jni.SnobotSimulatorJni;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.simulator.wrapper_accessors.jni.JniDataAccessor;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
 
 public class BaseSimulatorJniTest
@@ -82,5 +84,11 @@ public class BaseSimulatorJniTest
             aTask.run();
             DataAccessorFactory.getInstance().getSimulatorDataAccessor().updateSimulatorComponents(aUpdatePeriod);
         }
+    }
+
+    @AfterEach
+    public void shutdown()
+    {
+        DriverStation.getInstance().release();
     }
 }

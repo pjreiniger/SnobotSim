@@ -49,10 +49,13 @@ void BaseNavxWrapper::AccelerometerWrapper::SetAcceleration(double aAcceleration
     {
     case AXIS_X:
         mNavx->SetX(aAcceleration);
+        break;
     case AXIS_Y:
         mNavx->SetY(aAcceleration);
+        break;
     case AXIS_Z:
         mNavx->SetZ(aAcceleration);
+        break;
     }
 }
 
@@ -88,10 +91,13 @@ void BaseNavxWrapper::GyroWrapper::SetAngle(double aAngle)
     {
     case AXIS_YAW:
         mNavx->SetYaw(aAngle);
+        break;
     case AXIS_PITCH:
         mNavx->SetPitch(aAngle);
+        break;
     case AXIS_ROLL:
         mNavx->SetRoll(aAngle);
+        break;
     }
 }
 
