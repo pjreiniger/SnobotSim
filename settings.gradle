@@ -18,7 +18,6 @@ if(build_simulator_java)
 include 'sim_adx_family'
 include 'snobot_sim_utilities'
 include 'snobot_sim_gui'
-include 'ctre_override'
 include 'sim_extension_navx'
 
 

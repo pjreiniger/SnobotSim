@@ -51,7 +51,6 @@ dependencies {
     {
         compile project(":snobot_sim_java")
         runtime captureWpiLibraries.outputs.files
-        runtime project(':ctre_override').packageNativeCtreSimulationFilesInJar.outputs.files
         runtime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
         runtime project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files
     }
