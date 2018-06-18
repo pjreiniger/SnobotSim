@@ -23,6 +23,7 @@ task "packageNative${libraryName}FilesInJar"(type: Jar) {
             withType(SharedLibraryBinarySpec) { binary ->
                 if (binary.component.name == project.libraryName)
                 {
+                    dependsOn binary.buildTask
                     from(binary.sharedLibraryFile) {
                         into project.getNativeVersion(binary)
                     }
@@ -32,6 +33,7 @@ task "packageNative${libraryName}FilesInJar"(type: Jar) {
                     project.extra_libraries.each {
                         if (binary.component.name == it[1])
                         {
+                            dependsOn binary.buildTask
                             from(binary.sharedLibraryFile) {
                                 into project.getNativeVersion(binary)
                             }

@@ -28,6 +28,7 @@ task packageNativeFilesInJar(type: Jar) {
         binaries {
             withType(SharedLibraryBinarySpec) { binary ->
                 if (binary.component.name == 'snobotSimCpp') {
+                    dependsOn binary.buildTask
                     from(binary.sharedLibraryFile) {
                         into NativeUtils.getPlatformPath(binary)
                     }

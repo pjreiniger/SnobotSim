@@ -44,6 +44,7 @@ dependencies {
 }
 
 apply from: "$rootDir/common/prepare_ctre_library.gradle"
+compileJava.dependsOn prepareCtreLibrary
 tasks.withType(Test) {
     systemProperty "java.library.path", getCtreNativeExtractedLocation()
 }
