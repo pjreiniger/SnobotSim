@@ -10,7 +10,7 @@ dependencies {
 }
 
 task prepareCtreLibrary(type: Copy) {
-    
+
     destinationDir = file("$rootDir/build/ctre_native")
     configurations.ctreNativeLibrary.each {
         from(zipTree(it)) {
@@ -21,4 +21,3 @@ task prepareCtreLibrary(type: Copy) {
         }
     }
 }
-

@@ -35,20 +35,20 @@ task extractWpilibNativeDeps(type: Copy) {
 
 
 task captureWpiLibraries(type: Jar, dependsOn: extractWpilibNativeDeps) {
-    
+
     baseName = "native_wpilib"
     destinationDir = file("$rootDir/build/wpi_libraries")
     classifier = "all";
-    
+
     from(extractWpilibNativeDeps.destinationDir)
     includeEmptyDirs = false
-    
+
     eachFile {
-        
+
         if(it.getRelativePath().toString().contains("athena")) {
             it.exclude()
         }
-        
+
         it.setPath(it.getRelativePath().toString().replace("shared", ""))
     }
 }

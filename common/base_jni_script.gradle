@@ -58,7 +58,7 @@ model {
             jniCrossCompileOptions << JniCrossCompileOptions('linux', 'athena', ["${rootDir}/common/arm-linux-jni".toString(), "${rootDir}/common/arm-linux-jni/linux".toString()])
             sources {
                 cpp {
-                    source {                      
+                    source {
                         srcDirs = project.librarySrcDirs
                         includes = ["**/*.cpp"]
                     }
