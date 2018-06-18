@@ -39,7 +39,7 @@ test {
         events "failed"
         exceptionFormat "full"
     }
-    
+
     ignoreFailures = org.gradle.internal.os.OperatingSystem.current().isMacOsX()
 }
 

@@ -14,7 +14,6 @@ import edu.wpi.first.wpiutil.RuntimeDetector;
 
 public class TestLinking
 {
-
     @Test
     public void testLinking()
     {

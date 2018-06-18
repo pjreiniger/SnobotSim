@@ -5,13 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include <HAL/HAL.h>
-#include "ADXRS450_SpiGyroWrapperData.h"
 #include <iostream>
 
-int main() {
-	  HAL_Initialize(500, 0);
-		hal::ADXRS450_SpiGyroWrapper sim{1};
-		std::cout << "Hello" << std::endl;
-	return 0;
+#include <HAL/HAL.h>
+
+#include "ADXRS450_SpiGyroWrapperData.h"
+
+int main()
+{
+    HAL_Initialize(500, 0);
+    hal::ADXRS450_SpiGyroWrapper sim{ 1 };
+    std::cout << "Hello" << std::endl;
+    return 0;
 }

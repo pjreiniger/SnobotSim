@@ -26,9 +26,9 @@ cache:
 script:
 # - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python3.5 -m wpiformat -y 2018 -clang 5.0; fi;
 # - git --no-pager diff --exit-code HEAD  # Ensure formatter made no changes
-  - ./gradlew build -x :snobot_sim_gui:test -x :snobot_sim_jni:test
+  - ./gradlew build -x :snobot_sim_gui:test -x :snobot_sim_jni:test -i
 
-  
+
 deploy:
   - provider: script
     script: pwd; cd ../../pjreiniger/maven_repo; pwd; ls; chmod +x commit_updates.sh; ./commit_updates.sh
@@ -44,4 +44,3 @@ deploy:
 env:
   global:
     secure: J81JK5zokRdrB8TfUC/sF0kXzrlAO7C2GN0nEOGJK22FMm0LlT/ECd1GrCjRWc/eHDQAXZVNliBVr9l5lXmt3iOxwAeBK/kMI/pxL5VMz7WelRBM8ibPtW5Tuj5JRpviCYygXVl8maOFVACWCovsZoJFot7DVEn+l20WfItmuZ0lyUmRT4+aS4OumxYO/LMS21Okw6xPYqixmb2MAetfmsDN13M2SUQY6KWbxUrrL3HyADSMLtI7ojquetAt0SBXBAnQ1VgLMvBw9Km4K2iKnKMUnEvadLGFFZu8Z2Q7bbDZyvKuU3KXeyzWFkskOmmw4cBw3egzfLXas+W4eJ9wOUnYrF5zI3VDP4tamDpLJEBalg36+dAy2eccQxbF5/4GRk4S5aLc0ZIkrVwWm+qc1Tht8oNCsesrVM5geQZRu3tUJgHECQu6Gc8ubCOVN8pAAVVZki5q1VHiLm08huAlVmnc7L549k1Y3Gj/qPc54enySSK0qAeCwult0cEO0w6KjahLGh+xqX08iWr/KXeZezM7HKcEMljnssCvp94VP7dhwjaskwd4Xw8e4n5yl2cLEGc+8MnvAeQXg9gnz1mn2fiBhAdMeTlnXgb6BrqiQ3toPTxOvOpzalBGL+93EPczlu2S1oNMEvxEFy9ATH236suuHQcEvbm9jebqPrbhi4k=
-  

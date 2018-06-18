@@ -39,7 +39,7 @@
         <Method name="setupMotorSimulator"/>
         <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE" />
     </Match>
-    
+
     <!-- snobot_sim_utilities -->
     <Match>
         <Class name="com.snobot.simulator.JniLibraryResourceLoader"/>
