@@ -275,7 +275,7 @@ public class CtreManager
             aData.putDouble(wrapper.getPitchWrapper().getAngle());
             aData.putDouble(wrapper.getRollWrapper().getAngle());
         }
-        else if ("GetFusedHeading".equals(aName))
+        else if ("GetFusedHeading".equals(aName) || "GetFusedHeading1".equals(aName))
         {
             CtrePigeonImuSim wrapper = getPigeonWrapper(aPort);
 

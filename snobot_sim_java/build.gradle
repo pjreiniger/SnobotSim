@@ -24,7 +24,7 @@ dependencies {
     compile project(':sim_adx_family')
     compile project(':sim_extension_navx')
     compile 'com.snobot.simulator:ctre_sim_override:V0_5.1.1.1'
-    compile 'com.snobot.simulator:ctre_sim_override:V0_5.1.1.1:native-all'
+    testRuntime 'com.snobot.simulator:ctre_sim_override:V0_5.1.1.1:native-all'
     
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
@@ -43,17 +43,18 @@ dependencies {
     testRuntime project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files
 }
 
-//tasks.withType(Test) {
-//    systemProperty "java.library.path", "$rootDir/ctre_override/build/libs/ctreSimulation/shared"
-//}
-//
-//eclipse.classpath.file.whenMerged { classpath ->
-//    classpath.entries.each {
-//        if(it.path.contains("ctre_override")) {
-//            it.setNativeLibraryLocation("$rootDir/ctre_override/build/libs/ctreSimulation/shared")
-//        }
-//    }
-//}
+apply from: "$rootDir/common/prepare_ctre_library.gradle"
+tasks.withType(Test) {
+    systemProperty "java.library.path", getCtreNativeExtractedLocation()
+}
+
+eclipse.classpath.file.whenMerged { classpath ->
+    classpath.entries.each {
+        if(it.path.contains("ctre_sim_override")) {
+            it.setNativeLibraryLocation(getCtreNativeExtractedLocation())
+        }
+    }
+}
 
 test {
     useJUnitPlatform {

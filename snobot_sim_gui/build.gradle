@@ -59,7 +59,21 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
+    testRuntime 'com.snobot.simulator:ctre_sim_override:V0_5.1.1.1:native-all'
     testRuntime jar.outputs.files // Necessary for having resources in jar 
+}
+
+apply from: "$rootDir/common/prepare_ctre_library.gradle"
+tasks.withType(Test) {
+    systemProperty "java.library.path", getCtreNativeExtractedLocation()
+}
+
+eclipse.classpath.file.whenMerged { classpath ->
+    classpath.entries.each {
+        if(it.path.contains("ctre_sim_override")) {
+            it.setNativeLibraryLocation(getCtreNativeExtractedLocation())
+        }
+    }
 }
 
 
