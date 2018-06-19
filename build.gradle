@@ -64,7 +64,7 @@ ext.getJaci3rdPartyMirror = {
 /////////////////////////////////////////
 
 def getCtreNativeExtractedLocation() {
-    return "$rootDir/build/ctre_native" + "/linux/x86-64"
+    return "$rootDir/build/ctre_native" + "/" + org.gradle.internal.os.OperatingSystem.current().getFamilyName() + "/x86-64"
 }
 
 // Publshing Information

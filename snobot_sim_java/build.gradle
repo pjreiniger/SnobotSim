@@ -23,8 +23,8 @@ dependencies {
     compile project(":snobot_sim_utilities")
     compile project(':sim_adx_family')
     compile project(':sim_extension_navx')
-    compile 'com.snobot.simulator:ctre_sim_override:V0_5.1.1.1'
-    testRuntime 'com.snobot.simulator:ctre_sim_override:V0_5.1.1.1:native-all'
+    compile 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion()
+    testRuntime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':native-all'
     
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
