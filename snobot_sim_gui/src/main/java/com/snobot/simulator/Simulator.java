@@ -277,7 +277,6 @@ public class Simulator
                 {
                     DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForProgramToStart();
 
-                    mSimulator.createSimulatorComponents();
                     mSimulator.setRobot(mRobot);
 
                     SimulatorFrame frame = new SimulatorFrame(mSimulatorConfig);

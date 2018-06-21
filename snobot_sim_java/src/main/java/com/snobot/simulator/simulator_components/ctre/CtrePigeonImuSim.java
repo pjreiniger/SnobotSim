@@ -2,8 +2,8 @@ package com.snobot.simulator.simulator_components.ctre;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
-import com.snobot.simulator.simulator_components.accelerometer.IAccelerometerWrapper;
-import com.snobot.simulator.simulator_components.gyro.IGyroWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IAccelerometerWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 
 public class CtrePigeonImuSim
 {

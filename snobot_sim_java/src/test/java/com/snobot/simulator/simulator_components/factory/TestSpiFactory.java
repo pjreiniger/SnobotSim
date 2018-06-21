@@ -1,7 +1,6 @@
 package com.snobot.simulator.simulator_components.factory;
 
 import java.util.Collection;
-import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -32,20 +31,8 @@ public class TestSpiFactory extends BaseSimulatorJavaTest
     public void testInvalidType()
     {
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultI2CSimulator(0, "DoesntExist");
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(0, "DoesntExist");
 
         new ADXL345_SPI(SPI.Port.kOnboardCS0, Range.k2G);
-    }
-
-    @Test
-    public void testDefaultSpiWrappers()
-    {
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(0, "TestA");
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(1, "TestB");
-        Map<Integer, String> defaults = DataAccessorFactory.getInstance().getSimulatorDataAccessor().getDefaultSpiWrappers();
-
-        Assertions.assertEquals(2, defaults.size());
-        Assertions.assertEquals("TestA", defaults.get(0));
-        Assertions.assertEquals("TestB", defaults.get(1));
     }
 }

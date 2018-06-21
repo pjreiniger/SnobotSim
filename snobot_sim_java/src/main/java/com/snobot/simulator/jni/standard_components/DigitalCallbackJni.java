@@ -5,8 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.module_wrapper.DigitalSourceWrapper;
-import com.snobot.simulator.module_wrapper.DigitalSourceWrapper.StateSetterHelper;
+import com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper;
+import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.DIODataJNI;
 import edu.wpi.first.wpilibj.SensorUtil;
@@ -33,15 +33,12 @@ public final class DigitalCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                SensorActuatorRegistry.get().register(new DigitalSourceWrapper(mPort, new StateSetterHelper()
+                if (!DataAccessorFactory.getInstance().getDigitalAccessor().getPortList().contains(mPort))
                 {
+                    DataAccessorFactory.getInstance().getDigitalAccessor().createSimulator(mPort, WpiDigitalIoWrapper.class.getName(), false);
+                    sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
+                }
 
-                    @Override
-                    public void setState(boolean aState)
-                    {
-                        DIODataJNI.setValue(mPort, aState);
-                    }
-                }), mPort);
             }
             else if ("Value".equals(aCallbackType))
             {

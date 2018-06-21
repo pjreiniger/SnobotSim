@@ -19,10 +19,13 @@ public class TestASimulator extends BaseSimulatorTest
         ASimulator baseSimulator = new ASimulator();
         Assertions.assertTrue(baseSimulator.loadConfig(file));
 
+        System.out.println(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList());
+        System.out.println(DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList());
+        System.out.println(DataAccessorFactory.getInstance().getDigitalAccessor().getPortList());
+
         // Used to create some components
         new MockRobot();
 
-        baseSimulator.createSimulatorComponents();
 
         Assertions.assertEquals("I2C ADXL345 X Accel", DataAccessorFactory.getInstance().getAccelerometerAccessor().getName(50));
         Assertions.assertEquals("I2C ADXL345 Y Accel", DataAccessorFactory.getInstance().getAccelerometerAccessor().getName(51));
@@ -34,9 +37,9 @@ public class TestASimulator extends BaseSimulatorTest
         Assertions.assertEquals("SPI ADXL362 Y Accel", DataAccessorFactory.getInstance().getAccelerometerAccessor().getName(157));
         Assertions.assertEquals("SPI ADXL362 Z Accel", DataAccessorFactory.getInstance().getAccelerometerAccessor().getName(158));
 
-        Assertions.assertEquals("Analog 0", DataAccessorFactory.getInstance().getAnalogAccessor().getName(0));
-        Assertions.assertEquals("Analog 1", DataAccessorFactory.getInstance().getAnalogAccessor().getName(1));
-        Assertions.assertEquals("Analog 2", DataAccessorFactory.getInstance().getAnalogAccessor().getName(2));
+        Assertions.assertEquals("Analog 0", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(0));
+        Assertions.assertEquals("Analog 1", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(1));
+        Assertions.assertEquals("Analog 2", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(2));
 
         Assertions.assertEquals("Digital Source0", DataAccessorFactory.getInstance().getDigitalAccessor().getName(0));
         Assertions.assertEquals("Digital Source1", DataAccessorFactory.getInstance().getDigitalAccessor().getName(1));

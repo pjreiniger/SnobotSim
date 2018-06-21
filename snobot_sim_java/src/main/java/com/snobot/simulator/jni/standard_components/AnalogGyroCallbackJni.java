@@ -5,7 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.simulator_components.gyro.AnalogGyroWrapper;
+import com.snobot.simulator.module_wrapper.wpi.WpiAnalogGyroWrapper;
+import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.AnalogGyroDataJNI;
 import edu.wpi.first.wpilibj.sim.SimValue;
@@ -31,8 +32,11 @@ public final class AnalogGyroCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                AnalogGyroWrapper wrapper = new AnalogGyroWrapper(mPort, "Analog Gyro");
-                SensorActuatorRegistry.get().register(wrapper, mPort);
+                if (!DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(mPort))
+                {
+                    DataAccessorFactory.getInstance().getGyroAccessor().createSimulator(mPort, WpiAnalogGyroWrapper.class.getName(), false);
+                    sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
+                }
             }
             else if ("Angle".equals(aCallbackType))
             {

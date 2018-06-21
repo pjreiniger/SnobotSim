@@ -72,7 +72,7 @@ public class TestCtreCanTalonControlSpeed extends BaseSimulatorJavaTest
             Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(aRawHandle));
             break;
         case Analog:
-            Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogAccessor().getPortList().contains(aRawHandle));
+            Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(aRawHandle));
             break;
         default:
             Assertions.assertTrue(false);

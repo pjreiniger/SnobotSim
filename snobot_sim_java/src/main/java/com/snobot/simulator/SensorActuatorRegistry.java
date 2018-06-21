@@ -5,28 +5,30 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.snobot.simulator.module_wrapper.AnalogWrapper;
-import com.snobot.simulator.module_wrapper.DigitalSourceWrapper;
-import com.snobot.simulator.module_wrapper.EncoderWrapper;
-import com.snobot.simulator.module_wrapper.PwmWrapper;
-import com.snobot.simulator.module_wrapper.RelayWrapper;
-import com.snobot.simulator.module_wrapper.SolenoidWrapper;
-import com.snobot.simulator.simulator_components.II2CWrapper;
-import com.snobot.simulator.simulator_components.ISimulatorUpdater;
-import com.snobot.simulator.simulator_components.ISpiWrapper;
-import com.snobot.simulator.simulator_components.accelerometer.IAccelerometerWrapper;
-import com.snobot.simulator.simulator_components.gyro.IGyroWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IAccelerometerWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IAnalogInWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IAnalogOutWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IDigitalIoWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.II2CWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IRelayWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.ISimulatorUpdater;
+import com.snobot.simulator.module_wrapper.interfaces.ISolenoidWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
 
 public final class SensorActuatorRegistry
 {
     private static SensorActuatorRegistry mInstance = new SensorActuatorRegistry();
 
-    private final Map<Integer, PwmWrapper> mSpeedControllerMap = new HashMap<>();
-    private final Map<Integer, RelayWrapper> mRelayWrapperMap = new HashMap<>();
-    private final Map<Integer, DigitalSourceWrapper> mDigitalSourceWrapperMap = new HashMap<>();
-    private final Map<Integer, AnalogWrapper> mAnalogSourceWrapperMap = new HashMap<>();
-    private final Map<Integer, SolenoidWrapper> mSolenoidWrapperMap = new HashMap<>();
-    private final Map<Integer, EncoderWrapper> mEncoderWrapperMap = new HashMap<>();
+    private final Map<Integer, IPwmWrapper> mSpeedControllerMap = new HashMap<>();
+    private final Map<Integer, IRelayWrapper> mRelayWrapperMap = new HashMap<>();
+    private final Map<Integer, IDigitalIoWrapper> mDigitalSourceWrapperMap = new HashMap<>();
+    private final Map<Integer, IAnalogInWrapper> mAnalogInWrapperMap = new HashMap<>();
+    private final Map<Integer, IAnalogOutWrapper> mAnalogOutWrapperMap = new HashMap<>();
+    private final Map<Integer, ISolenoidWrapper> mSolenoidWrapperMap = new HashMap<>();
+    private final Map<Integer, IEncoderWrapper> mEncoderWrapperMap = new HashMap<>();
 
     private final Map<Integer, IGyroWrapper> mGyroWrapperMap = new HashMap<>();
     private final Map<Integer, IAccelerometerWrapper> mAccelerometerWrapperMap = new HashMap<>();
@@ -47,36 +49,45 @@ public final class SensorActuatorRegistry
 
     public <ItemType> boolean registerItem(ItemType aItem, int aPort, Map<Integer, ItemType> aMap, String aMessage)
     {
+        if (aMap.containsKey(aPort))
+        {
+            System.err.println("Simulator already exists for port " + aPort);
+        }
         aMap.put(aPort, aItem);
         return true;
     }
 
-    public boolean register(AnalogWrapper aActuator, int aPort)
+    public boolean register(IAnalogInWrapper aActuator, int aPort)
     {
-        return registerItem(aActuator, aPort, mAnalogSourceWrapperMap, "Analog");
+        return registerItem(aActuator, aPort, mAnalogInWrapperMap, "Analog");
     }
 
-    public boolean register(PwmWrapper aActuator, int aPort)
+    public boolean register(IAnalogOutWrapper aActuator, int aPort)
+    {
+        return registerItem(aActuator, aPort, mAnalogOutWrapperMap, "Analog");
+    }
+
+    public boolean register(IPwmWrapper aActuator, int aPort)
     {
         return registerItem(aActuator, aPort, mSpeedControllerMap, "Speed Controller");
     }
 
-    public boolean register(DigitalSourceWrapper aSensor, int aPort)
+    public boolean register(IDigitalIoWrapper aSensor, int aPort)
     {
         return registerItem(aSensor, aPort, mDigitalSourceWrapperMap, "Digital IO");
     }
 
-    public boolean register(SolenoidWrapper aActuator, int aPort)
+    public boolean register(ISolenoidWrapper aActuator, int aPort)
     {
         return registerItem(aActuator, aPort, mSolenoidWrapperMap, "Solenoid");
     }
 
-    public boolean register(RelayWrapper aActuator, int aPort)
+    public boolean register(IRelayWrapper aActuator, int aPort)
     {
         return registerItem(aActuator, aPort, mRelayWrapperMap, "Relay");
     }
 
-    public boolean register(EncoderWrapper aEncoder, Integer aPort)
+    public boolean register(IEncoderWrapper aEncoder, Integer aPort)
     {
         return registerItem(aEncoder, aPort, mEncoderWrapperMap, "Encoder");
     }
@@ -107,32 +118,37 @@ public final class SensorActuatorRegistry
         return true;
     }
 
-    public Map<Integer, PwmWrapper> getSpeedControllers()
+    public Map<Integer, IPwmWrapper> getSpeedControllers()
     {
         return mSpeedControllerMap;
     }
 
-    public Map<Integer, SolenoidWrapper> getSolenoids()
+    public Map<Integer, ISolenoidWrapper> getSolenoids()
     {
         return mSolenoidWrapperMap;
     }
 
-    public Map<Integer, DigitalSourceWrapper> getDigitalSources()
+    public Map<Integer, IDigitalIoWrapper> getDigitalSources()
     {
         return mDigitalSourceWrapperMap;
     }
 
-    public Map<Integer, RelayWrapper> getRelays()
+    public Map<Integer, IRelayWrapper> getRelays()
     {
         return mRelayWrapperMap;
     }
 
-    public Map<Integer, AnalogWrapper> getAnalog()
+    public Map<Integer, IAnalogInWrapper> getAnalogIn()
     {
-        return mAnalogSourceWrapperMap;
+        return mAnalogInWrapperMap;
     }
 
-    public Map<Integer, EncoderWrapper> getEncoders()
+    public Map<Integer, IAnalogOutWrapper> getAnalogOut()
+    {
+        return mAnalogOutWrapperMap;
+    }
+
+    public Map<Integer, IEncoderWrapper> getEncoders()
     {
         return mEncoderWrapperMap;
     }
@@ -147,7 +163,7 @@ public final class SensorActuatorRegistry
         return mGyroWrapperMap;
     }
 
-    public Map<Integer, II2CWrapper> getI2CWrapperss()
+    public Map<Integer, II2CWrapper> getI2CWrappers()
     {
         return mI2CWrapperMap;
     }
@@ -164,25 +180,11 @@ public final class SensorActuatorRegistry
 
     public void reset()
     {
-        for (ISpiWrapper wrapper : mSpiWrapperMap.values())
-        {
-            if (wrapper != null)
-            {
-                wrapper.shutdown();
-            }
-        }
-        for (II2CWrapper wrapper : mI2CWrapperMap.values())
-        {
-            if (wrapper != null)
-            {
-                wrapper.shutdown();
-            }
-        }
-
         mSpeedControllerMap.clear();
         mRelayWrapperMap.clear();
         mDigitalSourceWrapperMap.clear();
-        mAnalogSourceWrapperMap.clear();
+        mAnalogInWrapperMap.clear();
+        mAnalogOutWrapperMap.clear();
         mSolenoidWrapperMap.clear();
         mEncoderWrapperMap.clear();
 

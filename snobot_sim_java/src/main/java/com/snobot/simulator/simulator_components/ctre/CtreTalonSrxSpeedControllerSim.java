@@ -6,17 +6,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.module_wrapper.AnalogWrapper;
-import com.snobot.simulator.module_wrapper.AnalogWrapper.VoltageSetterHelper;
-import com.snobot.simulator.module_wrapper.EncoderWrapper;
-import com.snobot.simulator.module_wrapper.PwmWrapper;
+import com.snobot.simulator.module_wrapper.ASensorWrapper;
+import com.snobot.simulator.module_wrapper.BaseEncoderWrapper;
+import com.snobot.simulator.module_wrapper.BasePwmWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IAnalogInWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
-public class CtreTalonSrxSpeedControllerSim extends PwmWrapper
+public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
 {
     private static final Logger sLOGGER = LogManager.getLogger(CtreTalonSrxSpeedControllerSim.class);
 
@@ -467,21 +466,19 @@ public class CtreTalonSrxSpeedControllerSim extends PwmWrapper
         switch (mFeedbackDevice)
         {
         case Encoder:
-            SensorActuatorRegistry.get().register(new EncoderWrapper("CAN Encoder (" + mCanHandle + ")"), getHandle());
-
-            DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(getHandle(), getHandle());
-            sLOGGER.log(Level.INFO, "Created CAN Encoder for port " + mCanHandle);
+            if (!DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(mCanHandle))
+            {
+                DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mCanHandle, CtreEncoder.class.getName(), false);
+                DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(getHandle(), getHandle());
+                sLOGGER.log(Level.WARN, "Simulator on port " + mCanHandle + " was not registerd before starting the robot");
+            }
             break;
         case Analog:
-            SensorActuatorRegistry.get().register(new AnalogWrapper("CAN Analog (" + mCanHandle + ")", new VoltageSetterHelper()
+            if (!DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(mCanHandle))
             {
-                @Override
-                public void setVoltage(double aVoltage)
-                {
-                    // Nothing to do
-                }
-            }), getHandle());
-            sLOGGER.log(Level.INFO, "Created CAN Analog Device for port " + mCanHandle);
+                DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mCanHandle, CtreAnalogIn.class.getName(), false);
+                sLOGGER.log(Level.WARN, "Simulator on port " + mCanHandle + " was not registerd before starting the robot");
+            }
             break;
         default:
             sLOGGER.log(Level.ERROR, "Unsupported feedback device " + mFeedbackDevice);
@@ -517,5 +514,36 @@ public class CtreTalonSrxSpeedControllerSim extends PwmWrapper
     public int getBinnedVelocity()
     {
         return (int) (getVelocity() * this.getVelocityUnitConversion());
+    }
+
+    public static class CtreEncoder extends BaseEncoderWrapper
+    {
+
+        public CtreEncoder(int aPort)
+        {
+            super("CAN Encoder (" + aPort + ")");
+        }
+    }
+
+    public static class CtreAnalogIn extends ASensorWrapper implements IAnalogInWrapper
+    {
+
+        public CtreAnalogIn(int aPort)
+        {
+            super("CAN Analog (" + aPort + ")");
+        }
+
+        @Override
+        public void setVoltage(double aVoltage)
+        {
+            // Nothing to do
+        }
+
+        @Override
+        public double getVoltage()
+        {
+            return 0;
+        }
+
     }
 }

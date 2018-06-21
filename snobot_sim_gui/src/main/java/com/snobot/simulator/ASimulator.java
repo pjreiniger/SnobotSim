@@ -40,9 +40,4 @@ public class ASimulator implements ISimulatorUpdater
     {
         // Nothing to do
     }
-
-    public void createSimulatorComponents()
-    {
-        mConfigReader.setupSimulatorComponents();
-    }
 }

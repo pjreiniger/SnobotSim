@@ -27,7 +27,7 @@ public class EncoderGraphicDisplay extends BaseWidgetDisplay<Integer, EncoderWra
         {
             int key = pair.getKey();
             boolean isConnected = DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(key);
-            double raw = DataAccessorFactory.getInstance().getEncoderAccessor().getRaw(key);
+            double raw = -999;
             double distance = DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(key);
 
             pair.getValue().updateDisplay(isConnected, raw, distance);

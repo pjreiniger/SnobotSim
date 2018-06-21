@@ -29,7 +29,7 @@ public class TestI2CFactory extends BaseSimulatorJniTest
     public void testInvalidType()
     {
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(0, "DoesntExist");
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createI2CSimulator(0, "DoesntExist");
 
         new ADXL345_I2C(I2C.Port.kOnboard, Range.k2G);
     }

@@ -16,9 +16,9 @@ import edu.wpi.first.wpilibj.Talon;
 
 public class TestRegisterJavaCallback extends BaseSimulatorJavaTest
 {
-    private void checkSizes(int aAnalogSize, int aDigitalSize, int aEncoderSize, int aPcmSize, int aPdpSize, int aNumPwm)
+    private void checkSizes(int aAnalogInSize, int aDigitalSize, int aEncoderSize, int aPcmSize, int aPdpSize, int aNumPwm)
     {
-        Assertions.assertEquals(aAnalogSize, SensorActuatorRegistry.get().getAnalog().size());
+        Assertions.assertEquals(aAnalogInSize, SensorActuatorRegistry.get().getAnalogIn().size());
         Assertions.assertEquals(aDigitalSize, SensorActuatorRegistry.get().getDigitalSources().size());
         Assertions.assertEquals(aEncoderSize, SensorActuatorRegistry.get().getEncoders().size());
         Assertions.assertEquals(aPcmSize, SensorActuatorRegistry.get().getSolenoids().size());

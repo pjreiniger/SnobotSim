@@ -11,6 +11,12 @@ import com.snobot.simulator.wrapper_accessors.RelayWrapperAccessor;
 public class JniRelayWrapperAccessor implements RelayWrapperAccessor
 {
     @Override
+    public boolean createSimulator(int aPort, String aType, boolean aIsStartup)
+    {
+        return false;
+    }
+
+    @Override
     public void setName(int aPort, String aName)
     {
         RelayWrapperJni.setName(aPort, aName);
@@ -44,5 +50,11 @@ public class JniRelayWrapperAccessor implements RelayWrapperAccessor
     public List<Integer> getPortList()
     {
         return IntStream.of(RelayWrapperJni.getPortList()).boxed().collect(Collectors.toList());
+    }
+
+    @Override
+    public String getType(int aPort)
+    {
+        return null;
     }
 }

@@ -1,5 +1,7 @@
 package com.snobot.simulator.module_wrapper;
 
+import com.snobot.simulator.module_wrapper.interfaces.ISensorWrapper;
+
 public class ASensorWrapper implements ISensorWrapper
 {
     protected String mName;

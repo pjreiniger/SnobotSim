@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.snobot.simulator.module_wrapper.ISensorWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.ISensorWrapper;
 
 public abstract class BaseWrapperAccessor<Type extends ISensorWrapper>
 {
@@ -37,5 +37,10 @@ public abstract class BaseWrapperAccessor<Type extends ISensorWrapper>
     public List<Integer> getPortList()
     {
         return new ArrayList<>(getMap().keySet());
+    }
+
+    public String getType(int aPort)
+    {
+        return getMap().get(aPort).getClass().getName();
     }
 }

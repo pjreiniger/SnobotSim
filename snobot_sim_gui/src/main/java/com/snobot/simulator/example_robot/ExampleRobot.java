@@ -1,14 +1,18 @@
 package com.snobot.simulator.example_robot;
 
+import edu.wpi.first.wpilibj.ADXL345_I2C;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,7 +31,9 @@ public class ExampleRobot extends IterativeRobot
     public SpeedController mRightDrive;
     public Encoder mLeftDriveEncoder;
     public Encoder mRightDriveEncoder;
-    public Gyro mGyro;
+    public Gyro mAnalogGyro;
+    public Gyro mSpiGyro;
+    public ADXL345_I2C mAdxAccelerometer;
 
     public Timer mAutoTimer;
 
@@ -45,7 +51,9 @@ public class ExampleRobot extends IterativeRobot
         mLeftDriveEncoder.setDistancePerPulse(.01);
         mRightDriveEncoder.setDistancePerPulse(.01);
 
-        mGyro = new AnalogGyro(0);
+        mAnalogGyro = new AnalogGyro(0);
+        mSpiGyro = new ADXRS450_Gyro();
+        mAdxAccelerometer = new ADXL345_I2C(I2C.Port.kMXP, Accelerometer.Range.k2G);
 
         mAutoTimer = new Timer();
 
@@ -95,7 +103,7 @@ public class ExampleRobot extends IterativeRobot
 
         SmartDashboard.putNumber("Left Enc", mLeftDriveEncoder.getDistance());
         SmartDashboard.putNumber("Right Enc", mRightDriveEncoder.getDistance());
-        SmartDashboard.putNumber("Gyro", mGyro.getAngle());
+        SmartDashboard.putNumber("Gyro", mAnalogGyro.getAngle());
     }
 
 }

@@ -21,8 +21,8 @@ public class TestI2CNavx extends BaseSimulatorJavaTest
     {
         // Port = 0
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultI2CSimulator(0, sNAVX_TYPE);
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createI2CSimulator(0, sNAVX_TYPE);
 
         final AHRS navxOnboard = new AHRS(I2C.Port.kOnboard);
         Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
@@ -34,8 +34,8 @@ public class TestI2CNavx extends BaseSimulatorJavaTest
 
         // Port = 1
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultI2CSimulator(1, sNAVX_TYPE);
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createI2CSimulator(1, sNAVX_TYPE);
 
         final AHRS navxMxp = new AHRS(I2C.Port.kMXP);
         Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
@@ -49,7 +49,7 @@ public class TestI2CNavx extends BaseSimulatorJavaTest
     @Test
     public void testI2CNavx() throws InterruptedException
     {
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultI2CSimulator(0, sNAVX_TYPE);
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createI2CSimulator(0, sNAVX_TYPE);
 
         final int sleepTime = 100;
         AHRS navx = new AHRS(I2C.Port.kOnboard);

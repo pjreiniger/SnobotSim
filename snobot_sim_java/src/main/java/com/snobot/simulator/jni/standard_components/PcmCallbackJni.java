@@ -5,7 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.module_wrapper.SolenoidWrapper;
+import com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper;
+import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.PCMDataJNI;
 import edu.wpi.first.wpilibj.SensorUtil;
@@ -35,13 +36,19 @@ public final class PcmCallbackJni
         @Override
         public void callback(String aCallbackType, SimValue aHalValue)
         {
+            int fullChannel = mIndex * SensorUtil.kSolenoidChannels + mChannel;
             if ("SolenoidInitialized".equals(aCallbackType))
             {
-                SensorActuatorRegistry.get().register(new SolenoidWrapper(mChannel), mChannel);
+                if (!DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().contains(fullChannel))
+                {
+                    DataAccessorFactory.getInstance().getSolenoidAccessor().createSimulator(fullChannel, WpiSolenoidWrapper.class.getName(), false);
+                    sLOGGER.log(Level.WARN, "Simulator on port " + fullChannel + " was not registerd before starting the robot");
+                }
+
             }
             else if ("SolenoidOutput".equals(aCallbackType))
             {
-                SensorActuatorRegistry.get().getSolenoids().get(mChannel).set(aHalValue.getBoolean());
+                SensorActuatorRegistry.get().getSolenoids().get(fullChannel).set(aHalValue.getBoolean());
             }
             else
             {

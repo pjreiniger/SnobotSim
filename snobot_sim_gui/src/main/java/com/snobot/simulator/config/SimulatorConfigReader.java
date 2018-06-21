@@ -76,14 +76,7 @@ public class SimulatorConfigReader
 
             if (mConfig != null)
             {
-                for (Entry<Integer, String> pair : mConfig.getmDefaultI2CWrappers().entrySet())
-                {
-                    DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultI2CSimulator(pair.getKey(), pair.getValue());
-                }
-                for (Entry<Integer, String> pair : mConfig.getmDefaultSpiWrappers().entrySet())
-                {
-                    DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(pair.getKey(), pair.getValue());
-                }
+                setupSimulatorComponents();
             }
 
             success = true;
@@ -96,6 +89,32 @@ public class SimulatorConfigReader
         return success;
     }
 
+    private void setupSimulatorComponents()
+    {
+        for (Entry<Integer, String> pair : mConfig.getmDefaultI2CWrappers().entrySet())
+        {
+            DataAccessorFactory.getInstance().getSimulatorDataAccessor().createI2CSimulator(pair.getKey(), pair.getValue());
+        }
+        for (Entry<Integer, String> pair : mConfig.getmDefaultSpiWrappers().entrySet())
+        {
+            DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(pair.getKey(), pair.getValue());
+        }
+
+        createBasicSimulatorComponents(DataAccessorFactory.getInstance().getGyroAccessor(), mConfig.getmGyros());
+        createBasicSimulatorComponents(DataAccessorFactory.getInstance().getDigitalAccessor(), mConfig.getmDigitalIO());
+        createBasicSimulatorComponents(DataAccessorFactory.getInstance().getAnalogInAccessor(), mConfig.getmAnalogIn());
+        createBasicSimulatorComponents(DataAccessorFactory.getInstance().getAnalogOutAccessor(), mConfig.getmAnalogOut());
+        createBasicSimulatorComponents(DataAccessorFactory.getInstance().getRelayAccessor(), mConfig.getmRelays());
+        createBasicSimulatorComponents(DataAccessorFactory.getInstance().getSolenoidAccessor(), mConfig.getmSolenoids());
+        createPwms(DataAccessorFactory.getInstance().getSpeedControllerAccessor(), mConfig.getmPwm());
+        createEncoders(DataAccessorFactory.getInstance().getEncoderAccessor(), mConfig.getmEncoders());
+
+        for (Object obj : mConfig.getmSimulatorComponents())
+        {
+            setupSimulatorComponents(obj);
+        }
+    }
+
     /**
      * Returns the config loaded during the {@link #loadConfig} function
      *
@@ -104,24 +123,6 @@ public class SimulatorConfigReader
     public SimulatorConfig getConfig()
     {
         return mConfig;
-    }
-
-    public void setupSimulatorComponents()
-    {
-        if (mConfig != null)
-        {
-            createBasicSimulatorComponents(DataAccessorFactory.getInstance().getDigitalAccessor(), mConfig.getmDigitalIO());
-            createBasicSimulatorComponents(DataAccessorFactory.getInstance().getAnalogAccessor(), mConfig.getmAnalogIO());
-            createBasicSimulatorComponents(DataAccessorFactory.getInstance().getRelayAccessor(), mConfig.getmRelays());
-            createBasicSimulatorComponents(DataAccessorFactory.getInstance().getSolenoidAccessor(), mConfig.getmSolenoids());
-            createEncoders(DataAccessorFactory.getInstance().getEncoderAccessor(), mConfig.getmEncoders());
-            createPwms(DataAccessorFactory.getInstance().getSpeedControllerAccessor(), mConfig.getmPwm());
-
-            for (Object obj : mConfig.getmSimulatorComponents())
-            {
-                setupSimulatorComponents(obj);
-            }
-        }
     }
 
     protected void setupSimulatorComponents(Object aConfig)
@@ -138,25 +139,29 @@ public class SimulatorConfigReader
     {
         for (BasicModuleConfig config : aInputList)
         {
-            int handle = config.getmHandle();
-            if (handle != -1 && config.getmName() != null)
-            {
-                aAccessor.setName(handle, config.getmName());
-            }
+            createBasicSimulatorComponent(aAccessor, config);
         }
+    }
+
+    protected int createBasicSimulatorComponent(IBasicSensorActuatorWrapperAccessor aAccessor, BasicModuleConfig config)
+    {
+        int handle = config.getmHandle();
+        aAccessor.createSimulator(handle, config.getmType(), true);
+        if (handle != -1 && config.getmName() != null)
+        {
+            aAccessor.setName(handle, config.getmName());
+        }
+
+        return handle;
     }
 
     protected void createEncoders(EncoderWrapperAccessor aAccessor, List<EncoderConfig> aInputList)
     {
         for (EncoderConfig config : aInputList)
         {
-            int handle = config.getmHandle();
+            int handle = createBasicSimulatorComponent(aAccessor, config);
             if (handle != -1)
             {
-                if (config.getmName() != null)
-                {
-                    aAccessor.setName(handle, config.getmName());
-                }
                 if (config.getmConnectedSpeedControllerHandle() != -1)
                 {
                     aAccessor.connectSpeedController(handle, config.getmConnectedSpeedControllerHandle());
@@ -169,14 +174,9 @@ public class SimulatorConfigReader
     {
         for (PwmConfig config : aInputList)
         {
-            int handle = config.getmHandle();
+            int handle = createBasicSimulatorComponent(aAccessor, config);
             if (handle != -1)
             {
-                if (config.getmName() != null)
-                {
-                    aAccessor.setName(handle, config.getmName());
-                }
-
                 setupMotorSimulator(config, handle);
             }
         }

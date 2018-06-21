@@ -10,9 +10,12 @@ import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.jni.RegisterCallbacksJni;
-import com.snobot.simulator.jni.standard_components.I2CCallbackJni;
-import com.snobot.simulator.jni.standard_components.SpiCallbackJni;
-import com.snobot.simulator.module_wrapper.PwmWrapper;
+import com.snobot.simulator.module_wrapper.factories.DefaultI2CSimulatorFactory;
+import com.snobot.simulator.module_wrapper.factories.DefaultSpiSimulatorFactory;
+import com.snobot.simulator.module_wrapper.factories.II2cSimulatorFactory;
+import com.snobot.simulator.module_wrapper.factories.ISpiSimulatorFactory;
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.ISimulatorUpdater;
 import com.snobot.simulator.motor_sim.DcMotorModel;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.GravityLoadDcMotorSim;
@@ -27,7 +30,6 @@ import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.motor_factory.MakeTransmission;
 import com.snobot.simulator.motor_sim.motor_factory.PublishedMotorFactory;
 import com.snobot.simulator.motor_sim.motor_factory.VexMotorFactory;
-import com.snobot.simulator.simulator_components.ISimulatorUpdater;
 import com.snobot.simulator.simulator_components.TankDriveGyroSimulator;
 import com.snobot.simulator.wrapper_accessors.SimulatorDataAccessor;
 
@@ -40,6 +42,9 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     private static final String sUNKNOWN_SPEED_CONTROLLER_TEXT = "Unknown speed controller ";
 
     private double mEnabledTime = -1;
+
+    private final ISpiSimulatorFactory mSpiFactory = new DefaultSpiSimulatorFactory();
+    private final II2cSimulatorFactory mI2CFactory = new DefaultI2CSimulatorFactory();
 
     @Override
     public void setLogLevel(SnobotLogLevel aLogLevel)
@@ -56,8 +61,6 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     @Override
     public void reset()
     {
-        getDefaultI2CWrappers().clear();
-        getDefaultSpiWrappers().clear();
         SensorActuatorRegistry.get().reset();
         RegisterCallbacksJni.reset();
     }
@@ -111,7 +114,7 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     {
         boolean success = false;
 
-        PwmWrapper speedController = SensorActuatorRegistry.get().getSpeedControllers().get(aScHandle);
+        IPwmWrapper speedController = SensorActuatorRegistry.get().getSpeedControllers().get(aScHandle);
         if (speedController == null)
         {
             sLOGGER.log(Level.ERROR, sUNKNOWN_SPEED_CONTROLLER_TEXT + aScHandle);
@@ -129,7 +132,7 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     public boolean setSpeedControllerModel_Static(int aScHandle, DcMotorModelConfig aMotorConfig, StaticLoadMotorSimulationConfig aConfig)
     {
         boolean success = false;
-        PwmWrapper wrapper = SensorActuatorRegistry.get().getSpeedControllers().get(aScHandle);
+        IPwmWrapper wrapper = SensorActuatorRegistry.get().getSpeedControllers().get(aScHandle);
         IMotorSimulator motorModel = new StaticLoadDcMotorSim(new DcMotorModel(aMotorConfig), aConfig);
         if (wrapper == null)
         {
@@ -148,7 +151,7 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     public boolean setSpeedControllerModel_Gravitational(int aScHandle, DcMotorModelConfig aMotorConfig, GravityLoadMotorSimulationConfig aConfig)
     {
         boolean success = false;
-        PwmWrapper wrapper = SensorActuatorRegistry.get().getSpeedControllers().get(aScHandle);
+        IPwmWrapper wrapper = SensorActuatorRegistry.get().getSpeedControllers().get(aScHandle);
         IMotorSimulator motorModel = new GravityLoadDcMotorSim(new DcMotorModel(aMotorConfig), aConfig);
         if (wrapper == null)
         {
@@ -167,7 +170,7 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     public boolean setSpeedControllerModel_Rotational(int aScHandle, DcMotorModelConfig aMotorConfig, RotationalLoadMotorSimulationConfig aConfig)
     {
         boolean success = false;
-        PwmWrapper wrapper = SensorActuatorRegistry.get().getSpeedControllers().get(aScHandle);
+        IPwmWrapper wrapper = SensorActuatorRegistry.get().getSpeedControllers().get(aScHandle);
         IMotorSimulator motorModel = new RotationalLoadDcMotorSim(new DcMotorModel(aMotorConfig), wrapper, aConfig);
         if (wrapper == null)
         {
@@ -213,7 +216,7 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     @Override
     public void updateSimulatorComponents(double aUpdatePeriod)
     {
-        for (PwmWrapper wrapper : SensorActuatorRegistry.get().getSpeedControllers().values())
+        for (IPwmWrapper wrapper : SensorActuatorRegistry.get().getSpeedControllers().values())
         {
             wrapper.update(aUpdatePeriod);
         }
@@ -268,39 +271,39 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     }
 
     @Override
-    public void setDefaultSpiSimulator(int aPort, String aType)
-    {
-        SpiCallbackJni.setDefaultWrapper(aPort, aType);
-    }
-
-    @Override
-    public void setDefaultI2CSimulator(int aPort, String aType)
-    {
-        I2CCallbackJni.setDefaultWrapper(aPort, aType);
-    }
-
-    @Override
     public Collection<String> getAvailableSpiSimulators()
     {
-        return SpiCallbackJni.getAvailableTypes();
+        return mSpiFactory.getAvailableTypes();
     }
 
     @Override
     public Collection<String> getAvailableI2CSimulators()
     {
-        return I2CCallbackJni.getAvailableTypes();
+        return mI2CFactory.getAvailableTypes();
     }
 
     @Override
-    public Map<Integer, String> getDefaultI2CWrappers()
+    public boolean createSpiSimulator(int aPort, String aType)
     {
-        return I2CCallbackJni.getDefaults();
+        return mSpiFactory.create(aPort, aType);
     }
 
     @Override
-    public Map<Integer, String> getDefaultSpiWrappers()
+    public boolean createI2CSimulator(int aPort, String aType)
     {
-        return SpiCallbackJni.getDefaults();
+        return mI2CFactory.create(aPort, aType);
+    }
+
+    @Override
+    public Map<Integer, String> getI2CWrapperTypes()
+    {
+        return mI2CFactory.getI2CWrapperTypes();
+    }
+
+    @Override
+    public Map<Integer, String> getSpiWrapperTypes()
+    {
+        return mSpiFactory.getSpiWrapperTypes();
     }
 
     @Override

@@ -1,20 +1,21 @@
 package com.snobot.simulator.simulator_components;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.module_wrapper.AnalogWrapper;
-import com.snobot.simulator.module_wrapper.PwmWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IAnalogInWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.ISimulatorUpdater;
 
 public class PotentiometerSimulator implements ISimulatorUpdater
 {
-    private final AnalogWrapper mAnalogWrapper;
-    private final PwmWrapper mSpeedController;
+    private final IAnalogInWrapper mAnalogWrapper;
+    private final IPwmWrapper mSpeedController;
 
     private final boolean mIsSetup;
     private double mPositionThrow;
     private double mMinVoltage;
     private double mMaxVoltage;
 
-    public PotentiometerSimulator(AnalogWrapper aWrapper, PwmWrapper aSpeedController)
+    public PotentiometerSimulator(IAnalogInWrapper aWrapper, IPwmWrapper aSpeedController)
     {
         mAnalogWrapper = aWrapper;
         mSpeedController = aSpeedController;

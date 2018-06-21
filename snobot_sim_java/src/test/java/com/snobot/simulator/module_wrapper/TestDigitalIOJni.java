@@ -18,12 +18,12 @@ public class TestDigitalIOJni extends BaseSimulatorJavaTest
 
         new DigitalInput(0);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getDigitalAccessor().getPortList().size());
-        Assertions.assertEquals("Digital Source0", DataAccessorFactory.getInstance().getDigitalAccessor().getName(0));
+        Assertions.assertEquals("Digital IO 0", DataAccessorFactory.getInstance().getDigitalAccessor().getName(0));
         Assertions.assertFalse(DataAccessorFactory.getInstance().getDigitalAccessor().getWantsHidden(0));
 
         new DigitalInput(3);
         Assertions.assertEquals(2, DataAccessorFactory.getInstance().getDigitalAccessor().getPortList().size());
-        Assertions.assertEquals("Digital Source3", DataAccessorFactory.getInstance().getDigitalAccessor().getName(3));
+        Assertions.assertEquals("Digital IO 3", DataAccessorFactory.getInstance().getDigitalAccessor().getName(3));
         Assertions.assertFalse(DataAccessorFactory.getInstance().getDigitalAccessor().getWantsHidden(3));
 
         DataAccessorFactory.getInstance().getDigitalAccessor().setName(3, "NewNameFor3");

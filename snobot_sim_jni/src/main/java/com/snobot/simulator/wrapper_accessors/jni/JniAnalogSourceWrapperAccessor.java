@@ -11,6 +11,12 @@ import com.snobot.simulator.wrapper_accessors.AnalogSourceWrapperAccessor;
 public class JniAnalogSourceWrapperAccessor implements AnalogSourceWrapperAccessor
 {
     @Override
+    public boolean createSimulator(int aPort, String aType, boolean aIsStartup)
+    {
+        return false;
+    }
+
+    @Override
     public void setName(int aPort, String aName)
     {
         AnalogSourceWrapperJni.setName(aPort, aName);
@@ -38,5 +44,11 @@ public class JniAnalogSourceWrapperAccessor implements AnalogSourceWrapperAccess
     public List<Integer> getPortList()
     {
         return IntStream.of(AnalogSourceWrapperJni.getPortList()).boxed().collect(Collectors.toList());
+    }
+
+    @Override
+    public String getType(int aPort)
+    {
+        return null;
     }
 }

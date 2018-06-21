@@ -3,11 +3,12 @@ package com.snobot.simulator.wrapper_accessors.java;
 import java.util.Map;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.module_wrapper.PwmWrapper;
+import com.snobot.simulator.module_wrapper.factories.DefaultPwmWrapperFactory;
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import com.snobot.simulator.motor_sim.BaseDcMotorSimulator;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.GravityLoadDcMotorSim;
@@ -21,14 +22,32 @@ import com.snobot.simulator.motor_sim.StaticLoadDcMotorSim;
 import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor;
 
-public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<PwmWrapper> implements SpeedControllerWrapperAccessor
+public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwmWrapper> implements SpeedControllerWrapperAccessor
 {
     private static final Logger sLOGGER = LogManager.getLogger(JavaSpeedControllerWrapperAccessor.class);
 
     private static final String sWRONG_SIMULATOR_TYPE_ERROR = "Wrong simulator type, returning default";
 
+    private final DefaultPwmWrapperFactory mFactory;
+
+    public JavaSpeedControllerWrapperAccessor()
+    {
+        mFactory = new DefaultPwmWrapperFactory();
+    }
+
     @Override
-    protected Map<Integer, PwmWrapper> getMap()
+    public boolean createSimulator(int aPort, String aType, boolean aIsStartup)
+    {
+        return mFactory.create(aPort, aType, aIsStartup);
+    }
+
+    public void tryInitialize(int aPort, String aType)
+    {
+        mFactory.tryCreate(aPort, aType);
+    }
+
+    @Override
+    protected Map<Integer, IPwmWrapper> getMap()
     {
         return SensorActuatorRegistry.get().getSpeedControllers();
     }
@@ -158,7 +177,7 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<PwmW
     @Override
     public void reset(int aHandle, double aPosition, double aVelocity, double aCurrent)
     {
-        PwmWrapper wrapper = SensorActuatorRegistry.get().getSpeedControllers().get(aHandle);
+        IPwmWrapper wrapper = SensorActuatorRegistry.get().getSpeedControllers().get(aHandle);
         wrapper.reset(aPosition, aVelocity, aCurrent);
 
     }

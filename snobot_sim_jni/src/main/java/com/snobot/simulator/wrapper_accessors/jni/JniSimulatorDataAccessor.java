@@ -139,18 +139,6 @@ public class JniSimulatorDataAccessor implements SimulatorDataAccessor
     }
 
     @Override
-    public void setDefaultSpiSimulator(int aPort, String aType)
-    {
-        SimulationConnectorJni.setSpiDefault(aPort, aType);
-    }
-
-    @Override
-    public void setDefaultI2CSimulator(int aPort, String aType)
-    {
-        SimulationConnectorJni.setI2CDefault(aPort, aType);
-    }
-
-    @Override
     public Collection<String> getAvailableSpiSimulators()
     {
         return Arrays.asList("NavX", "ADXRS450", "ADXL345", "ADXL362");
@@ -160,20 +148,6 @@ public class JniSimulatorDataAccessor implements SimulatorDataAccessor
     public Collection<String> getAvailableI2CSimulators()
     {
         return Arrays.asList("NavX", "ADXL345");
-    }
-
-    @Override
-    public Map<Integer, String> getDefaultI2CWrappers()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Map<Integer, String> getDefaultSpiWrappers()
-    {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override
@@ -195,6 +169,34 @@ public class JniSimulatorDataAccessor implements SimulatorDataAccessor
     {
         // TODO Auto-generated method stub
         return -1;
+    }
+
+    @Override
+    public boolean createSpiSimulator(int aPort, String aType)
+    {
+        SimulationConnectorJni.setSpiDefault(aPort, aType);
+        return true;
+    }
+
+    @Override
+    public boolean createI2CSimulator(int aPort, String aType)
+    {
+        SimulationConnectorJni.setI2CDefault(aPort, aType);
+        return true;
+    }
+
+    @Override
+    public Map<Integer, String> getI2CWrapperTypes()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Map<Integer, String> getSpiWrapperTypes()
+    {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

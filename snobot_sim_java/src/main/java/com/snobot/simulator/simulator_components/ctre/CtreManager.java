@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim.MotionProfilePoint;
+import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 public class CtreManager
 {
@@ -41,8 +42,13 @@ public class CtreManager
 
         if ("Create".equals(aCallback))
         {
-            CtreTalonSrxSpeedControllerSim output = new CtreTalonSrxSpeedControllerSim(aCanPort);
-            SensorActuatorRegistry.get().register(output, aCanPort + 100);
+            sLOGGER.log(Level.WARN, "Simulator was not set up for port " + aCanPort);
+
+            if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(aCanPort,
+                    CtreTalonSrxSpeedControllerSim.class.getName(), false))
+            {
+                sLOGGER.log(Level.ERROR, "Could not create simulator wrapper");
+            }
         }
         else if ("SetDemand".equals(aCallback))
         {

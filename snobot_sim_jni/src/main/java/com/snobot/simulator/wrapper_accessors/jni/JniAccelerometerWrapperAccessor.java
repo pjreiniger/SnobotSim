@@ -51,4 +51,16 @@ public class JniAccelerometerWrapperAccessor implements AccelerometerWrapperAcce
     {
         return IntStream.of(AccelerometerWrapperJni.getPortList()).boxed().collect(Collectors.toList());
     }
+
+    @Override
+    public String getType(int aPort)
+    {
+        return null;
+    }
+
+    @Override
+    public boolean createSimulator(int aPort, String aType, boolean aIsStartup)
+    {
+        return false;
+    }
 }

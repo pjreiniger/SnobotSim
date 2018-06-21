@@ -11,16 +11,18 @@ public class BasicModuleConfig
 {
     public int mHandle;
     public String mName;
+    public String mType;
 
     public BasicModuleConfig()
     {
-        this(-1, "Unset");
+        this(-1, "Unset", null);
     }
 
-    public BasicModuleConfig(int aHandle, String aName)
+    public BasicModuleConfig(int aHandle, String aName, String aType)
     {
         mHandle = aHandle;
         mName = aName;
+        mType = aType;
     }
 
     public int getmHandle()
@@ -42,4 +44,15 @@ public class BasicModuleConfig
     {
         this.mName = aName;
     }
+
+    public String getmType()
+    {
+        return mType;
+    }
+
+    public void setmType(String mType)
+    {
+        this.mType = mType;
+    }
+
 }

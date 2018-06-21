@@ -19,7 +19,7 @@ public class TestSpiNavx extends BaseSimulatorJniTest
     {
         // Port = 0
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(0, sNAVX_TYPE);
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(0, sNAVX_TYPE);
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
 
         final AHRS navxCs0 = new AHRS(SPI.Port.kOnboardCS0);
@@ -32,7 +32,7 @@ public class TestSpiNavx extends BaseSimulatorJniTest
 
         // Port = 1
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(1, sNAVX_TYPE);
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(1, sNAVX_TYPE);
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
 
         final AHRS navxCs1 = new AHRS(SPI.Port.kOnboardCS1);
@@ -45,7 +45,7 @@ public class TestSpiNavx extends BaseSimulatorJniTest
 
         // Port = 2
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(2, sNAVX_TYPE);
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(2, sNAVX_TYPE);
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
 
         final AHRS navxCs2 = new AHRS(SPI.Port.kOnboardCS2);
@@ -58,7 +58,7 @@ public class TestSpiNavx extends BaseSimulatorJniTest
 
         // Port = 3
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(3, sNAVX_TYPE);
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(3, sNAVX_TYPE);
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
 
         final AHRS navxCs3 = new AHRS(SPI.Port.kOnboardCS3);
@@ -71,7 +71,7 @@ public class TestSpiNavx extends BaseSimulatorJniTest
 
         // Port = 4
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(4, sNAVX_TYPE);
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(4, sNAVX_TYPE);
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
 
         final AHRS navxMxp = new AHRS(SPI.Port.kMXP);
@@ -86,7 +86,7 @@ public class TestSpiNavx extends BaseSimulatorJniTest
     @Test
     public void testSpiNavx() throws InterruptedException
     {
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(1, sNAVX_TYPE);
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(1, sNAVX_TYPE);
 
         final int sleepTime = 100;
         AHRS navx = new AHRS(SPI.Port.kOnboardCS1);

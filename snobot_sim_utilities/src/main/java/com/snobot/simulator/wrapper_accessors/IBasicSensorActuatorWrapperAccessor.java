@@ -8,7 +8,11 @@ public interface IBasicSensorActuatorWrapperAccessor
 
     String getName(int aPort);
 
+    String getType(int aPort);
+
     boolean getWantsHidden(int aPort);
 
     public List<Integer> getPortList();
+
+    boolean createSimulator(int aPort, String aType, boolean aIsStartup);
 }

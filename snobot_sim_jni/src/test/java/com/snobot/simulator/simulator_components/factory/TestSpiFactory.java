@@ -31,7 +31,7 @@ public class TestSpiFactory extends BaseSimulatorJniTest
     public void testInvalidType()
     {
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultI2CSimulator(0, "DoesntExist");
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(0, "DoesntExist");
 
         new ADXL345_SPI(SPI.Port.kOnboardCS0, Range.k2G);
     }

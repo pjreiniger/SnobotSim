@@ -17,7 +17,8 @@ public class JavaDataAccessor implements IDataAccessor
 {
     private final AccelerometerWrapperAccessor mAccelerometer;
     private final GyroWrapperAccessor mGyro;
-    private final AnalogSourceWrapperAccessor mAnalog;
+    private final AnalogSourceWrapperAccessor mAnalogIn;
+    private final AnalogSourceWrapperAccessor mAnalogOut;
     private final DigitalSourceWrapperAccessor mDigital;
     private final EncoderWrapperAccessor mEncoder;
     private final RelayWrapperAccessor mRelay;
@@ -32,7 +33,8 @@ public class JavaDataAccessor implements IDataAccessor
 
         mAccelerometer = new JavaAccelerometerWrapperAccessor();
         mGyro = new JavaGyroWrapperAccessor();
-        mAnalog = new JavaAnalogSourceWrapperAccessor();
+        mAnalogIn = new JavaAnalogInWrapperAccessor();
+        mAnalogOut = new JavaAnalogOutWrapperAccessor();
         mDigital = new JavaDigitalSourceWrapperAccessor();
         mEncoder = new JavaEncoderWrapperAccessor();
         mRelay = new JavaRelayWrapperAccessor();
@@ -60,9 +62,15 @@ public class JavaDataAccessor implements IDataAccessor
     }
 
     @Override
-    public AnalogSourceWrapperAccessor getAnalogAccessor()
+    public AnalogSourceWrapperAccessor getAnalogInAccessor()
     {
-        return mAnalog;
+        return mAnalogIn;
+    }
+
+    @Override
+    public AnalogSourceWrapperAccessor getAnalogOutAccessor()
+    {
+        return mAnalogOut;
     }
 
     @Override

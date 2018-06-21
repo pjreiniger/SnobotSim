@@ -5,9 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.module_wrapper.EncoderWrapper;
-import com.snobot.simulator.module_wrapper.EncoderWrapper.DistanceSetterHelper;
-import com.snobot.simulator.module_wrapper.EncoderWrapper.ResetHelper;
+import com.snobot.simulator.module_wrapper.wpi.WpiEncoderWrapper;
+import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.EncoderDataJNI;
 import edu.wpi.first.wpilibj.sim.SimValue;
@@ -33,34 +32,12 @@ public final class EncoderCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                DistanceSetterHelper setterHelper = new DistanceSetterHelper()
+                if (!DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(mPort))
                 {
+                    DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mPort, WpiEncoderWrapper.class.getName(), false);
+                    sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
+                }
 
-                    @Override
-                    public void setDistance(double aDistance)
-                    {
-                        EncoderDataJNI.setCount(mPort, (int) aDistance);
-                    }
-
-                    @Override
-                    public void setVelocity(double aVelocity)
-                    {
-                        EncoderDataJNI.setPeriod(mPort, 1 / aVelocity);
-                    }
-                };
-
-                // TODO this should be removed when WPI fixes their dependency
-                ResetHelper resetHelper = new ResetHelper()
-                {
-
-                    @Override
-                    public void onReset()
-                    {
-                        EncoderDataJNI.setReset(mPort, false);
-                    }
-                };
-
-                SensorActuatorRegistry.get().register(new EncoderWrapper(mPort, setterHelper, resetHelper), mPort);
             }
             else if ("Count".equals(aCallbackType))
             {
@@ -74,10 +51,12 @@ public final class EncoderCallbackJni
             {
                 SensorActuatorRegistry.get().getEncoders().get(mPort).reset();
             }
-            else if ("DistancePerPulse".equals(aCallbackType))
-            {
-                SensorActuatorRegistry.get().getEncoders().get(mPort).setDistancePerTick(aHalValue.getDouble());
-            }
+            // else if ("DistancePerPulse".equals(aCallbackType))
+            // {
+            //
+            // //
+            // SensorActuatorRegistry.get().getEncoders().get(mPort).setDistancePerTick(aHalValue.getDouble());
+            // }
             else
             {
                 sLOGGER.log(Level.ERROR, "Unknown Encoder callback " + aCallbackType + " - " + aHalValue);

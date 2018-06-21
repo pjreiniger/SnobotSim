@@ -6,12 +6,12 @@ public class EncoderConfig extends BasicModuleConfig
 
     public EncoderConfig()
     {
-        this(-1, "Unset", -1);
+        this(-1, "Unset", null, -1);
     }
 
-    public EncoderConfig(int aHandle, String aName, int aConnectedSpeedControllerHandle)
+    public EncoderConfig(int aHandle, String aName, String aType, int aConnectedSpeedControllerHandle)
     {
-        super(aHandle, aName);
+        super(aHandle, aName, aType);
         mConnectedSpeedControllerHandle = aConnectedSpeedControllerHandle;
     }
 

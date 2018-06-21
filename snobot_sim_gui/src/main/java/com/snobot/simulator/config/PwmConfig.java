@@ -10,12 +10,13 @@ public class PwmConfig extends BasicModuleConfig
 
     public PwmConfig()
     {
-        this(-1, "Unset", null, null);
+        this(-1, "Unset", null, null, null);
     }
 
-    public PwmConfig(int aHandle, String aName, IMotorSimulatorConfig aMotorSimConfig, DcMotorModelConfig.FactoryParams aMotorModelConfig)
+    public PwmConfig(int aHandle, String aName, String aType, IMotorSimulatorConfig aMotorSimConfig,
+            DcMotorModelConfig.FactoryParams aMotorModelConfig)
     {
-        super(aHandle, aName);
+        super(aHandle, aName, aType);
 
         mMotorSimConfig = aMotorSimConfig;
         mMotorModelConfig = aMotorModelConfig;

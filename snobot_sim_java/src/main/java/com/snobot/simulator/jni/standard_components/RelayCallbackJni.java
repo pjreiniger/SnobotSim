@@ -5,7 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.module_wrapper.RelayWrapper;
+import com.snobot.simulator.module_wrapper.wpi.WpiRelayWrapper;
+import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.RelayDataJNI;
 import edu.wpi.first.wpilibj.SensorUtil;
@@ -32,7 +33,12 @@ public final class RelayCallbackJni
         {
             if ("InitializedForward".equals(aCallbackType))
             {
-                SensorActuatorRegistry.get().register(new RelayWrapper(mPort), mPort);
+                if (!DataAccessorFactory.getInstance().getRelayAccessor().getPortList().contains(mPort))
+                {
+                    DataAccessorFactory.getInstance().getRelayAccessor().createSimulator(mPort, WpiRelayWrapper.class.getName(), false);
+                    sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
+                }
+
             }
             else if ("InitializedReverse".equals(aCallbackType))
             { // NOPMD

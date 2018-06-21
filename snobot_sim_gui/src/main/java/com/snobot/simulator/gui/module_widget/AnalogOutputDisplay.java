@@ -27,7 +27,7 @@ public class AnalogOutputDisplay extends BaseWidgetDisplay<Integer, AnalogDispla
     {
         for (Entry<Integer, AnalogDisplay> pair : mWidgetMap.entrySet())
         {
-            double value = DataAccessorFactory.getInstance().getAnalogAccessor().getVoltage(pair.getKey());
+            double value = DataAccessorFactory.getInstance().getAnalogInAccessor().getVoltage(pair.getKey());
             pair.getValue().updateDisplay(value);
         }
     }
@@ -35,7 +35,7 @@ public class AnalogOutputDisplay extends BaseWidgetDisplay<Integer, AnalogDispla
     @Override
     protected AnalogDisplay createWidget(Integer aKey)
     {
-        if (DataAccessorFactory.getInstance().getAnalogAccessor().getWantsHidden(aKey))
+        if (DataAccessorFactory.getInstance().getAnalogInAccessor().getWantsHidden(aKey))
         {
             return null;
         }
@@ -51,7 +51,7 @@ public class AnalogOutputDisplay extends BaseWidgetDisplay<Integer, AnalogDispla
             @Override
             protected void onSubmit()
             {
-                DataAccessorFactory.getInstance().getAnalogAccessor().setName(aKey, getComponentName());
+                DataAccessorFactory.getInstance().getAnalogInAccessor().setName(aKey, getComponentName());
                 mLabelMap.get(aKey).setText(getComponentName());
             }
 
@@ -65,7 +65,7 @@ public class AnalogOutputDisplay extends BaseWidgetDisplay<Integer, AnalogDispla
     @Override
     protected String getName(Integer aKey)
     {
-        return DataAccessorFactory.getInstance().getAnalogAccessor().getName(aKey);
+        return DataAccessorFactory.getInstance().getAnalogInAccessor().getName(aKey);
     }
 }
 

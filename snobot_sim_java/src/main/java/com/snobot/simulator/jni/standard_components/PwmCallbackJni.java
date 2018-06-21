@@ -5,7 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.module_wrapper.PwmWrapper;
+import com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper;
+import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.PWMDataJNI;
 import edu.wpi.first.wpilibj.SensorUtil;
@@ -32,7 +33,12 @@ public final class PwmCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                SensorActuatorRegistry.get().register(new PwmWrapper(mPort), mPort);
+                if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().contains(mPort))
+                {
+                    DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(mPort, WpiPwmWrapper.class.getName(), false);
+                    sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
+                }
+
             }
             else if ("Speed".equals(aCallbackType))
             {

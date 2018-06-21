@@ -16,7 +16,8 @@ public class JniDataAccessor implements IDataAccessor
 {
     private final AccelerometerWrapperAccessor mAccelerometer;
     private final GyroWrapperAccessor mGyro;
-    private final AnalogSourceWrapperAccessor mAnalog;
+    private final AnalogSourceWrapperAccessor mAnalogIn;
+    private final AnalogSourceWrapperAccessor mAnalogOut;
     private final DigitalSourceWrapperAccessor mDigital;
     private final EncoderWrapperAccessor mEncoder;
     private final RelayWrapperAccessor mRelay;
@@ -30,7 +31,8 @@ public class JniDataAccessor implements IDataAccessor
 
         mAccelerometer = new JniAccelerometerWrapperAccessor();
         mGyro = new JniGyroWrapperAccessor();
-        mAnalog = new JniAnalogSourceWrapperAccessor();
+        mAnalogIn = new JniAnalogSourceWrapperAccessor();
+        mAnalogOut = new JniAnalogSourceWrapperAccessor();
         mDigital = new JniDigitalSourceWrapperAccessor();
         mEncoder = new JniEncoderWrapperAccessor();
         mRelay = new JniRelayWrapperAccessor();
@@ -58,9 +60,15 @@ public class JniDataAccessor implements IDataAccessor
     }
 
     @Override
-    public AnalogSourceWrapperAccessor getAnalogAccessor()
+    public AnalogSourceWrapperAccessor getAnalogInAccessor()
     {
-        return mAnalog;
+        return mAnalogIn;
+    }
+
+    @Override
+    public AnalogSourceWrapperAccessor getAnalogOutAccessor()
+    {
+        return mAnalogOut;
     }
 
     @Override

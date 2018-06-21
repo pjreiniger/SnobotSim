@@ -11,6 +11,12 @@ import com.snobot.simulator.wrapper_accessors.GyroWrapperAccessor;
 public class JniGyroWrapperAccessor implements GyroWrapperAccessor
 {
     @Override
+    public boolean createSimulator(int aPort, String aType, boolean aIsStartup)
+    {
+        return false;
+    }
+
+    @Override
     public void register(int aPort, String aName)
     {
         GyroWrapperJni.register(aPort, aName);
@@ -56,5 +62,11 @@ public class JniGyroWrapperAccessor implements GyroWrapperAccessor
     public List<Integer> getPortList()
     {
         return IntStream.of(GyroWrapperJni.getPortList()).boxed().collect(Collectors.toList());
+    }
+
+    @Override
+    public String getType(int aPort)
+    {
+        return null;
     }
 }

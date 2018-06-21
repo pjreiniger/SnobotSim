@@ -71,7 +71,6 @@ public class TestEncoderJni extends BaseSimulatorJniTest
 
         Assertions.assertEquals(12.0, encoder.getDistance(), DOUBLE_EPSILON);
         Assertions.assertEquals(12.0, DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(12.0 / 4, DataAccessorFactory.getInstance().getEncoderAccessor().getRaw(0), DOUBLE_EPSILON);
     }
 
     @Test

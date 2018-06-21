@@ -11,6 +11,12 @@ import com.snobot.simulator.wrapper_accessors.DigitalSourceWrapperAccessor;
 public class JniDigitalSourceWrapperAccessor implements DigitalSourceWrapperAccessor
 {
     @Override
+    public boolean createSimulator(int aPort, String aType, boolean aIsStartup)
+    {
+        return false;
+    }
+
+    @Override
     public void setName(int aPort, String aName)
     {
         DigitalSourceWrapperJni.setName(aPort, aName);
@@ -44,5 +50,11 @@ public class JniDigitalSourceWrapperAccessor implements DigitalSourceWrapperAcce
     public List<Integer> getPortList()
     {
         return IntStream.of(DigitalSourceWrapperJni.getPortList()).boxed().collect(Collectors.toList());
+    }
+
+    @Override
+    public String getType(int aPort)
+    {
+        return null;
     }
 }

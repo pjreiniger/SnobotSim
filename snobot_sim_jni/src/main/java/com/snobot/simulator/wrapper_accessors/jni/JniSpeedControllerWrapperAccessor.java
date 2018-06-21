@@ -17,6 +17,12 @@ import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor;
 public class JniSpeedControllerWrapperAccessor implements SpeedControllerWrapperAccessor
 {
     @Override
+    public boolean createSimulator(int aPort, String aType, boolean aIsStartup)
+    {
+        return false;
+    }
+
+    @Override
     public void setName(int aPort, String aName)
     {
         SpeedControllerWrapperJni.setName(aPort, aName);
@@ -117,5 +123,11 @@ public class JniSpeedControllerWrapperAccessor implements SpeedControllerWrapper
     public void reset(int aHandle, double aPosition, double aVelocity, double aCurrent)
     {
         SpeedControllerWrapperJni.reset(aHandle, aPosition, aVelocity, aCurrent);
+    }
+
+    @Override
+    public String getType(int aPort)
+    {
+        return null;
     }
 }

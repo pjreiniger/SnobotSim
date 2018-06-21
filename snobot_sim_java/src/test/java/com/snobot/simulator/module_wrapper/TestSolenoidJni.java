@@ -27,6 +27,11 @@ public class TestSolenoidJni extends BaseSimulatorJavaTest
         Assertions.assertEquals("Solenoid 3", DataAccessorFactory.getInstance().getSolenoidAccessor().getName(3));
         Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWantsHidden(3));
 
+        new Solenoid(1, 6);
+        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
+        Assertions.assertEquals("Solenoid 14", DataAccessorFactory.getInstance().getSolenoidAccessor().getName(14));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWantsHidden(14));
+
         DataAccessorFactory.getInstance().getSolenoidAccessor().setName(0, "NewNameFor0");
         Assertions.assertEquals("NewNameFor0", DataAccessorFactory.getInstance().getSolenoidAccessor().getName(0));
     }

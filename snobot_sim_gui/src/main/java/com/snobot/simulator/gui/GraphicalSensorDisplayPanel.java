@@ -41,7 +41,8 @@ public class GraphicalSensorDisplayPanel extends JPanel
         mDisplayPanels.add(new SolenoidGraphicDisplay(DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList()));
         mDisplayPanels.add(new DigitalSourceGraphicDisplay(DataAccessorFactory.getInstance().getDigitalAccessor().getPortList()));
         mDisplayPanels.add(new RelayGraphicDisplay(DataAccessorFactory.getInstance().getRelayAccessor().getPortList()));
-        mDisplayPanels.add(new AnalogOutputDisplay(DataAccessorFactory.getInstance().getAnalogAccessor().getPortList()));
+        mDisplayPanels.add(new AnalogOutputDisplay(DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList()));
+        mDisplayPanels.add(new AnalogOutputDisplay(DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList()));
         mDisplayPanels.add(new EncoderGraphicDisplay(DataAccessorFactory.getInstance().getEncoderAccessor().getPortList(), "Encoders"));
         mDisplayPanels.add(new GyroGraphicDisplay(DataAccessorFactory.getInstance().getGyroAccessor().getPortList()));
         mDisplayPanels.add(new AccelerometerOutputDisplay(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList()));

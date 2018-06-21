@@ -8,7 +8,8 @@ import java.util.Map;
 public class SimulatorConfig
 {
     private List<BasicModuleConfig> mAccelerometers;
-    private List<BasicModuleConfig> mAnalogIO;
+    private List<BasicModuleConfig> mAnalogIn;
+    private List<BasicModuleConfig> mAnalogOut;
     private List<BasicModuleConfig> mDigitalIO;
     private List<BasicModuleConfig> mGyros;
     private List<BasicModuleConfig> mRelays;
@@ -22,7 +23,8 @@ public class SimulatorConfig
     public SimulatorConfig()
     {
         mAccelerometers = new ArrayList<>();
-        mAnalogIO = new ArrayList<>();
+        mAnalogIn = new ArrayList<>();
+        mAnalogOut = new ArrayList<>();
         mDigitalIO = new ArrayList<>();
         mGyros = new ArrayList<>();
         mRelays = new ArrayList<>();
@@ -45,14 +47,24 @@ public class SimulatorConfig
         this.mDigitalIO = aDigitalIO;
     }
 
-    public List<BasicModuleConfig> getmAnalogIO()
+    public List<BasicModuleConfig> getmAnalogIn()
     {
-        return mAnalogIO;
+        return mAnalogIn;
     }
 
-    public void setmAnalogIO(List<BasicModuleConfig> aAnalogIO)
+    public List<BasicModuleConfig> getmAnalogOut()
     {
-        this.mAnalogIO = aAnalogIO;
+        return mAnalogOut;
+    }
+
+    public void setmAnalogIn(List<BasicModuleConfig> aAnalogIO)
+    {
+        this.mAnalogIn = aAnalogIO;
+    }
+
+    public void setmAnalogOut(List<BasicModuleConfig> aAnalogIO)
+    {
+        this.mAnalogOut = aAnalogIO;
     }
 
     public List<BasicModuleConfig> getmRelays()

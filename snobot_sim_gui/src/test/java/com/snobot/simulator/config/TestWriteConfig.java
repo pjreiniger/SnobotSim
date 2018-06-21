@@ -3,6 +3,7 @@ package com.snobot.simulator.config;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.GravityLoadMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.RotationalLoadMotorSimulationConfig;
@@ -18,11 +19,11 @@ public class TestWriteConfig extends BaseSimulatorTest
     public void testWriteConfig()
     {
 
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(0, "ADXRS450");
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(1, "ADXL345");
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(2, "ADXL362");
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultSpiSimulator(3, "ADXRS450");
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDefaultI2CSimulator(0, "ADXL345");
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(0, "ADXRS450");
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(1, "ADXL345");
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(2, "ADXL362");
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(3, "ADXRS450");
+        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createI2CSimulator(0, "ADXL345");
 
         // Used to create some components
         new MockRobot();
@@ -50,6 +51,9 @@ public class TestWriteConfig extends BaseSimulatorTest
 
         SimulatorConfigWriter writer = new SimulatorConfigWriter();
 
+        System.out.println("\n\n\n\n\n");
+        System.out.println(SensorActuatorRegistry.get().getI2CWrappers().entrySet());
+        System.out.println(SensorActuatorRegistry.get().getSpiWrappers().entrySet());
         String dumpFile = "test_output/testWriteFile.yml";
         Assertions.assertTrue(writer.writeConfig(dumpFile));
     }

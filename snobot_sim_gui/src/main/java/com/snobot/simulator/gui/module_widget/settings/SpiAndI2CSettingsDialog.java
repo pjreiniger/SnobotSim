@@ -44,8 +44,8 @@ public class SpiAndI2CSettingsDialog extends JDialog
         mSpiSettings = new HashMap<>();
         mI2CSettings = new HashMap<>();
 
-        Map<Integer, String> defaultSpiMapping = DataAccessorFactory.getInstance().getSimulatorDataAccessor().getDefaultSpiWrappers();
-        Map<Integer, String> defaultI2CMapping = DataAccessorFactory.getInstance().getSimulatorDataAccessor().getDefaultI2CWrappers();
+        Map<Integer, String> defaultSpiMapping = DataAccessorFactory.getInstance().getSimulatorDataAccessor().getSpiWrapperTypes();
+        Map<Integer, String> defaultI2CMapping = DataAccessorFactory.getInstance().getSimulatorDataAccessor().getI2CWrapperTypes();
         Collection<String> availableSpiOptions = new ArrayList<>();
         Collection<String> availableI2COptions = new ArrayList<>();
 
@@ -117,18 +117,18 @@ public class SpiAndI2CSettingsDialog extends JDialog
             {
                 value = selected.toString();
             }
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().getDefaultSpiWrappers().put(pair.getKey(), value);
+            DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(pair.getKey(), value);
         }
 
         for (Entry<Integer, ComponentRow> pair : mI2CSettings.entrySet())
         {
             Object selected = pair.getValue().mSelection.getSelectedItem();
             String value = null;
-            if (selected != null && selected.equals(sDEFAULT_ITEM))
+            if (selected != null && !sDEFAULT_ITEM.equals(selected))
             {
                 value = selected.toString();
             }
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().getDefaultI2CWrappers().put(pair.getKey(), value);
+            DataAccessorFactory.getInstance().getSimulatorDataAccessor().createI2CSimulator(pair.getKey(), value);
         }
 
         JOptionPane.showMessageDialog(null,

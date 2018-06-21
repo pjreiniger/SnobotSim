@@ -77,8 +77,8 @@ public class TestCtreCanTalonControlPosition extends BaseSimulatorJavaTest
             Assertions.assertEquals("CAN Encoder (" + aCanHandle + ")", DataAccessorFactory.getInstance().getEncoderAccessor().getName(aRawHandle));
             break;
         case Analog:
-            Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogAccessor().getPortList().contains(aRawHandle));
-            Assertions.assertEquals("CAN Analog (" + aCanHandle + ")", DataAccessorFactory.getInstance().getAnalogAccessor().getName(aRawHandle));
+            Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(aRawHandle));
+            Assertions.assertEquals("CAN Analog (" + aCanHandle + ")", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(aRawHandle));
             break;
         default:
             Assertions.assertTrue(false);

@@ -94,17 +94,13 @@ public interface SimulatorDataAccessor
 
     void setJoystickInformation(int aJoystick, float[] aAxisValues, short[] aPovValues, int aButtonCount, int aButtonMask);
 
-    void setDefaultSpiSimulator(int aPort, String aType);
+    boolean createSpiSimulator(int aPort, String aType);
 
-    void setDefaultI2CSimulator(int aPort, String aType);
+    boolean createI2CSimulator(int aPort, String aType);
 
     Collection<String> getAvailableSpiSimulators();
 
     Collection<String> getAvailableI2CSimulators();
-
-    Map<Integer, String> getDefaultI2CWrappers();
-
-    Map<Integer, String> getDefaultSpiWrappers();
 
     enum MatchType
     {
@@ -116,5 +112,9 @@ public interface SimulatorDataAccessor
     void removeSimulatorComponent(Object aComp);
 
     double getTimeSinceEnabled();
+
+    Map<Integer, String> getI2CWrapperTypes();
+
+    Map<Integer, String> getSpiWrapperTypes();
 
 }
