@@ -33,20 +33,20 @@ public class TestASimulator extends BaseSimulatorTest
         Assertions.assertEquals("SPI ADXL362 Y Accel", DataAccessorFactory.getInstance().getAccelerometerAccessor().getName(157));
         Assertions.assertEquals("SPI ADXL362 Z Accel", DataAccessorFactory.getInstance().getAccelerometerAccessor().getName(158));
 
-        Assertions.assertEquals("Analog 0", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(0));
-        Assertions.assertEquals("Analog 1", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(1));
-        Assertions.assertEquals("Analog 2", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(2));
+        Assertions.assertEquals("Analog In 0", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(0));
+        Assertions.assertEquals("Analog In 1", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(1));
+        Assertions.assertEquals("Analog In 2", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(2));
 
-        Assertions.assertEquals("Digital Source0", DataAccessorFactory.getInstance().getDigitalAccessor().getName(0));
-        Assertions.assertEquals("Digital Source1", DataAccessorFactory.getInstance().getDigitalAccessor().getName(1));
-        Assertions.assertEquals("Digital Source2", DataAccessorFactory.getInstance().getDigitalAccessor().getName(2));
-        Assertions.assertEquals("Digital Source3", DataAccessorFactory.getInstance().getDigitalAccessor().getName(3));
-        Assertions.assertEquals("Digital Source4", DataAccessorFactory.getInstance().getDigitalAccessor().getName(4));
-        Assertions.assertEquals("Digital Source5", DataAccessorFactory.getInstance().getDigitalAccessor().getName(5));
-        Assertions.assertEquals("Digital Source6", DataAccessorFactory.getInstance().getDigitalAccessor().getName(6));
-        Assertions.assertEquals("Digital Source7", DataAccessorFactory.getInstance().getDigitalAccessor().getName(7));
-        Assertions.assertEquals("Digital Source8", DataAccessorFactory.getInstance().getDigitalAccessor().getName(8));
-        Assertions.assertEquals("Digital Source9", DataAccessorFactory.getInstance().getDigitalAccessor().getName(9));
+        Assertions.assertEquals("Digital IO 0", DataAccessorFactory.getInstance().getDigitalAccessor().getName(0));
+        Assertions.assertEquals("Digital IO 1", DataAccessorFactory.getInstance().getDigitalAccessor().getName(1));
+        Assertions.assertEquals("Digital IO 2", DataAccessorFactory.getInstance().getDigitalAccessor().getName(2));
+        Assertions.assertEquals("Digital IO 3", DataAccessorFactory.getInstance().getDigitalAccessor().getName(3));
+        Assertions.assertEquals("Digital IO 4", DataAccessorFactory.getInstance().getDigitalAccessor().getName(4));
+        Assertions.assertEquals("Digital IO 5", DataAccessorFactory.getInstance().getDigitalAccessor().getName(5));
+        Assertions.assertEquals("Digital IO 6", DataAccessorFactory.getInstance().getDigitalAccessor().getName(6));
+        Assertions.assertEquals("Digital IO 7", DataAccessorFactory.getInstance().getDigitalAccessor().getName(7));
+        Assertions.assertEquals("Digital IO 8", DataAccessorFactory.getInstance().getDigitalAccessor().getName(8));
+        Assertions.assertEquals("Digital IO 9", DataAccessorFactory.getInstance().getDigitalAccessor().getName(9));
 
         Assertions.assertEquals("Encoder 0", DataAccessorFactory.getInstance().getEncoderAccessor().getName(0));
         Assertions.assertEquals("Encoder 1", DataAccessorFactory.getInstance().getEncoderAccessor().getName(1));

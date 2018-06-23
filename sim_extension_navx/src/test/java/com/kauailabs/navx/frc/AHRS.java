@@ -197,13 +197,13 @@ public class AHRS extends SendableBase implements PIDSource
     /* Public Interface Implementation                         */
     /***********************************************************/
 
-    @Override
-    public void close()
-    {
-        io_thread.stop();
-        io.stop();
-        io_thread = null;
-    }
+    // @Override
+    // public void close()
+    // {
+    // io_thread.stop();
+    // io.stop();
+    // io_thread = null;
+    // }
 
     /**
      * Constructs the AHRS class using SPI communication, overriding the

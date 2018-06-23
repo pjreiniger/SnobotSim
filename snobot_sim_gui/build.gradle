@@ -1,6 +1,12 @@
 
 import org.gradle.internal.os.OperatingSystem
 
+
+evaluationDependsOn(':snobot_sim_utilities')
+evaluationDependsOn(':sim_adx_family')
+evaluationDependsOn(':sim_extension_navx')
+evaluationDependsOn(':temp_hal_interface')
+
 ext
 {
     baseId = "snobot_sim_gui"
@@ -17,12 +23,12 @@ apply from: "$rootDir/captureWpiLibraries.gradle"
 dependencies {
     
     // WPILib
-    compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
-    compile 'edu.wpi.first.wpiutil:wpiutil-java:' + allwpilibVersion()
-    compile 'edu.wpi.first.cscore:cscore-java:' + allwpilibVersion()
-    runtime 'edu.wpi.first.cscore:cscore-jni:' + allwpilibVersion() + ':all'
-    compile 'edu.wpi.first.ntcore:ntcore-java:' + allwpilibVersion()
-    runtime 'edu.wpi.first.ntcore:ntcore-jni:' + allwpilibVersion() + ':all'
+    compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersionXX()
+    compile 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
+    compile 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
+    runtime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
+    compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
+    runtime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
     compile 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
     runtime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
     
@@ -61,6 +67,9 @@ dependencies {
     testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
     testRuntime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':native-all'
     testRuntime jar.outputs.files // Necessary for having resources in jar 
+    
+    
+    testRuntime project(':temp_hal_interface').packageNativetemp_hal_interface_jniFilesInJar.outputs.files
 }
 
 apply from: "$rootDir/common/prepare_ctre_library.gradle"

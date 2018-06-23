@@ -9,7 +9,7 @@ import com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.DIODataJNI;
-import edu.wpi.first.wpilibj.SensorUtil;
+import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.sim.SimValue;
 
 public final class DigitalCallbackJni
@@ -53,16 +53,12 @@ public final class DigitalCallbackJni
 
     public static void reset()
     {
-        for (int i = 0; i < SensorUtil.kDigitalChannels; ++i)
+        for (int i = 0; i < SensorBase.kDigitalChannels; ++i)
         {
             DIODataJNI.resetData(i);
 
             DigitalIoCallback callback = new DigitalIoCallback(i);
             DIODataJNI.registerInitializedCallback(i, callback, false);
-            DIODataJNI.registerValueCallback(i, callback, false);
-            DIODataJNI.registerPulseLengthCallback(i, callback, false);
-            DIODataJNI.registerIsInputCallback(i, callback, false);
-            DIODataJNI.registerFilterIndexCallback(i, callback, false);
         }
 
     }

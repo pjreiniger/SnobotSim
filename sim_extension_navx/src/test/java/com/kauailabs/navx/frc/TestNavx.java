@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import com.snobot.simulator.JniLibraryResourceLoader;
 import com.snobot.simulator.navx.I2CNavxSimulator;
 
-import edu.wpi.first.hal.sim.mockdata.DriverStationDataJNI;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.HLUsageReporting;
 import edu.wpi.first.wpilibj.I2C;
@@ -37,7 +36,7 @@ public class TestNavx
 
         testNavx(sim, navx);
 
-        DriverStationDataJNI.notifyNewData();
+//        DriverStationDataJNI.notifyNewData();
         DriverStation.getInstance().release();
     }
 

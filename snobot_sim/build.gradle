@@ -47,23 +47,23 @@ model {
             artifactId = 'wpiutil-cpp'
             headerClassifier = 'headers'
             ext = 'zip'
-            version = allwpilibVersion()
+            version = getWpiUtilVersion()
             sharedConfigs = [ snobotSimCpp: [] ]
         }
         halsim(DependencyConfig) {
             groupId = 'edu.wpi.first.hal'
-            artifactId = 'hal-cpp'
+            artifactId = 'hal'
             headerClassifier = 'headers'
             ext = 'zip'
-            version = allwpilibVersion()
+            version = allwpilibVersionXX()
             sharedConfigs = [ snobotSimCpp: [] ]
         }
         adxfamily(DependencyConfig) {
             groupId = 'edu.wpi.first.halsim'
-            artifactId = 'halsim_adx_gyro_accelerometer'
+            artifactId = 'halsim-adx_gyro_accelerometer'
             headerClassifier = 'headers'
             ext = 'zip'
-            version = allwpilibVersion()
+            version = allwpilibVersionXX()
             sharedConfigs = [ snobotSimCpp: [] ]
         }
     }

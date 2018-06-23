@@ -9,7 +9,7 @@ import com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.PWMDataJNI;
-import edu.wpi.first.wpilibj.SensorUtil;
+import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.sim.SimValue;
 
 public final class PwmCallbackJni
@@ -57,17 +57,13 @@ public final class PwmCallbackJni
 
     public static void reset()
     {
-        for (int i = 0; i < SensorUtil.kPwmChannels; ++i)
+        for (int i = 0; i < SensorBase.kPwmChannels; ++i)
         {
             PWMDataJNI.resetData(i);
 
             PwmCallback callback = new PwmCallback(i);
             PWMDataJNI.registerInitializedCallback(i, callback, false);
-            PWMDataJNI.registerRawValueCallback(i, callback, false);
             PWMDataJNI.registerSpeedCallback(i, callback, false);
-            PWMDataJNI.registerPositionCallback(i, callback, false);
-            PWMDataJNI.registerPeriodScaleCallback(i, callback, false);
-            PWMDataJNI.registerZeroLatchCallback(i, callback, false);
         }
     }
 

@@ -46,7 +46,7 @@ mDefaultI2CWrappers:
 mDefaultSpiWrappers:
   0: ADXRS450
   1: ADXL345
-  2: ADXL345
+  2: ADXL362
   3: ADXRS450
 mDigitalIO:
 - mHandle: 0
@@ -97,11 +97,11 @@ mGyros:
   mName: Analog Gyro
   mType: com.snobot.simulator.module_wrapper.wpi.WpiAnalogGyroWrapper
 - mHandle: 100
-  mName: ''
-  mType: com.snobot.simulator.simulator_components.adx_family.ADXRS450_GyroWrapper
+  mName: ADXRS450 Gyro
+  mType: com.snobot.simulator.simulator_components.adx_family.ADXRS450GyroWrapper
 - mHandle: 103
-  mName: ''
-  mType: com.snobot.simulator.simulator_components.adx_family.ADXRS450_GyroWrapper
+  mName: ADXRS450 Gyro
+  mType: com.snobot.simulator.simulator_components.adx_family.ADXRS450GyroWrapper
 mPwm:
 - mHandle: 0
   mMotorModelConfig: null

@@ -8,7 +8,7 @@
 #include "SnobotSim/ModuleWrapper/DigitalSourceWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "com_snobot_simulator_jni_module_wrapper_DigitalSourceWrapperJni.h"
-#include "wpi/jni_util.h"
+#include "support/jni_util.h"
 
 using namespace wpi::java;
 

@@ -92,7 +92,7 @@ class RegisterIO_SPI implements IRegisterIO{
 
     @Override
     public boolean shutdown() {
-    	port.close();
+        // port.close();
         return true;
     }
 

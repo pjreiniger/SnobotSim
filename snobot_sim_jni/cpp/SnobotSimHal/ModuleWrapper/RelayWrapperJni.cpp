@@ -7,7 +7,7 @@
 #include "SnobotSim/ModuleWrapper/RelayWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "com_snobot_simulator_jni_module_wrapper_RelayWrapperJni.h"
-#include "wpi/jni_util.h"
+#include "support/jni_util.h"
 
 using namespace wpi::java;
 

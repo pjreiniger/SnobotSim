@@ -9,7 +9,7 @@ import com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.PCMDataJNI;
-import edu.wpi.first.wpilibj.SensorUtil;
+import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.sim.NotifyCallback;
 import edu.wpi.first.wpilibj.sim.SimValue;
 
@@ -36,7 +36,7 @@ public final class PcmCallbackJni
         @Override
         public void callback(String aCallbackType, SimValue aHalValue)
         {
-            int fullChannel = mIndex * SensorUtil.kSolenoidChannels + mChannel;
+            int fullChannel = mIndex * SensorBase.kSolenoidChannels + mChannel;
             if ("SolenoidInitialized".equals(aCallbackType))
             {
                 if (!DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().contains(fullChannel))
@@ -60,11 +60,11 @@ public final class PcmCallbackJni
     public static void reset()
     {
 
-        for (int module = 0; module < SensorUtil.kPCMModules; ++module)
+        for (int module = 0; module < SensorBase.kPCMModules; ++module)
         {
             PCMDataJNI.resetData(module);
 
-            for (int channel = 0; channel < SensorUtil.kSolenoidChannels; ++channel)
+            for (int channel = 0; channel < SensorBase.kSolenoidChannels; ++channel)
             {
                 SolenoidCallback callback = new SolenoidCallback(module, channel);
                 PCMDataJNI.registerAllSolenoidCallbacks(module, channel, callback, false);
