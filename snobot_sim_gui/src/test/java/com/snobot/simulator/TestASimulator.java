@@ -19,10 +19,6 @@ public class TestASimulator extends BaseSimulatorTest
         ASimulator baseSimulator = new ASimulator();
         Assertions.assertTrue(baseSimulator.loadConfig(file));
 
-        System.out.println(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList());
-        System.out.println(DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList());
-        System.out.println(DataAccessorFactory.getInstance().getDigitalAccessor().getPortList());
-
         // Used to create some components
         new MockRobot();
 

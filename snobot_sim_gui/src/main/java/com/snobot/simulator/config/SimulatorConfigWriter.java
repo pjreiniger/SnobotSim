@@ -48,13 +48,12 @@ public class SimulatorConfigWriter
             File file = new File(aOutFile);
             sLOGGER.log(Level.INFO, "Writing to " + file.getAbsolutePath());
 
-            Object output = dumpConfig();
-
             DumperOptions options = new DumperOptions();
             options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 
             Yaml yaml = new Yaml(options);
 
+            Object output = dumpConfig();
             try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))
             {
                 yaml.dump(output, fw);

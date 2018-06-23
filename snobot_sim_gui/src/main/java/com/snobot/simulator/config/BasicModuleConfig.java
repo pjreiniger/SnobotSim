@@ -50,9 +50,9 @@ public class BasicModuleConfig
         return mType;
     }
 
-    public void setmType(String mType)
+    public void setmType(String aType)
     {
-        this.mType = mType;
+        this.mType = aType;
     }
 
 }

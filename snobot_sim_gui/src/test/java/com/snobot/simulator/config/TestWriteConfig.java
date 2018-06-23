@@ -3,7 +3,6 @@ package com.snobot.simulator.config;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.GravityLoadMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.RotationalLoadMotorSimulationConfig;
@@ -49,12 +48,9 @@ public class TestWriteConfig extends BaseSimulatorTest
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().setSpeedControllerModel_Rotational(3, rotationalMotorConfig,
                 new RotationalLoadMotorSimulationConfig(1, 1));
 
-        SimulatorConfigWriter writer = new SimulatorConfigWriter();
-
-        System.out.println("\n\n\n\n\n");
-        System.out.println(SensorActuatorRegistry.get().getI2CWrappers().entrySet());
-        System.out.println(SensorActuatorRegistry.get().getSpiWrappers().entrySet());
         String dumpFile = "test_output/testWriteFile.yml";
+
+        SimulatorConfigWriter writer = new SimulatorConfigWriter();
         Assertions.assertTrue(writer.writeConfig(dumpFile));
     }
 

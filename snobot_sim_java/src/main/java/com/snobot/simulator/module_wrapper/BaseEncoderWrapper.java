@@ -39,8 +39,8 @@ public class BaseEncoderWrapper extends ASensorWrapper implements IEncoderWrappe
     @Override
     public void reset()
     {
-        // TODO Auto-generated method stub
-
+        mPosition = 0;
+        mVelocity = 0;
     }
 
 }

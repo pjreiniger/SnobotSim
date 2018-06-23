@@ -76,7 +76,7 @@ public class SimulatorConfigReader
 
             if (mConfig != null)
             {
-                setupSimulatorComponents();
+                setupSimulator();
             }
 
             success = true;
@@ -89,7 +89,7 @@ public class SimulatorConfigReader
         return success;
     }
 
-    private void setupSimulatorComponents()
+    private void setupSimulator()
     {
         for (Entry<Integer, String> pair : mConfig.getmDefaultI2CWrappers().entrySet())
         {
@@ -143,13 +143,13 @@ public class SimulatorConfigReader
         }
     }
 
-    protected int createBasicSimulatorComponent(IBasicSensorActuatorWrapperAccessor aAccessor, BasicModuleConfig config)
+    protected int createBasicSimulatorComponent(IBasicSensorActuatorWrapperAccessor aAccessor, BasicModuleConfig aConfig)
     {
-        int handle = config.getmHandle();
-        aAccessor.createSimulator(handle, config.getmType(), true);
-        if (handle != -1 && config.getmName() != null)
+        int handle = aConfig.getmHandle();
+        aAccessor.createSimulator(handle, aConfig.getmType(), true);
+        if (handle != -1 && aConfig.getmName() != null)
         {
-            aAccessor.setName(handle, config.getmName());
+            aAccessor.setName(handle, aConfig.getmName());
         }
 
         return handle;
@@ -160,12 +160,9 @@ public class SimulatorConfigReader
         for (EncoderConfig config : aInputList)
         {
             int handle = createBasicSimulatorComponent(aAccessor, config);
-            if (handle != -1)
+            if (handle != -1 && config.getmConnectedSpeedControllerHandle() != -1)
             {
-                if (config.getmConnectedSpeedControllerHandle() != -1)
-                {
-                    aAccessor.connectSpeedController(handle, config.getmConnectedSpeedControllerHandle());
-                }
+                aAccessor.connectSpeedController(handle, config.getmConnectedSpeedControllerHandle());
             }
         }
     }

@@ -56,6 +56,7 @@ public class WpiEncoderWrapper extends BaseEncoderWrapper implements NotifyCallb
     @Override
     public void reset()
     {
+        super.reset();
         mWpiSimulator.setReset(true);
     }
 }
