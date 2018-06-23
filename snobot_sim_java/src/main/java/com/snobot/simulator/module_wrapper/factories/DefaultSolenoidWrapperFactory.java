@@ -19,7 +19,6 @@ public class DefaultSolenoidWrapperFactory extends BaseWrapperFactory
         if (WpiSolenoidWrapper.class.getName().equals(aType))
         {
             SensorActuatorRegistry.get().register(new WpiSolenoidWrapper(aPort), aPort);
-            logIfMissing(aIsStartup, SensorActuatorRegistry.get().getSolenoids(), aPort, getClass(), "WPI Solenoid simulator not registered");
         }
         else
         {

@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.wpi.WpiAnalogGyroWrapper;
-import com.snobot.simulator.simulator_components.adx_family.ADXRS450_GyroWrapper;
+import com.snobot.simulator.simulator_components.adx_family.ADXRS450GyroWrapper;
 
 public class DefaultGyroWrapperFactory extends BaseWrapperFactory
 {
@@ -20,10 +20,9 @@ public class DefaultGyroWrapperFactory extends BaseWrapperFactory
         {
             WpiAnalogGyroWrapper wrapper = new WpiAnalogGyroWrapper(aPort, "Analog Gyro");
             SensorActuatorRegistry.get().register(wrapper, aPort);
-            logIfMissing(aIsStartup, SensorActuatorRegistry.get().getGyros(), aPort, getClass(), "WPI Analog Gyro simulator not registered");
         }
-        else if (ADXRS450_GyroWrapper.class.getName().equals(aType))
-        {
+        else if (ADXRS450GyroWrapper.class.getName().equals(aType))
+        { // NOPMD
             // Set up elsewhere
         }
         else

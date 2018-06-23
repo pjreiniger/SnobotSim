@@ -24,13 +24,13 @@ public abstract class ADXFamily3AxisAccelerometer implements II2CWrapper, ISpiWr
     }
 
     @Override
-    public void handleRead(ByteBuffer aBuffer)
+    public void handleRead(ByteBuffer aBuffer) // NOPMD
     {
         // Nothing to do
     }
 
     @Override
-    public void handleWrite(ByteBuffer aBuffer)
+    public void handleWrite(ByteBuffer aBuffer) // NOPMD
     {
         // Nothing to do
     }

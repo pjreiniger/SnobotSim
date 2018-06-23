@@ -19,7 +19,6 @@ public class DefaultDigitalIoWrapperFactory extends BaseWrapperFactory
         if (WpiDigitalIoWrapper.class.getName().equals(aType))
         {
             SensorActuatorRegistry.get().register(new WpiDigitalIoWrapper(aPort), aPort);
-            logIfMissing(aIsStartup, SensorActuatorRegistry.get().getDigitalSources(), aPort, getClass(), "WPI Digital IO simulator not registered");
         }
         else
         {

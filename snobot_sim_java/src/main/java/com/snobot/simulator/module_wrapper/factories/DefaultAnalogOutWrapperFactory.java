@@ -18,7 +18,6 @@ public class DefaultAnalogOutWrapperFactory extends BaseWrapperFactory
         if (WpiAnalogOutWrapper.class.getName().equals(aType))
         {
             SensorActuatorRegistry.get().register(new WpiAnalogOutWrapper(aPort), aPort);
-            logIfMissing(aIsStartup, SensorActuatorRegistry.get().getAnalogOut(), aPort, getClass(), "WPI Analog Output simulator not registered");
         }
         else
         {

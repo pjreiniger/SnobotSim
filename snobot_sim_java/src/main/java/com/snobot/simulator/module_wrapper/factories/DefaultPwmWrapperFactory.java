@@ -19,12 +19,10 @@ public class DefaultPwmWrapperFactory extends BaseWrapperFactory
         if (WpiPwmWrapper.class.getName().equals(aType))
         {
             SensorActuatorRegistry.get().register(new WpiPwmWrapper(aPort), aPort);
-            logIfMissing(aIsStartup, SensorActuatorRegistry.get().getSpeedControllers(), aPort, getClass(), "WPI PWM simulator not registered");
         }
         else if (CtreTalonSrxSpeedControllerSim.class.getName().equals(aType))
         {
             CtreTalonSrxSpeedControllerSim output = new CtreTalonSrxSpeedControllerSim(aPort);
-            logIfMissing(aIsStartup, SensorActuatorRegistry.get().getSpeedControllers(), aPort, getClass(), "CTRE PWM simulator not registered");
             SensorActuatorRegistry.get().register(output, aPort + 100);
         }
         else

@@ -13,11 +13,11 @@ import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
 
 import edu.wpi.first.wpilibj.sim.ADXRS450_GyroSim;
 
-public class ADXRS450_GyroWrapper extends BaseGyroWrapper implements ISpiWrapper
+public class ADXRS450GyroWrapper extends BaseGyroWrapper implements ISpiWrapper
 {
-    private static final Logger sLOGGER = LogManager.getLogger(ADXRS450_GyroWrapper.class);
+    private static final Logger sLOGGER = LogManager.getLogger(ADXRS450GyroWrapper.class);
 
-    public ADXRS450_GyroWrapper(ADXRS450_GyroSim aWpiSim, int aBasePort)
+    public ADXRS450GyroWrapper(ADXRS450_GyroSim aWpiSim, int aBasePort)
     {
         super("ADXRS450 Gyro", aWpiSim::getAngle, aWpiSim::setAngle);
 

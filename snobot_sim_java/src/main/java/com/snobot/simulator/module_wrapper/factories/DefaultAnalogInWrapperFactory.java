@@ -18,17 +18,11 @@ public class DefaultAnalogInWrapperFactory extends BaseWrapperFactory
 
         if (WpiAnalogInWrapper.class.getName().equals(aType))
         {
-            if (!aIsStartup && !SensorActuatorRegistry.get().getAnalogIn().containsKey(aPort))
-            {
-
-            }
             SensorActuatorRegistry.get().register(new WpiAnalogInWrapper(aPort), aPort);
-            logIfMissing(aIsStartup, SensorActuatorRegistry.get().getAnalogIn(), aPort, getClass(), "WPI Analog Input simulator not registered");
         }
         else if (CtreTalonSrxSpeedControllerSim.CtreAnalogIn.class.getName().equals(aType))
         {
             SensorActuatorRegistry.get().register(new CtreTalonSrxSpeedControllerSim.CtreAnalogIn(aPort), aPort + 100);
-            logIfMissing(aIsStartup, SensorActuatorRegistry.get().getAnalogIn(), aPort, getClass(), "CTRE Analog Input simulator not registered");
             sLOGGER.log(Level.INFO, "Created CAN Encoder for port " + aPort);
         }
         else

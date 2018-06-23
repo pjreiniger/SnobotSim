@@ -19,12 +19,10 @@ public class DefaultEncoderWrapperFactory extends BaseWrapperFactory
         if (WpiEncoderWrapper.class.getName().equals(aType))
         {
             SensorActuatorRegistry.get().register(new WpiEncoderWrapper(aPort), aPort);
-            logIfMissing(aIsStartup, SensorActuatorRegistry.get().getEncoders(), aPort, getClass(), "WPI Encoder simulator not registered");
         }
         else if (CtreTalonSrxSpeedControllerSim.CtreEncoder.class.getName().equals(aType))
         {
             SensorActuatorRegistry.get().register(new CtreTalonSrxSpeedControllerSim.CtreEncoder(aPort), aPort + 100);
-            logIfMissing(aIsStartup, SensorActuatorRegistry.get().getEncoders(), aPort, getClass(), "CTRE Encoder simulator not registered");
             sLOGGER.log(Level.INFO, "Created CAN Encoder for port " + aPort);
         }
         else

@@ -5,6 +5,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.snobot.simulator.module_wrapper.interfaces.IAccelerometerWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IAnalogInWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IAnalogOutWrapper;
@@ -20,6 +24,8 @@ import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
 
 public final class SensorActuatorRegistry
 {
+    private static final Logger sLOGGER = LogManager.getLogger(SensorActuatorRegistry.class);
+
     private static SensorActuatorRegistry mInstance = new SensorActuatorRegistry();
 
     private final Map<Integer, IPwmWrapper> mSpeedControllerMap = new HashMap<>();
@@ -51,7 +57,7 @@ public final class SensorActuatorRegistry
     {
         if (aMap.containsKey(aPort))
         {
-            System.err.println("Simulator already exists for port " + aPort);
+            sLOGGER.log(Level.WARN, "Simulator already exists for port " + aPort);
         }
         aMap.put(aPort, aItem);
         return true;

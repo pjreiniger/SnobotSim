@@ -13,9 +13,9 @@ import org.apache.logging.log4j.Logger;
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
 import com.snobot.simulator.simulator_components.adx_family.ADXFamily3AxisAccelerometer;
-import com.snobot.simulator.simulator_components.adx_family.ADXL345_SpiWrapper;
-import com.snobot.simulator.simulator_components.adx_family.ADXL362_SpiWrapper;
-import com.snobot.simulator.simulator_components.adx_family.ADXRS450_GyroWrapper;
+import com.snobot.simulator.simulator_components.adx_family.ADXL345SpiWrapper;
+import com.snobot.simulator.simulator_components.adx_family.ADXL362SpiWrapper;
+import com.snobot.simulator.simulator_components.adx_family.ADXRS450GyroWrapper;
 import com.snobot.simulator.simulator_components.navx.BaseNavxSimulatorWrapper;
 import com.snobot.simulator.simulator_components.navx.SpiNavxSimulatorWrapper;
 
@@ -57,7 +57,7 @@ public class DefaultSpiSimulatorFactory extends BaseWrapperFactory implements IS
         {
             return sADXL345_TYPE;
         }
-        else if (aType instanceof ADXRS450_GyroWrapper)
+        else if (aType instanceof ADXRS450GyroWrapper)
         {
             return sADXRS450_TYPE;
         }
@@ -84,15 +84,15 @@ public class DefaultSpiSimulatorFactory extends BaseWrapperFactory implements IS
         }
         else if (sADXRS450_TYPE.equals(aType))
         {
-            simulator = new ADXRS450_GyroWrapper(new ADXRS450_GyroSim(aPort), 100 + aPort);
+            simulator = new ADXRS450GyroWrapper(new ADXRS450_GyroSim(aPort), 100 + aPort);
         }
         else if (sADXL345_TYPE.equals(aType))
         {
-            simulator = new ADXL345_SpiWrapper(fullType, aPort, 100 + aPort * 3);
+            simulator = new ADXL345SpiWrapper(fullType, aPort, 100 + aPort * 3);
         }
         else if (sADXL362_TYPE.equals(aType))
         {
-            simulator = new ADXL362_SpiWrapper(fullType, aPort, 150 + aPort * 3);
+            simulator = new ADXL362SpiWrapper(fullType, aPort, 150 + aPort * 3);
         }
 
         if (simulator == null)

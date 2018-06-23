@@ -19,7 +19,6 @@ public class DefaultRelayWrapperFactory extends BaseWrapperFactory
         if (WpiRelayWrapper.class.getName().equals(aType))
         {
             SensorActuatorRegistry.get().register(new WpiRelayWrapper(aPort), aPort);
-            logIfMissing(aIsStartup, SensorActuatorRegistry.get().getRelays(), aPort, getClass(), "WPI Relay simulator not registered");
         }
         else
         {
