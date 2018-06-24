@@ -4,60 +4,6 @@ apply plugin: 'maven-publish'
 apply from: "captureWpiLibraries.gradle"
 
 
-task gatherWpiLibs(type: Zip) {
-    def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
-
-    classifier = "wpi_native-" + os_name;
-    destinationDir = file("build")
-
-    from('build/dependencies/wpiutil-cpp/' + os_name + 'x86-64/' + os_name + '/x86-64/shared') {
-        into "lib"
-
-        include "*.dll"
-        include "*.lib"
-        include "*.so"
-        include "*.dylib"
-    }
-    from('build/dependencies/ntcore-cpp/' + os_name + 'x86-64/' + os_name + '/x86-64/shared') {
-        into "lib"
-
-        include "*.dll"
-        include "*.lib"
-        include "*.so"
-        include "*.dylib"
-    }
-    from('build/dependencies/wpilibc/lib/' + os_name + '/x86-64/shared') {
-        into "lib"
-
-        include "*.dll"
-        include "*.lib"
-        include "*.so"
-        include "*.dylib"
-    }
-}
-
-task gatherWpiHeaders(type: Zip) {
-
-    classifier = "wpi_headers";
-    destinationDir = file("build")
-
-    from('build/dependencies/wpiutil-cpp/headers') {
-        into "include"
-    }
-    from('build/dependencies/ntcore-cpp/headers') {
-        into "include"
-    }
-    from('build/dependencies/hal') {
-        into "include"
-    }
-    from('build/dependencies/wpilibc/include') {
-        into "include"
-    }
-    from('ctre_override/cpp/include') {
-        into "include"
-    }
-}
-
 
 publishing {
 
@@ -70,11 +16,6 @@ publishing {
 
     publications {
         wpilibCopies(MavenPublication) {
-            if(!org.gradle.internal.os.OperatingSystem.current().isMacOsX())
-            {
-                artifact gatherWpiLibs
-            }
-            artifact gatherWpiHeaders
             artifact captureWpiLibraries
 
             groupId 'com.snobot.simulator'
