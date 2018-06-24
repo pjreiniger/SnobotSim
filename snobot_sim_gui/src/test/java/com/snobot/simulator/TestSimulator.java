@@ -55,6 +55,7 @@ public class TestSimulator extends BaseSimulatorTest
         Assertions.assertFalse(simulator.mError);
     }
 
+    @Disabled
     @Test
     public void testValidUserConfig() throws Exception
     {
