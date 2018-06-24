@@ -19,6 +19,8 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
 {
     private static final Logger sLOGGER = LogManager.getLogger(CtreTalonSrxSpeedControllerSim.class);
 
+    public static final int sCTRE_OFFSET = 100;
+
     private boolean mLoggedCantOverrideFwdLimitSwitch = false;
     private boolean mLoggedCantOverrideRevLimitSwitch = false;
 
@@ -95,9 +97,9 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
 
     public CtreTalonSrxSpeedControllerSim(int aCanHandle)
     {
-        super(aCanHandle + 100, "CAN SC: " + aCanHandle);
+        super(aCanHandle, "CAN SC " + (aCanHandle - sCTRE_OFFSET));
 
-        mCanHandle = aCanHandle;
+        mCanHandle = aCanHandle - sCTRE_OFFSET;
 
         mCurrentPidProfile = 0;
         mControlType = ControlType.Raw;
@@ -466,18 +468,18 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
         switch (mFeedbackDevice)
         {
         case Encoder:
-            if (!DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(mCanHandle))
+            if (!DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(mHandle))
             {
-                DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mCanHandle, CtreEncoder.class.getName(), false);
+                DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mHandle, CtreEncoder.class.getName(), false);
                 DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(getHandle(), getHandle());
-                sLOGGER.log(Level.WARN, "Simulator on port " + mCanHandle + " was not registerd before starting the robot");
+                sLOGGER.log(Level.WARN, "CTRE Encoder on port " + mCanHandle + " was not registerd before starting the robot");
             }
             break;
         case Analog:
             if (!DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(mCanHandle))
             {
                 DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mCanHandle, CtreAnalogIn.class.getName(), false);
-                sLOGGER.log(Level.WARN, "Simulator on port " + mCanHandle + " was not registerd before starting the robot");
+                sLOGGER.log(Level.WARN, "CTRE Analog on port " + mCanHandle + " was not registerd before starting the robot");
             }
             break;
         default:
@@ -521,7 +523,7 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
 
         public CtreEncoder(int aPort)
         {
-            super("CAN Encoder (" + aPort + ")");
+            super("CAN Encoder (" + (aPort - sCTRE_OFFSET) + ")");
         }
     }
 

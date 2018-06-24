@@ -22,7 +22,7 @@ public class DefaultEncoderWrapperFactory extends BaseWrapperFactory
         }
         else if (CtreTalonSrxSpeedControllerSim.CtreEncoder.class.getName().equals(aType))
         {
-            SensorActuatorRegistry.get().register(new CtreTalonSrxSpeedControllerSim.CtreEncoder(aPort), aPort + 100);
+            SensorActuatorRegistry.get().register(new CtreTalonSrxSpeedControllerSim.CtreEncoder(aPort), aPort);
             sLOGGER.log(Level.INFO, "Created CAN Encoder for port " + aPort);
         }
         else

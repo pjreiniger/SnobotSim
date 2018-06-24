@@ -42,12 +42,13 @@ public class CtreManager
 
         if ("Create".equals(aCallback))
         {
-            sLOGGER.log(Level.WARN, "Simulator was not set up for port " + aCanPort);
-
-            if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(aCanPort,
-                    CtreTalonSrxSpeedControllerSim.class.getName(), false))
+            if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList()
+                    .contains(aCanPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET))
             {
-                sLOGGER.log(Level.ERROR, "Could not create simulator wrapper");
+                sLOGGER.log(Level.WARN, "CTRE Motor Controller was not set up for port " + aCanPort);
+                
+                DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(aCanPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET,
+                        CtreTalonSrxSpeedControllerSim.class.getName(), false);
             }
         }
         else if ("SetDemand".equals(aCallback))

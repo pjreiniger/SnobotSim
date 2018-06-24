@@ -43,8 +43,18 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
 
     private double mEnabledTime = -1;
 
-    private final ISpiSimulatorFactory mSpiFactory = new DefaultSpiSimulatorFactory();
-    private final II2cSimulatorFactory mI2CFactory = new DefaultI2CSimulatorFactory();
+    private ISpiSimulatorFactory mSpiFactory = new DefaultSpiSimulatorFactory();
+    private II2cSimulatorFactory mI2CFactory = new DefaultI2CSimulatorFactory();
+
+    public void setSpiFactory(ISpiSimulatorFactory aFactory)
+    {
+        mSpiFactory = aFactory;
+    }
+
+    public void setI2CFactory(II2cSimulatorFactory aFactory)
+    {
+        mI2CFactory = aFactory;
+    }
 
     @Override
     public void setLogLevel(SnobotLogLevel aLogLevel)

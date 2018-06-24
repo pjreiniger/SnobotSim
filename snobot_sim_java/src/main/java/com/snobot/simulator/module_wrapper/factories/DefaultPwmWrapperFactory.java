@@ -23,7 +23,7 @@ public class DefaultPwmWrapperFactory extends BaseWrapperFactory
         else if (CtreTalonSrxSpeedControllerSim.class.getName().equals(aType))
         {
             CtreTalonSrxSpeedControllerSim output = new CtreTalonSrxSpeedControllerSim(aPort);
-            SensorActuatorRegistry.get().register(output, aPort + 100);
+            SensorActuatorRegistry.get().register(output, aPort);
         }
         else
         {

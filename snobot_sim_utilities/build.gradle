@@ -1,7 +1,7 @@
 
 ext
 {
-    baseId = "snobot_sim_utilties"
+    baseId = "snobot_sim_utilities"
 }
 
 apply from: "${rootDir}/common/base_java_script.gradle"

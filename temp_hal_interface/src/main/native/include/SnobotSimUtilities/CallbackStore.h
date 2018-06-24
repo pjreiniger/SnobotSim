@@ -22,6 +22,13 @@ typedef int32_t (*RegisterChannelCallbackFunc)(int32_t index, int32_t channel,
                                                void* param,
                                                HAL_Bool initialNotify);
 
+typedef int32_t (*RegisterConstBufferCallbackFunc)(
+    int32_t index, HAL_ConstBufferCallback callback, void* param);
+
+typedef int32_t (*RegisterBufferCallbackFunc)(int32_t index,
+                                              HAL_BufferCallback callback,
+                                              void* param);
+
 namespace SnobotSim
 {
 
@@ -63,6 +70,32 @@ class CallbackStore {
   int32_t callbackId;
 };
 
+class ConstBufferCallbackStore {
+ public:
+  void create(JNIEnv* env, jobject obj);
+  void performCallback(const char* name, const uint8_t* buffer,
+                       uint32_t length);
+  void free(JNIEnv* env);
+  void setCallbackId(int32_t id) { callbackId = id; }
+  int32_t getCallbackId() { return callbackId; }
+
+ private:
+  JGlobal<jobject> m_call;
+  int32_t callbackId;
+};
+
+class BufferCallbackStore {
+ public:
+  void create(JNIEnv* env, jobject obj);
+  void performCallback(const char* name, uint8_t* buffer, uint32_t length);
+  void free(JNIEnv* env);
+  void setCallbackId(int32_t id) { callbackId = id; }
+  int32_t getCallbackId() { return callbackId; }
+
+ private:
+  JGlobal<jobject> m_call;
+  int32_t callbackId;
+};
 
 void AllocateCallback(JNIEnv* env, jint index, jobject callback,
                                jboolean initialNotify,
@@ -71,5 +104,15 @@ void AllocateCallback(JNIEnv* env, jint index, jobject callback,
 void AllocateChannelCallback(
     JNIEnv* env, jint index, jint channel, jobject callback,
     jboolean initialNotify, RegisterChannelCallbackFunc createCallback);
+
+
+void AllocateConstBufferCallback(
+    JNIEnv* env, jint index, jobject callback,
+    RegisterConstBufferCallbackFunc createCallback);
+
+
+void AllocateBufferCallback(JNIEnv* env, jint index, jobject callback,
+                                     RegisterBufferCallbackFunc createCallback);
+
 
 }
