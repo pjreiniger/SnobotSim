@@ -42,7 +42,7 @@ model {
             artifactId = 'hal'
             headerClassifier = 'headers'
             ext = 'zip'
-            version = allwpilibVersionXX()
+            version = allwpilibVersion()
             sharedConfigs = [ navx_simulator: [],
                               navx_simulator_jni: []  ]
         }
@@ -91,8 +91,8 @@ dependencies {
     testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
     
     
-    //testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersionXX()
-    testCompile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersionXX()
+    //testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
+    testCompile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     //testRuntime 'edu.wpi.first.cameraserver:cameraserver-java:' + allwpilibVersion()
     testCompile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
     testRuntime 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()

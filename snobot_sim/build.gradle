@@ -55,7 +55,7 @@ model {
             artifactId = 'hal'
             headerClassifier = 'headers'
             ext = 'zip'
-            version = allwpilibVersionXX()
+            version = allwpilibVersion()
             sharedConfigs = [ snobotSimCpp: [] ]
         }
         adxfamily(DependencyConfig) {
@@ -63,7 +63,7 @@ model {
             artifactId = 'halsim-adx_gyro_accelerometer'
             headerClassifier = 'headers'
             ext = 'zip'
-            version = allwpilibVersionXX()
+            version = allwpilibVersion()
             sharedConfigs = [ snobotSimCpp: [] ]
         }
     }

@@ -23,7 +23,7 @@ apply from: "$rootDir/captureWpiLibraries.gradle"
 dependencies {
     
     // WPILib
-    compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersionXX()
+    compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     compile 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
     compile 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
     runtime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'

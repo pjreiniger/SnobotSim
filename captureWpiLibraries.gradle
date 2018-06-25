@@ -14,9 +14,9 @@ configurations {
 
 dependencies {
     wpilibNativeDeps 'edu.wpi.first.wpiutil:wpiutil-cpp:' + getWpiUtilVersion() + ':all@zip'
-    wpilibNativeDeps 'edu.wpi.first.hal:hal:' + allwpilibVersionXX() + ':all@zip'
-    wpilibNativeDeps 'edu.wpi.first.halsim:halsim-adx_gyro_accelerometer:' + allwpilibVersionXX() + ':all@zip'
-    wpilibNativeDeps 'edu.wpi.first.wpilibj:wpilibj-jniShared:' + allwpilibVersionXX() + ':all'
+    wpilibNativeDeps 'edu.wpi.first.hal:hal:' + allwpilibVersion() + ':all@zip'
+    wpilibNativeDeps 'edu.wpi.first.halsim:halsim-adx_gyro_accelerometer:' + allwpilibVersion() + ':all@zip'
+    wpilibNativeDeps 'edu.wpi.first.wpilibj:wpilibj-jniShared:' + allwpilibVersion() + ':all'
 }
 
 task extractWpilibNativeDeps(type: Copy) {

@@ -36,7 +36,7 @@ ext.build_simulator_java = true
 /////////////////////////////////////////
 // Specify WPI Versions
 
-ext.allwpilibVersionXX = {
+ext.allwpilibVersion = {
     return '2018.4.1'
 }
 
