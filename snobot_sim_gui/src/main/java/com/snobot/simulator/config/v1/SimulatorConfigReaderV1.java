@@ -1,4 +1,4 @@
-package com.snobot.simulator.config;
+package com.snobot.simulator.config.v1;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +12,11 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.error.YAMLException;
 
+import com.snobot.simulator.config.BasicModuleConfig;
+import com.snobot.simulator.config.EncoderConfig;
+import com.snobot.simulator.config.PwmConfig;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.GravityLoadMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.IMotorSimulatorConfig;
@@ -32,13 +36,13 @@ import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor;
  * @author PJ
  *
  */
-public class SimulatorConfigReader
+public class SimulatorConfigReaderV1
 {
-    private static final Logger sLOGGER = LogManager.getLogger(SimulatorConfigReader.class);
+    private static final Logger sLOGGER = LogManager.getLogger(SimulatorConfigReaderV1.class);
 
-    private SimulatorConfig mConfig;
+    private SimulatorConfigV1 mConfig;
 
-    public SimulatorConfigReader()
+    public SimulatorConfigReaderV1()
     {
         mConfig = null;
     }
@@ -63,28 +67,30 @@ public class SimulatorConfigReader
 
         boolean success = false;
 
-        try
+        File file = new File(aConfigFile);
+        sLOGGER.log(Level.INFO, "Loading " + file.getAbsolutePath());
+        Yaml yaml = new Yaml();
+
+        try (Reader fr = new InputStreamReader(new FileInputStream(file), "UTF-8"))
         {
-            File file = new File(aConfigFile);
-            sLOGGER.log(Level.INFO, "Loading " + file.getAbsolutePath());
-            Yaml yaml = new Yaml();
-
-            try (Reader fr = new InputStreamReader(new FileInputStream(file), "UTF-8"))
-            {
-                mConfig = (SimulatorConfig) yaml.load(fr);
-            }
-
-            if (mConfig != null)
-            {
-                setupSimulator();
-            }
-
-            success = true;
+            mConfig = (SimulatorConfigV1) yaml.load(fr);
+        }
+        catch (YAMLException ex)
+        {
+            com.snobot.simulator.config.v0.SimulatorConfigReaderV0 legacyConfigReader = new com.snobot.simulator.config.v0.SimulatorConfigReaderV0();
+            mConfig = legacyConfigReader.tryLoadAndConvert(file);
         }
         catch (IOException ex)
         {
-            sLOGGER.log(Level.WARN, ex);
+
         }
+
+        if (mConfig != null)
+        {
+            setupSimulator();
+            success = true;
+        }
+
 
         return success;
     }
@@ -120,7 +126,7 @@ public class SimulatorConfigReader
      *
      * @return The config
      */
-    public SimulatorConfig getConfig()
+    public SimulatorConfigV1 getConfig()
     {
         return mConfig;
     }

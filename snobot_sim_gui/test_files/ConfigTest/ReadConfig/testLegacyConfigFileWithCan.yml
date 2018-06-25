@@ -1,0 +1,86 @@
+!!com.snobot.simulator.config.SimulatorConfig
+mAccelerometers: []
+mAnalogIO: []
+mDefaultI2CWrappers:
+  0: None
+  1: None
+mDefaultSpiWrappers:
+  0: ADXRS450
+  1: Dotstar
+  2: Dotstar
+  3: Dotstar
+  4: Dotstar
+mDigitalIO: []
+mEncoders:
+- mConnectedSpeedControllerHandle: 103
+  mHandle: 103
+  mName: Drive Right
+- mConnectedSpeedControllerHandle: 101
+  mHandle: 101
+  mName: Drive Left
+- mConnectedSpeedControllerHandle: 105
+  mHandle: 105
+  mName: Elevator
+mGyros:
+- mHandle: 100
+  mName: Robot Gyro
+mPwm:
+- mHandle: 3
+  mMotorModelConfig: null
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig
+    mMaxSpeed: 0.0
+  mName: Winch
+- mHandle: 103
+  mMotorModelConfig:
+    mGearReduction: 12.0
+    mGearboxEfficiency: 1.0
+    mHasBrake: false
+    mInverted: true
+    mMotorType: CIM
+    mNumMotors: 2
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig
+    mConversionFactor: 0.16666666666
+    mLoad: 0.6
+  mName: Drive Right (A)
+- mHandle: 104
+  mMotorModelConfig: null
+  mMotorSimConfig: null
+  mName: Drive Right (B)
+- mHandle: 101
+  mMotorModelConfig:
+    mGearReduction: 12.0
+    mGearboxEfficiency: 1.0
+    mHasBrake: false
+    mInverted: false
+    mMotorType: CIM
+    mNumMotors: 2
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig
+    mConversionFactor: 0.16666666666
+    mLoad: 0.6
+  mName: Drive Left (A)
+- mHandle: 106
+  mMotorModelConfig: null
+  mMotorSimConfig: null
+  mName: Drive Left (B)
+- mHandle: 105
+  mMotorModelConfig: null
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig
+    mMaxSpeed: 20.0
+  mName: Elevator (A)
+- mHandle: 102
+  mMotorModelConfig: null
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig
+    mMaxSpeed: 0.0
+  mName: Elevator (B)
+mRelays: []
+mSimulatorComponents:
+- !!com.snobot.simulator.simulator_components.TankDriveGyroSimulator$TankDriveConfig
+  mGyroHandle: 100
+  mLeftEncoderHandle: 101
+  mRightEncoderHandle: 103
+  mTurnKp: 33.33
+mSolenoids:
+- mHandle: 1
+  mName: Claw (A)
+- mHandle: 2
+  mName: Claw (B)

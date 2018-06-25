@@ -43,7 +43,7 @@ public class WpiEncoderWrapper extends BaseEncoderWrapper implements NotifyCallb
     public void setPosition(double aPosition)
     {
         super.setPosition(aPosition);
-        mWpiSimulator.setCount((int) aPosition);
+        mWpiSimulator.setCount((int) (aPosition / mWpiSimulator.getDistancePerPulse()));
     }
 
     @Override

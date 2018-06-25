@@ -19,4 +19,12 @@ public class EncoderDataJNI
 
     public static native void setPeriod(int m_index, double period);
 
+    public static native void setDistancePerPulse(int m_index, double distancePerPulse);
+
+    public static native double getDistancePerPulse(int m_index);
+
+    public static native boolean getReset(int index);
+
+    public static native void setReset(int index, boolean reset);
+
 }

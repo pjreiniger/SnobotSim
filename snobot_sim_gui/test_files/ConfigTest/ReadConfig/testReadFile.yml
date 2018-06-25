@@ -1,4 +1,4 @@
-!!com.snobot.simulator.config.SimulatorConfig
+!!com.snobot.simulator.config.v1.SimulatorConfigV1
 mAccelerometers:
 - mHandle: 50
   mName: I2C ADXL345 X Accel

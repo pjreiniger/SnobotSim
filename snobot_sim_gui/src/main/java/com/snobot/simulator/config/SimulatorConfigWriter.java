@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
+import com.snobot.simulator.config.v1.SimulatorConfigV1;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.IMotorSimulatorConfig;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
@@ -69,11 +70,11 @@ public class SimulatorConfigWriter
         return success;
     }
 
-    protected SimulatorConfig dumpConfig()
+    protected SimulatorConfigV1 dumpConfig()
     {
         // Map<String, Object> output = new LinkedHashMap<>();
 
-        SimulatorConfig output = new SimulatorConfig();
+        SimulatorConfigV1 output = new SimulatorConfigV1();
 
         dumpBasicConfig(DataAccessorFactory.getInstance().getAccelerometerAccessor(), output.getmAccelerometers());
         dumpBasicConfig(DataAccessorFactory.getInstance().getAnalogInAccessor(), output.getmAnalogIn());

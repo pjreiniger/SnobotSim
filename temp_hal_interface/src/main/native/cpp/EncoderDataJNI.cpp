@@ -80,3 +80,51 @@ JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setPer
 {
 HALSIM_SetEncoderPeriod(index, value);
 }
+
+/*
+ * Class:     edu_wpi_first_hal_sim_mockdata_EncoderDataJNI
+ * Method:    setDistancePerPulse
+ * Signature: (ID)V
+ */
+JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setDistancePerPulse
+  (JNIEnv *, jclass, jint index, jdouble value)
+{
+//	HALSIM_SetEncoderDistancePerPulse(index, value);
+}
+
+/*
+ * Class:     edu_wpi_first_hal_sim_mockdata_EncoderDataJNI
+ * Method:    getDistancePerPulse
+ * Signature: (I)D
+ */
+JNIEXPORT jdouble JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_getDistancePerPulse
+  (JNIEnv *, jclass, jint index)
+{
+//	return HALSIM_GetEncoderDistancePerPulse(index);
+	return 1;
+}
+
+/*
+ * Class:     edu_wpi_first_hal_sim_mockdata_EncoderDataJNI
+ * Method:    getReset
+ * Signature: (I)Z
+ */
+JNIEXPORT jboolean JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_getReset
+  (JNIEnv*, jclass, jint index)
+{
+  return HALSIM_GetEncoderReset(index);
+}
+
+/*
+ * Class:     edu_wpi_first_hal_sim_mockdata_EncoderDataJNI
+ * Method:    setReset
+ * Signature: (IZ)V
+ */
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setReset
+  (JNIEnv*, jclass, jint index, jboolean value)
+{
+  HALSIM_SetEncoderReset(index, value);
+}
+

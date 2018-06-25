@@ -30,9 +30,23 @@ public class EncoderSim {
     EncoderDataJNI.setPeriod(m_index, period);
   }
 
-    public void setReset(boolean b)
+    public double getDistancePerPulse()
     {
-        // TODO Auto-generated method stub
+        return EncoderDataJNI.getDistancePerPulse(m_index);
+    }
 
+    public void setDistancePerPulse(double distancePerPulse)
+    {
+        EncoderDataJNI.setDistancePerPulse(m_index, distancePerPulse);
+    }
+
+    public boolean getReset()
+    {
+        return EncoderDataJNI.getReset(m_index);
+    }
+
+    public void setReset(boolean reset)
+    {
+        EncoderDataJNI.setReset(m_index, reset);
     }
 }

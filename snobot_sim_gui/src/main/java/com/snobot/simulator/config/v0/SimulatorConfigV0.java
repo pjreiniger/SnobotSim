@@ -1,15 +1,18 @@
-package com.snobot.simulator.config;
+package com.snobot.simulator.config.v0;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SimulatorConfig
+import com.snobot.simulator.config.BasicModuleConfig;
+import com.snobot.simulator.config.EncoderConfig;
+import com.snobot.simulator.config.PwmConfig;
+
+public class SimulatorConfigV0
 {
     private List<BasicModuleConfig> mAccelerometers;
-    private List<BasicModuleConfig> mAnalogIn;
-    private List<BasicModuleConfig> mAnalogOut;
+    private List<BasicModuleConfig> mAnalogIO;
     private List<BasicModuleConfig> mDigitalIO;
     private List<BasicModuleConfig> mGyros;
     private List<BasicModuleConfig> mRelays;
@@ -20,11 +23,10 @@ public class SimulatorConfig
     private Map<Integer, String> mDefaultSpiWrappers;
     private List<Object> mSimulatorComponents;
 
-    public SimulatorConfig()
+    public SimulatorConfigV0()
     {
         mAccelerometers = new ArrayList<>();
-        mAnalogIn = new ArrayList<>();
-        mAnalogOut = new ArrayList<>();
+        mAnalogIO = new ArrayList<>();
         mDigitalIO = new ArrayList<>();
         mGyros = new ArrayList<>();
         mRelays = new ArrayList<>();
@@ -47,24 +49,14 @@ public class SimulatorConfig
         this.mDigitalIO = aDigitalIO;
     }
 
-    public List<BasicModuleConfig> getmAnalogIn()
+    public List<BasicModuleConfig> getmAnalogIO()
     {
-        return mAnalogIn;
+        return mAnalogIO;
     }
 
-    public List<BasicModuleConfig> getmAnalogOut()
+    public void setmAnalogIO(List<BasicModuleConfig> aAnalogIO)
     {
-        return mAnalogOut;
-    }
-
-    public void setmAnalogIn(List<BasicModuleConfig> aAnalogIO)
-    {
-        this.mAnalogIn = aAnalogIO;
-    }
-
-    public void setmAnalogOut(List<BasicModuleConfig> aAnalogIO)
-    {
-        this.mAnalogOut = aAnalogIO;
+        this.mAnalogIO = aAnalogIO;
     }
 
     public List<BasicModuleConfig> getmRelays()
