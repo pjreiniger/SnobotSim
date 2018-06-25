@@ -82,7 +82,7 @@ public class SimulatorConfigReaderV1
         }
         catch (IOException ex)
         {
-
+            sLOGGER.log(Level.ERROR, ex);
         }
 
         if (mConfig != null)

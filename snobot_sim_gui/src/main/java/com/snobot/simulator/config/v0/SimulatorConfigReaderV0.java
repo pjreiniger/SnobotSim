@@ -47,11 +47,8 @@ public class SimulatorConfigReaderV0
      *            The config file to load
      * @return True if the config was loaded succesfully
      */
-    public com.snobot.simulator.config.v1.SimulatorConfigV1 tryLoadAndConvert(File aConfigFile)
+    public SimulatorConfigV1 tryLoadAndConvert(File aConfigFile)
     {
-        boolean success = false;
-
-
         try
         {
             sLOGGER.log(Level.WARN, "Try to load " + aConfigFile.getAbsolutePath() + " with the v0 format");
@@ -102,25 +99,25 @@ public class SimulatorConfigReaderV0
         return tempFile;
     }
 
-    private SimulatorConfigV1 convert(SimulatorConfigV0 simulatorConfig)
+    private SimulatorConfigV1 convert(SimulatorConfigV0 aSimulatorConfig)
     {
         SimulatorConfigV1 output = new SimulatorConfigV1();
 
-        convertGyros(simulatorConfig, output);
-        convertAnalogIO(simulatorConfig, output);
-        convertDigitalIO(simulatorConfig, output);
-        convertRelays(simulatorConfig, output);
-        convertRelays(simulatorConfig, output);
-        convertSolenoids(simulatorConfig, output);
-        convertPmws(simulatorConfig, output);
-        convertEncoders(simulatorConfig, output);
+        convertGyros(aSimulatorConfig, output);
+        convertAnalogIO(aSimulatorConfig, output);
+        convertDigitalIO(aSimulatorConfig, output);
+        convertRelays(aSimulatorConfig, output);
+        convertRelays(aSimulatorConfig, output);
+        convertSolenoids(aSimulatorConfig, output);
+        convertPmws(aSimulatorConfig, output);
+        convertEncoders(aSimulatorConfig, output);
 
         return output;
     }
 
-    private void convertGyros(SimulatorConfigV0 simulatorConfig, SimulatorConfigV1 output)
+    private void convertGyros(SimulatorConfigV0 aSimulatorConfig, SimulatorConfigV1 aOutput)
     {
-        for (BasicModuleConfig config : simulatorConfig.getmGyros())
+        for (BasicModuleConfig config : aSimulatorConfig.getmGyros())
         {
             int handle = config.getmHandle();
             if (handle >= 0 && handle <= 100)
@@ -132,12 +129,12 @@ public class SimulatorConfigReaderV0
                 sLOGGER.log(Level.WARN, "Didn't know how to convert gyro " + handle);
             }
         }
-        output.setmGyros(simulatorConfig.getmGyros());
+        aOutput.setmGyros(aSimulatorConfig.getmGyros());
     }
 
-    private void convertDigitalIO(SimulatorConfigV0 simulatorConfig, SimulatorConfigV1 output)
+    private void convertDigitalIO(SimulatorConfigV0 aSimulatorConfig, SimulatorConfigV1 aOutput)
     {
-        for (BasicModuleConfig config : simulatorConfig.getmDigitalIO())
+        for (BasicModuleConfig config : aSimulatorConfig.getmDigitalIO())
         {
             int handle = config.getmHandle();
             if (handle >= 0 && handle <= 100)
@@ -149,20 +146,20 @@ public class SimulatorConfigReaderV0
                 sLOGGER.log(Level.WARN, "Didn't know how to convert DIO " + handle);
             }
         }
-        output.setmDigitalIO(simulatorConfig.getmDigitalIO());
+        aOutput.setmDigitalIO(aSimulatorConfig.getmDigitalIO());
     }
 
-    private void convertAnalogIO(SimulatorConfigV0 simulatorConfig, SimulatorConfigV1 output)
+    private void convertAnalogIO(SimulatorConfigV0 aSimulatorConfig, SimulatorConfigV1 aOutput)
     {
-        if (!simulatorConfig.getmAnalogIO().isEmpty())
+        if (!aSimulatorConfig.getmAnalogIO().isEmpty())
         {
             sLOGGER.log(Level.WARN, "Representation of analog IO has changed, and cannot be automatically converted");
         }
     }
 
-    private void convertRelays(SimulatorConfigV0 simulatorConfig, SimulatorConfigV1 output)
+    private void convertRelays(SimulatorConfigV0 aSimulatorConfig, SimulatorConfigV1 aOutput)
     {
-        for (BasicModuleConfig config : simulatorConfig.getmRelays())
+        for (BasicModuleConfig config : aSimulatorConfig.getmRelays())
         {
             int handle = config.getmHandle();
             if (handle >= 0 && handle <= 100)
@@ -174,12 +171,12 @@ public class SimulatorConfigReaderV0
                 sLOGGER.log(Level.WARN, "Didn't know how to convert relay " + handle);
             }
         }
-        output.setmRelays(simulatorConfig.getmRelays());
+        aOutput.setmRelays(aSimulatorConfig.getmRelays());
     }
 
-    private void convertSolenoids(SimulatorConfigV0 simulatorConfig, SimulatorConfigV1 output)
+    private void convertSolenoids(SimulatorConfigV0 aSimulatorConfig, SimulatorConfigV1 aOutput)
     {
-        for (BasicModuleConfig config : simulatorConfig.getmSolenoids())
+        for (BasicModuleConfig config : aSimulatorConfig.getmSolenoids())
         {
             int handle = config.getmHandle();
             if (handle >= 0 && handle <= 100)
@@ -191,12 +188,12 @@ public class SimulatorConfigReaderV0
                 sLOGGER.log(Level.WARN, "Didn't know how to convert solenoid " + handle);
             }
         }
-        output.setmSolenoids(simulatorConfig.getmSolenoids());
+        aOutput.setmSolenoids(aSimulatorConfig.getmSolenoids());
     }
 
-    private void convertPmws(SimulatorConfigV0 simulatorConfig, SimulatorConfigV1 output)
+    private void convertPmws(SimulatorConfigV0 aSimulatorConfig, SimulatorConfigV1 aOutput)
     {
-        for (BasicModuleConfig config : simulatorConfig.getmPwm())
+        for (BasicModuleConfig config : aSimulatorConfig.getmPwm())
         {
             int handle = config.getmHandle();
             if (handle >= 0 && handle <= 100)
@@ -212,12 +209,12 @@ public class SimulatorConfigReaderV0
                 sLOGGER.log(Level.WARN, "Didn't know how to convert Speed Controller " + handle);
             }
         }
-        output.setmPwm(simulatorConfig.getmPwm());
+        aOutput.setmPwm(aSimulatorConfig.getmPwm());
     }
 
-    private void convertEncoders(SimulatorConfigV0 simulatorConfig, SimulatorConfigV1 output)
+    private void convertEncoders(SimulatorConfigV0 aSimulatorConfig, SimulatorConfigV1 aOutput)
     {
-        for (EncoderConfig config : simulatorConfig.getmEncoders())
+        for (EncoderConfig config : aSimulatorConfig.getmEncoders())
         {
             int handle = config.getmHandle();
             if (handle >= 0 && handle <= 100)
@@ -233,6 +230,6 @@ public class SimulatorConfigReaderV0
                 sLOGGER.log(Level.WARN, "Didn't know how to convert encoder " + handle);
             }
         }
-        output.setmEncoders(simulatorConfig.getmEncoders());
+        aOutput.setmEncoders(aSimulatorConfig.getmEncoders());
     }
 }
