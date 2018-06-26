@@ -1,65 +1,66 @@
 
-#include "edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI.h"
-#include "MockData/DriverStationData.h"
 #include <jni.h>
+
+#include "MockData/DriverStationData.h"
+#include "edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI.h"
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI
  * Method:    setEnabled
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setEnabled
-(JNIEnv*, jclass, jboolean value)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setEnabled
+  (JNIEnv*, jclass, jboolean value)
 {
-	  HALSIM_SetDriverStationEnabled(value);
+    HALSIM_SetDriverStationEnabled(value);
 }
-
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI
  * Method:    setDsAttached
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setDsAttached
-(JNIEnv*, jclass, jboolean value)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setDsAttached
+  (JNIEnv*, jclass, jboolean value)
 {
-	  HALSIM_SetDriverStationDsAttached(value);
+    HALSIM_SetDriverStationDsAttached(value);
 }
-
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI
  * Method:    setAutonomous
  * Signature: (Z)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setAutonomous
-(JNIEnv*, jclass, jboolean value)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setAutonomous
+  (JNIEnv*, jclass, jboolean value)
 {
-	  HALSIM_SetDriverStationAutonomous(value);
+    HALSIM_SetDriverStationAutonomous(value);
 }
-
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI
  * Method:    notifyNewData
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_notifyNewData
-  (JNIEnv *, jclass)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_notifyNewData
+  (JNIEnv*, jclass)
 {
-	  HALSIM_NotifyDriverStationNewData();
+    HALSIM_NotifyDriverStationNewData();
 }
-
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI
  * Method:    setJoystickAxes
  * Signature: (B[F)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setJoystickAxes
-(JNIEnv* env, jclass, jbyte aHandle, jfloatArray aAxes)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setJoystickAxes
+  (JNIEnv* env, jclass, jbyte aHandle, jfloatArray aAxes)
 {
-
     HAL_JoystickAxes newAxes;
     float* axes = env->GetFloatArrayElements(aAxes, NULL);
     newAxes.count = env->GetArrayLength(aAxes);
@@ -71,14 +72,14 @@ JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_
     HALSIM_SetJoystickAxes(aHandle, &newAxes);
 }
 
-
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI
  * Method:    setJoystickPOVs
  * Signature: (B[S)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setJoystickPOVs
-(JNIEnv* env, jclass, jbyte joystickNum, jshortArray aPovs)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setJoystickPOVs
+  (JNIEnv* env, jclass, jbyte joystickNum, jshortArray aPovs)
 {
     HAL_JoystickPOVs newPov;
     int16_t* povs = env->GetShortArrayElements(aPovs, NULL);
@@ -92,20 +93,21 @@ JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_
     HALSIM_SetJoystickPOVs(joystickNum, &newPov);
 }
 
-
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI
  * Method:    setJoystickButtons
  * Signature: (BII)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setJoystickButtons
-(JNIEnv* env, jclass, jbyte joystickNum, jint buttons, jint count)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setJoystickButtons
+  (JNIEnv* env, jclass, jbyte joystickNum, jint buttons, jint count)
 {
-	  if (count > 32) {
-	    count = 32;
-	  }
-	  HAL_JoystickButtons joystickButtons;
-	  joystickButtons.count = count;
-	  joystickButtons.buttons = buttons;
-	  HALSIM_SetJoystickButtons(joystickNum, &joystickButtons);
+    if (count > 32)
+    {
+        count = 32;
+    }
+    HAL_JoystickButtons joystickButtons;
+    joystickButtons.count = count;
+    joystickButtons.buttons = buttons;
+    HALSIM_SetJoystickButtons(joystickNum, &joystickButtons);
 }

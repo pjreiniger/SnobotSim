@@ -8,11 +8,11 @@
 #ifndef SNOBOTSIM_SIM_EXTENSION_NAVX_SRC_MAIN_NATIVE_INCLUDE_NAVXSIM_NAVXSIMULATOR_H_
 #define SNOBOTSIM_SIM_EXTENSION_NAVX_SRC_MAIN_NATIVE_INCLUDE_NAVXSIM_NAVXSIMULATOR_H_
 
-#include "support/mutex.h"
-
 #include <atomic>
 #include <cstring>
 #include <memory>
+
+#include "support/mutex.h"
 
 class NavxSimulator
 {

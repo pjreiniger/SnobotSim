@@ -1,29 +1,31 @@
 
-#include "edu_wpi_first_hal_sim_mockdata_AnalogInDataJNI.h"
 #include "MockData/AnalogInData.h"
 #include "SnobotSimUtilities/CallbackStore.h"
+#include "edu_wpi_first_hal_sim_mockdata_AnalogInDataJNI.h"
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_AnalogInDataJNI
  * Method:    resetData
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_AnalogInDataJNI_resetData
-(JNIEnv*, jclass, jint index)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_AnalogInDataJNI_resetData
+  (JNIEnv*, jclass, jint index)
 {
-	HALSIM_ResetAnalogInData(index);
+    HALSIM_ResetAnalogInData(index);
 }
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_AnalogInDataJNI
  * Method:    registerInitializedCallback
- * Signature: (ILedu/wpi/first/wpilibj/sim/NotifyCallback;Z)V
+ * Signature: (ILjava/lang/Object;Z)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_AnalogInDataJNI_registerInitializedCallback
-(JNIEnv* env, jclass, jint index, jobject callback, jboolean initialNotify)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_AnalogInDataJNI_registerInitializedCallback
+  (JNIEnv* env, jclass, jint index, jobject callback, jboolean initialNotify)
 {
-	SnobotSim::AllocateCallback(env, index, callback, initialNotify,
-	                               &HALSIM_RegisterAnalogInInitializedCallback);
+    SnobotSim::AllocateCallback(env, index, callback, initialNotify,
+            &HALSIM_RegisterAnalogInInitializedCallback);
 }
 
 /*
@@ -35,7 +37,7 @@ JNIEXPORT jdouble JNICALL
 Java_edu_wpi_first_hal_sim_mockdata_AnalogInDataJNI_getVoltage
   (JNIEnv*, jclass, jint index)
 {
-  return HALSIM_GetAnalogInVoltage(index);
+    return HALSIM_GetAnalogInVoltage(index);
 }
 
 /*
@@ -47,5 +49,5 @@ JNIEXPORT void JNICALL
 Java_edu_wpi_first_hal_sim_mockdata_AnalogInDataJNI_setVoltage
   (JNIEnv*, jclass, jint index, jdouble value)
 {
-  HALSIM_SetAnalogInVoltage(index, value);
+    HALSIM_SetAnalogInVoltage(index, value);
 }

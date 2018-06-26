@@ -1,40 +1,43 @@
 
 #include "MockData/EncoderData.h"
-#include "edu_wpi_first_hal_sim_mockdata_EncoderDataJNI.h"
 #include "SnobotSimUtilities/CallbackStore.h"
+#include "edu_wpi_first_hal_sim_mockdata_EncoderDataJNI.h"
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_EncoderDataJNI
  * Method:    resetData
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_resetData
-  (JNIEnv *, jclass, jint index)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_resetData
+  (JNIEnv*, jclass, jint index)
 {
-  HALSIM_ResetEncoderData(index);
+    HALSIM_ResetEncoderData(index);
 }
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_EncoderDataJNI
  * Method:    registerInitializedCallback
- * Signature: (ILedu/wpi/first/wpilibj/sim/NotifyCallback;Z)V
+ * Signature: (ILjava/lang/Object;Z)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_registerInitializedCallback
-  (JNIEnv * env, jclass, jint index, jobject callback, jboolean initialNotify)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_registerInitializedCallback
+  (JNIEnv* env, jclass, jint index, jobject callback, jboolean initialNotify)
 {
-	SnobotSim::AllocateCallback(env, index, callback, initialNotify,
-	                               &HALSIM_RegisterEncoderInitializedCallback);
+    SnobotSim::AllocateCallback(env, index, callback, initialNotify,
+            &HALSIM_RegisterEncoderInitializedCallback);
 }
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_EncoderDataJNI
  * Method:    registerResetCallback
- * Signature: (ILedu/wpi/first/wpilibj/sim/NotifyCallback;Z)V
+ * Signature: (ILjava/lang/Object;Z)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_registerResetCallback
-(JNIEnv * env, jclass, jint index, jobject callback, jboolean initialNotify)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_registerResetCallback
+  (JNIEnv* env, jclass, jint index, jobject callback, jboolean initialNotify)
 {
-	SnobotSim::AllocateCallback(env, index, callback, initialNotify,
-	                               &HALSIM_RegisterEncoderResetCallback);
+    SnobotSim::AllocateCallback(env, index, callback, initialNotify,
+            &HALSIM_RegisterEncoderResetCallback);
 }
 
 /*
@@ -42,10 +45,11 @@ JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_regist
  * Method:    getCount
  * Signature: (I)I
  */
-JNIEXPORT jint JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_getCount
-(JNIEnv*, jclass, jint index)
+JNIEXPORT jint JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_getCount
+  (JNIEnv*, jclass, jint index)
 {
-return HALSIM_GetEncoderCount(index);
+    return HALSIM_GetEncoderCount(index);
 }
 
 /*
@@ -53,10 +57,11 @@ return HALSIM_GetEncoderCount(index);
  * Method:    setCount
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setCount
-(JNIEnv*, jclass, jint index, jint value)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setCount
+  (JNIEnv*, jclass, jint index, jint value)
 {
-HALSIM_SetEncoderCount(index, value);
+    HALSIM_SetEncoderCount(index, value);
 }
 
 /*
@@ -64,10 +69,11 @@ HALSIM_SetEncoderCount(index, value);
  * Method:    getPeriod
  * Signature: (I)D
  */
-JNIEXPORT jdouble JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_getPeriod
-(JNIEnv*, jclass, jint index)
+JNIEXPORT jdouble JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_getPeriod
+  (JNIEnv*, jclass, jint index)
 {
-return HALSIM_GetEncoderPeriod(index);
+    return HALSIM_GetEncoderPeriod(index);
 }
 
 /*
@@ -75,10 +81,11 @@ return HALSIM_GetEncoderPeriod(index);
  * Method:    setPeriod
  * Signature: (ID)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setPeriod
-(JNIEnv*, jclass, jint index, jdouble value)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setPeriod
+  (JNIEnv*, jclass, jint index, jdouble value)
 {
-HALSIM_SetEncoderPeriod(index, value);
+    HALSIM_SetEncoderPeriod(index, value);
 }
 
 /*
@@ -86,10 +93,10 @@ HALSIM_SetEncoderPeriod(index, value);
  * Method:    setDistancePerPulse
  * Signature: (ID)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setDistancePerPulse
-  (JNIEnv *, jclass, jint index, jdouble value)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setDistancePerPulse
+  (JNIEnv*, jclass, jint index, jdouble value)
 {
-//	HALSIM_SetEncoderDistancePerPulse(index, value);
 }
 
 /*
@@ -97,11 +104,11 @@ JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setDis
  * Method:    getDistancePerPulse
  * Signature: (I)D
  */
-JNIEXPORT jdouble JNICALL Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_getDistancePerPulse
-  (JNIEnv *, jclass, jint index)
+JNIEXPORT jdouble JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_getDistancePerPulse
+  (JNIEnv*, jclass, jint index)
 {
-//	return HALSIM_GetEncoderDistancePerPulse(index);
-	return 1;
+    return 1;
 }
 
 /*
@@ -113,7 +120,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_getReset
   (JNIEnv*, jclass, jint index)
 {
-  return HALSIM_GetEncoderReset(index);
+    return HALSIM_GetEncoderReset(index);
 }
 
 /*
@@ -125,6 +132,5 @@ JNIEXPORT void JNICALL
 Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_setReset
   (JNIEnv*, jclass, jint index, jboolean value)
 {
-  HALSIM_SetEncoderReset(index, value);
+    HALSIM_SetEncoderReset(index, value);
 }
-

@@ -1,29 +1,31 @@
 
 #include "MockData/RelayData.h"
-#include "edu_wpi_first_hal_sim_mockdata_RelayDataJNI.h"
 #include "SnobotSimUtilities/CallbackStore.h"
+#include "edu_wpi_first_hal_sim_mockdata_RelayDataJNI.h"
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_RelayDataJNI
  * Method:    resetData
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_resetData
-(JNIEnv*, jclass, jint index)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_resetData
+  (JNIEnv*, jclass, jint index)
 {
-HALSIM_ResetRelayData(index);
+    HALSIM_ResetRelayData(index);
 }
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_RelayDataJNI
  * Method:    registerInitializedForwardCallback
- * Signature: (ILedu/wpi/first/wpilibj/sim/NotifyCallback;Z)V
+ * Signature: (ILjava/lang/Object;Z)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_registerInitializedForwardCallback
-(JNIEnv* env, jclass, jint index, jobject callback, jboolean initialNotify)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_registerInitializedForwardCallback
+  (JNIEnv* env, jclass, jint index, jobject callback, jboolean initialNotify)
 {
-	SnobotSim::AllocateCallback(env, index, callback, initialNotify,
-	                               &HALSIM_RegisterRelayInitializedForwardCallback);
+    SnobotSim::AllocateCallback(env, index, callback, initialNotify,
+            &HALSIM_RegisterRelayInitializedForwardCallback);
 }
 
 /*
@@ -31,10 +33,11 @@ JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_register
  * Method:    getForward
  * Signature: (I)Z
  */
-JNIEXPORT jboolean JNICALL Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_getForward
-(JNIEnv*, jclass, jint index)
+JNIEXPORT jboolean JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_getForward
+  (JNIEnv*, jclass, jint index)
 {
-return HALSIM_GetRelayForward(index);
+    return HALSIM_GetRelayForward(index);
 }
 
 /*
@@ -42,10 +45,11 @@ return HALSIM_GetRelayForward(index);
  * Method:    setForward
  * Signature: (IZ)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_setForward
-(JNIEnv*, jclass, jint index, jboolean value)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_setForward
+  (JNIEnv*, jclass, jint index, jboolean value)
 {
-HALSIM_SetRelayForward(index, value);
+    HALSIM_SetRelayForward(index, value);
 }
 
 /*
@@ -53,10 +57,11 @@ HALSIM_SetRelayForward(index, value);
  * Method:    getReverse
  * Signature: (I)Z
  */
-JNIEXPORT jboolean JNICALL Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_getReverse
-(JNIEnv*, jclass, jint index)
+JNIEXPORT jboolean JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_getReverse
+  (JNIEnv*, jclass, jint index)
 {
-return HALSIM_GetRelayReverse(index);
+    return HALSIM_GetRelayReverse(index);
 }
 
 /*
@@ -64,9 +69,9 @@ return HALSIM_GetRelayReverse(index);
  * Method:    setReverse
  * Signature: (IZ)V
  */
-JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_setReverse
-(JNIEnv*, jclass, jint index, jboolean value)
+JNIEXPORT void JNICALL
+Java_edu_wpi_first_hal_sim_mockdata_RelayDataJNI_setReverse
+  (JNIEnv*, jclass, jint index, jboolean value)
 {
-HALSIM_SetRelayReverse(index, value);
+    HALSIM_SetRelayReverse(index, value);
 }
-

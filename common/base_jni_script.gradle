@@ -17,8 +17,8 @@ dependencies {
 task "packageNative${libraryName}FilesInJar"(type: Jar) {
     group = "Package Natives"
     description ="Description"
-    
-    
+
+
     destinationDir = project.buildDir
     classifier = "native-" + org.gradle.internal.os.OperatingSystem.current().getFamilyName();
 

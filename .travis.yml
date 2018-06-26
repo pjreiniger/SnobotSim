@@ -24,8 +24,8 @@ cache:
     - $HOME/.gradle/wrapper/
 
 script:
-# - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python3.5 -m wpiformat -y 2018 -clang 5.0; fi;
-# - git --no-pager diff --exit-code HEAD  # Ensure formatter made no changes
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python3.5 -m wpiformat -y 2018 -clang 5.0; fi;
+  - git --no-pager diff --exit-code HEAD  # Ensure formatter made no changes
   - ./gradlew build -x :snobot_sim_gui:test -x :snobot_sim_jni:test -i
 
 

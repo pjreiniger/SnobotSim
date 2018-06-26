@@ -2,7 +2,6 @@ package edu.wpi.first.hal.sim.mockdata;
 
 public class DriverStationDataJNI
 {
-
     public static native void setEnabled(boolean b);
 
     public static native void setDsAttached(boolean b);
