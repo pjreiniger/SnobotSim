@@ -58,12 +58,6 @@ public class DefaultI2CSimulatorFactory extends BaseWrapperFactory implements II
     @Override
     public boolean create(int aPort, String aType)
     {
-        return create(aPort, aType, true);
-    }
-
-    @Override
-    public boolean create(int aPort, String aType, boolean aIsStartup)
-    {
         String fullType = "I2C " + aType;
 
         II2CWrapper simulator = null;

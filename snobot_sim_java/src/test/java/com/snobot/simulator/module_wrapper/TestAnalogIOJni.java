@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.interfaces.IAnalogInWrapper;
+import com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper;
+import com.snobot.simulator.module_wrapper.wpi.WpiAnalogOutWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
@@ -36,6 +38,16 @@ public class TestAnalogIOJni extends BaseSimulatorJavaTest
     }
 
     @Test
+    public void testCreateAnalogInWithSetup()
+    {
+        DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(3, WpiAnalogInWrapper.class.getName());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().isInitialized(3));
+
+        new AnalogInput(3);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().isInitialized(3));
+    }
+
+    @Test
     public void testCreateAnalogOut()
     {
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
@@ -45,6 +57,16 @@ public class TestAnalogIOJni extends BaseSimulatorJavaTest
 
         new AnalogOutput(1);
         Assertions.assertEquals(2, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+    }
+
+    @Test
+    public void testCreateAnalogOutWithSetup()
+    {
+        DataAccessorFactory.getInstance().getAnalogOutAccessor().createSimulator(1, WpiAnalogOutWrapper.class.getName());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogOutAccessor().isInitialized(1));
+
+        new AnalogOutput(1);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogOutAccessor().isInitialized(1));
     }
 
     public void testReuseInPort()

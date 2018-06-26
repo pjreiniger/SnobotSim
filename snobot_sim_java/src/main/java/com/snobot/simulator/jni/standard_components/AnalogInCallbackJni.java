@@ -34,9 +34,10 @@ public final class AnalogInCallbackJni
             {
                 if (!DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(mPort))
                 {
-                    DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mPort, WpiAnalogInWrapper.class.getName(), false);
+                    DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mPort, WpiAnalogInWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
                 }
+                DataAccessorFactory.getInstance().getAnalogInAccessor().setInitialized(mPort, true);
             }
             else if ("Voltage".equals(aCallbackType))
             {

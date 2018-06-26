@@ -3,6 +3,7 @@ package com.snobot.simulator.module_wrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.snobot.simulator.module_wrapper.wpi.WpiAnalogGyroWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
@@ -24,6 +25,19 @@ public class TestAnalogGyroJni extends BaseSimulatorJavaTest
         DataAccessorFactory.getInstance().getGyroAccessor().setAngle(gyroHandle, 90);
         Assertions.assertEquals(90, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(gyroHandle), DOUBLE_EPSILON);
         Assertions.assertEquals(90, gyro.getAngle(), DOUBLE_EPSILON);
+    }
+
+    @Test
+    public void testAnalogGyroPreSetup()
+    {
+        int gyroHandle = 1;
+
+        DataAccessorFactory.getInstance().getGyroAccessor().createSimulator(gyroHandle, WpiAnalogGyroWrapper.class.getName());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getGyroAccessor().isInitialized(gyroHandle));
+
+        new AnalogGyro(gyroHandle);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().isInitialized(gyroHandle));
+
     }
 
 }

@@ -3,6 +3,7 @@ package com.snobot.simulator.module_wrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
@@ -28,6 +29,16 @@ public class TestDigitalIOJni extends BaseSimulatorJavaTest
 
         DataAccessorFactory.getInstance().getDigitalAccessor().setName(3, "NewNameFor3");
         Assertions.assertEquals("NewNameFor3", DataAccessorFactory.getInstance().getDigitalAccessor().getName(3));
+    }
+
+    @Test
+    public void testCreateDigitalInWithSetup()
+    {
+        DataAccessorFactory.getInstance().getDigitalAccessor().createSimulator(3, WpiDigitalIoWrapper.class.getName());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getDigitalAccessor().isInitialized(3));
+
+        new DigitalInput(3);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getDigitalAccessor().isInitialized(3));
     }
 
     @Test

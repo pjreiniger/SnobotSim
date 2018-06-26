@@ -470,7 +470,7 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
         case Encoder:
             if (!DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(mHandle))
             {
-                DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mHandle, CtreEncoder.class.getName(), false);
+                DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mHandle, CtreEncoder.class.getName());
                 DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(getHandle(), getHandle());
                 sLOGGER.log(Level.WARN, "CTRE Encoder on port " + mCanHandle + " was not registerd before starting the robot");
             }
@@ -478,7 +478,7 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
         case Analog:
             if (!DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(mCanHandle))
             {
-                DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mCanHandle, CtreAnalogIn.class.getName(), false);
+                DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mCanHandle, CtreAnalogIn.class.getName());
                 sLOGGER.log(Level.WARN, "CTRE Analog on port " + mCanHandle + " was not registerd before starting the robot");
             }
             break;

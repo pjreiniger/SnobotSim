@@ -107,4 +107,10 @@ public class JniDataAccessor implements IDataAccessor
         return mSimulator;
     }
 
+    @Override
+    public String getInitializationErrors()
+    {
+        return null;
+    }
+
 }

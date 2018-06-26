@@ -9,6 +9,18 @@ import com.snobot.simulator.wrapper_accessors.AccelerometerWrapperAccessor;
 public class JavaAccelerometerWrapperAccessor extends BaseWrapperAccessor<IAccelerometerWrapper> implements AccelerometerWrapperAccessor
 {
     @Override
+    public boolean isInitialized(int aPort)
+    {
+        return getValue(aPort).isInitialized();
+    }
+
+    @Override
+    public void setInitialized(int aPort, boolean aInitialized)
+    {
+        getValue(aPort).setInitialized(aInitialized);
+    }
+
+    @Override
     public void register(int aPort, String aName)
     {
         // Nothing to do
@@ -33,7 +45,7 @@ public class JavaAccelerometerWrapperAccessor extends BaseWrapperAccessor<IAccel
     }
 
     @Override
-    public boolean createSimulator(int aPort, String aType, boolean aIsStartup)
+    public boolean createSimulator(int aPort, String aType)
     {
         return false;
     }

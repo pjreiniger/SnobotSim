@@ -34,10 +34,10 @@ public final class EncoderCallbackJni
             {
                 if (!DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(mPort))
                 {
-                    DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mPort, WpiEncoderWrapper.class.getName(), false);
+                    DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mPort, WpiEncoderWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
                 }
-
+                DataAccessorFactory.getInstance().getEncoderAccessor().setInitialized(mPort, true);
             }
             else if ("Count".equals(aCallbackType))
             {

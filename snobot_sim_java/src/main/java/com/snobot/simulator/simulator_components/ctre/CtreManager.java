@@ -48,7 +48,7 @@ public class CtreManager
                 sLOGGER.log(Level.WARN, "CTRE Motor Controller was not set up for port " + aCanPort);
                 
                 DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(aCanPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET,
-                        CtreTalonSrxSpeedControllerSim.class.getName(), false);
+                        CtreTalonSrxSpeedControllerSim.class.getName());
             }
         }
         else if ("SetDemand".equals(aCallback))

@@ -57,22 +57,18 @@ JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_
  * Signature: (B[F)V
  */
 JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setJoystickAxes
-(JNIEnv* env, jclass, jbyte joystickNum, jfloatArray axesArray)
+(JNIEnv* env, jclass, jbyte aHandle, jfloatArray aAxes)
 {
-//	  HAL_JoystickAxes axes;
-//	  {
-//	    wpi::java::JFloatArrayRef jArrayRef(env, axesArray);
-//	    auto arrayRef = jArrayRef.array();
-//	    auto arraySize = arrayRef.size();
-//	    int maxCount =
-//	        arraySize < HAL_kMaxJoystickAxes ? arraySize : HAL_kMaxJoystickAxes;
-//	    axes.count = maxCount;
-//	    for (int i = 0; i < maxCount; i++) {
-//	      axes.axes[i] = arrayRef[i];
-//	    }
-//	  }
-//	  HALSIM_SetJoystickAxes(joystickNum, &axes);
-//	  return;
+
+    HAL_JoystickAxes newAxes;
+    float* axes = env->GetFloatArrayElements(aAxes, NULL);
+    newAxes.count = env->GetArrayLength(aAxes);
+    for (int i = 0; i < newAxes.count; ++i)
+    {
+        newAxes.axes[i] = axes[i];
+    }
+    env->ReleaseFloatArrayElements(aAxes, axes, 0);
+    HALSIM_SetJoystickAxes(aHandle, &newAxes);
 }
 
 
@@ -82,22 +78,18 @@ JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_
  * Signature: (B[S)V
  */
 JNIEXPORT void JNICALL Java_edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI_setJoystickPOVs
-(JNIEnv* env, jclass, jbyte joystickNum, jshortArray povsArray)
+(JNIEnv* env, jclass, jbyte joystickNum, jshortArray aPovs)
 {
-//	  HAL_JoystickPOVs povs;
-//	  {
-//	    wpi::java::JShortArrayRef jArrayRef(env, povsArray);
-//	    auto arrayRef = jArrayRef.array();
-//	    auto arraySize = arrayRef.size();
-//	    int maxCount =
-//	        arraySize < HAL_kMaxJoystickPOVs ? arraySize : HAL_kMaxJoystickPOVs;
-//	    povs.count = maxCount;
-//	    for (int i = 0; i < maxCount; i++) {
-//	      povs.povs[i] = arrayRef[i];
-//	    }
-//	  }
-//	  HALSIM_SetJoystickPOVs(joystickNum, &povs);
-//	  return;
+    HAL_JoystickPOVs newPov;
+    int16_t* povs = env->GetShortArrayElements(aPovs, NULL);
+    newPov.count = env->GetArrayLength(aPovs);
+    for (int i = 0; i < newPov.count; ++i)
+    {
+        newPov.povs[i] = povs[i];
+    }
+    env->ReleaseShortArrayElements(aPovs, povs, 0);
+
+    HALSIM_SetJoystickPOVs(joystickNum, &newPov);
 }
 
 

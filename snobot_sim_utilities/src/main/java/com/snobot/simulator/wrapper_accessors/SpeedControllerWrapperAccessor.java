@@ -27,7 +27,7 @@ public interface SpeedControllerWrapperAccessor extends IBasicSensorActuatorWrap
         }
     }
 
-    public boolean createSimulator(int aPort, String aType, boolean aIsStartup);
+    public boolean createSimulator(int aPort, String aType);
 
     public double getVoltagePercentage(int aPort);
 

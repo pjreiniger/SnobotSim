@@ -3,6 +3,7 @@ package com.snobot.simulator.module_wrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.snobot.simulator.module_wrapper.wpi.WpiRelayWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
@@ -28,6 +29,16 @@ public class TestRelayJni extends BaseSimulatorJavaTest
 
         DataAccessorFactory.getInstance().getRelayAccessor().setName(0, "NewNameFor0");
         Assertions.assertEquals("NewNameFor0", DataAccessorFactory.getInstance().getRelayAccessor().getName(0));
+    }
+
+    @Test
+    public void testCreateRelaysWithSetup()
+    {
+        DataAccessorFactory.getInstance().getRelayAccessor().createSimulator(3, WpiRelayWrapper.class.getName());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getRelayAccessor().isInitialized(3));
+
+        new Relay(3);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getRelayAccessor().isInitialized(3));
     }
 
     public void testReusePort()

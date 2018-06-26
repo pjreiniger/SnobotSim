@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
+import com.snobot.simulator.module_wrapper.wpi.WpiEncoderWrapper;
 import com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
@@ -35,6 +36,16 @@ public class TestEncoderJni extends BaseSimulatorJavaTest
 
         DataAccessorFactory.getInstance().getEncoderAccessor().setName(1, "NewNameFor1");
         Assertions.assertEquals("NewNameFor1", DataAccessorFactory.getInstance().getEncoderAccessor().getName(1));
+    }
+
+    @Test
+    public void testCreateEncoderWithSetup()
+    {
+        DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(0, WpiEncoderWrapper.class.getName());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().isInitialized(0));
+
+        new Encoder(1, 2);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().isInitialized(0));
     }
 
     public void testReusePort()

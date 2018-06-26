@@ -34,9 +34,10 @@ public final class AnalogGyroCallbackJni
             {
                 if (!DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(mPort))
                 {
-                    DataAccessorFactory.getInstance().getGyroAccessor().createSimulator(mPort, WpiAnalogGyroWrapper.class.getName(), false);
+                    DataAccessorFactory.getInstance().getGyroAccessor().createSimulator(mPort, WpiAnalogGyroWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
                 }
+                DataAccessorFactory.getInstance().getGyroAccessor().setInitialized(mPort, true);
             }
             else if ("Angle".equals(aCallbackType))
             {

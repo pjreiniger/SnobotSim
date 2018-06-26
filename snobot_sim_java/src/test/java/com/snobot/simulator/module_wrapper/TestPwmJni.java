@@ -3,6 +3,7 @@ package com.snobot.simulator.module_wrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper;
 import com.snobot.simulator.simulator_components.IMotorFeedbackSensor;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
@@ -29,6 +30,16 @@ public class TestPwmJni extends BaseSimulatorJavaTest
 
         DataAccessorFactory.getInstance().getSpeedControllerAccessor().setName(0, "NewNameFor0");
         Assertions.assertEquals("NewNameFor0", DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(0));
+    }
+
+    @Test
+    public void testCreatePwmWithSetup()
+    {
+        DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(3, WpiPwmWrapper.class.getName());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(3));
+
+        new Talon(3);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(3));
     }
 
     public void testReusePort()

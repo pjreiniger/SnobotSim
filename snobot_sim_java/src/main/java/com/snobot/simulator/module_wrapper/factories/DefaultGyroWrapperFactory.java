@@ -12,7 +12,7 @@ public class DefaultGyroWrapperFactory extends BaseWrapperFactory
 {
     private static final Logger sLOGGER = LogManager.getLogger(DefaultGyroWrapperFactory.class);
 
-    public boolean create(int aPort, String aType, boolean aIsStartup)
+    public boolean create(int aPort, String aType)
     {
         boolean success = true;
 

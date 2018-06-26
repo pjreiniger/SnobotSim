@@ -35,10 +35,10 @@ public final class PwmCallbackJni
             {
                 if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().contains(mPort))
                 {
-                    DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(mPort, WpiPwmWrapper.class.getName(), false);
+                    DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(mPort, WpiPwmWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
                 }
-
+                DataAccessorFactory.getInstance().getSpeedControllerAccessor().setInitialized(mPort, true);
             }
             else if ("Speed".equals(aCallbackType))
             {

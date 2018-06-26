@@ -68,12 +68,6 @@ public class DefaultSpiSimulatorFactory extends BaseWrapperFactory implements IS
     @Override
     public boolean create(int aPort, String aType)
     {
-        return create(aPort, aType, true);
-    }
-
-    @Override
-    public boolean create(int aPort, String aType, boolean aIsStartup)
-    {
         String fullType = "SPI " + aType;
 
         ISpiWrapper simulator = null;

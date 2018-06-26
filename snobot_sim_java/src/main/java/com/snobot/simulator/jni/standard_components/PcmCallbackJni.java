@@ -41,10 +41,10 @@ public final class PcmCallbackJni
             {
                 if (!DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().contains(fullChannel))
                 {
-                    DataAccessorFactory.getInstance().getSolenoidAccessor().createSimulator(fullChannel, WpiSolenoidWrapper.class.getName(), false);
+                    DataAccessorFactory.getInstance().getSolenoidAccessor().createSimulator(fullChannel, WpiSolenoidWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + fullChannel + " was not registerd before starting the robot");
                 }
-
+                DataAccessorFactory.getInstance().getSolenoidAccessor().setInitialized(fullChannel, true);
             }
             else if ("SolenoidOutput".equals(aCallbackType))
             {

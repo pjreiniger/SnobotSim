@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -253,6 +254,15 @@ public class Simulator
         aFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    protected void showInitializationMessage(String aMessage)
+    {
+        if (aMessage != null && !aMessage.isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Some simulator components were specified in the config file, but not in the robot:\n" + aMessage,
+                    "Config file mismatch", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void sendJoystickUpdate()
     {
         IMockJoystick[] joysticks = JoystickFactory.getInstance().getAll();
@@ -277,6 +287,8 @@ public class Simulator
                 {
                     DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForProgramToStart();
 
+                    String errors = DataAccessorFactory.getInstance().getInitializationErrors();
+                    showInitializationMessage(errors);
                     mSimulator.setRobot(mRobot);
 
                     SimulatorFrame frame = new SimulatorFrame(mSimulatorConfig);

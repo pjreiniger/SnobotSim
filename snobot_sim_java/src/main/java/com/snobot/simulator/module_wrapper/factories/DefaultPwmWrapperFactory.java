@@ -12,7 +12,7 @@ public class DefaultPwmWrapperFactory extends BaseWrapperFactory
 {
     private static final Logger sLOGGER = LogManager.getLogger(DefaultPwmWrapperFactory.class);
 
-    public boolean create(int aPort, String aType, boolean aIsStartup)
+    public boolean create(int aPort, String aType)
     {
         boolean success = true;
 

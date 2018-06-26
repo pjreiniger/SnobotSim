@@ -152,7 +152,7 @@ public class SimulatorConfigReaderV1
     protected int createBasicSimulatorComponent(IBasicSensorActuatorWrapperAccessor aAccessor, BasicModuleConfig aConfig)
     {
         int handle = aConfig.getmHandle();
-        aAccessor.createSimulator(handle, aConfig.getmType(), true);
+        aAccessor.createSimulator(handle, aConfig.getmType());
         if (handle != -1 && aConfig.getmName() != null)
         {
             aAccessor.setName(handle, aConfig.getmName());

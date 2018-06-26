@@ -24,9 +24,21 @@ public class JavaEncoderWrapperAccessor extends BaseWrapperAccessor<IEncoderWrap
     }
 
     @Override
-    public boolean createSimulator(int aPort, String aType, boolean aIsStartup)
+    public boolean isInitialized(int aPort)
     {
-        return mFactory.create(aPort, aType, aIsStartup);
+        return getValue(aPort).isInitialized();
+    }
+
+    @Override
+    public void setInitialized(int aPort, boolean aInitialized)
+    {
+        getValue(aPort).setInitialized(aInitialized);
+    }
+
+    @Override
+    public boolean createSimulator(int aPort, String aType)
+    {
+        return mFactory.create(aPort, aType);
     }
 
     @Override

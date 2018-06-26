@@ -4,6 +4,10 @@ import java.util.List;
 
 public interface IBasicSensorActuatorWrapperAccessor
 {
+    boolean isInitialized(int aPort);
+
+    public void setInitialized(int aPort, boolean aInitialized);
+
     void setName(int aPort, String aName);
 
     String getName(int aPort);
@@ -14,5 +18,5 @@ public interface IBasicSensorActuatorWrapperAccessor
 
     public List<Integer> getPortList();
 
-    boolean createSimulator(int aPort, String aType, boolean aIsStartup);
+    boolean createSimulator(int aPort, String aType);
 }

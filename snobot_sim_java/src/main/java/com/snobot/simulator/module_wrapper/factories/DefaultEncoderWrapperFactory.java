@@ -12,7 +12,7 @@ public class DefaultEncoderWrapperFactory extends BaseWrapperFactory
 {
     private static final Logger sLOGGER = LogManager.getLogger(DefaultEncoderWrapperFactory.class);
 
-    public boolean create(int aPort, String aType, boolean aIsStartup)
+    public boolean create(int aPort, String aType)
     {
         boolean success = true;
 

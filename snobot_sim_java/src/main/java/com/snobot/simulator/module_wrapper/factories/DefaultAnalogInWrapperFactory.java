@@ -12,7 +12,7 @@ public class DefaultAnalogInWrapperFactory extends BaseWrapperFactory
 {
     private static final Logger sLOGGER = LogManager.getLogger(DefaultAnalogInWrapperFactory.class);
 
-    public boolean create(int aPort, String aType, boolean aIsStartup)
+    public boolean create(int aPort, String aType)
     {
         boolean success = true;
 

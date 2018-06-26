@@ -31,6 +31,12 @@ public class TestSimulator extends BaseSimulatorTest
         }
 
         @Override
+        protected void showInitializationMessage(String aMessage)
+        {
+            // Nothing to do
+        }
+
+        @Override
         protected void exitWithError()
         {
             mError = true;

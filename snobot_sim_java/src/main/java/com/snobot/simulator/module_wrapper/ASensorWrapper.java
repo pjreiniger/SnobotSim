@@ -5,11 +5,24 @@ import com.snobot.simulator.module_wrapper.interfaces.ISensorWrapper;
 public class ASensorWrapper implements ISensorWrapper
 {
     protected String mName;
+    protected boolean mIsInitialized;
     protected boolean mWantsHidden;
 
     public ASensorWrapper(String aName)
     {
         mName = aName;
+    }
+
+    @Override
+    public boolean isInitialized()
+    {
+        return mIsInitialized;
+    }
+
+    @Override
+    public void setInitialized(boolean aInitialized)
+    {
+        mIsInitialized = aInitialized;
     }
 
     /* (non-Javadoc)

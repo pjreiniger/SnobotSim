@@ -11,7 +11,19 @@ import com.snobot.simulator.wrapper_accessors.SolenoidWrapperAccessor;
 public class JniSolenoidWrapperAccessor implements SolenoidWrapperAccessor
 {
     @Override
-    public boolean createSimulator(int aPort, String aType, boolean aIsStartup)
+    public boolean isInitialized(int aPort)
+    {
+        return true;
+    }
+
+    @Override
+    public void setInitialized(int aPort, boolean aInitialized)
+    {
+        // Nothing to do
+    }
+
+    @Override
+    public boolean createSimulator(int aPort, String aType)
     {
         return false;
     }

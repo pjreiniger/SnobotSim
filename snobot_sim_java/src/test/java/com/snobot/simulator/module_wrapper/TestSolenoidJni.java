@@ -3,6 +3,7 @@ package com.snobot.simulator.module_wrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
@@ -34,6 +35,16 @@ public class TestSolenoidJni extends BaseSimulatorJavaTest
 
         DataAccessorFactory.getInstance().getSolenoidAccessor().setName(0, "NewNameFor0");
         Assertions.assertEquals("NewNameFor0", DataAccessorFactory.getInstance().getSolenoidAccessor().getName(0));
+    }
+
+    @Test
+    public void testCreateSolenoidWithSetup()
+    {
+        DataAccessorFactory.getInstance().getSolenoidAccessor().createSimulator(3, WpiSolenoidWrapper.class.getName());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().isInitialized(3));
+
+        new Solenoid(3);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSolenoidAccessor().isInitialized(3));
     }
 
     public void testReusePort()

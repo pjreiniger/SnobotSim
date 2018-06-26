@@ -23,4 +23,6 @@ public interface IDataAccessor
     SpeedControllerWrapperAccessor getSpeedControllerAccessor();
 
     SimulatorDataAccessor getSimulatorDataAccessor();
+
+    String getInitializationErrors();
 }

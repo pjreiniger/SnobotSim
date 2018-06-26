@@ -55,14 +55,20 @@ public class SimulatorConfigReaderV0
 
             // Need to hack up the old config file to try to get it in something
             // snakeyaml can read
-            File tempFile = createTempFile(aConfigFile);
+            File tempFile = createTempFile(File.createTempFile("convertedConfig", "yml"), aConfigFile);
 
             Yaml yaml = new Yaml();
 
             try (Reader fr = new InputStreamReader(new FileInputStream(tempFile), "UTF-8"))
             {
                 SimulatorConfigV0 simulatorConfig = (SimulatorConfigV0) yaml.load(fr);
-                return convert(simulatorConfig);
+                SimulatorConfigV1 output = convert(simulatorConfig);
+                if (output != null)
+                {
+                    sLOGGER.log(Level.WARN,
+                            "V0 config file converted to V1.  It is recommended you replace your file with " + tempFile.getAbsolutePath());
+                }
+                return output;
             }
         }
         catch (IOException ex)
@@ -73,10 +79,9 @@ public class SimulatorConfigReaderV0
         return null;
     }
 
-    private File createTempFile(File aInputFile)
+    private File createTempFile(File aTempFile, File aInputFile)
     {
-        File tempFile = new File("test.yml");
-        try (BufferedReader br = new BufferedReader(new FileReader(aInputFile)); BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile)))
+        try (BufferedReader br = new BufferedReader(new FileReader(aInputFile)); BufferedWriter bw = new BufferedWriter(new FileWriter(aTempFile)))
         {
             String line;
 
@@ -96,7 +101,7 @@ public class SimulatorConfigReaderV0
             sLOGGER.log(Level.WARN, ex);
         }
 
-        return tempFile;
+        return aTempFile;
     }
 
     private SimulatorConfigV1 convert(SimulatorConfigV0 aSimulatorConfig)
