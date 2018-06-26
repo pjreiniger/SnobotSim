@@ -2,7 +2,7 @@ version: 1.0.{build}
 image: Visual Studio 2015
 
 build_script:
-- cmd: gradlew.bat build jacocoTestReport publish -Pmaven_repo=build/maven_repo
+- cmd: gradlew.bat build jacocoTestReport publish -Pmaven_repo=build/maven_repo -i
 
 after_build:
 - cmd: "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
