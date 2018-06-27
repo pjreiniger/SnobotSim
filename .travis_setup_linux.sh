@@ -9,11 +9,9 @@ printf "\n\n\n\n"
 which pip
 which pip3
 
-sudo sh -c "echo 'y' | apt install python3-pip"
-
 printf "HELLO2222"
 printf "\n\n\n\n"
 which pip
 which pip3
-pip install --user wpiformat
-pip install --user yapf
+pip3 install --user wpiformat
+pip3 install --user yapf
