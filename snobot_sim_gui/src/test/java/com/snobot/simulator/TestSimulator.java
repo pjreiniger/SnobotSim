@@ -10,6 +10,7 @@ import com.snobot.simulator.gui.SimulatorFrame;
 import com.snobot.simulator.wrapper_accessors.SimulatorDataAccessor.SnobotLogLevel;
 import com.snobot.test.utilities.BaseSimulatorTest;
 
+@Disabled
 public class TestSimulator extends BaseSimulatorTest
 {
     private static final long TIME_TO_RUN_MS = 10;
