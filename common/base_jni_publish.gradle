@@ -45,6 +45,12 @@ task cppSourcesZip(type: Zip) {
 
 model {
     publishing {
+        
+        def createAllTask
+        if(!project.hasProperty('ciBuild')) {
+            createAllTask = createAllCombined(project."packageNative${libraryName}FilesInJar", libraryName, zipBaseName, Jar, project)
+        }
+        
         repositories {
            maven {
                url maven_publishing_path
@@ -59,6 +65,11 @@ model {
                 artifact cppHeadersZip
                 artifact cppSourcesZip
                 artifact project."packageNative${libraryName}FilesInJar"
+                
+                
+                if(!project.hasProperty('ciBuild')) {
+                    artifact createAllTask
+                }
             }
         }
     }
