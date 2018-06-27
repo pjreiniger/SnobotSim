@@ -10,6 +10,7 @@ which pip
 which pip3
 
 sudo sh -c "echo 'y' | apt install python3-pip"
+sudo sh -c "apt-get install -y python-setuptools"
 
 printf "HELLO2222"
 printf "\n\n\n\n"
