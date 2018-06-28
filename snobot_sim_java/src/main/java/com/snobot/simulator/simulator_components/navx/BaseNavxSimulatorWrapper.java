@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
+import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper;
 import com.snobot.simulator.module_wrapper.BaseGyroWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IAccelerometerWrapper;
@@ -15,12 +16,14 @@ import com.snobot.simulator.module_wrapper.interfaces.II2CWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
 import com.snobot.simulator.navx.INavxSimulator;
 
-public abstract class BaseNavxSimulatorWrapper implements ISpiWrapper, II2CWrapper
+public abstract class BaseNavxSimulatorWrapper extends ASensorWrapper implements ISpiWrapper, II2CWrapper
 {
     private static final Logger sLOGGER = LogManager.getLogger(BaseNavxSimulatorWrapper.class);
 
     public BaseNavxSimulatorWrapper(String aBaseName, INavxSimulator aNavxWrapper, int aBasePort)
     {
+        super("NotUsed");
+
         IAccelerometerWrapper xWrapper = new BaseAccelerometerWrapper(aBaseName + " X Accel", aNavxWrapper::getXAccel, aNavxWrapper::setXAccel);
         IAccelerometerWrapper yWrapper = new BaseAccelerometerWrapper(aBaseName + " Y Accel", aNavxWrapper::getYAccel, aNavxWrapper::setYAccel);
         IAccelerometerWrapper zWrapper = new BaseAccelerometerWrapper(aBaseName + " Z Accel", aNavxWrapper::getZAccel, aNavxWrapper::setZAccel);

@@ -1,15 +1,19 @@
 package com.snobot.simulator;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Enumeration;
 import java.util.Properties;
+import java.util.jar.Manifest;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -72,6 +76,8 @@ public class Simulator
     {
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().setLogLevel(aLogLevel);
 
+        printAsciiArt("/com/snobot/simulator/yeti_art.txt");
+
         PluginSniffer sniffer = new PluginSniffer();
         sniffer.loadPlugins(aPluginDirectory);
 
@@ -92,29 +98,7 @@ public class Simulator
         {
             if (!Files.exists(Paths.get(aFile)))
             {
-                sLOGGER.log(Level.WARN,
-                        "Could not read properties file, will use defaults and will overwrite the file if it exists");
-
-                String defaultSimConfig = mUserConfigDirectory + "simulator_config.yml";
-                Properties defaults = new Properties();
-
-                try (InputStream stream = Simulator.class.getResourceAsStream("/com/snobot/simulator/config/default_properties.properties"))
-                {
-                    defaults.load(stream);
-                }
-                defaults.putIfAbsent("simulator_config", defaultSimConfig);
-
-                File defaultConfigFile = new File(defaultSimConfig);
-                if (!defaultConfigFile.exists() && !defaultConfigFile.createNewFile())
-                {
-                    sLOGGER.log(Level.WARN, "Could not create default config file at " + defaultConfigFile);
-                }
-
-                try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(aFile), "UTF-8"))
-                {
-                    defaults.store(fw, "");
-                }
-
+                createDefaultConfig(aFile);
             }
 
             Properties p = new Properties();
@@ -144,6 +128,93 @@ public class Simulator
         {
             sLOGGER.log(Level.WARN, "Could not read properties file", ex);
         }
+    }
+
+    private void createDefaultConfig(String aFile) throws IOException
+    {
+        sLOGGER.log(Level.WARN, "Could not read properties file, will use defaults and will overwrite the file if it exists");
+
+        String defaultSimConfig = mUserConfigDirectory + "simulator_config.yml";
+        Properties defaults = new Properties();
+
+        defaults.putIfAbsent("robot_class", tryLoadRobotClass());
+        defaults.putIfAbsent("robot_type", "java");
+        defaults.putIfAbsent("simulator_config", defaultSimConfig);
+
+        File defaultConfigFile = new File(defaultSimConfig);
+        if (!defaultConfigFile.exists() && !defaultConfigFile.createNewFile())
+        {
+            sLOGGER.log(Level.WARN, "Could not create default config file at " + defaultConfigFile);
+        }
+
+        try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(aFile), "UTF-8"))
+        {
+            defaults.store(fw, "");
+        }
+    }
+
+    private void printAsciiArt(String aResourceFile)
+    {
+        StringBuilder builder = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(aResourceFile))))
+        {
+            String line;
+            while ((line = br.readLine()) != null)
+            {
+                builder.append(line).append('\n');
+            }
+
+            System.out.println(builder); // NOPMD
+        }
+        catch (IOException ex)
+        {
+            sLOGGER.log(Level.WARN, ex);
+        }
+    }
+
+    private String tryLoadRobotClass()
+    {
+        sLOGGER.log(Level.WARN, "Searching for robot name");
+        String robotName = null;
+        Enumeration<URL> resources = null;
+        try
+        {
+            resources = Thread.currentThread().getContextClassLoader().getResources("META-INF/MANIFEST.MF");
+        }
+        catch (IOException ex)
+        {
+            sLOGGER.log(Level.WARN, ex);
+        }
+
+        while (resources != null && resources.hasMoreElements())
+        {
+            try
+            {
+                URL element = resources.nextElement();
+                Manifest manifest = new Manifest(element.openStream());
+                String robotClass = manifest.getMainAttributes().getValue("Robot-Class");
+                if (robotClass != null)
+                {
+                    robotName = robotClass;
+                }
+            }
+            catch (IOException ex)
+            {
+                sLOGGER.log(Level.WARN, ex);
+            }
+        }
+
+        if (robotName == null)
+        {
+            robotName = "com.snobot.simulator.example_robot.ExampleRobot";
+            sLOGGER.log(Level.WARN, "Couldn't automatically find robot class, will use the example robot");
+        }
+        else
+        {
+            sLOGGER.log(Level.INFO, "Found robot name: " + robotName);
+        }
+
+        return robotName;
     }
 
     private void createRobot(String aRobotType, String aRobotClassName)
@@ -219,6 +290,8 @@ public class Simulator
             IllegalArgumentException, InvocationTargetException
     {
         loadConfig(mPropertiesFile);
+
+        printAsciiArt("/com/snobot/simulator/snobot_sim.txt");
 
         sendJoystickUpdate();
 

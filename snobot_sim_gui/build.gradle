@@ -130,9 +130,8 @@ jar {
 
    from("${rootDir}/snobot_sim_gui/src/main/java") {
       include  '**/*.png'
-   }
-   from("${rootDir}/snobot_sim_gui/src/main/java") {
       include  '**/*.properties'
+      include  '**/*.txt'
    }
 }
 

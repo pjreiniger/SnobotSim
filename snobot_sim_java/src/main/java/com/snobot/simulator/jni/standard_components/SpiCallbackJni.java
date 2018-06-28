@@ -40,7 +40,11 @@ public final class SpiCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                if (!SensorActuatorRegistry.get().getSpiWrappers().containsKey(mPort))
+                if (SensorActuatorRegistry.get().getSpiWrappers().containsKey(mPort))
+                {
+                    SensorActuatorRegistry.get().getSpiWrappers().get(mPort).setInitialized(true);
+                }
+                else
                 {
                     sLOGGER.log(Level.ERROR, "No SPI simulator registered for port " + mPort);
                 }
