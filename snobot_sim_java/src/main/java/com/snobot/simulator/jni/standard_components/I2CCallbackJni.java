@@ -40,9 +40,20 @@ public final class I2CCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                if (!SensorActuatorRegistry.get().getI2CWrappers().containsKey(mPort))
+                if (aHalValue.getBoolean())
                 {
-                    sLOGGER.log(Level.ERROR, "No I2C simulator registered for port " + mPort);
+                    if (SensorActuatorRegistry.get().getI2CWrappers().containsKey(mPort))
+                    {
+                        SensorActuatorRegistry.get().getI2CWrappers().get(mPort).setInitialized(true);
+                    }
+                    else
+                    {
+                        sLOGGER.log(Level.ERROR, "No I2C simulator registered for port " + mPort);
+                    }
+                }
+                else
+                {
+                    sLOGGER.log(Level.INFO, "Shutting down I2C port " + mPort);
                 }
             }
             else

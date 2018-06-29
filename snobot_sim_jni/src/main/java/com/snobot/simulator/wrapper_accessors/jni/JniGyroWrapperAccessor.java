@@ -29,9 +29,9 @@ public class JniGyroWrapperAccessor implements GyroWrapperAccessor
     }
 
     @Override
-    public void register(int aPort, String aName)
+    public void removeSimluator(int aPort)
     {
-        GyroWrapperJni.register(aPort, aName);
+
     }
 
     @Override

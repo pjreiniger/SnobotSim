@@ -29,6 +29,12 @@ public class JniSolenoidWrapperAccessor implements SolenoidWrapperAccessor
     }
 
     @Override
+    public void removeSimluator(int aPort)
+    {
+
+    }
+
+    @Override
     public void setName(int aPort, String aName)
     {
         SolenoidWrapperJni.setName(aPort, aName);

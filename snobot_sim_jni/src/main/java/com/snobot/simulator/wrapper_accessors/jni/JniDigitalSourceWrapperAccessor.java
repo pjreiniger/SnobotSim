@@ -29,6 +29,12 @@ public class JniDigitalSourceWrapperAccessor implements DigitalSourceWrapperAcce
     }
 
     @Override
+    public void removeSimluator(int aPort)
+    {
+
+    }
+
+    @Override
     public void setName(int aPort, String aName)
     {
         DigitalSourceWrapperJni.setName(aPort, aName);

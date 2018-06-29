@@ -60,4 +60,10 @@ public class ASensorWrapper implements ISensorWrapper
     {
         mWantsHidden = aVisible;
     }
+
+    @Override
+    public void close()
+    {
+
+    }
 }

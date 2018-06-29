@@ -53,6 +53,20 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
         return mFactory.create(aPort, aType);
     }
 
+    @Override
+    public void removeSimluator(int aPort)
+    {
+        try
+        {
+            getValue(aPort).close();
+        }
+        catch (Exception ex)
+        {
+            LogManager.getLogger().log(Level.WARN, "Could not close simulator", ex);
+        }
+        SensorActuatorRegistry.get().getSpeedControllers().remove(aPort);
+    }
+
     public void tryInitialize(int aPort, String aType)
     {
         mFactory.tryCreate(aPort, aType);

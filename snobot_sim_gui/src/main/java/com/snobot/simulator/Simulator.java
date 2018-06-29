@@ -1,5 +1,6 @@
 package com.snobot.simulator;
 
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +17,7 @@ import java.util.Properties;
 import java.util.jar.Manifest;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import org.apache.logging.log4j.Level;
@@ -49,9 +51,10 @@ public class Simulator
     private final String mUserConfigDirectory;
     private final String mPropertiesFile;
 
-    // private String mSimulatorClassName; // The name of the class that
-    // represents the simulator
-    private String mSimulatorConfig;
+    private String mRobotClassName;
+    private String mRobotType;
+    private String mSimulatorConfigFile;
+
 
     private IRobotClassContainer mRobot; // The robot code to run
     private ASimulator mSimulator; // The robot code to run
@@ -108,23 +111,14 @@ public class Simulator
                 p.load(fis);
             }
 
-            String robotClassName = p.getProperty("robot_class");
-            String robotType = p.getProperty("robot_type");
+            mRobotClassName = p.getProperty("robot_class");
+            mRobotType = p.getProperty("robot_type");
 
             String simulatorClassName = p.getProperty("simulator_class");
-            mSimulatorConfig = p.getProperty("simulator_config");
 
-            createSimulator(simulatorClassName, mSimulatorConfig);
-            createRobot(robotType, robotClassName);
-
-            // Change the network table preferences path. Need to start
-            // the robot, stop the server and restart it
-            NetworkTableInstance inst = NetworkTableInstance.getDefault();
-            inst.stopServer();
-            inst.startServer(mUserConfigDirectory + "networktables.ini");
+            createSimulator(simulatorClassName, p.getProperty("simulator_config"));
         }
-        catch (IOException | InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | SecurityException
-                | IllegalArgumentException | InvocationTargetException ex)
+        catch (IOException ex)
         {
             sLOGGER.log(Level.WARN, "Could not read properties file", ex);
         }
@@ -241,6 +235,12 @@ public class Simulator
         }
 
         mRobot.constructRobot();
+
+        // Change the network table preferences path. Need to start
+        // the robot, stop the server and restart it
+        NetworkTableInstance inst = NetworkTableInstance.getDefault();
+        inst.stopServer();
+        inst.startServer(mUserConfigDirectory + "networktables.ini");
     }
 
     private void createSimulator(String aSimulatorClassName, String aSimulatorConfig)
@@ -257,9 +257,11 @@ public class Simulator
             {
                 mSimulator = new ASimulator();
                 mSimulator.loadConfig(aSimulatorConfig);
+
                 sLOGGER.log(Level.DEBUG, "Created default simulator");
             }
 
+            mSimulatorConfigFile = mSimulator.getConfigFile();
         }
         catch (ClassNotFoundException | InstantiationException | IllegalAccessError | IllegalAccessException e)
         {
@@ -291,9 +293,12 @@ public class Simulator
     {
         loadConfig(mPropertiesFile);
 
+        // Force the jinput libraries to load
+        sendJoystickUpdate();
+
         printAsciiArt("/com/snobot/simulator/snobot_sim.txt");
 
-        sendJoystickUpdate();
+        createRobot(mRobotType, mRobotClassName);
 
         if (mSimulator != null && mRobot != null) // NOPMD
         {
@@ -331,7 +336,14 @@ public class Simulator
     {
         if (aMessage != null && !aMessage.isEmpty())
         {
-            JOptionPane.showMessageDialog(null, "Some simulator components were specified in the config file, but not in the robot:\n" + aMessage,
+            String message = "<html>Some simulator components were specified in the config file, but not in the robot.<br>"
+                    + "They will be <b>removed</b> from the simulator registery, to make it easier to fix your config file.<ul>" + aMessage
+                    + "</ul></html>";
+            JLabel label = new JLabel(message);
+            label.setFont(new Font("serif", Font.PLAIN, 14));
+            System.out.println(message);
+            JOptionPane.showMessageDialog(null,
+                    label,
                     "Config file mismatch", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -364,7 +376,7 @@ public class Simulator
                     showInitializationMessage(errors);
                     mSimulator.setRobot(mRobot);
 
-                    SimulatorFrame frame = new SimulatorFrame(mSimulatorConfig);
+                    SimulatorFrame frame = new SimulatorFrame(mSimulatorConfigFile);
                     setFrameVisible(frame);
 
                     while (mRunningSimulator)

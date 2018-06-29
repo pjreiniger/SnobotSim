@@ -23,12 +23,6 @@ public class JniAccelerometerWrapperAccessor implements AccelerometerWrapperAcce
     }
 
     @Override
-    public void register(int aPort, String aName)
-    {
-        AccelerometerWrapperJni.register(aPort, aName);
-    }
-
-    @Override
     public void setName(int aPort, String aName)
     {
         AccelerometerWrapperJni.setName(aPort, aName);
@@ -74,5 +68,11 @@ public class JniAccelerometerWrapperAccessor implements AccelerometerWrapperAcce
     public boolean createSimulator(int aPort, String aType)
     {
         return false;
+    }
+
+    @Override
+    public void removeSimluator(int aPort)
+    {
+
     }
 }

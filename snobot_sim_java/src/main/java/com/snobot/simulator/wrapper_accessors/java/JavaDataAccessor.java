@@ -113,14 +113,14 @@ public class JavaDataAccessor implements IDataAccessor
     @Override
     public String getInitializationErrors()
     {
-        String notInitializedMessage = " not initialized";
         StringBuilder errorMessage = new StringBuilder(256);
 
         for (int port : DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList())
         {
             if (!DataAccessorFactory.getInstance().getAccelerometerAccessor().isInitialized(port))
             {
-                errorMessage.append("Accelerometer ").append(port).append(notInitializedMessage);
+                DataAccessorFactory.getInstance().getAccelerometerAccessor().removeSimluator(port);
+                errorMessage.append("  <li>").append("Accelerometer ").append(port).append("</li>\n");
             }
         }
 
@@ -128,7 +128,8 @@ public class JavaDataAccessor implements IDataAccessor
         {
             if (!DataAccessorFactory.getInstance().getGyroAccessor().isInitialized(port))
             {
-                errorMessage.append("Gyro ").append(port).append(notInitializedMessage);
+                DataAccessorFactory.getInstance().getGyroAccessor().removeSimluator(port);
+                errorMessage.append("  <li>").append("Gyro ").append(port).append("</li>\n");
             }
         }
 
@@ -136,7 +137,8 @@ public class JavaDataAccessor implements IDataAccessor
         {
             if (!DataAccessorFactory.getInstance().getAnalogInAccessor().isInitialized(port))
             {
-                errorMessage.append("Analog In ").append(port).append(notInitializedMessage);
+                DataAccessorFactory.getInstance().getAnalogInAccessor().removeSimluator(port);
+                errorMessage.append("  <li>").append("Analog In ").append(port).append("</li>\n");
             }
         }
 
@@ -144,7 +146,8 @@ public class JavaDataAccessor implements IDataAccessor
         {
             if (!DataAccessorFactory.getInstance().getAnalogOutAccessor().isInitialized(port))
             {
-                errorMessage.append("Analog Out ").append(port).append(notInitializedMessage);
+                DataAccessorFactory.getInstance().getAnalogOutAccessor().removeSimluator(port);
+                errorMessage.append("  <li>").append("Analog Out ").append(port).append("</li>\n");
             }
         }
 
@@ -152,7 +155,8 @@ public class JavaDataAccessor implements IDataAccessor
         {
             if (!DataAccessorFactory.getInstance().getDigitalAccessor().isInitialized(port))
             {
-                errorMessage.append("Digital IO ").append(port).append(notInitializedMessage);
+                DataAccessorFactory.getInstance().getDigitalAccessor().removeSimluator(port);
+                errorMessage.append("  <li>").append("Digital IO ").append(port).append("</li>\n");
             }
         }
 
@@ -160,7 +164,8 @@ public class JavaDataAccessor implements IDataAccessor
         {
             if (!DataAccessorFactory.getInstance().getEncoderAccessor().isInitialized(port))
             {
-                errorMessage.append("Digital IO ").append(port).append(notInitializedMessage);
+                DataAccessorFactory.getInstance().getEncoderAccessor().removeSimluator(port);
+                errorMessage.append("  <li>").append("Digital IO ").append(port).append("</li>\n");
             }
         }
 
@@ -168,7 +173,8 @@ public class JavaDataAccessor implements IDataAccessor
         {
             if (!DataAccessorFactory.getInstance().getRelayAccessor().isInitialized(port))
             {
-                errorMessage.append("Relay ").append(port).append(notInitializedMessage);
+                DataAccessorFactory.getInstance().getRelayAccessor().removeSimluator(port);
+                errorMessage.append("  <li>").append("Relay ").append(port).append("</li>\n");
             }
         }
 
@@ -176,7 +182,8 @@ public class JavaDataAccessor implements IDataAccessor
         {
             if (!DataAccessorFactory.getInstance().getSolenoidAccessor().isInitialized(port))
             {
-                errorMessage.append("Solenoid ").append(port).append(notInitializedMessage);
+                DataAccessorFactory.getInstance().getSolenoidAccessor().removeSimluator(port);
+                errorMessage.append("  <li>").append("Solenoid ").append(port).append("</li>\n");
             }
         }
 
@@ -184,7 +191,8 @@ public class JavaDataAccessor implements IDataAccessor
         {
             if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(port))
             {
-                errorMessage.append("Speed Controller ").append(port).append(notInitializedMessage);
+                DataAccessorFactory.getInstance().getSpeedControllerAccessor().removeSimluator(port);
+                errorMessage.append("  <li>").append("Speed Controller ").append(port).append("</li>\n");
             }
         }
 

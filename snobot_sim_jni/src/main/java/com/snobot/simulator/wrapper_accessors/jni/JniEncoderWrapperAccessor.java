@@ -29,6 +29,12 @@ public class JniEncoderWrapperAccessor implements EncoderWrapperAccessor
     }
 
     @Override
+    public void removeSimluator(int aPort)
+    {
+
+    }
+
+    @Override
     public void setName(int aPort, String aName)
     {
         EncoderWrapperJni.setName(aPort, aName);

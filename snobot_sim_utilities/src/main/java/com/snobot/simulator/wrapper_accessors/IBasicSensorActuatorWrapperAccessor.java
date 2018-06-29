@@ -19,4 +19,6 @@ public interface IBasicSensorActuatorWrapperAccessor
     public List<Integer> getPortList();
 
     boolean createSimulator(int aPort, String aType);
+
+    void removeSimluator(int aPort);
 }

@@ -29,6 +29,12 @@ public class JniRelayWrapperAccessor implements RelayWrapperAccessor
     }
 
     @Override
+    public void removeSimluator(int aPort)
+    {
+
+    }
+
+    @Override
     public void setName(int aPort, String aName)
     {
         RelayWrapperJni.setName(aPort, aName);

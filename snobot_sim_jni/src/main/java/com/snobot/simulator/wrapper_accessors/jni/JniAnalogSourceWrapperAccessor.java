@@ -29,6 +29,12 @@ public class JniAnalogSourceWrapperAccessor implements AnalogSourceWrapperAccess
     }
 
     @Override
+    public void removeSimluator(int aPort)
+    {
+
+    }
+
+    @Override
     public void setName(int aPort, String aName)
     {
         AnalogSourceWrapperJni.setName(aPort, aName);
@@ -50,6 +56,12 @@ public class JniAnalogSourceWrapperAccessor implements AnalogSourceWrapperAccess
     public double getVoltage(int aPort)
     {
         return AnalogSourceWrapperJni.getVoltage(aPort);
+    }
+
+    @Override
+    public void setVoltage(int aPort, double aVoltage)
+    {
+        // nothing to do
     }
 
     @Override

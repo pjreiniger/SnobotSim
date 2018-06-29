@@ -2,6 +2,9 @@ package com.snobot.simulator.wrapper_accessors.java;
 
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.factories.DefaultDigitalIoWrapperFactory;
 import com.snobot.simulator.module_wrapper.interfaces.IDigitalIoWrapper;
@@ -32,6 +35,20 @@ public class JavaDigitalSourceWrapperAccessor extends BaseWrapperAccessor<IDigit
     public boolean createSimulator(int aPort, String aType)
     {
         return mFactory.create(aPort, aType);
+    }
+
+    @Override
+    public void removeSimluator(int aPort)
+    {
+        try
+        {
+            getValue(aPort).close();
+        }
+        catch (Exception ex)
+        {
+            LogManager.getLogger().log(Level.WARN, "Could not close simulator", ex);
+        }
+        SensorActuatorRegistry.get().getDigitalSources().remove(aPort);
     }
 
     @Override

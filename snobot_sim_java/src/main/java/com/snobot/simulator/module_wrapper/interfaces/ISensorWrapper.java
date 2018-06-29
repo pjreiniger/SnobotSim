@@ -1,6 +1,6 @@
 package com.snobot.simulator.module_wrapper.interfaces;
 
-public interface ISensorWrapper
+public interface ISensorWrapper extends AutoCloseable
 {
 
     boolean isInitialized();

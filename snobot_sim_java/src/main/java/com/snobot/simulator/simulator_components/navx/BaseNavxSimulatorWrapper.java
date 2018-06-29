@@ -20,24 +20,45 @@ public abstract class BaseNavxSimulatorWrapper extends ASensorWrapper implements
 {
     private static final Logger sLOGGER = LogManager.getLogger(BaseNavxSimulatorWrapper.class);
 
+    protected IAccelerometerWrapper mXWrapper;
+    protected IAccelerometerWrapper mYWrapper;
+    protected IAccelerometerWrapper mZWrapper;
+    protected IGyroWrapper mYawWrapper;
+    protected IGyroWrapper mPitchWrapper;
+    protected IGyroWrapper mRollWrapper;
+
     public BaseNavxSimulatorWrapper(String aBaseName, INavxSimulator aNavxWrapper, int aBasePort)
     {
         super("NotUsed");
 
-        IAccelerometerWrapper xWrapper = new BaseAccelerometerWrapper(aBaseName + " X Accel", aNavxWrapper::getXAccel, aNavxWrapper::setXAccel);
-        IAccelerometerWrapper yWrapper = new BaseAccelerometerWrapper(aBaseName + " Y Accel", aNavxWrapper::getYAccel, aNavxWrapper::setYAccel);
-        IAccelerometerWrapper zWrapper = new BaseAccelerometerWrapper(aBaseName + " Z Accel", aNavxWrapper::getZAccel, aNavxWrapper::setZAccel);
-        IGyroWrapper yawWrapper = new BaseGyroWrapper(aBaseName + " Yaw", aNavxWrapper::getYaw, aNavxWrapper::setYaw);
-        IGyroWrapper pitchWrapper = new BaseGyroWrapper(aBaseName + " Pitch", aNavxWrapper::getPitch, aNavxWrapper::setPitch);
-        IGyroWrapper rollWrapper = new BaseGyroWrapper(aBaseName + " Roll", aNavxWrapper::getRoll, aNavxWrapper::setRoll);
+        mXWrapper = new BaseAccelerometerWrapper(aBaseName + " X Accel", aNavxWrapper::getXAccel, aNavxWrapper::setXAccel);
+        mYWrapper = new BaseAccelerometerWrapper(aBaseName + " Y Accel", aNavxWrapper::getYAccel, aNavxWrapper::setYAccel);
+        mZWrapper = new BaseAccelerometerWrapper(aBaseName + " Z Accel", aNavxWrapper::getZAccel, aNavxWrapper::setZAccel);
+        mYawWrapper = new BaseGyroWrapper(aBaseName + " Yaw", aNavxWrapper::getYaw, aNavxWrapper::setYaw);
+        mPitchWrapper = new BaseGyroWrapper(aBaseName + " Pitch", aNavxWrapper::getPitch, aNavxWrapper::setPitch);
+        mRollWrapper = new BaseGyroWrapper(aBaseName + " Roll", aNavxWrapper::getRoll, aNavxWrapper::setRoll);
 
-        SensorActuatorRegistry.get().register(xWrapper, aBasePort + 0);
-        SensorActuatorRegistry.get().register(yWrapper, aBasePort + 1);
-        SensorActuatorRegistry.get().register(zWrapper, aBasePort + 2);
+        SensorActuatorRegistry.get().register(mXWrapper, aBasePort + 0);
+        SensorActuatorRegistry.get().register(mYWrapper, aBasePort + 1);
+        SensorActuatorRegistry.get().register(mZWrapper, aBasePort + 2);
 
-        SensorActuatorRegistry.get().register(yawWrapper, aBasePort + 0);
-        SensorActuatorRegistry.get().register(pitchWrapper, aBasePort + 1);
-        SensorActuatorRegistry.get().register(rollWrapper, aBasePort + 2);
+        SensorActuatorRegistry.get().register(mYawWrapper, aBasePort + 0);
+        SensorActuatorRegistry.get().register(mPitchWrapper, aBasePort + 1);
+        SensorActuatorRegistry.get().register(mRollWrapper, aBasePort + 2);
+    }
+
+    @Override
+    public void setInitialized(boolean aInitialized)
+    {
+        super.setInitialized(aInitialized);
+
+        mXWrapper.setInitialized(aInitialized);
+        mYWrapper.setInitialized(aInitialized);
+        mZWrapper.setInitialized(aInitialized);
+
+        mYawWrapper.setInitialized(aInitialized);
+        mPitchWrapper.setInitialized(aInitialized);
+        mRollWrapper.setInitialized(aInitialized);
     }
 
     @Override

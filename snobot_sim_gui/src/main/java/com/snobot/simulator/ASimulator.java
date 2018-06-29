@@ -17,6 +17,7 @@ public class ASimulator implements ISimulatorUpdater
     private static final Logger sLOGGER = LogManager.getLogger(ASimulator.class);
 
     private final SimulatorConfigReaderV1 mConfigReader;
+    private String mConfigFile;
 
     protected ASimulator()
     {
@@ -25,7 +26,8 @@ public class ASimulator implements ISimulatorUpdater
 
     public boolean loadConfig(String aConfigFile)
     {
-        return mConfigReader.loadConfig(aConfigFile);
+        mConfigFile = aConfigFile;
+        return mConfigReader.loadConfig(mConfigFile);
     }
 
 
@@ -39,5 +41,10 @@ public class ASimulator implements ISimulatorUpdater
     public void setRobot(IRobotClassContainer aRobot)
     {
         // Nothing to do
+    }
+
+    public String getConfigFile()
+    {
+        return mConfigFile;
     }
 }

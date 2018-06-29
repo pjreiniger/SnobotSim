@@ -27,8 +27,6 @@ public interface SpeedControllerWrapperAccessor extends IBasicSensorActuatorWrap
         }
     }
 
-    public boolean createSimulator(int aPort, String aType);
-
     public double getVoltagePercentage(int aPort);
 
     public DcMotorModelConfig getMotorConfig(int aPort);

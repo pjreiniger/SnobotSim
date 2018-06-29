@@ -11,8 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.module_wrapper.interfaces.II2CWrapper;
-import com.snobot.simulator.simulator_components.adx_family.ADXFamily3AxisAccelerometer;
+import com.snobot.simulator.module_wrapper.interfaces.II2CWrapper; 
 import com.snobot.simulator.simulator_components.adx_family.ADXL345I2CWrapper;
 import com.snobot.simulator.simulator_components.navx.BaseNavxSimulatorWrapper;
 import com.snobot.simulator.simulator_components.navx.I2CNavxSimulatorWrapper;
@@ -47,7 +46,7 @@ public class DefaultI2CSimulatorFactory extends BaseWrapperFactory implements II
         {
             return sNAVX_TYPE;
         }
-        else if (aType instanceof ADXFamily3AxisAccelerometer)
+        else if (aType instanceof ADXL345I2CWrapper)
         {
             return sADXL345_TYPE;
         }

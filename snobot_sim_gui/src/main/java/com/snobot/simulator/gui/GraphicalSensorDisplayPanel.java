@@ -7,6 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import com.snobot.simulator.gui.module_widget.AccelerometerOutputDisplay;
+import com.snobot.simulator.gui.module_widget.AnalogInputDisplay;
 import com.snobot.simulator.gui.module_widget.AnalogOutputDisplay;
 import com.snobot.simulator.gui.module_widget.BaseWidgetDisplay;
 import com.snobot.simulator.gui.module_widget.DigitalSourceGraphicDisplay;
@@ -41,9 +42,9 @@ public class GraphicalSensorDisplayPanel extends JPanel
         mDisplayPanels.add(new SolenoidGraphicDisplay(DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList()));
         mDisplayPanels.add(new DigitalSourceGraphicDisplay(DataAccessorFactory.getInstance().getDigitalAccessor().getPortList()));
         mDisplayPanels.add(new RelayGraphicDisplay(DataAccessorFactory.getInstance().getRelayAccessor().getPortList()));
-        mDisplayPanels.add(new AnalogOutputDisplay(DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList()));
+        mDisplayPanels.add(new AnalogInputDisplay(DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList()));
         mDisplayPanels.add(new AnalogOutputDisplay(DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList()));
-        mDisplayPanels.add(new EncoderGraphicDisplay(DataAccessorFactory.getInstance().getEncoderAccessor().getPortList(), "Encoders"));
+        mDisplayPanels.add(new EncoderGraphicDisplay(DataAccessorFactory.getInstance().getEncoderAccessor().getPortList()));
         mDisplayPanels.add(new GyroGraphicDisplay(DataAccessorFactory.getInstance().getGyroAccessor().getPortList()));
         mDisplayPanels.add(new AccelerometerOutputDisplay(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList()));
 

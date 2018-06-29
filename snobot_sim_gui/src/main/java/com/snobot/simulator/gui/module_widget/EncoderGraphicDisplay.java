@@ -14,10 +14,10 @@ import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 public class EncoderGraphicDisplay extends BaseWidgetDisplay<Integer, EncoderWrapperDisplay>
 {
-    public EncoderGraphicDisplay(Collection<Integer> aKeys, String aString)
+    public EncoderGraphicDisplay(Collection<Integer> aKeys)
     {
         super(aKeys);
-        setBorder(new TitledBorder(aString));
+        setBorder(new TitledBorder("Encoders"));
     }
 
     @Override
@@ -27,10 +27,9 @@ public class EncoderGraphicDisplay extends BaseWidgetDisplay<Integer, EncoderWra
         {
             int key = pair.getKey();
             boolean isConnected = DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(key);
-            double raw = -999;
             double distance = DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(key);
 
-            pair.getValue().updateDisplay(isConnected, raw, distance);
+            pair.getValue().updateDisplay(isConnected, distance);
         }
     }
 
@@ -72,28 +71,24 @@ public class EncoderGraphicDisplay extends BaseWidgetDisplay<Integer, EncoderWra
 
 class EncoderWrapperDisplay extends JPanel
 {
-    private final JTextField mRawField;
     private final JTextField mDistanceField;
 
     public EncoderWrapperDisplay()
     {
-        mRawField = new JTextField(6);
         mDistanceField = new JTextField(6);
-        add(mRawField);
+        mDistanceField.setEnabled(false);
         add(mDistanceField);
     }
 
-    public void updateDisplay(boolean aHasConnection, double aRaw, double aDistance)
+    public void updateDisplay(boolean aHasConnection, double aDistance)
     {
         if (aHasConnection)
         {
             DecimalFormat df = new DecimalFormat("#.###");
-            mRawField.setText(Double.toString(aRaw));
             mDistanceField.setText(df.format(aDistance));
         }
         else
         {
-            mRawField.setText("Not Hooked Up");
             mDistanceField.setText("Not Hooked Up");
         }
     }

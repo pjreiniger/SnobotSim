@@ -42,6 +42,20 @@ public class JavaEncoderWrapperAccessor extends BaseWrapperAccessor<IEncoderWrap
     }
 
     @Override
+    public void removeSimluator(int aPort)
+    {
+        try
+        {
+            getValue(aPort).close();
+        }
+        catch (Exception ex)
+        {
+            LogManager.getLogger().log(Level.WARN, "Could not close simulator", ex);
+        }
+        SensorActuatorRegistry.get().getEncoders().remove(aPort);
+    }
+
+    @Override
     protected Map<Integer, IEncoderWrapper> getMap()
     {
         return SensorActuatorRegistry.get().getEncoders();

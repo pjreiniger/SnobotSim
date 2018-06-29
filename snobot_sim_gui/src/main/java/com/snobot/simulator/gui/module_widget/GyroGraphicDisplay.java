@@ -71,6 +71,7 @@ class GyroWrapperDisplay extends JPanel
     public GyroWrapperDisplay()
     {
         mAngleField = new JTextField(6);
+        mAngleField.setEnabled(false);
         add(mAngleField);
     }
 

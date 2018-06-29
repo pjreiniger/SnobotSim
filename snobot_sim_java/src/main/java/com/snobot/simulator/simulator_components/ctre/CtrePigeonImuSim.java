@@ -5,7 +5,7 @@ import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IAccelerometerWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 
-public class CtrePigeonImuSim
+public class CtrePigeonImuSim extends ASensorWrapper
 {
     private final PigeonAccelWrapper mXAccel;
     private final PigeonAccelWrapper mYAccel;
@@ -17,6 +17,8 @@ public class CtrePigeonImuSim
 
     public CtrePigeonImuSim(int aBasePort)
     {
+        super("Pigeon IMU");
+
         mXAccel = new PigeonAccelWrapper("Pigeon X");
         mYAccel = new PigeonAccelWrapper("Pigeon Y");
         mZAccel = new PigeonAccelWrapper("Pigeon Z");
@@ -32,6 +34,20 @@ public class CtrePigeonImuSim
         SensorActuatorRegistry.get().register(mYawGyro, aBasePort + 0);
         SensorActuatorRegistry.get().register(mPitchGyro, aBasePort + 1);
         SensorActuatorRegistry.get().register(mRollGyro, aBasePort + 2);
+    }
+
+    @Override
+    public void setInitialized(boolean aInitialized)
+    {
+        super.setInitialized(aInitialized);
+
+        mXAccel.setInitialized(aInitialized);
+        mYAccel.setInitialized(aInitialized);
+        mZAccel.setInitialized(aInitialized);
+
+        mYawGyro.setInitialized(aInitialized);
+        mPitchGyro.setInitialized(aInitialized);
+        mRollGyro.setInitialized(aInitialized);
     }
 
     public IGyroWrapper getYawWrapper()

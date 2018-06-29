@@ -40,13 +40,20 @@ public final class SpiCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                if (SensorActuatorRegistry.get().getSpiWrappers().containsKey(mPort))
+                if (aHalValue.getBoolean())
                 {
-                    SensorActuatorRegistry.get().getSpiWrappers().get(mPort).setInitialized(true);
+                    if (SensorActuatorRegistry.get().getSpiWrappers().containsKey(mPort))
+                    {
+                        SensorActuatorRegistry.get().getSpiWrappers().get(mPort).setInitialized(true);
+                    }
+                    else
+                    {
+                        sLOGGER.log(Level.ERROR, "No SPI simulator registered for port " + mPort);
+                    }
                 }
                 else
                 {
-                    sLOGGER.log(Level.ERROR, "No SPI simulator registered for port " + mPort);
+                    sLOGGER.log(Level.INFO, "Shutting down SPI port " + mPort);
                 }
             }
             else

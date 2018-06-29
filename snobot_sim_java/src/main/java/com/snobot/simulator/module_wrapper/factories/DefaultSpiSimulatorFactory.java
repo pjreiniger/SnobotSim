@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
-import com.snobot.simulator.simulator_components.adx_family.ADXFamily3AxisAccelerometer;
 import com.snobot.simulator.simulator_components.adx_family.ADXL345SpiWrapper;
 import com.snobot.simulator.simulator_components.adx_family.ADXL362SpiWrapper;
 import com.snobot.simulator.simulator_components.adx_family.ADXRS450GyroWrapper;
@@ -53,9 +52,13 @@ public class DefaultSpiSimulatorFactory extends BaseWrapperFactory implements IS
         {
             return sNAVX_TYPE;
         }
-        else if (aType instanceof ADXFamily3AxisAccelerometer)
+        else if (aType instanceof ADXL345SpiWrapper)
         {
             return sADXL345_TYPE;
+        }
+        else if (aType instanceof ADXL362SpiWrapper)
+        {
+            return sADXL362_TYPE;
         }
         else if (aType instanceof ADXRS450GyroWrapper)
         {
