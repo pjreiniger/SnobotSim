@@ -27,8 +27,23 @@ public class TestSolenoidJni extends BaseSimulatorJniTest
         Assertions.assertEquals("Solenoid 3", DataAccessorFactory.getInstance().getSolenoidAccessor().getName(3));
         Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWantsHidden(3));
 
+        new Solenoid(1, 6);
+        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
+        Assertions.assertEquals("Solenoid 14", DataAccessorFactory.getInstance().getSolenoidAccessor().getName(14));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWantsHidden(14));
+
         DataAccessorFactory.getInstance().getSolenoidAccessor().setName(0, "NewNameFor0");
         Assertions.assertEquals("NewNameFor0", DataAccessorFactory.getInstance().getSolenoidAccessor().getName(0));
+    }
+
+    @Test
+    public void testCreateSolenoidWithSetup()
+    {
+        DataAccessorFactory.getInstance().getSolenoidAccessor().createSimulator(3, "WpiSolenoidWrapper");
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().isInitialized(3));
+
+        new Solenoid(3);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSolenoidAccessor().isInitialized(3));
     }
 
     public void testReusePort()

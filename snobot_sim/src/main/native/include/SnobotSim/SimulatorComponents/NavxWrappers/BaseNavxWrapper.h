@@ -11,8 +11,9 @@
 #include <memory>
 
 #include "NavxSim/NavxSimulator.h"
-#include "SnobotSim/SimulatorComponents/Accelerometer/IAccelerometerWrapper.h"
-#include "SnobotSim/SimulatorComponents/Gyro/IGyroWrapper.h"
+#include "SnobotSim/ModuleWrapper/AModuleWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IAccelerometerWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IGyroWrapper.h"
 
 class BaseNavxWrapper
 {
@@ -20,7 +21,7 @@ public:
     BaseNavxWrapper(int aBasePort, const std::shared_ptr<NavxSimulator>& aNavx);
     virtual ~BaseNavxWrapper();
 
-    class AccelerometerWrapper : public IAccelerometerWrapper
+    class AccelerometerWrapper : public AModuleWrapper, public IAccelerometerWrapper
     {
     public:
         enum AxisType
@@ -39,7 +40,7 @@ public:
         AxisType mAxisType;
         std::shared_ptr<NavxSimulator> mNavx;
     };
-    class GyroWrapper : public IGyroWrapper
+    class GyroWrapper : public AModuleWrapper, public IGyroWrapper
     {
     public:
         enum AxisType

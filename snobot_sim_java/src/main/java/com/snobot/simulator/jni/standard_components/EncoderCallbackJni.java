@@ -37,7 +37,7 @@ public final class EncoderCallbackJni
                     DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mPort, WpiEncoderWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
                 }
-                DataAccessorFactory.getInstance().getEncoderAccessor().setInitialized(mPort, true);
+                SensorActuatorRegistry.get().getEncoders().get(mPort).setInitialized(true);
             }
             else if ("Count".equals(aCallbackType))
             {

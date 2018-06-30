@@ -31,8 +31,8 @@ public class JniDataAccessor implements IDataAccessor
 
         mAccelerometer = new JniAccelerometerWrapperAccessor();
         mGyro = new JniGyroWrapperAccessor();
-        mAnalogIn = new JniAnalogSourceWrapperAccessor();
-        mAnalogOut = new JniAnalogSourceWrapperAccessor();
+        mAnalogIn = new JniAnalogInWrapperAccessor();
+        mAnalogOut = new JniAnalogOutWrapperAccessor();
         mDigital = new JniDigitalSourceWrapperAccessor();
         mEncoder = new JniEncoderWrapperAccessor();
         mRelay = new JniRelayWrapperAccessor();

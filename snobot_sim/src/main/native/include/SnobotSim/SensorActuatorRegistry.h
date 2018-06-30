@@ -15,21 +15,21 @@
 
 #include "SnobotSim/ExportHelper.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IAccelerometerWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IAnalogInWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IAnalogOutWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IDigitalIoWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IEncoderWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IGyroWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/II2CWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IRelayWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/ISolenoidWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/ISpeedControllerWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/ISpiWrapper.h"
 #include "SnobotSim/SimulatorComponents/ISimulatorUpdater.h"
 #include "SnobotSim/StackHelper/StackTraceHelper.h"
 
-class SpeedControllerWrapper;
-class RelayWrapper;
-class DigitalSourceWrapper;
-class AnalogSourceWrapper;
-class SolenoidWrapper;
-class EncoderWrapper;
-class IGyroWrapper;
-class IAccelerometerWrapper;
-class ISpiWrapper;
-class II2CWrapper;
 class CompressorWrapper;
-class CanManager;
 
 #define ACTUATOR_GETTERS(ItemType)                                              \
     bool Register(int aPort, const std::shared_ptr<ItemType>& aActuator);       \
@@ -56,12 +56,13 @@ public:
 
     std::shared_ptr<CompressorWrapper> GetCompressorWrapper();
 
-    ACTUATOR_GETTERS(SpeedControllerWrapper)
-    ACTUATOR_GETTERS(RelayWrapper)
-    ACTUATOR_GETTERS(DigitalSourceWrapper)
-    ACTUATOR_GETTERS(AnalogSourceWrapper)
-    ACTUATOR_GETTERS(SolenoidWrapper)
-    ACTUATOR_GETTERS(EncoderWrapper)
+    ACTUATOR_GETTERS(ISpeedControllerWrapper)
+    ACTUATOR_GETTERS(IRelayWrapper)
+    ACTUATOR_GETTERS(IAnalogInWrapper)
+    ACTUATOR_GETTERS(IAnalogOutWrapper)
+    ACTUATOR_GETTERS(IDigitalIoWrapper)
+    ACTUATOR_GETTERS(ISolenoidWrapper)
+    ACTUATOR_GETTERS(IEncoderWrapper)
     ACTUATOR_GETTERS(IAccelerometerWrapper)
     ACTUATOR_GETTERS(IGyroWrapper)
     ACTUATOR_GETTERS(ISpiWrapper)
@@ -111,19 +112,19 @@ protected:
         return iter->second;
     }
 
-    std::map<int, std::shared_ptr<SpeedControllerWrapper>> mSpeedControllerWrapperMap;
-    std::map<int, std::shared_ptr<RelayWrapper>> mRelayWrapperMap;
-    std::map<int, std::shared_ptr<DigitalSourceWrapper>> mDigitalSourceWrapperMap;
-    std::map<int, std::shared_ptr<AnalogSourceWrapper>> mAnalogSourceWrapperMap;
-    std::map<int, std::shared_ptr<SolenoidWrapper>> mSolenoidWrapperMap;
-    std::map<int, std::shared_ptr<EncoderWrapper>> mEncoderWrapperMap;
+    std::map<int, std::shared_ptr<ISpeedControllerWrapper>> mISpeedControllerWrapperMap;
+    std::map<int, std::shared_ptr<IRelayWrapper>> mIRelayWrapperMap;
+    std::map<int, std::shared_ptr<IDigitalIoWrapper>> mIDigitalIoWrapperMap;
+    std::map<int, std::shared_ptr<IAnalogInWrapper>> mIAnalogInWrapperMap;
+    std::map<int, std::shared_ptr<IAnalogOutWrapper>> mIAnalogOutWrapperMap;
+    std::map<int, std::shared_ptr<ISolenoidWrapper>> mISolenoidWrapperMap;
+    std::map<int, std::shared_ptr<IEncoderWrapper>> mIEncoderWrapperMap;
     std::map<int, std::shared_ptr<IGyroWrapper>> mIGyroWrapperMap;
     std::map<int, std::shared_ptr<IAccelerometerWrapper>> mIAccelerometerWrapperMap;
     std::map<int, std::shared_ptr<ISpiWrapper>> mISpiWrapperMap;
     std::map<int, std::shared_ptr<II2CWrapper>> mII2CWrapperMap;
 
     std::shared_ptr<CompressorWrapper> mCompressor;
-    std::shared_ptr<CanManager> mCanManager;
 
     std::vector<std::shared_ptr<ISimulatorUpdater>> mSimulatorComponents;
 };

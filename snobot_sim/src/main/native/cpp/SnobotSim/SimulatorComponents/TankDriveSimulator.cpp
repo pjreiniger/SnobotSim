@@ -10,8 +10,8 @@
 #include "SnobotSim/Logging/SnobotLogger.h"
 
 TankDriveSimulator::TankDriveSimulator(
-        const std::shared_ptr<EncoderWrapper>& aLeftEncoder,
-        const std::shared_ptr<EncoderWrapper>& aRightEncoder,
+        const std::shared_ptr<IEncoderWrapper>& aLeftEncoder,
+        const std::shared_ptr<IEncoderWrapper>& aRightEncoder,
         const std::shared_ptr<IGyroWrapper>& aGyroWrapper,
         double aTurnKp) :
 

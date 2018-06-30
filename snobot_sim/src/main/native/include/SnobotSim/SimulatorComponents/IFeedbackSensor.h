@@ -12,15 +12,20 @@ class IFeedbackSensor
 {
 public:
     virtual void SetPosition(double aPosition) = 0;
+    virtual void SetVelocity(double aVelocity) = 0;
     virtual double GetPosition() = 0;
 };
 
 class NullFeedbackSensor : public IFeedbackSensor
 {
-    void SetPosition(double aPosition)
+    void SetPosition(double aPosition) override
     {
     }
-    double GetPosition()
+
+    void SetVelocity(double aVelocity) override
+    {
+    }
+    double GetPosition() override
     {
         return 0;
     }

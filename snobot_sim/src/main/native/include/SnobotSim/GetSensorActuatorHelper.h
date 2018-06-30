@@ -14,13 +14,14 @@
 
 namespace GetSensorActuatorHelper
 {
-EXPORT_ std::shared_ptr<SpeedControllerWrapper> GetSpeedControllerWrapper(int aHandle, bool aLogOnMissing = true);
+EXPORT_ std::shared_ptr<ISpeedControllerWrapper> GetISpeedControllerWrapper(int aHandle, bool aLogOnMissing = true);
 EXPORT_ std::shared_ptr<IGyroWrapper> GetIGyroWrapper(int aHandle, bool aLogOnMissing = true);
-EXPORT_ std::shared_ptr<DigitalSourceWrapper> GetDigitalSourceWrapper(int aHandle, bool aLogOnMissing = true);
-EXPORT_ std::shared_ptr<AnalogSourceWrapper> GetAnalogSourceWrapper(int aHandle, bool aLogOnMissing = true);
-EXPORT_ std::shared_ptr<RelayWrapper> GetRelayWrapper(int aHandle, bool aLogOnMissing = true);
-EXPORT_ std::shared_ptr<SolenoidWrapper> GetSolenoidWrapper(int aHandle, bool aLogOnMissing = true);
-EXPORT_ std::shared_ptr<EncoderWrapper> GetEncoderWrapper(int aHandle, bool aLogOnMissing = true);
+EXPORT_ std::shared_ptr<IDigitalIoWrapper> GetIDigitalIoWrapper(int aHandle, bool aLogOnMissing = true);
+EXPORT_ std::shared_ptr<IAnalogInWrapper> GetIAnalogInWrapper(int aHandle, bool aLogOnMissing = true);
+EXPORT_ std::shared_ptr<IAnalogOutWrapper> GetIAnalogOutWrapper(int aHandle, bool aLogOnMissing = true);
+EXPORT_ std::shared_ptr<IRelayWrapper> GetIRelayWrapper(int aHandle, bool aLogOnMissing = true);
+EXPORT_ std::shared_ptr<ISolenoidWrapper> GetISolenoidWrapper(int aHandle, bool aLogOnMissing = true);
+EXPORT_ std::shared_ptr<IEncoderWrapper> GetIEncoderWrapper(int aHandle, bool aLogOnMissing = true);
 EXPORT_ std::shared_ptr<ISpiWrapper> GetISpiWrapper(int aHandle, bool aLogOnMissing = false);
 EXPORT_ std::shared_ptr<II2CWrapper> GetII2CWrapper(int aHandle, bool aLogOnMissing = false);
 } // namespace GetSensorActuatorHelper

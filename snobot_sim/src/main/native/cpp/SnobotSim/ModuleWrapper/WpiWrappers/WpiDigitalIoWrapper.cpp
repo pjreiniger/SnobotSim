@@ -1,0 +1,31 @@
+/*
+ * DigitalSourceWrapper.cpp
+ *
+ *  Created on: May 3, 2017
+ *      Author: PJ
+ */
+
+#include "SnobotSim/ModuleWrapper/WpiWrappers/WpiDigitalIoWrapper.h"
+
+#include "MockData/DIOData.h"
+#include "SnobotSim/PortUnwrapper.h"
+
+WpiDigitalIoWrapper::WpiDigitalIoWrapper(int aPort) :
+        AModuleWrapper("Digital IO " + std::to_string(UnwrapPort(aPort))),
+        mHandle(aPort)
+{
+}
+
+WpiDigitalIoWrapper::~WpiDigitalIoWrapper()
+{
+}
+
+bool WpiDigitalIoWrapper::Get()
+{
+    return HALSIM_GetDIOValue(mHandle);
+}
+
+void WpiDigitalIoWrapper::Set(bool aState)
+{
+    HALSIM_SetDIOValue(mHandle, aState);
+}

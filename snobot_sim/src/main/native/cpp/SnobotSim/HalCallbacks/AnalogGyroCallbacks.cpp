@@ -9,8 +9,8 @@
 
 #include "MockData/AnalogGyroData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
+#include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogGyroWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
-#include "SnobotSim/SimulatorComponents/Gyro/AnalogGyroWrapper.h"
 
 void AnalogGyroCallback(const char* name, void* param, const struct HAL_Value* value)
 {
@@ -19,11 +19,15 @@ void AnalogGyroCallback(const char* name, void* param, const struct HAL_Value* v
 
     if (nameStr == "Initialized")
     {
-        std::shared_ptr<AnalogSourceWrapper> analogWrapper = SensorActuatorRegistry::Get().GetAnalogSourceWrapper(port);
-        analogWrapper->SetWantsHidden(true);
+        if (!SensorActuatorRegistry::Get().GetIGyroWrapper(port, false))
+        {
+            std::shared_ptr<IAnalogInWrapper> analogWrapper = SensorActuatorRegistry::Get().GetIAnalogInWrapper(port);
+            analogWrapper->SetWantsHidden(true);
 
-        std::shared_ptr<AnalogGyroWrapper> gyroWrapper(new AnalogGyroWrapper(analogWrapper));
-        SensorActuatorRegistry::Get().Register(port, gyroWrapper);
+            std::shared_ptr<IGyroWrapper> gyroWrapper(new WpiAnalogGyroWrapper(port));
+            SensorActuatorRegistry::Get().Register(port, gyroWrapper);
+        }
+        SensorActuatorRegistry::Get().GetIGyroWrapper(port)->SetInitialized(true);
     }
     else if (nameStr == "Angle")
     {

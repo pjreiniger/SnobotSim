@@ -10,13 +10,13 @@
 
 #include <memory>
 
-#include "SnobotSim/ModuleWrapper/SpeedControllerWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/ISpeedControllerWrapper.h"
 #include "SnobotSim/MotorSim/BaseDcMotorSimulator.h"
 
 class EXPORT_ RotationalLoadDcMotorSim : public BaseDcMotorSimulator
 {
 public:
-    RotationalLoadDcMotorSim(const DcMotorModel& aMotorModel, const std::shared_ptr<SpeedControllerWrapper>& aSpeedController, double aArmCenterOfMass,
+    RotationalLoadDcMotorSim(const DcMotorModel& aMotorModel, const std::shared_ptr<ISpeedControllerWrapper>& aSpeedController, double aArmCenterOfMass,
             double aArmMass,
             double aConstantAssistTorque, double aOverCenterAssistTorque);
     virtual ~RotationalLoadDcMotorSim();
@@ -29,7 +29,7 @@ public:
 protected:
     static const double sGRAVITY;
 
-    const std::shared_ptr<SpeedControllerWrapper> mSpeedController;
+    const std::shared_ptr<ISpeedControllerWrapper> mSpeedController;
     const double mArmInertia;
     const double mGravityBasedTorqueFactor;
 

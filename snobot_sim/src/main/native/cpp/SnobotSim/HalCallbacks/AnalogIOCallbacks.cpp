@@ -4,18 +4,43 @@
 #include "MockData/AnalogInData.h"
 #include "MockData/AnalogOutData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
-#include "SnobotSim/ModuleWrapper/AnalogSourceWrapper.h"
+#include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogInWrapper.h"
+#include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogOutWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 
-void AnalogIOCallback(const char* name, void* param, const struct HAL_Value* value)
+void AnalogInCallback(const char* name, void* param, const struct HAL_Value* value)
 {
     std::string nameStr = name;
     int port = *reinterpret_cast<int*>(param);
 
     if (nameStr == "Initialized")
     {
-        SensorActuatorRegistry::Get().Register(port,
-                std::shared_ptr<AnalogSourceWrapper>(new AnalogSourceWrapper(port)));
+        if (!SensorActuatorRegistry::Get().GetIAnalogInWrapper(port, false))
+        {
+            SensorActuatorRegistry::Get().Register(port,
+                    std::shared_ptr<IAnalogInWrapper>(new WpiAnalogInWrapper(port)));
+        }
+        SensorActuatorRegistry::Get().GetIAnalogInWrapper(port)->SetInitialized(true);
+    }
+    else
+    {
+        SNOBOT_LOG(SnobotLogging::WARN, "Unknown name " << nameStr);
+    }
+}
+
+void AnalogOutCallback(const char* name, void* param, const struct HAL_Value* value)
+{
+    std::string nameStr = name;
+    int port = *reinterpret_cast<int*>(param);
+
+    if (nameStr == "Initialized")
+    {
+        if (!SensorActuatorRegistry::Get().GetIAnalogOutWrapper(port, false))
+        {
+            SensorActuatorRegistry::Get().Register(port,
+                    std::shared_ptr<IAnalogOutWrapper>(new WpiAnalogOutWrapper(port)));
+        }
+        SensorActuatorRegistry::Get().GetIAnalogOutWrapper(port)->SetInitialized(true);
     }
     else
     {
@@ -31,13 +56,13 @@ void SnobotSim::InitializeAnalogIOCallbacks()
     for (int i = 0; i < HAL_GetNumAnalogInputs(); ++i)
     {
         gAnalogInArrayIndices[i] = i;
-        HALSIM_RegisterAnalogInInitializedCallback(i, &AnalogIOCallback, &gAnalogInArrayIndices[i], false);
+        HALSIM_RegisterAnalogInInitializedCallback(i, &AnalogInCallback, &gAnalogInArrayIndices[i], false);
     }
 
     for (int i = 0; i < HAL_GetNumAnalogOutputs(); ++i)
     {
         gAnalogOutArrayIndices[i] = i;
-        HALSIM_RegisterAnalogOutInitializedCallback(i, &AnalogIOCallback, &gAnalogOutArrayIndices[i], false);
+        HALSIM_RegisterAnalogOutInitializedCallback(i, &AnalogOutCallback, &gAnalogOutArrayIndices[i], false);
     }
 }
 

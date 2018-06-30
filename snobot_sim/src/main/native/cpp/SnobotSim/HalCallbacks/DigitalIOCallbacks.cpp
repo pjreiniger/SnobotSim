@@ -3,7 +3,7 @@
 
 #include "MockData/DIOData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
-#include "SnobotSim/ModuleWrapper/DigitalSourceWrapper.h"
+#include "SnobotSim/ModuleWrapper/WpiWrappers/WpiDigitalIoWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 
 void DigitalIOCallback(const char* name, void* param, const struct HAL_Value* value)
@@ -13,13 +13,12 @@ void DigitalIOCallback(const char* name, void* param, const struct HAL_Value* va
 
     if (nameStr == "Initialized")
     {
-        SensorActuatorRegistry::Get().Register(port,
-                std::shared_ptr<DigitalSourceWrapper>(new DigitalSourceWrapper(port)));
-    }
-    else if (nameStr == "Value")
-    {
-        bool state = value->data.v_boolean;
-        SensorActuatorRegistry::Get().GetDigitalSourceWrapper(port)->Set(state);
+        if (!SensorActuatorRegistry::Get().GetIDigitalIoWrapper(port, false))
+        {
+            SensorActuatorRegistry::Get().Register(port,
+                    std::shared_ptr<IDigitalIoWrapper>(new WpiDigitalIoWrapper(port)));
+        }
+        SensorActuatorRegistry::Get().GetIDigitalIoWrapper(port)->SetInitialized(true);
     }
     else
     {

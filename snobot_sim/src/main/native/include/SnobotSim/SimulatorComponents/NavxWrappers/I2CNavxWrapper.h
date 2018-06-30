@@ -8,7 +8,7 @@
 #ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_SIMULATORCOMPONENTS_NAVXWRAPPERS_I2CNAVXWRAPPER_H_
 #define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_SIMULATORCOMPONENTS_NAVXWRAPPERS_I2CNAVXWRAPPER_H_
 
-#include "SnobotSim/SimulatorComponents/I2C/II2CWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/II2CWrapper.h"
 #include "SnobotSim/SimulatorComponents/NavxWrappers/BaseNavxWrapper.h"
 
 class I2CNavxWrapper : public II2CWrapper, public BaseNavxWrapper

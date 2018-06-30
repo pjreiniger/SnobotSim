@@ -9,7 +9,6 @@
 
 #include "HAL/handles/HandlesInternal.h"
 #include "SnobotSim/SimulatorComponents/CompressorWrapper.h"
-#include "SnobotSim/SimulatorComponents/Ctre/CanManager.h"
 
 SensorActuatorRegistry* SensorActuatorRegistry::sInstance = new SensorActuatorRegistry();
 
@@ -32,20 +31,19 @@ void SensorActuatorRegistry::Reset()
 {
     hal::HandleBase::ResetGlobalHandles();
 
-    mSpeedControllerWrapperMap.clear();
-    mRelayWrapperMap.clear();
-    mDigitalSourceWrapperMap.clear();
-    mAnalogSourceWrapperMap.clear();
-    mSolenoidWrapperMap.clear();
-    mEncoderWrapperMap.clear();
+    mISpeedControllerWrapperMap.clear();
+    mIRelayWrapperMap.clear();
+    mIDigitalIoWrapperMap.clear();
+    mIAnalogInWrapperMap.clear();
+    mIAnalogOutWrapperMap.clear();
+    mISolenoidWrapperMap.clear();
+    mIEncoderWrapperMap.clear();
     mIGyroWrapperMap.clear();
     mIAccelerometerWrapperMap.clear();
     mISpiWrapperMap.clear();
     mII2CWrapperMap.clear();
 
     mSimulatorComponents.clear();
-
-    mCanManager = std::shared_ptr<CanManager>(new CanManager);
 }
 
 std::shared_ptr<CompressorWrapper> SensorActuatorRegistry::GetCompressorWrapper()
@@ -81,12 +79,13 @@ std::vector<std::shared_ptr<ISimulatorUpdater>>& SensorActuatorRegistry::GetSimu
         return m##ItemType##Map;                                                                       \
     }
 
-ACTUATOR_GETTERS(SpeedControllerWrapper, false)
-ACTUATOR_GETTERS(RelayWrapper, false)
-ACTUATOR_GETTERS(DigitalSourceWrapper, false)
-ACTUATOR_GETTERS(AnalogSourceWrapper, false)
-ACTUATOR_GETTERS(SolenoidWrapper, false)
-ACTUATOR_GETTERS(EncoderWrapper, false)
+ACTUATOR_GETTERS(ISpeedControllerWrapper, false)
+ACTUATOR_GETTERS(IRelayWrapper, false)
+ACTUATOR_GETTERS(IDigitalIoWrapper, false)
+ACTUATOR_GETTERS(IAnalogInWrapper, false)
+ACTUATOR_GETTERS(IAnalogOutWrapper, false)
+ACTUATOR_GETTERS(ISolenoidWrapper, false)
+ACTUATOR_GETTERS(IEncoderWrapper, false)
 ACTUATOR_GETTERS(IAccelerometerWrapper, false)
 ACTUATOR_GETTERS(IGyroWrapper, false)
 ACTUATOR_GETTERS(ISpiWrapper, true)

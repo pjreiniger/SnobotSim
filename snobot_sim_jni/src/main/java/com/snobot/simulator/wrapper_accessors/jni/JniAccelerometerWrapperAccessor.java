@@ -13,13 +13,19 @@ public class JniAccelerometerWrapperAccessor implements AccelerometerWrapperAcce
     @Override
     public boolean isInitialized(int aPort)
     {
-        return true;
+        return AccelerometerWrapperJni.isInitialized(aPort);
     }
 
     @Override
-    public void setInitialized(int aPort, boolean aInitialized)
+    public boolean createSimulator(int aPort, String aType)
     {
-        // Nothing to do
+        return AccelerometerWrapperJni.createSimulator(aPort, aType);
+    }
+
+    @Override
+    public void removeSimluator(int aPort)
+    {
+        AccelerometerWrapperJni.removeSimluator(aPort);
     }
 
     @Override
@@ -62,17 +68,5 @@ public class JniAccelerometerWrapperAccessor implements AccelerometerWrapperAcce
     public String getType(int aPort)
     {
         return null;
-    }
-
-    @Override
-    public boolean createSimulator(int aPort, String aType)
-    {
-        return false;
-    }
-
-    @Override
-    public void removeSimluator(int aPort)
-    {
-        // Nothing to do
     }
 }

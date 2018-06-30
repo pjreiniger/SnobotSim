@@ -4,7 +4,8 @@
 #include <cassert>
 
 #include "SnobotSim/GetSensorActuatorHelper.h"
-#include "SnobotSim/ModuleWrapper/RelayWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IRelayWrapper.h"
+#include "SnobotSim/ModuleWrapper/Factories/RelayFactory.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "com_snobot_simulator_jni_module_wrapper_RelayWrapperJni.h"
 #include "support/jni_util.h"
@@ -13,6 +14,16 @@ using namespace wpi::java;
 
 extern "C"
 {
+/*
+ * Class:     com_snobot_simulator_jni_module_wrapper_RelayWrapperJni
+ * Method:    isInitialized
+ * Signature: (I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWrapperJni_isInitialized
+  (JNIEnv *, jclass, jint aPortHandle)
+{
+	return SensorActuatorRegistry::Get().GetIRelayWrapper(aPortHandle)->IsInitialized();
+}
 
 /*
  * Class:     com_snobot_simulator_jni_module_wrapper_RelayWrapperJni
@@ -22,7 +33,7 @@ extern "C"
 JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWrapperJni_setName
   (JNIEnv * env, jclass, jint aPortHandle, jstring aName)
 {
-    std::shared_ptr<RelayWrapper> wrapper = GetSensorActuatorHelper::GetRelayWrapper(aPortHandle);
+    std::shared_ptr<IRelayWrapper> wrapper = GetSensorActuatorHelper::GetIRelayWrapper(aPortHandle);
     if(wrapper)
     {
         wrapper->SetName(env->GetStringUTFChars(aName, NULL));
@@ -38,7 +49,7 @@ JNIEXPORT jstring JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWra
         JNIEnv * env, jclass, jint portHandle)
 {
     return MakeJString(env,
-            SensorActuatorRegistry::Get().GetRelayWrapper(portHandle)->GetName());
+            SensorActuatorRegistry::Get().GetIRelayWrapper(portHandle)->GetName());
 }
 
 /*
@@ -48,7 +59,31 @@ JNIEXPORT jstring JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWra
  */
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWrapperJni_getWantsHidden(JNIEnv *, jclass, jint portHandle)
 {
-    return SensorActuatorRegistry::Get().GetRelayWrapper(portHandle)->WantsHidden();
+    return SensorActuatorRegistry::Get().GetIRelayWrapper(portHandle)->WantsHidden();
+}
+
+/*
+ * Class:     com_snobot_simulator_jni_module_wrapper_RelayWrapperJni
+ * Method:    createSimulator
+ * Signature: (ILjava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWrapperJni_createSimulator
+  (JNIEnv * env, jclass, jint aHandle, jstring aType)
+{
+	static RelayFactory factory;
+
+	return factory.Create(aHandle, env->GetStringUTFChars(aType, NULL));
+}
+
+/*
+ * Class:     com_snobot_simulator_jni_module_wrapper_RelayWrapperJni
+ * Method:    removeSimluator
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWrapperJni_removeSimluator
+  (JNIEnv *, jclass, jint)
+{
+
 }
 
 /*
@@ -58,7 +93,7 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWr
  */
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWrapperJni_getFowardValue(JNIEnv *, jclass, jint portHandle)
 {
-    return SensorActuatorRegistry::Get().GetRelayWrapper(portHandle)->GetRelayForwards();
+    return SensorActuatorRegistry::Get().GetIRelayWrapper(portHandle)->GetRelayForwards();
 }
 
 /*
@@ -68,7 +103,7 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWr
  */
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWrapperJni_getReverseValue(JNIEnv *, jclass, jint portHandle)
 {
-    return SensorActuatorRegistry::Get().GetRelayWrapper(portHandle)->GetRelayReverse();
+    return SensorActuatorRegistry::Get().GetIRelayWrapper(portHandle)->GetRelayReverse();
 }
 
 /*
@@ -79,14 +114,14 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWr
 JNIEXPORT jintArray JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWrapperJni_getPortList(
         JNIEnv * env, jclass)
 {
-    const std::map<int, std::shared_ptr<RelayWrapper>>& relays =
-            SensorActuatorRegistry::Get().GetRelayWrapperMap();
+    const std::map<int, std::shared_ptr<IRelayWrapper>>& relays =
+            SensorActuatorRegistry::Get().GetIRelayWrapperMap();
 
     jintArray output = env->NewIntArray(relays.size());
 
     jint values[30];
 
-    std::map<int, std::shared_ptr<RelayWrapper>>::const_iterator iter =
+    std::map<int, std::shared_ptr<IRelayWrapper>>::const_iterator iter =
             relays.begin();
 
     int ctr = 0;

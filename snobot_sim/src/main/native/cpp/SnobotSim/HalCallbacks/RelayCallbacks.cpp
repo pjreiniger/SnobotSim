@@ -4,7 +4,7 @@
 
 #include "MockData/RelayData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
-#include "SnobotSim/ModuleWrapper/RelayWrapper.h"
+#include "SnobotSim/ModuleWrapper/WpiWrappers/WpiRelayWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 
 void RelayCallback(const char* name, void* param, const struct HAL_Value* value)
@@ -14,24 +14,12 @@ void RelayCallback(const char* name, void* param, const struct HAL_Value* value)
 
     if (nameStr == "InitializedForward")
     {
-        SensorActuatorRegistry::Get().Register(port,
-                std::shared_ptr<RelayWrapper>(new RelayWrapper(port)));
-    }
-    else if (nameStr == "InitializedReverse")
-    {
-        //        SensorActuatorRegistry::Get().Register(port,
-        //                std::shared_ptr < RelayWrapper
-        //                        > (new RelayWrapper(port)));
-    }
-    else if (nameStr == "Forward")
-    {
-        bool on = value->data.v_boolean;
-        SensorActuatorRegistry::Get().GetRelayWrapper(port)->SetRelayForwards(on);
-    }
-    else if (nameStr == "Reverse")
-    {
-        bool on = value->data.v_boolean;
-        SensorActuatorRegistry::Get().GetRelayWrapper(port)->SetRelayReverse(on);
+        if (!SensorActuatorRegistry::Get().GetIRelayWrapper(port, false))
+        {
+            SensorActuatorRegistry::Get().Register(port,
+                    std::shared_ptr<IRelayWrapper>(new WpiRelayWrapper(port)));
+        }
+        SensorActuatorRegistry::Get().GetIRelayWrapper(port)->SetInitialized(true);
     }
     else
     {

@@ -18,12 +18,12 @@ public class TestAnalogIOJni extends BaseSimulatorJniTest
 
         new AnalogInput(0);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
-        Assertions.assertEquals("Analog 0", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(0));
+        Assertions.assertEquals("Analog In 0", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(0));
         Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().getWantsHidden(0));
 
         new AnalogInput(3);
         Assertions.assertEquals(2, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
-        Assertions.assertEquals("Analog 3", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(3));
+        Assertions.assertEquals("Analog In 3", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(3));
         Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().getWantsHidden(3));
 
         DataAccessorFactory.getInstance().getAnalogInAccessor().setName(3, "NewNameFor3");
@@ -31,6 +31,16 @@ public class TestAnalogIOJni extends BaseSimulatorJniTest
 
         // Set name for non-existing sensor
         DataAccessorFactory.getInstance().getAnalogInAccessor().setName(4, "NewNameFor4");
+    }
+
+    @Test
+    public void testCreateAnalogInWithSetup()
+    {
+        DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(3, "WpiAnalogInWrapper");
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().isInitialized(3));
+
+        new AnalogInput(3);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().isInitialized(3));
     }
 
     @Test
@@ -43,6 +53,16 @@ public class TestAnalogIOJni extends BaseSimulatorJniTest
 
         new AnalogOutput(1);
         Assertions.assertEquals(2, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+    }
+
+    @Test
+    public void testCreateAnalogOutWithSetup()
+    {
+        DataAccessorFactory.getInstance().getAnalogOutAccessor().createSimulator(1, "WpiAnalogOutWrapper");
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogOutAccessor().isInitialized(1));
+
+        new AnalogOutput(1);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogOutAccessor().isInitialized(1));
     }
 
     public void testReuseInPort()

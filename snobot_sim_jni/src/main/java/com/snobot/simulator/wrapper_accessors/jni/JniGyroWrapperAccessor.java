@@ -13,25 +13,19 @@ public class JniGyroWrapperAccessor implements GyroWrapperAccessor
     @Override
     public boolean isInitialized(int aPort)
     {
-        return true;
-    }
-
-    @Override
-    public void setInitialized(int aPort, boolean aInitialized)
-    {
-        // Nothing to do
+        return GyroWrapperJni.isInitialized(aPort);
     }
 
     @Override
     public boolean createSimulator(int aPort, String aType)
     {
-        return false;
+        return GyroWrapperJni.createSimulator(aPort, aType);
     }
 
     @Override
     public void removeSimluator(int aPort)
     {
-        // Nothing to do
+        GyroWrapperJni.removeSimluator(aPort);
     }
 
     @Override

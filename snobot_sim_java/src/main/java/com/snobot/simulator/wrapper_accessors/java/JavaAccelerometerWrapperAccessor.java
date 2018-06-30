@@ -18,12 +18,6 @@ public class JavaAccelerometerWrapperAccessor extends BaseWrapperAccessor<IAccel
     }
 
     @Override
-    public void setInitialized(int aPort, boolean aInitialized)
-    {
-        getValue(aPort).setInitialized(aInitialized);
-    }
-
-    @Override
     public double getAcceleration(int aPort)
     {
         return getValue(aPort).getAcceleration();

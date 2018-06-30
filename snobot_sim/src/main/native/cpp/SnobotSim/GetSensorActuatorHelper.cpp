@@ -30,13 +30,14 @@
 
 namespace GetSensorActuatorHelper
 {
-FIND_MODULE_FUNC(SpeedControllerWrapper)
+FIND_MODULE_FUNC(ISpeedControllerWrapper)
 FIND_MODULE_FUNC(IGyroWrapper)
-FIND_MODULE_FUNC(DigitalSourceWrapper)
-FIND_MODULE_FUNC(AnalogSourceWrapper)
-FIND_MODULE_FUNC(RelayWrapper)
-FIND_MODULE_FUNC(SolenoidWrapper)
-FIND_MODULE_FUNC(EncoderWrapper)
+FIND_MODULE_FUNC(IDigitalIoWrapper)
+FIND_MODULE_FUNC(IAnalogInWrapper)
+FIND_MODULE_FUNC(IAnalogOutWrapper)
+FIND_MODULE_FUNC(IRelayWrapper)
+FIND_MODULE_FUNC(ISolenoidWrapper)
+FIND_MODULE_FUNC(IEncoderWrapper)
 FIND_MODULE_FUNC(ISpiWrapper)
 FIND_MODULE_FUNC(II2CWrapper)
 } // namespace GetSensorActuatorHelper

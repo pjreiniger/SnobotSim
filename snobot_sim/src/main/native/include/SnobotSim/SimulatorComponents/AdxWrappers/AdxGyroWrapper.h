@@ -11,10 +11,11 @@
 #include <memory>
 
 #include "ADXRS450_SpiGyroWrapperData.h"
-#include "SnobotSim/SimulatorComponents/Gyro/IGyroWrapper.h"
-#include "SnobotSim/SimulatorComponents/Spi/ISpiWrapper.h"
+#include "SnobotSim/ModuleWrapper/AModuleWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IGyroWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/ISpiWrapper.h"
 
-class AdxGyroWrapper : public ISpiWrapper, public IGyroWrapper
+class AdxGyroWrapper : public AModuleWrapper, public ISpiWrapper, public IGyroWrapper
 {
 public:
     explicit AdxGyroWrapper(int aPort);

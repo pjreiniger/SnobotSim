@@ -1,0 +1,97 @@
+SymInit: Symbol-SearchPath: '.;F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni;C:\Program Files\Java\jdk1.8.0_73\bin;C:\WINDOWS;C:\WINDOWS\system32;SRV*C:\websymbols*http://msdl.microsoft.com/download/symbols;', symOptions: 530, UserName: ''
+OS-Version: 10.0.17134 () 0x100-0x1
+C:\Program Files\Java\jdk1.8.0_73\bin\java.exe:java.exe (00007FF6F8420000), size: 225280 (result: 0), SymType: '-nosymbols-', PDB: 'C:\Program Files\Java\jdk1.8.0_73\bin\java.exe', fileVersion: 8.0.730.2
+C:\WINDOWS\SYSTEM32\ntdll.dll:ntdll.dll (00007FFE139B0000), size: 1970176 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\ntdll.dll', fileVersion: 10.0.17134.112
+C:\Program Files (x86)\AVG\Antivirus\x64\aswhooka.dll:aswhooka.dll (00007FFDFA370000), size: 212992 (result: 0), SymType: '-nosymbols-', PDB: 'C:\Program Files (x86)\AVG\Antivirus\x64\aswhooka.dll', fileVersion: 18.4.3.28536
+C:\WINDOWS\System32\KERNEL32.DLL:KERNEL32.DLL (00007FFE12C90000), size: 729088 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\KERNEL32.DLL', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\KERNELBASE.dll:KERNELBASE.dll (00007FFE10070000), size: 2568192 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\KERNELBASE.dll', fileVersion: 10.0.17134.112
+C:\WINDOWS\System32\ADVAPI32.dll:ADVAPI32.dll (00007FFE13070000), size: 659456 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\ADVAPI32.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\msvcrt.dll:msvcrt.dll (00007FFE13280000), size: 647168 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\msvcrt.dll', fileVersion: 7.0.17134.1
+C:\WINDOWS\System32\sechost.dll:sechost.dll (00007FFE10F70000), size: 372736 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\sechost.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\RPCRT4.dll:RPCRT4.dll (00007FFE12D50000), size: 1196032 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\RPCRT4.dll', fileVersion: 10.0.17134.112
+C:\WINDOWS\System32\USER32.dll:USER32.dll (00007FFE11420000), size: 1638400 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\USER32.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\win32u.dll:win32u.dll (00007FFE10A80000), size: 131072 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\win32u.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\GDI32.dll:GDI32.dll (00007FFE10E50000), size: 163840 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\GDI32.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\gdi32full.dll:gdi32full.dll (00007FFE10CA0000), size: 1646592 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\gdi32full.dll', fileVersion: 10.0.17134.112
+C:\WINDOWS\System32\msvcp_win.dll:msvcp_win.dll (00007FFE10AA0000), size: 651264 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\msvcp_win.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\ucrtbase.dll:ucrtbase.dll (00007FFE10BA0000), size: 1024000 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\ucrtbase.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.17134.112_none_fb3f961b30681c12\COMCTL32.dll:COMCTL32.dll (00007FFDFDF60000), size: 2527232 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.17134.112_none_fb3f961b30681c12\COMCTL32.dll', fileVersion: 6.10.17134.112
+C:\WINDOWS\System32\combase.dll:combase.dll (00007FFE13420000), size: 3289088 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\combase.dll', fileVersion: 10.0.17134.112
+C:\WINDOWS\System32\bcryptPrimitives.dll:bcryptPrimitives.dll (00007FFE102F0000), size: 499712 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\bcryptPrimitives.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\IMM32.DLL:IMM32.DLL (00007FFE13950000), size: 184320 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\IMM32.DLL', fileVersion: 10.0.17134.1
+C:\Program Files\Java\jdk1.8.0_73\jre\bin\msvcr100.dll:msvcr100.dll (0000000051790000), size: 860160 (result: 0), SymType: '-exported-', PDB: 'C:\Program Files\Java\jdk1.8.0_73\jre\bin\msvcr100.dll', fileVersion: 10.0.40219.325
+C:\Program Files\Java\jdk1.8.0_73\jre\bin\server\jvm.dll:jvm.dll (00000000771A0000), size: 8978432 (result: 0), SymType: '-exported-', PDB: 'C:\Program Files\Java\jdk1.8.0_73\jre\bin\server\jvm.dll', fileVersion: 25.71.0.1
+C:\WINDOWS\System32\PSAPI.DLL:PSAPI.DLL (00007FFE13410000), size: 32768 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\PSAPI.DLL', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\WSOCK32.dll:WSOCK32.dll (00007FFE05980000), size: 36864 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\WSOCK32.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\WS2_32.dll:WS2_32.dll (00007FFE12E80000), size: 442368 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\WS2_32.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\WINMM.dll:WINMM.dll (00007FFE067B0000), size: 143360 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\WINMM.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\VERSION.dll:VERSION.dll (00007FFE07740000), size: 40960 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\VERSION.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\WINMMBASE.dll:WINMMBASE.dll (00007FFE05D90000), size: 172032 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\WINMMBASE.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\cfgmgr32.dll:cfgmgr32.dll (00007FFE10020000), size: 299008 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\cfgmgr32.dll', fileVersion: 10.0.17134.1
+C:\Program Files\Java\jdk1.8.0_73\jre\bin\verify.dll:verify.dll (0000000052300000), size: 61440 (result: 0), SymType: '-exported-', PDB: 'C:\Program Files\Java\jdk1.8.0_73\jre\bin\verify.dll', fileVersion: 8.0.730.2
+C:\Program Files\Java\jdk1.8.0_73\jre\bin\java.dll:java.dll (00000000522D0000), size: 167936 (result: 0), SymType: '-exported-', PDB: 'C:\Program Files\Java\jdk1.8.0_73\jre\bin\java.dll', fileVersion: 8.0.730.2
+C:\Program Files\Java\jdk1.8.0_73\jre\bin\instrument.dll:instrument.dll (0000000051680000), size: 143360 (result: 0), SymType: '-exported-', PDB: 'C:\Program Files\Java\jdk1.8.0_73\jre\bin\instrument.dll', fileVersion: 8.0.730.2
+C:\Program Files\Java\jdk1.8.0_73\jre\bin\zip.dll:zip.dll (00000000522B0000), size: 90112 (result: 0), SymType: '-exported-', PDB: 'C:\Program Files\Java\jdk1.8.0_73\jre\bin\zip.dll', fileVersion: 8.0.730.2
+C:\WINDOWS\System32\SHELL32.dll:SHELL32.dll (00007FFE115B0000), size: 21233664 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\SHELL32.dll', fileVersion: 10.0.17134.81
+C:\WINDOWS\System32\shcore.dll:shcore.dll (00007FFE13760000), size: 692224 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\shcore.dll', fileVersion: 10.0.17134.112
+C:\WINDOWS\System32\windows.storage.dll:windows.storage.dll (00007FFE10370000), size: 7393280 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\windows.storage.dll', fileVersion: 10.0.17134.81
+C:\WINDOWS\System32\shlwapi.dll:shlwapi.dll (00007FFE13870000), size: 331776 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\shlwapi.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\kernel.appcore.dll:kernel.appcore.dll (00007FFE0FD30000), size: 69632 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\kernel.appcore.dll', fileVersion: 10.0.17134.112
+C:\WINDOWS\System32\profapi.dll:profapi.dll (00007FFE0FD60000), size: 126976 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\System32\profapi.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\powrprof.dll:powrprof.dll (00007FFE0FCE0000), size: 311296 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\powrprof.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\FLTLIB.DLL:FLTLIB.DLL (00007FFE0FD50000), size: 40960 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\FLTLIB.DLL', fileVersion: 10.0.17134.1
+C:\Program Files\Java\jdk1.8.0_73\jre\bin\net.dll:net.dll (0000000052290000), size: 106496 (result: 0), SymType: '-exported-', PDB: 'C:\Program Files\Java\jdk1.8.0_73\jre\bin\net.dll', fileVersion: 8.0.730.2
+C:\WINDOWS\system32\mswsock.dll:mswsock.dll (00007FFE0F540000), size: 417792 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\system32\mswsock.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\system32\napinsp.dll:napinsp.dll (00007FFDD7FE0000), size: 90112 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\system32\napinsp.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\system32\pnrpnsp.dll:pnrpnsp.dll (00007FFDD7FC0000), size: 106496 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\system32\pnrpnsp.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\system32\NLAapi.dll:NLAapi.dll (00007FFE0ACF0000), size: 102400 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\system32\NLAapi.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\DNSAPI.dll:DNSAPI.dll (00007FFE0F300000), size: 778240 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\DNSAPI.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\NSI.dll:NSI.dll (00007FFE13750000), size: 32768 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\NSI.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\IPHLPAPI.DLL:IPHLPAPI.DLL (00007FFE0F2C0000), size: 229376 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\IPHLPAPI.DLL', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\winrnr.dll:winrnr.dll (00007FFDD7FB0000), size: 57344 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\winrnr.dll', fileVersion: 10.0.17134.1
+C:\Windows\System32\rasadhlp.dll:rasadhlp.dll (00007FFE085E0000), size: 40960 (result: 0), SymType: '-exported-', PDB: 'C:\Windows\System32\rasadhlp.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\System32\fwpuclnt.dll:fwpuclnt.dll (00007FFE08E40000), size: 466944 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\fwpuclnt.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\bcrypt.dll:bcrypt.dll (00007FFE0F820000), size: 151552 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\bcrypt.dll', fileVersion: 10.0.17134.112
+C:\Program Files\Java\jdk1.8.0_73\jre\bin\nio.dll:nio.dll (0000000052240000), size: 69632 (result: 0), SymType: '-exported-', PDB: 'C:\Program Files\Java\jdk1.8.0_73\jre\bin\nio.dll', fileVersion: 8.0.730.2
+C:\WINDOWS\SYSTEM32\CRYPTSP.dll:CRYPTSP.dll (00007FFE0F6F0000), size: 94208 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\CRYPTSP.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\system32\rsaenh.dll:rsaenh.dll (00007FFE0F120000), size: 208896 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\system32\rsaenh.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\USERENV.dll:USERENV.dll (00007FFE0FBC0000), size: 163840 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\USERENV.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\CRYPTBASE.dll:CRYPTBASE.dll (00007FFE0F710000), size: 45056 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\CRYPTBASE.dll', fileVersion: 10.0.17134.1
+C:\Program Files\Java\jdk1.8.0_73\jre\bin\management.dll:management.dll (0000000052280000), size: 53248 (result: 0), SymType: '-exported-', PDB: 'C:\Program Files\Java\jdk1.8.0_73\jre\bin\management.dll', fileVersion: 8.0.730.2
+F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\wpiutil.dll:wpiutil.dll (00007FFDEA5B0000), size: 831488 (result: 0), SymType: '-exported-', PDB: 'F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\wpiutil.dll'
+C:\WINDOWS\System32\ole32.dll:ole32.dll (00007FFE13120000), size: 1380352 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\ole32.dll', fileVersion: 10.0.17134.1
+F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\wpiHal.dll:wpiHal.dll (00007FFDE8B50000), size: 978944 (result: 0), SymType: '-exported-', PDB: 'F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\wpiHal.dll'
+F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\halsim_adx_gyro_accelerometer.dll:halsim_adx_gyro_accelerometer.dll (00007FFDFBD60000), size: 335872 (result: 0), SymType: '-exported-', PDB: 'F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\halsim_adx_gyro_accelerometer.dll'
+F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\navx_simulator.dll:navx_simulator.dll (00007FFDE7630000), size: 1003520 (result: 0), SymType: 'PDB', PDB: 'F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\navx_simulator.dll'
+F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\snobotSimCpp.dll:snobotSimCpp.dll (00007FFDE73F0000), size: 2326528 (result: 0), SymType: 'PDB', PDB: 'F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\snobotSimCpp.dll'
+F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\snobotSimJni.dll:snobotSimJni.dll (00007FFDE53B0000), size: 1441792 (result: 0), SymType: 'PDB', PDB: 'F:\git\FIRST\SnobotSim\SnobotSim\snobot_sim_jni\temp\-1889397818396378550\snobotSimJni.dll'
+C:\WINDOWS\SYSTEM32\dhcpcsvc6.DLL:dhcpcsvc6.DLL (00007FFE09500000), size: 90112 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\dhcpcsvc6.DLL', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\dhcpcsvc.DLL:dhcpcsvc.DLL (00007FFE09420000), size: 106496 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\dhcpcsvc.DLL', fileVersion: 10.0.17134.1
+C:\Users\PJ\AppData\Local\Temp\wpilibJNI8513450360980908486.dll:wpilibJNI8513450360980908486.dll (00007FFDEC0F0000), size: 622592 (result: 0), SymType: '-exported-', PDB: 'C:\Users\PJ\AppData\Local\Temp\wpilibJNI8513450360980908486.dll'
+C:\Users\PJ\AppData\Local\Temp\NetworkTablesJNI2075423418276771334.dll:NetworkTablesJNI2075423418276771334.dll (00007FFDE3920000), size: 954368 (result: 0), SymType: '-exported-', PDB: 'C:\Users\PJ\AppData\Local\Temp\NetworkTablesJNI2075423418276771334.dll'
+C:\Users\PJ\AppData\Local\Temp\CameraServerJNI7557570652641033659.dll:CameraServerJNI7557570652641033659.dll (00007FFDDA150000), size: 3141632 (result: 0), SymType: '-exported-', PDB: 'C:\Users\PJ\AppData\Local\Temp\CameraServerJNI7557570652641033659.dll'
+C:\Users\PJ\AppData\Local\Temp\OpenCVJNI3470974337180726797.dll:OpenCVJNI3470974337180726797.dll (00007FFDD3470000), size: 10309632 (result: 0), SymType: '-exported-', PDB: 'C:\Users\PJ\AppData\Local\Temp\OpenCVJNI3470974337180726797.dll'
+C:\WINDOWS\System32\OLEAUT32.dll:OLEAUT32.dll (00007FFE13320000), size: 794624 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\System32\OLEAUT32.dll', fileVersion: 10.0.17134.48
+C:\WINDOWS\SYSTEM32\MSVFW32.dll:MSVFW32.dll (00007FFDFC320000), size: 167936 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\MSVFW32.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\AVIFIL32.dll:AVIFIL32.dll (00007FFDFC300000), size: 126976 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\AVIFIL32.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\AVICAP32.dll:AVICAP32.dll (00007FFDFC1E0000), size: 98304 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\AVICAP32.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\MSACM32.dll:MSACM32.dll (00007FFDFD630000), size: 114688 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\MSACM32.dll', fileVersion: 10.0.17134.1
+C:\WINDOWS\SYSTEM32\dbghelp.dll:dbghelp.dll (00007FFE0AAC0000), size: 1871872 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\dbghelp.dll', fileVersion: 10.0.17134.1
+f:\git\first\snobotsim\snobotsim\snobot_sim\src\main\native\cpp\snobotsim\stackhelper\stackwalker.cpp (1048): StackWalker::ShowCallstack
+f:\git\first\snobotsim\snobotsim\snobot_sim\src\main\native\cpp\snobotsim\stackhelper\stacktracehelper.cpp (46): StackTraceHelper::PrintStackTracker
+f:\git\first\snobotsim\snobotsim\snobot_sim\src\main\native\include\snobotsim\sensoractuatorregistry.h (109): SensorActuatorRegistry::GetItem<IGyroWrapper>
+f:\git\first\snobotsim\snobotsim\snobot_sim\src\main\native\cpp\snobotsim\sensoractuatorregistry.cpp (90): SensorActuatorRegistry::GetIGyroWrapper
+f:\git\first\snobotsim\snobotsim\snobot_sim\src\main\native\cpp\snobotsim\halcallbacks\analoggyrocallbacks.cpp (22): AnalogGyroCallback
+ERROR: SymGetLineFromAddr64, GetLastError: 487 (Address: 00007FFDE8B72B2D)
+00007FFDE8B72B2D (wpiHal): (filename not available): InvokeCallback
+ERROR: SymGetLineFromAddr64, GetLastError: 487 (Address: 00007FFDE8B68638)
+00007FFDE8B68638 (wpiHal): (filename not available): hal::AnalogGyroData::SetInitialized
+ERROR: SymGetLineFromAddr64, GetLastError: 487 (Address: 00007FFDE8B6F4CD)
+00007FFDE8B6F4CD (wpiHal): (filename not available): HAL_InitializeAnalogGyro
+ERROR: SymGetLineFromAddr64, GetLastError: 487 (Address: 00007FFDEC0FA78C)
+00007FFDEC0FA78C (wpilibJNI8513450360980908486): (filename not available): Java_edu_wpi_first_wpilibj_hal_AnalogGyroJNI_initializeAnalogGyro
+ERROR: SymGetSymFromAddr64, GetLastError: 126 (Address: 0000000002F13B54)
+ERROR: SymGetLineFromAddr64, GetLastError: 126 (Address: 0000000002F13B54)
+ERROR: SymGetModuleInfo64, GetLastError: 1114 (Address: 0000000002F13B54)
+0000000002F13B54 ((module-name not available)): (filename not available): (function-name not available)
+

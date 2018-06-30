@@ -26,4 +26,17 @@ public class TestAnalogGyroJni extends BaseSimulatorJniTest
         Assertions.assertEquals(90, gyro.getAngle(), DOUBLE_EPSILON);
     }
 
+    @Test
+    public void testAnalogGyroPreSetup()
+    {
+        int gyroHandle = 1;
+
+        DataAccessorFactory.getInstance().getGyroAccessor().createSimulator(gyroHandle, "WpiAnalogGyroWrapper");
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getGyroAccessor().isInitialized(gyroHandle));
+
+        new AnalogGyro(gyroHandle);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().isInitialized(gyroHandle));
+
+    }
+
 }

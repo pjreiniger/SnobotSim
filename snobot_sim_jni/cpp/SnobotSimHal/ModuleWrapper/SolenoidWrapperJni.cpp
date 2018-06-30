@@ -4,16 +4,26 @@
 #include <cassert>
 
 #include "SnobotSim/GetSensorActuatorHelper.h"
-#include "SnobotSim/ModuleWrapper/SolenoidWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/ISolenoidWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "com_snobot_simulator_jni_module_wrapper_SolenoidWrapperJni.h"
+#include "SnobotSim/ModuleWrapper/Factories/SolenoidFactory.h"
 #include "support/jni_util.h"
 
 using namespace wpi::java;
 
 extern "C"
 {
-
+/*
+ * Class:     com_snobot_simulator_jni_module_wrapper_SolenoidWrapperJni
+ * Method:    isInitialized
+ * Signature: (I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SolenoidWrapperJni_isInitialized
+  (JNIEnv *, jclass, jint aPortHandle)
+{
+	return SensorActuatorRegistry::Get().GetISolenoidWrapper(aPortHandle)->IsInitialized();
+}
 /*
  * Class:     com_snobot_simulator_jni_module_wrapper_SolenoidWrapperJni
  * Method:    setName
@@ -22,7 +32,7 @@ extern "C"
 JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SolenoidWrapperJni_setName
   (JNIEnv * env, jclass, jint aPortHandle, jstring aName)
 {
-    std::shared_ptr<SolenoidWrapper> wrapper = GetSensorActuatorHelper::GetSolenoidWrapper(aPortHandle);
+    std::shared_ptr<ISolenoidWrapper> wrapper = GetSensorActuatorHelper::GetISolenoidWrapper(aPortHandle);
     if(wrapper)
     {
         wrapper->SetName(env->GetStringUTFChars(aName, NULL));
@@ -37,7 +47,7 @@ JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SolenoidWra
 JNIEXPORT jstring JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SolenoidWrapperJni_getName(JNIEnv * env, jclass, jint portHandle)
 {
 
-    jstring output = MakeJString(env, SensorActuatorRegistry::Get().GetSolenoidWrapper(portHandle)->GetName());
+    jstring output = MakeJString(env, SensorActuatorRegistry::Get().GetISolenoidWrapper(portHandle)->GetName());
 
     return output;
 }
@@ -49,7 +59,31 @@ JNIEXPORT jstring JNICALL Java_com_snobot_simulator_jni_module_1wrapper_Solenoid
  */
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SolenoidWrapperJni_getWantsHidden(JNIEnv *, jclass, jint portHandle)
 {
-    return SensorActuatorRegistry::Get().GetSolenoidWrapper(portHandle)->WantsHidden();
+    return SensorActuatorRegistry::Get().GetISolenoidWrapper(portHandle)->WantsHidden();
+}
+
+/*
+ * Class:     com_snobot_simulator_jni_module_wrapper_SolenoidWrapperJni
+ * Method:    createSimulator
+ * Signature: (ILjava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SolenoidWrapperJni_createSimulator
+  (JNIEnv * env, jclass, jint aHandle, jstring aType)
+{
+	static SolenoidFactory factory;
+
+	return factory.Create(aHandle, env->GetStringUTFChars(aType, NULL));
+}
+
+/*
+ * Class:     com_snobot_simulator_jni_module_wrapper_SolenoidWrapperJni
+ * Method:    removeSimluator
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SolenoidWrapperJni_removeSimluator
+  (JNIEnv *, jclass, jint)
+{
+
 }
 
 /*
@@ -59,7 +93,7 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_Solenoi
  */
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SolenoidWrapperJni_get(JNIEnv *, jclass, jint portHandle)
 {
-    return SensorActuatorRegistry::Get().GetSolenoidWrapper(portHandle)->GetState();
+    return SensorActuatorRegistry::Get().GetISolenoidWrapper(portHandle)->GetState();
 }
 
 /*
@@ -69,13 +103,13 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_Solenoi
  */
 JNIEXPORT jintArray JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SolenoidWrapperJni_getPortList(JNIEnv * env, jclass)
 {
-    const std::map<int, std::shared_ptr<SolenoidWrapper>>& solenoids = SensorActuatorRegistry::Get().GetSolenoidWrapperMap();
+    const std::map<int, std::shared_ptr<ISolenoidWrapper>>& solenoids = SensorActuatorRegistry::Get().GetISolenoidWrapperMap();
 
     jintArray output = env->NewIntArray(solenoids.size());
 
     jint values[30];
 
-    std::map<int, std::shared_ptr<SolenoidWrapper>>::const_iterator iter = solenoids.begin();
+    std::map<int, std::shared_ptr<ISolenoidWrapper>>::const_iterator iter = solenoids.begin();
 
     int ctr = 0;
     for (; iter != solenoids.end(); ++iter)

@@ -30,6 +30,16 @@ public class TestPwmJni extends BaseSimulatorJniTest
         Assertions.assertEquals("NewNameFor0", DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(0));
     }
 
+    @Test
+    public void testCreatePwmWithSetup()
+    {
+        DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(3, "WpiPwmWrapper");
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(3));
+
+        new Talon(3);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(3));
+    }
+
     public void testReusePort()
     {
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());

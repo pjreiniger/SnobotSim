@@ -10,7 +10,8 @@
 
 #include <memory>
 
-#include "SnobotSim/SimulatorComponents/Accelerometer/IAccelerometerWrapper.h"
+#include "SnobotSim/ModuleWrapper/AModuleWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IAccelerometerWrapper.h"
 #include "ThreeAxisAccelerometerData.h"
 
 class BaseAdxAccelWrapper
@@ -20,7 +21,7 @@ public:
     virtual ~BaseAdxAccelWrapper();
 
 protected:
-    class AccelerometerWrapper : public IAccelerometerWrapper
+    class AccelerometerWrapper : public AModuleWrapper, public IAccelerometerWrapper
     {
     public:
         enum AxisType

@@ -38,7 +38,7 @@ public final class DigitalCallbackJni
                     DataAccessorFactory.getInstance().getDigitalAccessor().createSimulator(mPort, WpiDigitalIoWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
                 }
-                DataAccessorFactory.getInstance().getDigitalAccessor().setInitialized(mPort, true);
+                SensorActuatorRegistry.get().getDigitalSources().get(mPort).setInitialized(true);
             }
             else if ("Value".equals(aCallbackType))
             {

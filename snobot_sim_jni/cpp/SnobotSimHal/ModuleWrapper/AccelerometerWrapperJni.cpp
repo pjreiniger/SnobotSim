@@ -4,7 +4,7 @@
 #include <cassert>
 
 #include "SnobotSim/SensorActuatorRegistry.h"
-#include "SnobotSim/SimulatorComponents/Accelerometer/IAccelerometerWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IAccelerometerWrapper.h"
 #include "com_snobot_simulator_jni_module_wrapper_GyroWrapperJni.h"
 #include "support/jni_util.h"
 
@@ -12,17 +12,15 @@ using namespace wpi::java;
 
 extern "C"
 {
-
 /*
  * Class:     com_snobot_simulator_jni_module_wrapper_AccelerometerWrapperJni
- * Method:    register
- * Signature: (ILjava/lang/String;)V
+ * Method:    isInitialized
+ * Signature: (I)Z
  */
-JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_module_1wrapper_AccelerometerWrapperJni_register
-  (JNIEnv * env, jclass, jint aPortHandle, jstring aName)
+JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_AccelerometerWrapperJni_isInitialized
+  (JNIEnv *, jclass, jint aPortHandle)
 {
-//    std::shared_ptr<AccelerometerWrapper> accelerometerWrapper(new AccelerometerWrapper(env->GetStringUTFChars(aName, NULL)));
-//    SensorActuatorRegistry::Get().Register(aPortHandle, accelerometerWrapper);
+	return SensorActuatorRegistry::Get().GetIAccelerometerWrapper(aPortHandle)->IsInitialized();
 }
 
 /*
@@ -57,6 +55,28 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_Acceler
   (JNIEnv * env, jclass, jint aPortHandle)
 {
     return SensorActuatorRegistry::Get().GetIAccelerometerWrapper(aPortHandle)->WantsHidden();
+}
+
+/*
+ * Class:     com_snobot_simulator_jni_module_wrapper_AccelerometerWrapperJni
+ * Method:    createSimulator
+ * Signature: (ILjava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_AccelerometerWrapperJni_createSimulator
+  (JNIEnv * env, jclass, jint, jstring)
+{
+	return false;
+}
+
+/*
+ * Class:     com_snobot_simulator_jni_module_wrapper_AccelerometerWrapperJni
+ * Method:    removeSimluator
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_module_1wrapper_AccelerometerWrapperJni_removeSimluator
+  (JNIEnv *, jclass, jint)
+{
+
 }
 
 /*

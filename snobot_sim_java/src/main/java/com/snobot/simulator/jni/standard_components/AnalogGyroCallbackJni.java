@@ -38,7 +38,7 @@ public final class AnalogGyroCallbackJni
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
                 }
                 SensorActuatorRegistry.get().getAnalogIn().get(mPort).setWantsHidden(true);
-                DataAccessorFactory.getInstance().getGyroAccessor().setInitialized(mPort, true);
+                SensorActuatorRegistry.get().getGyros().get(mPort).setInitialized(true);
             }
             else if ("Angle".equals(aCallbackType))
             {

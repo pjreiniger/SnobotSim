@@ -13,25 +13,19 @@ public class JniEncoderWrapperAccessor implements EncoderWrapperAccessor
     @Override
     public boolean isInitialized(int aPort)
     {
-        return true;
-    }
-
-    @Override
-    public void setInitialized(int aPort, boolean aInitialized)
-    {
-        // Nothing to do
+        return EncoderWrapperJni.isInitialized(aPort);
     }
 
     @Override
     public boolean createSimulator(int aPort, String aType)
     {
-        return false;
+        return EncoderWrapperJni.createSimulator(aPort, aType);
     }
 
     @Override
     public void removeSimluator(int aPort)
     {
-        // Nothing to do
+        EncoderWrapperJni.removeSimluator(aPort);
     }
 
     @Override

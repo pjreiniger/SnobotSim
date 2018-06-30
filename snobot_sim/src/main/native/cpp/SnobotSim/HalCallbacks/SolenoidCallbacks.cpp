@@ -4,7 +4,7 @@
 
 #include "MockData/PCMData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
-#include "SnobotSim/ModuleWrapper/SolenoidWrapper.h"
+#include "SnobotSim/ModuleWrapper/WpiWrappers/WpiSolenoidWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 
 void SolenoidCallback(const char* name, void* param, const struct HAL_Value* value)
@@ -14,13 +14,12 @@ void SolenoidCallback(const char* name, void* param, const struct HAL_Value* val
 
     if (nameStr == "SolenoidInitialized")
     {
-        SensorActuatorRegistry::Get().Register(port,
-                std::shared_ptr<SolenoidWrapper>(new SolenoidWrapper(port)));
-    }
-    else if (nameStr == "SolenoidOutput")
-    {
-        bool on = value->data.v_boolean;
-        SensorActuatorRegistry::Get().GetSolenoidWrapper(port)->SetState(on);
+        if (!SensorActuatorRegistry::Get().GetISolenoidWrapper(port, false))
+        {
+            SensorActuatorRegistry::Get().Register(port,
+                    std::shared_ptr<ISolenoidWrapper>(new WpiSolenoidWrapper(port)));
+        }
+        SensorActuatorRegistry::Get().GetISolenoidWrapper(port)->SetInitialized(true);
     }
     else
     {
@@ -28,22 +27,26 @@ void SolenoidCallback(const char* name, void* param, const struct HAL_Value* val
     }
 }
 
-int gSolenoidArrayIndices[20];
+int gSolenoidArrayIndices[200];
 
 void SnobotSim::InitializeSolenoidCallbacks()
 {
-    for (int i = 0; i < HAL_GetNumSolenoidChannels(); ++i)
+    for (int module = 0; module < 2; ++module)
     {
-        gSolenoidArrayIndices[i] = i;
-        HALSIM_RegisterPCMSolenoidInitializedCallback(0, i, &SolenoidCallback, &gSolenoidArrayIndices[i], false);
-        HALSIM_RegisterPCMSolenoidOutputCallback(0, i, &SolenoidCallback, &gSolenoidArrayIndices[i], false);
+        for (int channel = 0; channel < HAL_GetNumSolenoidChannels(); ++channel)
+        {
+            int fullChannel = module * HAL_GetNumSolenoidChannels() + channel;
+            gSolenoidArrayIndices[fullChannel] = fullChannel;
+            HALSIM_RegisterPCMSolenoidInitializedCallback(module, channel, &SolenoidCallback, &gSolenoidArrayIndices[fullChannel], false);
+            HALSIM_RegisterPCMSolenoidOutputCallback(module, channel, &SolenoidCallback, &gSolenoidArrayIndices[fullChannel], false);
+        }
     }
 }
 
 void SnobotSim::ResetSolenoidCallbacks()
 {
-    for (int i = 0; i < HAL_GetNumSolenoidChannels(); ++i)
+    for (int module = 0; module < 2; ++module)
     {
-        HALSIM_ResetPCMData(0);
+        HALSIM_ResetPCMData(module);
     }
 }

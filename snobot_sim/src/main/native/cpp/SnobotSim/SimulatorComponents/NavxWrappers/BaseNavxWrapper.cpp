@@ -32,7 +32,7 @@ BaseNavxWrapper::~BaseNavxWrapper()
 }
 
 BaseNavxWrapper::AccelerometerWrapper::AccelerometerWrapper(AxisType aAxisType, const std::shared_ptr<NavxSimulator>& aNavx) :
-        IAccelerometerWrapper("Hello"),
+        AModuleWrapper("Hello"),
         mAxisType(aAxisType),
         mNavx(aNavx)
 {
@@ -79,7 +79,7 @@ double BaseNavxWrapper::AccelerometerWrapper::GetAcceleration()
 }
 
 BaseNavxWrapper::GyroWrapper::GyroWrapper(AxisType aAxisType, const std::shared_ptr<NavxSimulator>& aNavx) :
-        IGyroWrapper("Hello"),
+        AModuleWrapper("Hello"),
         mAxisType(aAxisType),
         mNavx(aNavx)
 {

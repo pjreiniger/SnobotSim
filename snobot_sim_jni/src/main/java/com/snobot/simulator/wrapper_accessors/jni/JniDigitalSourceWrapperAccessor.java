@@ -13,25 +13,19 @@ public class JniDigitalSourceWrapperAccessor implements DigitalSourceWrapperAcce
     @Override
     public boolean isInitialized(int aPort)
     {
-        return true;
-    }
-
-    @Override
-    public void setInitialized(int aPort, boolean aInitialized)
-    {
-        // Nothing to do
+        return DigitalSourceWrapperJni.isInitialized(aPort);
     }
 
     @Override
     public boolean createSimulator(int aPort, String aType)
     {
-        return false;
+        return DigitalSourceWrapperJni.createSimulator(aPort, aType);
     }
 
     @Override
     public void removeSimluator(int aPort)
     {
-        // Nothing to do
+        DigitalSourceWrapperJni.removeSimluator(aPort);
     }
 
     @Override

@@ -6,8 +6,6 @@ public interface IBasicSensorActuatorWrapperAccessor
 {
     boolean isInitialized(int aPort);
 
-    public void setInitialized(int aPort, boolean aInitialized);
-
     void setName(int aPort, String aName);
 
     String getName(int aPort);

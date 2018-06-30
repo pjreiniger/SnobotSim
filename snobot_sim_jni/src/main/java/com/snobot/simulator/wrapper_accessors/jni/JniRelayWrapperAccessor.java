@@ -13,25 +13,19 @@ public class JniRelayWrapperAccessor implements RelayWrapperAccessor
     @Override
     public boolean isInitialized(int aPort)
     {
-        return true;
-    }
-
-    @Override
-    public void setInitialized(int aPort, boolean aInitialized)
-    {
-        // Nothing to do
+        return RelayWrapperJni.isInitialized(aPort);
     }
 
     @Override
     public boolean createSimulator(int aPort, String aType)
     {
-        return false;
+        return RelayWrapperJni.createSimulator(aPort, aType);
     }
 
     @Override
     public void removeSimluator(int aPort)
     {
-        // Nothing to do
+        RelayWrapperJni.removeSimluator(aPort);
     }
 
     @Override

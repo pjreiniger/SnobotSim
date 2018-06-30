@@ -8,7 +8,7 @@
 #include "SnobotSim/SimulatorComponents/AdxWrappers/AdxGyroWrapper.h"
 
 AdxGyroWrapper::AdxGyroWrapper(int aPort) :
-        IGyroWrapper("Gyro"),
+        AModuleWrapper("Gyro"),
         mGyro(new hal::ADXRS450_SpiGyroWrapper(aPort))
 {
 }

@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
@@ -37,7 +38,7 @@ public final class AnalogInCallbackJni
                     DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mPort, WpiAnalogInWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
                 }
-                DataAccessorFactory.getInstance().getAnalogInAccessor().setInitialized(mPort, true);
+                SensorActuatorRegistry.get().getAnalogIn().get(mPort).setInitialized(true);
             }
             else if ("Voltage".equals(aCallbackType))
             {

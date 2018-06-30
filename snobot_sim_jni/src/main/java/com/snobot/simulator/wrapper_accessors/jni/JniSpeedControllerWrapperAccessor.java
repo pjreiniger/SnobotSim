@@ -19,25 +19,19 @@ public class JniSpeedControllerWrapperAccessor implements SpeedControllerWrapper
     @Override
     public boolean isInitialized(int aPort)
     {
-        return true;
-    }
-
-    @Override
-    public void setInitialized(int aPort, boolean aInitialized)
-    {
-        // Nothing to do
+        return SpeedControllerWrapperJni.isInitialized(aPort);
     }
 
     @Override
     public boolean createSimulator(int aPort, String aType)
     {
-        return false;
+        return SpeedControllerWrapperJni.createSimulator(aPort, aType);
     }
 
     @Override
     public void removeSimluator(int aPort)
     {
-        // Nothing to do
+        SpeedControllerWrapperJni.removeSimluator(aPort);
     }
 
     @Override

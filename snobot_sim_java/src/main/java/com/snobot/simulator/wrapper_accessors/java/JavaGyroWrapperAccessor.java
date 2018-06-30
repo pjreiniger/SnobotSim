@@ -26,12 +26,6 @@ public class JavaGyroWrapperAccessor extends BaseWrapperAccessor<IGyroWrapper> i
     }
 
     @Override
-    public void setInitialized(int aPort, boolean aInitialized)
-    {
-        getValue(aPort).setInitialized(aInitialized);
-    }
-
-    @Override
     public boolean createSimulator(int aPort, String aType)
     {
         return mFactory.create(aPort, aType);

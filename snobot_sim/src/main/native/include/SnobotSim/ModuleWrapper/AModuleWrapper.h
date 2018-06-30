@@ -11,35 +11,47 @@
 #include <string>
 
 #include "SnobotSim/ExportHelper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/ISensorWrapper.h"
 
-class AModuleWrapper
+class AModuleWrapper : public virtual ISensorWrapper
 {
 public:
     explicit AModuleWrapper(const std::string& aName) :
             mName(aName),
-            mWantsHidden(false)
+            mWantsHidden(false),
+            mInitialized(false)
     {
     }
     virtual ~AModuleWrapper()
     {
     }
 
-    const std::string& GetName()
+    bool IsInitialized() override
+    {
+        return mInitialized;
+    }
+
+    void SetInitialized(bool aIsInitialized) override
+    {
+        mInitialized = aIsInitialized;
+    }
+
+    const std::string& GetName() override
     {
         return mName;
     }
 
-    void SetName(const std::string& aName)
+    void SetName(const std::string& aName) override
     {
         mName = aName;
     }
 
-    bool WantsHidden()
+    bool WantsHidden() override
     {
         return mWantsHidden;
     }
 
-    void SetWantsHidden(bool aVisible)
+    void SetWantsHidden(bool aVisible) override
     {
         mWantsHidden = aVisible;
     }
@@ -47,6 +59,7 @@ public:
 protected:
     std::string mName;
     bool mWantsHidden;
+    bool mInitialized;
 };
 
 #endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MODULEWRAPPER_AMODULEWRAPPER_H_

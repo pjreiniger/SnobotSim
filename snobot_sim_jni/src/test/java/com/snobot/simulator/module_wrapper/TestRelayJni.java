@@ -30,6 +30,16 @@ public class TestRelayJni extends BaseSimulatorJniTest
         Assertions.assertEquals("NewNameFor0", DataAccessorFactory.getInstance().getRelayAccessor().getName(0));
     }
 
+    @Test
+    public void testCreateRelaysWithSetup()
+    {
+        DataAccessorFactory.getInstance().getRelayAccessor().createSimulator(3, "WpiRelayWrapper");
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getRelayAccessor().isInitialized(3));
+
+        new Relay(3);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getRelayAccessor().isInitialized(3));
+    }
+
     public void testReusePort()
     {
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getRelayAccessor().getPortList().size());

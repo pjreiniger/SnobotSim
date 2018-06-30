@@ -10,8 +10,8 @@
 
 #include <memory>
 
+#include "SnobotSim/ModuleWrapper/Interfaces/II2CWrapper.h"
 #include "SnobotSim/SimulatorComponents/AdxWrappers/BaseAdxAccelWrapper.h"
-#include "SnobotSim/SimulatorComponents/I2C/II2CWrapper.h"
 
 class AdxI2CAccelWrapper : public II2CWrapper, public BaseAdxAccelWrapper
 {

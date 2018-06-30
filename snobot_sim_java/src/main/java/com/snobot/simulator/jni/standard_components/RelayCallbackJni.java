@@ -38,7 +38,7 @@ public final class RelayCallbackJni
                     DataAccessorFactory.getInstance().getRelayAccessor().createSimulator(mPort, WpiRelayWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
                 }
-                DataAccessorFactory.getInstance().getRelayAccessor().setInitialized(mPort, true);
+                SensorActuatorRegistry.get().getRelays().get(mPort).setInitialized(true);
             }
             else if ("InitializedReverse".equals(aCallbackType))
             { // NOPMD

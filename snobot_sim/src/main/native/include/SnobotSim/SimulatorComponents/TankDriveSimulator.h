@@ -11,16 +11,16 @@
 #include <memory>
 #include <string>
 
-#include "SnobotSim/ModuleWrapper/EncoderWrapper.h"
-#include "SnobotSim/SimulatorComponents/Gyro/IGyroWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IEncoderWrapper.h"
+#include "SnobotSim/ModuleWrapper/Interfaces/IGyroWrapper.h"
 #include "SnobotSim/SimulatorComponents/ISimulatorUpdater.h"
 
 class EXPORT_ TankDriveSimulator : public ISimulatorUpdater
 {
 public:
     TankDriveSimulator(
-            const std::shared_ptr<EncoderWrapper>& aLeftEncoder,
-            const std::shared_ptr<EncoderWrapper>& aRightEncoder,
+            const std::shared_ptr<IEncoderWrapper>& aLeftEncoder,
+            const std::shared_ptr<IEncoderWrapper>& aRightEncoder,
             const std::shared_ptr<IGyroWrapper>& aGyroWrapper,
             double aTurnKp);
 
@@ -29,8 +29,8 @@ public:
     void Update();
 
 protected:
-    std::shared_ptr<EncoderWrapper> mLeftEncoder;
-    std::shared_ptr<EncoderWrapper> mRightEncoder;
+    std::shared_ptr<IEncoderWrapper> mLeftEncoder;
+    std::shared_ptr<IEncoderWrapper> mRightEncoder;
     std::shared_ptr<IGyroWrapper> mGyroWrapper;
 
     double mTurnKp;
