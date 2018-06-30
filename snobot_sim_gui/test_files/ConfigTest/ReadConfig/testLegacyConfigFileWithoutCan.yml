@@ -1,0 +1,76 @@
+!!com.snobot.simulator.config.SimulatorConfig
+mAccelerometers: []
+mAnalogIO: []
+mDefaultI2CWrappers:
+  0: None
+  1: None
+mDefaultSpiWrappers:
+  0: ADXRS450
+  1: Dotstar
+  2: Dotstar
+  3: Dotstar
+  4: Dotstar
+mDigitalIO:
+- mHandle: 6
+  mName: Digital Source6
+- mHandle: 7
+  mName: Digital Source7
+- mHandle: 8
+  mName: Digital Source8
+- mHandle: 9
+  mName: Digital Source9
+mEncoders:
+- mConnectedSpeedControllerHandle: 0
+  mHandle: 0
+  mName: drive right
+- mConnectedSpeedControllerHandle: 1
+  mHandle: 1
+  mName: drive left
+- mConnectedSpeedControllerHandle: 2
+  mHandle: 2
+  mName: Elevator
+mGyros:
+- mHandle: 100
+  mName: Robot Gyro
+mPwm:
+- mHandle: 0
+  mMotorModelConfig:
+    mGearReduction: 12.0
+    mGearboxEfficiency: 1.0
+    mHasBrake: false
+    mInverted: false
+    mMotorType: CIM
+    mNumMotors: 2
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig
+    mConversionFactor: 3.0
+    mLoad: 0.6
+  mName: Drive Left
+- mHandle: 1
+  mMotorModelConfig:
+    mGearReduction: 12.0
+    mGearboxEfficiency: 1.0
+    mHasBrake: false
+    mInverted: true
+    mMotorType: CIM
+    mNumMotors: 2
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig
+    mConversionFactor: 3.0
+    mLoad: 0.6
+  mName: Drive Right
+- mHandle: 2
+  mMotorModelConfig: null
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig
+    mMaxSpeed: 20.0
+  mName: Elevator
+mRelays: []
+mSimulatorComponents:
+- !!com.snobot.simulator.simulator_components.TankDriveGyroSimulator$TankDriveConfig
+  mGyroHandle: 100
+  mLeftEncoderHandle: 0
+  mRightEncoderHandle: 1
+  mTurnKp: 33.33
+mSolenoids:
+- mHandle: 1
+  mName: Claw (A)
+- mHandle: 2
+  mName: Claw (B)

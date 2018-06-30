@@ -2,62 +2,53 @@
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven {
-        url "http://first.wpi.edu/FRC/roborio/maven/release/"
+        url getWpiRepo()
     }
 }
 
 configurations {
-    wpilibjJni
+    wpilibNativeDeps
 }
 
 dependencies {
-    wpilibjJni 'edu.wpi.first.wpilibj:wpilibj-jniShared:' + getWpilibjVersion() + ':all'
+    wpilibNativeDeps 'edu.wpi.first.wpiutil:wpiutil-cpp:' + getWpiUtilVersion() + ':all@zip'
+    wpilibNativeDeps 'edu.wpi.first.hal:hal:' + allwpilibVersion() + ':all@zip'
+    wpilibNativeDeps 'edu.wpi.first.halsim:halsim-adx_gyro_accelerometer:' + allwpilibVersion() + ':all@zip'
+    wpilibNativeDeps 'edu.wpi.first.wpilibj:wpilibj-jniShared:' + allwpilibVersion() + ':all'
 }
 
-task extractWpilibjJniShared(type: Copy) {
+task extractWpilibNativeDeps(type: Copy) {
     def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
 
-    destinationDir = file("$rootDir/build/dependencies/wpilibj-jniShared")
-    configurations.wpilibjJni.each {
+    destinationDir = file("$rootDir/build/extracted_deps")
+    configurations.wpilibNativeDeps.each {
         from(zipTree(it)) {
-            into os_name + "x86-64/"
+            exclude "**/athena/**"
+            include "**/*.dll"
+            include "**/*.so"
+            include "**/*.dylib"
         }
     }
 }
 
 
-task captureWpiLibraries(type: Jar, dependsOn: extractWpilibjJniShared) {
+task captureWpiLibraries(type: Jar, dependsOn: extractWpilibNativeDeps) {
 
-    def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
-
+    baseName = "native_wpilib"
     destinationDir = file("$rootDir/build/wpi_libraries")
-    classifier = "wpi_native-" + os_name;
+    classifier = "all";
 
-    def libraries = ["wpilibj-jniShared",
-                     "wpiutil-cpp",
-                     "halsim-adx_gyro_accelerometer",
-                     "hal"]
+    from(extractWpilibNativeDeps.destinationDir)
+    includeEmptyDirs = false
 
-    libraries.each{
-        def full_path = "$rootDir/build/dependencies/" + it + "/" + os_name + "x86-64/" + os_name + "/x86-64/shared"
-        println full_path
-        from(full_path) {
-            into os_name + "/x86-64/"
-            include "*.dll"
-            include "*.so"
-            include "*.dylib"
+    eachFile {
+
+        if(it.getRelativePath().toString().contains("athena")) {
+            it.exclude()
         }
-    }
 
-    libraries.each{
-        def full_path = "$rootDir/build/dependencies/" + it + "/" + os_name + "x86/" + os_name + "/x86/shared"
-        println full_path
-        from(full_path) {
-            into os_name + "/x86/"
-            include "*.dll"
-            include "*.so"
-            include "*.dylib"
-        }
+        it.setPath(it.getRelativePath().toString().replace("shared", ""))
     }
 }

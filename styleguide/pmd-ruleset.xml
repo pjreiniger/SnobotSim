@@ -8,6 +8,10 @@
     <exclude-pattern>.*/edu/wpi/first/wpilibj/.*</exclude-pattern>
     <exclude-pattern>.*/com/snobot/test/utilities/MockRobot.*</exclude-pattern>
 
+
+    <!-- temp -->
+    <exclude-pattern>.*/edu/wpi/first/.*</exclude-pattern>
+
     <rule ref="rulesets/java/basic.xml"/>
     <rule ref="rulesets/java/braces.xml"/>
     <rule ref="rulesets/java/design.xml">

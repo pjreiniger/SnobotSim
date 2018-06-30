@@ -19,9 +19,8 @@ modifiableFileExclude {
   \jni_md.h$
   snobot_sim_java.*$
   snobot_sim_jni.*$
-  ctre_override/ctre_libraries
-  ctre_override/ctre_source/java/src
-  ctre_override/mock_hooks/include
+  ctre_override/temp/.*$
+  temp_hal_sim/.*$
   snobot_sim_java/java/unit_tests/com/kauailabs/navx/frc
   \SnobotSimHalVersion.h$
   \StackWalker.h$

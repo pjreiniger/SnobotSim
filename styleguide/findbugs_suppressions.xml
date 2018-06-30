@@ -1,5 +1,11 @@
 <FindBugsFilter>
 
+
+    <!-- temp -->
+    <Match>
+        <Package name="~edu\.wpi\.first.*"/>
+    </Match>
+
     <!-- Test Classes -->
 
     <Match>
@@ -34,6 +40,12 @@
         <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE" />
     </Match>
 
+    <!-- snobot_sim_utilities -->
+    <Match>
+        <Class name="com.snobot.simulator.JniLibraryResourceLoader"/>
+        <Bug pattern="DMI_RANDOM_USED_ONLY_ONCE" />
+    </Match>
+
     <!-- snobot_sim_jni -->
     <Match>
         <Class name="com.snobot.simulator.jni.BaseSnobotJni"/>
@@ -46,7 +58,7 @@
 
     <!-- unit tests -->
     <Match>
-        <Class name="com.snobot.test.utilities.BaseSimulatorTest"/>
+        <Class name="com.snobot.test.utilities.BaseSimulatorJavaTest"/>
         <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
     </Match>
 </FindBugsFilter>

@@ -28,6 +28,7 @@ task packageNativeFilesInJar(type: Jar) {
         binaries {
             withType(SharedLibraryBinarySpec) { binary ->
                 if (binary.component.name == 'snobotSimCpp') {
+                    dependsOn binary.buildTask
                     from(binary.sharedLibraryFile) {
                         into NativeUtils.getPlatformPath(binary)
                     }
@@ -54,7 +55,7 @@ model {
             artifactId = 'hal'
             headerClassifier = 'headers'
             ext = 'zip'
-            version = getHalHeadersVersion()
+            version = allwpilibVersion()
             sharedConfigs = [ snobotSimCpp: [] ]
         }
         adxfamily(DependencyConfig) {
@@ -62,7 +63,7 @@ model {
             artifactId = 'halsim-adx_gyro_accelerometer'
             headerClassifier = 'headers'
             ext = 'zip'
-            version = getHalHeadersVersion()
+            version = allwpilibVersion()
             sharedConfigs = [ snobotSimCpp: [] ]
         }
     }

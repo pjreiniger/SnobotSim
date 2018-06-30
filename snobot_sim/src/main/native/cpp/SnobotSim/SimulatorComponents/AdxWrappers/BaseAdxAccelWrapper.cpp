@@ -36,10 +36,13 @@ void BaseAdxAccelWrapper::AccelerometerWrapper::SetAcceleration(double aAccelera
     {
     case AXIS_X:
         mAccel->SetX(aAcceleration);
+        break;
     case AXIS_Y:
         mAccel->SetY(aAcceleration);
+        break;
     case AXIS_Z:
         mAccel->SetZ(aAcceleration);
+        break;
     }
 }
 

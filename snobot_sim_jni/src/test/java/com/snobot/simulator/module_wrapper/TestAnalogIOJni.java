@@ -1,0 +1,85 @@
+package com.snobot.simulator.module_wrapper;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
+import com.snobot.test.utilities.BaseSimulatorJniTest;
+
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogOutput;
+
+public class TestAnalogIOJni extends BaseSimulatorJniTest
+{
+    @Test
+    public void testCreateAnalogIn()
+    {
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+
+        new AnalogInput(0);
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        Assertions.assertEquals("Analog 0", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(0));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().getWantsHidden(0));
+
+        new AnalogInput(3);
+        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        Assertions.assertEquals("Analog 3", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(3));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().getWantsHidden(3));
+
+        DataAccessorFactory.getInstance().getAnalogInAccessor().setName(3, "NewNameFor3");
+        Assertions.assertEquals("NewNameFor3", DataAccessorFactory.getInstance().getAnalogInAccessor().getName(3));
+
+        // Set name for non-existing sensor
+        DataAccessorFactory.getInstance().getAnalogInAccessor().setName(4, "NewNameFor4");
+    }
+
+    @Test
+    public void testCreateAnalogOut()
+    {
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+
+        new AnalogOutput(0);
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+
+        new AnalogOutput(1);
+        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+    }
+
+    public void testReuseInPort()
+    {
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+
+        new AnalogInput(0);
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+
+        Assertions.assertThrows(RuntimeException.class, () ->
+        {
+            new AnalogInput(0);
+        });
+    }
+
+    public void testReuseOutPort()
+    {
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+
+        new AnalogOutput(0);
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+
+        Assertions.assertThrows(RuntimeException.class, () ->
+        {
+            new AnalogOutput(0);
+        });
+
+    }
+
+    @Test
+    public void testAnalogIn()
+    {
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        AnalogInput input = new AnalogInput(0);
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+
+        Assertions.assertEquals(0, input.getVoltage(), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getVoltage(0), DOUBLE_EPSILON);
+    }
+}

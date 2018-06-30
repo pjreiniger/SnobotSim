@@ -1,0 +1,73 @@
+
+
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+
+    maven {
+        url "http://dev.imjac.in/maven/"
+    }
+    maven {
+        url "http://first.wpi.edu/FRC/roborio/maven/release/"
+    }
+    maven {
+        url "http://raw.githubusercontent.com/pjreiniger/maven_repo/master/"
+    }
+    maven {
+        url getJaci3rdPartyMirror()
+    }
+}
+
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
+
+    ignoreFailures = org.gradle.internal.os.OperatingSystem.current().isMacOsX()
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////
+// Style/Formatting stuff
+checkstyle {
+    toolVersion = "8.1"
+    configFile = new File(rootDir, "styleguide/checkstyle.xml")
+}
+
+pmd {
+    consoleOutput  = true
+    reportsDir = file("${project.buildDir}/reports/pmd")
+    ruleSetFiles = files(file("$rootDir/styleguide/pmd-ruleset.xml"))
+    ruleSets = []
+}
+
+findbugs {
+    excludeFilter = file("$rootDir/styleguide/findbugs_suppressions.xml")
+    effort = "max"
+}
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////
+
+apply from: "${rootDir}/common/base_java_publish.gradle"

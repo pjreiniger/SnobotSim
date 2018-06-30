@@ -20,18 +20,12 @@ NavxSimulator::~NavxSimulator()
 void NavxSimulator::ResetData()
 {
     mX = 0.0;
-    mXCallbacks = nullptr;
     mY = 0.0;
-    mYCallbacks = nullptr;
     mZ = 0.0;
-    mZCallbacks = nullptr;
 
     mYaw = 0.0;
-    mYawCallbacks = nullptr;
     mPitch = 0.0;
-    mPitchCallbacks = nullptr;
     mRoll = 0.0;
-    mRollCallbacks = nullptr;
 }
 
 void NavxSimulator::GetWriteConfig(uint8_t* aBuffer)
@@ -83,36 +77,6 @@ void NavxSimulator::GetCurrentData(uint8_t* aBuffer, int aFirstAddress)
     //    PutTheValue(aBuffer, 0x28 - aFirstAddress, int16_t(mZ * 1000), 2); // Linear Accel Z
 }
 
-int32_t NavxSimulator::RegisterXCallback(
-        HAL_NotifyCallback callback, void* param, HAL_Bool initialNotify)
-{
-    // Must return -1 on a null callback for error handling
-    if (callback == nullptr)
-        return -1;
-    int32_t newUid = 0;
-    {
-        std::lock_guard<std::mutex> lock(m_registerMutex);
-        mXCallbacks = RegisterCallback(mXCallbacks, "X", callback, param, &newUid);
-    }
-    if (initialNotify)
-    {
-        // We know that the callback is not null because of earlier null check
-        HAL_Value value = MakeDouble(GetX());
-        callback("X", param, &value);
-    }
-    return newUid;
-}
-
-void NavxSimulator::CancelXCallback(int32_t uid)
-{
-    mXCallbacks = CancelCallback(mXCallbacks, uid);
-}
-
-void NavxSimulator::InvokeXCallback(HAL_Value value)
-{
-    InvokeCallback(mXCallbacks, "X", &value);
-}
-
 double NavxSimulator::GetX()
 {
     return mX;
@@ -120,41 +84,7 @@ double NavxSimulator::GetX()
 
 void NavxSimulator::SetX(double x)
 {
-    double oldValue = mX.exchange(x);
-    if (oldValue != x)
-    {
-        InvokeXCallback(MakeDouble(x));
-    }
-}
-
-int32_t NavxSimulator::RegisterYCallback(
-        HAL_NotifyCallback callback, void* param, HAL_Bool initialNotify)
-{
-    // Must return -1 on a null callback for error handling
-    if (callback == nullptr)
-        return -1;
-    int32_t newUid = 0;
-    {
-        std::lock_guard<std::mutex> lock(m_registerMutex);
-        mYCallbacks = RegisterCallback(mYCallbacks, "Y", callback, param, &newUid);
-    }
-    if (initialNotify)
-    {
-        // We know that the callback is not null because of earlier null check
-        HAL_Value value = MakeDouble(GetY());
-        callback("Y", param, &value);
-    }
-    return newUid;
-}
-
-void NavxSimulator::CancelYCallback(int32_t uid)
-{
-    mYCallbacks = CancelCallback(mYCallbacks, uid);
-}
-
-void NavxSimulator::InvokeYCallback(HAL_Value value)
-{
-    InvokeCallback(mYCallbacks, "Y", &value);
+    mX.exchange(x);
 }
 
 double NavxSimulator::GetY()
@@ -164,41 +94,7 @@ double NavxSimulator::GetY()
 
 void NavxSimulator::SetY(double y)
 {
-    double oldValue = mY.exchange(y);
-    if (oldValue != y)
-    {
-        InvokeYCallback(MakeDouble(y));
-    }
-}
-
-int32_t NavxSimulator::RegisterZCallback(
-        HAL_NotifyCallback callback, void* param, HAL_Bool initialNotify)
-{
-    // Must return -1 on a null callback for error handling
-    if (callback == nullptr)
-        return -1;
-    int32_t newUid = 0;
-    {
-        std::lock_guard<std::mutex> lock(m_registerMutex);
-        mZCallbacks = RegisterCallback(mZCallbacks, "Z", callback, param, &newUid);
-    }
-    if (initialNotify)
-    {
-        // We know that the callback is not null because of earlier null check
-        HAL_Value value = MakeDouble(GetZ());
-        callback("Z", param, &value);
-    }
-    return newUid;
-}
-
-void NavxSimulator::CancelZCallback(int32_t uid)
-{
-    mZCallbacks = CancelCallback(mZCallbacks, uid);
-}
-
-void NavxSimulator::InvokeZCallback(HAL_Value value)
-{
-    InvokeCallback(mZCallbacks, "Z", &value);
+    mY.exchange(y);
 }
 
 double NavxSimulator::GetZ()
@@ -208,41 +104,7 @@ double NavxSimulator::GetZ()
 
 void NavxSimulator::SetZ(double z)
 {
-    double oldValue = mZ.exchange(z);
-    if (oldValue != z)
-    {
-        InvokeZCallback(MakeDouble(z));
-    }
-}
-
-int32_t NavxSimulator::RegisterYawCallback(
-        HAL_NotifyCallback callback, void* param, HAL_Bool initialNotify)
-{
-    // Must return -1 on a null callback for error handling
-    if (callback == nullptr)
-        return -1;
-    int32_t newUid = 0;
-    {
-        std::lock_guard<std::mutex> lock(m_registerMutex);
-        mYawCallbacks = RegisterCallback(mYawCallbacks, "Yaw", callback, param, &newUid);
-    }
-    if (initialNotify)
-    {
-        // We know that the callback is not null because of earlier null check
-        HAL_Value value = MakeDouble(GetX());
-        callback("Yaw", param, &value);
-    }
-    return newUid;
-}
-
-void NavxSimulator::CancelYawCallback(int32_t uid)
-{
-    mYawCallbacks = CancelCallback(mYawCallbacks, uid);
-}
-
-void NavxSimulator::InvokeYawCallback(HAL_Value value)
-{
-    InvokeCallback(mYawCallbacks, "Yaw", &value);
+    mZ.exchange(z);
 }
 
 double NavxSimulator::GetYaw()
@@ -252,41 +114,7 @@ double NavxSimulator::GetYaw()
 
 void NavxSimulator::SetYaw(double yaw)
 {
-    double oldValue = mYaw.exchange(yaw);
-    if (oldValue != yaw)
-    {
-        InvokeYawCallback(MakeDouble(yaw));
-    }
-}
-
-int32_t NavxSimulator::RegisterPitchCallback(
-        HAL_NotifyCallback callback, void* param, HAL_Bool initialNotify)
-{
-    // Must return -1 on a null callback for error handling
-    if (callback == nullptr)
-        return -1;
-    int32_t newUid = 0;
-    {
-        std::lock_guard<std::mutex> lock(m_registerMutex);
-        mPitchCallbacks = RegisterCallback(mPitchCallbacks, "Pitch", callback, param, &newUid);
-    }
-    if (initialNotify)
-    {
-        // We know that the callback is not null because of earlier null check
-        HAL_Value value = MakeDouble(GetPitch());
-        callback("Pitch", param, &value);
-    }
-    return newUid;
-}
-
-void NavxSimulator::CancelPitchCallback(int32_t uid)
-{
-    mPitchCallbacks = CancelCallback(mPitchCallbacks, uid);
-}
-
-void NavxSimulator::InvokePitchCallback(HAL_Value value)
-{
-    InvokeCallback(mPitchCallbacks, "Pitch", &value);
+    mYaw.exchange(yaw);
 }
 
 double NavxSimulator::GetPitch()
@@ -296,41 +124,7 @@ double NavxSimulator::GetPitch()
 
 void NavxSimulator::SetPitch(double pitch)
 {
-    double oldValue = mPitch.exchange(pitch);
-    if (oldValue != pitch)
-    {
-        InvokePitchCallback(MakeDouble(pitch));
-    }
-}
-
-int32_t NavxSimulator::RegisterRollCallback(
-        HAL_NotifyCallback callback, void* param, HAL_Bool initialNotify)
-{
-    // Must return -1 on a null callback for error handling
-    if (callback == nullptr)
-        return -1;
-    int32_t newUid = 0;
-    {
-        std::lock_guard<std::mutex> lock(m_registerMutex);
-        mRollCallbacks = RegisterCallback(mRollCallbacks, "Roll", callback, param, &newUid);
-    }
-    if (initialNotify)
-    {
-        // We know that the callback is not null because of earlier null check
-        HAL_Value value = MakeDouble(GetRoll());
-        callback("Roll", param, &value);
-    }
-    return newUid;
-}
-
-void NavxSimulator::CancelRollCallback(int32_t uid)
-{
-    mRollCallbacks = CancelCallback(mRollCallbacks, uid);
-}
-
-void NavxSimulator::InvokeRollCallback(HAL_Value value)
-{
-    InvokeCallback(mRollCallbacks, "Roll", &value);
+    mPitch.exchange(pitch);
 }
 
 double NavxSimulator::GetRoll()
@@ -340,9 +134,5 @@ double NavxSimulator::GetRoll()
 
 void NavxSimulator::SetRoll(double roll)
 {
-    double oldValue = mRoll.exchange(roll);
-    if (oldValue != roll)
-    {
-        InvokeRollCallback(MakeDouble(roll));
-    }
+    mRoll.exchange(roll);
 }

@@ -201,6 +201,7 @@ install_manifest.txt
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+java_pid*.hprof
 
 
 ### Gradle ###
@@ -228,8 +229,9 @@ snobotSim*.zip
 snobotSim*.jar
 !temp_libs
 !temp_libs/**
-snobot_sim_gui/snobot_sim/com/snobot/simulator/SnobotSimGuiVersion.java
-snobot_sim_java/java/snobot_sim_java/com/snobot/simulator/wrapper_accessors/java/JaveSimulatorVersion.java
+snobot_sim_gui/src/main/java/com/snobot/simulator/SnobotSimGuiVersion.java
+snobot_sim_java/src/main/java/com/snobot/simulator/wrapper_accessors/java/JaveSimulatorVersion.java
 snobot_sim/src/main/native/cpp/SnobotSim/SnobotSimHalVersion.cpp
 maven_repo
 !scripts/boilerplates/
+target/

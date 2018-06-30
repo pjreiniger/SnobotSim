@@ -1,0 +1,107 @@
+package com.snobot.simulator.module_wrapper;
+
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
+import com.snobot.simulator.motor_sim.IMotorSimulator;
+import com.snobot.simulator.simulator_components.IMotorFeedbackSensor;
+
+public abstract class BasePwmWrapper extends ASensorWrapper implements IPwmWrapper
+{
+    protected IMotorSimulator mMotorSimulator;
+    protected IMotorFeedbackSensor mFeedbackSensor;
+
+    protected final int mHandle;
+
+    public BasePwmWrapper(int aHandle, String aName)
+    {
+        super(aName);
+
+        mHandle = aHandle;
+
+        mMotorSimulator = new IMotorSimulator.NullMotorSimulator();
+        mFeedbackSensor = new IMotorFeedbackSensor.NullFeedbackSensor();
+    }
+
+    @Override
+    public void setMotorSimulator(IMotorSimulator aSimulator)
+    {
+        mMotorSimulator = aSimulator;
+    }
+
+    @Override
+    public IMotorSimulator getMotorSimulator()
+    {
+        return mMotorSimulator;
+    }
+
+    @Override
+    public double get()
+    {
+        return mMotorSimulator.getVoltagePercentage();
+    }
+
+    @Override
+    public void set(double aSpeed)
+    {
+        mMotorSimulator.setVoltagePercentage(aSpeed);
+    }
+
+    @Override
+    public double getPosition()
+    {
+        return mMotorSimulator.getPosition();
+    }
+
+    @Override
+    public double getVelocity()
+    {
+        return mMotorSimulator.getVelocity();
+    }
+
+    @Override
+    public double getCurrent()
+    {
+        return mMotorSimulator.getCurrent();
+    }
+
+    @Override
+    public double getAcceleration()
+    {
+        return mMotorSimulator.getAcceleration();
+    }
+
+    @Override
+    public void reset()
+    {
+        mMotorSimulator.reset();
+    }
+
+    @Override
+    public void reset(double aPosition, double aVelocity, double aCurrent)
+    {
+        mMotorSimulator.reset(aPosition, aVelocity, aCurrent);
+    }
+
+    public void setFeedbackSensor(IMotorFeedbackSensor aFeedbackSensor)
+    {
+        mFeedbackSensor = aFeedbackSensor;
+    }
+
+    public IMotorFeedbackSensor getFeedbackSensor()
+    {
+        return mFeedbackSensor;
+    }
+
+    public void update(double aWaitTime)
+    {
+        mMotorSimulator.update(aWaitTime);
+        mFeedbackSensor.setPosition(mMotorSimulator.getPosition());
+        mFeedbackSensor.setVelocity(mMotorSimulator.getVelocity());
+    }
+
+    @Override
+    public int getHandle()
+    {
+        return mHandle;
+    }
+
+}

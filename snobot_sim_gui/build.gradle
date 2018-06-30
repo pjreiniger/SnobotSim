@@ -1,71 +1,36 @@
 
 import org.gradle.internal.os.OperatingSystem
 
-repositories {
-    mavenCentral()
-    maven {
-        url "http://first.wpi.edu/FRC/roborio/maven/release/"
-    }
+
+evaluationDependsOn(':snobot_sim_utilities')
+evaluationDependsOn(':sim_adx_family')
+evaluationDependsOn(':sim_extension_navx')
+evaluationDependsOn(':temp_hal_interface')
+
+ext
+{
+    baseId = "snobot_sim_gui"
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'jacoco'
-apply plugin: 'application'
-apply plugin: 'checkstyle'
-apply plugin: 'pmd'
-apply plugin: 'findbugs'
-
-sourceSets {
-    main {
-        java {
-            srcDirs = ["snobot_sim"]
-        }
-    }
-    test {
-        java {
-            srcDirs = ["unit_tests"]
-        }
-    }
-}
-test {
-    ignoreFailures = true //!OperatingSystem.current().isWindows()
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-    
-    afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, 
-                     exclude: [
-                               'com/snobot/simulator/Main.class',
-                               //'com/snobot/simulator/joysticks/**',
-                               //'com/snobot/simulator/gui/**'
-                               ])
-        })
-    }
-}
+apply from: "${rootDir}/common/base_java_script.gradle"
 
 configurations {
     native3rdPartyDeps
     compile.extendsFrom(native3rdPartyDeps)
 }
-    
+
+apply from: "$rootDir/captureWpiLibraries.gradle"
 dependencies {
     
     // WPILib
-    compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
-    compile 'edu.wpi.first.wpilibj:wpilibj-java:' + getWpilibjVersion()
+    compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     compile 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
-    compile 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
     compile 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
-    compile 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
-    runtime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
+    runtime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
+    compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
     runtime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
+    compile 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
+    runtime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
     
     // 3rd Party
     native3rdPartyDeps  'net.java.jinput:jinput:2.0.7'
@@ -91,13 +56,36 @@ dependencies {
     if(build_simulator_java)
     {
         compile project(":snobot_sim_java")
-        runtime     files("${rootDir}/snobot_sim_java/build/libs/snobot_sim_java-uber_native-" + os_name  +".jar")
-        testRuntime files("${rootDir}/snobot_sim_java/build/libs/snobot_sim_java-uber_native-" + os_name  +".jar")
+        runtime captureWpiLibraries.outputs.files
+        runtime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
+        runtime project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files
     }
     
     // Test
-    testCompile 'junit:junit:4.12'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
+    runtime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':native-all'
     testRuntime jar.outputs.files // Necessary for having resources in jar 
+    
+    runtime "openrio.mirror.third.ctre:CTRE-phoenix-java:" + getCtreVersion()
+    runtime "openrio.mirror.third.kauailabs:navx-java:" + getNavxVersion()
+    
+    runtime project(':temp_hal_interface').packageNativetemp_hal_interface_jniFilesInJar.outputs.files
+}
+
+apply from: "$rootDir/common/prepare_ctre_library.gradle"
+compileJava.dependsOn prepareCtreLibrary
+tasks.withType(Test) {
+    systemProperty "java.library.path", getCtreNativeExtractedLocation()
+}
+
+eclipse.classpath.file.whenMerged { classpath ->
+    classpath.entries.each {
+        if(it.path.contains("ctre_sim_override")) {
+            it.setNativeLibraryLocation(getCtreNativeExtractedLocation())
+        }
+    }
 }
 
 
@@ -142,70 +130,23 @@ if(build_simulator_java)
 jar {
    baseName = "snobotSim"
 
-   from("${rootDir}/snobot_sim_gui/snobot_sim") {
+   from("${rootDir}/snobot_sim_gui/src/main/java") {
       include  '**/*.png'
-   }
-   from("${rootDir}/snobot_sim_gui/snobot_sim") {
       include  '**/*.properties'
+      include  '**/*.txt'
    }
 }
 
 compileJava {
     apply from: "../create_version_file.gradle"
-    createJavaVersion("snobot_sim/com/snobot/simulator", "SnobotSimGuiVersion", "com.snobot.simulator", getVersionName())
+    createJavaVersion("src/main/java/com/snobot/simulator", "SnobotSimGuiVersion", "com.snobot.simulator", getVersionName())
 }
     
 clean {
-    delete "snobot_sim/com/snobot/simulator/SnobotSimGuiVersion.java"
+    delete "src/main/java/com/snobot/simulator/SnobotSimGuiVersion.java"
 }
 
-
-apply from: "publish.gradle"
-
-///////////////////////////////////////////////////////////
-// Build Application
-mainClassName = "com.snobot.simulator.Main"
-applicationDefaultJvmArgs = ["-Djava.library.path=../lib"]
-
-
-distributions {
-    main {
-        contents {
-            from(".") {
-                into "bin"
-                include "open_smart_dashboard.*"
-            }
-        }
-    }
-
-}
-
-///////////////////////////////////////////////////////////
-
-
-/////////////////////////////////////////////////////////////////////////////////
-// Style/Formatting stuff
-checkstyle {
-    toolVersion = "8.1"
-    configFile = new File(rootDir, "styleguide/checkstyle.xml")
-}
-
-pmd {
-    consoleOutput  = true
-    reportsDir = file("${project.buildDir}/reports/pmd")
-    ruleSetFiles = files(file("$rootDir/styleguide/pmd-ruleset.xml"))
-    ruleSets = []
-}
 
 findbugs {
-    excludeFilter = file("$rootDir/styleguide/findbugs_suppressions.xml")
-    effort = "max"
     ignoreFailures = true
 }
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled false
-        html.enabled true
-    }
-}
-/////////////////////////////////////////////////////////////////////////////////

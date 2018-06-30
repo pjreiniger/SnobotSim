@@ -1,0 +1,86 @@
+
+import org.gradle.internal.os.OperatingSystem
+
+
+apply plugin: 'cpp'
+apply plugin: 'edu.wpi.first.NativeUtils'
+apply plugin: 'edu.wpi.first.GradleJni'
+
+apply from: "${rootDir}/common/base_java_script.gradle"
+apply from: '../config.gradle'
+
+
+dependencies {
+    compile project(":snobot_sim_utilities")
+}
+
+task "packageNative${libraryName}FilesInJar"(type: Jar) {
+    group = "Package Natives"
+    description ="Description"
+
+
+    destinationDir = project.buildDir
+    classifier = org.gradle.internal.os.OperatingSystem.current().getFamilyName() + "-" + getCurrentArch();
+
+    project.model {
+        binaries {
+            withType(SharedLibraryBinarySpec) { binary ->
+                if (binary.component.name == project.libraryName)
+                {
+                    dependsOn binary.buildTask
+                    from(binary.sharedLibraryFile) {
+                        into project.getNativeVersion(binary)
+                    }
+                }
+                if(project.hasProperty("extra_libraries"))
+                {
+                    project.extra_libraries.each {
+                        if (binary.component.name == it[1])
+                        {
+                            dependsOn binary.buildTask
+                            from(binary.sharedLibraryFile) {
+                                into project.getNativeVersion(binary)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+build.dependsOn "packageNative${libraryName}FilesInJar"
+
+
+model {
+
+    components {
+        "${libraryName}"(JniNativeLibrarySpec) {
+            if (project.hasProperty('libraryBaseName')) {
+                baseName = project.libraryBaseName
+            }
+            enableCheckTask true
+            javaCompileTasks << compileJava
+            jniCrossCompileOptions << JniCrossCompileOptions('linux', 'athena', ["${rootDir}/common/arm-linux-jni".toString(), "${rootDir}/common/arm-linux-jni/linux".toString()])
+            sources {
+                cpp {
+                    source {
+                        srcDirs = project.librarySrcDirs
+                        includes = ["**/*.cpp"]
+                    }
+                    exportedHeaders {
+                        srcDirs = project.libraryHeaderDirs
+                    }
+                    if(project.hasProperty("extra_libraries"))
+                    {
+                        project.extra_libraries.each {
+                             lib project: it[0], library: it[1], linkage:it[2]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+apply from: "${rootDir}/common/base_jni_publish.gradle"

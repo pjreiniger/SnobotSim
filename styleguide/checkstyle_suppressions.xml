@@ -14,4 +14,8 @@
 
     <suppress files="com.snobot.simulator.gui.module_widget.*" checks="OneTopLevelClass"/>
 
+
+    <!-- temp -->
+    <suppress files="edu.wpi.first.*" checks="[a-zA-Z0-9]*"/>
+
 </suppressions>

@@ -12,18 +12,22 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'gradle.plugin.edu.wpi.first:native-utils:1.2.12'
         classpath 'com.netflix.nebula:gradle-aggregate-javadocs-plugin:2.2.+'
     }
 }
 
 plugins {
-    id 'edu.wpi.first.wpilib.versioning.WPILibVersioningPlugin' version '1.6'
+    id 'net.ltgt.errorprone' version '0.0.13'
+    id 'edu.wpi.first.wpilib.versioning.WPILibVersioningPlugin' version '2.0'
+    id 'edu.wpi.first.NativeUtils' version '1.6.7'
+    id "edu.wpi.first.GradleJni" version "0.2.2" apply false
+    id "com.diffplug.gradle.spotless" version "3.10.0"
+    id 'com.gradle.build-scan' version '1.13.1'
 }
 apply plugin: 'nebula-aggregate-javadocs'
 
-task clean(type: Delete) {
-    delete buildDir
+repositories {
+    mavenCentral()
 }
 
 ext.build_simulator_cpp = false
@@ -36,15 +40,6 @@ ext.allwpilibVersion = {
     return '2018.4.1'
 }
 
-ext.getHalHeadersVersion = {
-    return allwpilibVersion()
-}
-ext.getWpilibjVersion = {
-    return allwpilibVersion()
-}
-ext.getWpilibcVersion = {
-    return allwpilibVersion()
-}
 ext.getWpiUtilVersion = {
     return '3.2.0'
 }
@@ -54,14 +49,22 @@ ext.getNtCoreVersion = {
 ext.getCsCoreVersion = {
     return '1.3.0'
 }
+
 ext.getWpilibOpencvVersion = {
     return '3.2.0'
 }
 ext.getCtreVersion = {
-    return '5.2.2.0'
+    return '5.2.1.1'
+}
+ext.getCtreSimVersion = {
+    return 'V0_' + getCtreVersion()
 }
 ext.getNavxVersion = {
     return '3.0.346'
+}
+ext.getWpiRepo = {
+    return "http://first.wpi.edu/FRC/roborio/maven/release/"
+    //return "http://first.wpi.edu/FRC/roborio/maven/development/"
 }
 
 ext.getJaci3rdPartyMirror = {
@@ -69,6 +72,20 @@ ext.getJaci3rdPartyMirror = {
 }
 
 /////////////////////////////////////////
+
+def getCtreNativeExtractedLocation() {
+    
+    def os_arch = System.getProperty('os.arch');
+    def converted_arch = os_arch
+
+    if (os_arch.equals("x86") || os_arch.equals("i386")) {
+        converted_arch = 'x86'
+    } else if (os_arch.equals("amd64") || os_arch.equals("x86_64")) {
+        converted_arch = 'x86-64'
+    }
+    
+    return "$rootDir/build/ctre_native" + "/" + org.gradle.internal.os.OperatingSystem.current().getFamilyName() + "/" + converted_arch
+}
 
 // Publshing Information
 
@@ -80,7 +97,7 @@ if(hasProperty('maven_repo'))
 ext.maven_publishing_path = new File(maven_publishing_path).getAbsolutePath()
 println "Publishing maven to " + ext.maven_publishing_path.toString()
 
-ext.maven_version = "0.11.1"
+ext.maven_version = "2018-1.0.0"
 if(hasProperty('maven_version'))
 {
     ext.maven_version = maven_version
@@ -89,7 +106,7 @@ if(hasProperty('maven_version'))
 apply from: 'publish.gradle'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.7'
 }
 
 apply from: "$rootDir/combine_libraries.gradle"
