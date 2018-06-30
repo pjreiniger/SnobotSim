@@ -341,7 +341,7 @@ public class Simulator
                     + "</ul></html>";
             JLabel label = new JLabel(message);
             label.setFont(new Font("serif", Font.PLAIN, 14));
-            System.out.println(message);
+
             JOptionPane.showMessageDialog(null,
                     label,
                     "Config file mismatch", JOptionPane.ERROR_MESSAGE);

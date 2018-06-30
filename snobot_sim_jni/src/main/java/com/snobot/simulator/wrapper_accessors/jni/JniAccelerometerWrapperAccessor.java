@@ -73,6 +73,6 @@ public class JniAccelerometerWrapperAccessor implements AccelerometerWrapperAcce
     @Override
     public void removeSimluator(int aPort)
     {
-
+        // Nothing to do
     }
 }

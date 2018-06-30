@@ -37,7 +37,7 @@ public class JniSpeedControllerWrapperAccessor implements SpeedControllerWrapper
     @Override
     public void removeSimluator(int aPort)
     {
-
+        // Nothing to do
     }
 
     @Override

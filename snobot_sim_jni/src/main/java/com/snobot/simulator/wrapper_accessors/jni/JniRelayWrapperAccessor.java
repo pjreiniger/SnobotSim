@@ -31,7 +31,7 @@ public class JniRelayWrapperAccessor implements RelayWrapperAccessor
     @Override
     public void removeSimluator(int aPort)
     {
-
+        // Nothing to do
     }
 
     @Override

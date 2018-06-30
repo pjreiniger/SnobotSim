@@ -31,7 +31,7 @@ public class JniSolenoidWrapperAccessor implements SolenoidWrapperAccessor
     @Override
     public void removeSimluator(int aPort)
     {
-
+        // Nothing to do
     }
 
     @Override

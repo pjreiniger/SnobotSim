@@ -31,7 +31,7 @@ public class JniAnalogSourceWrapperAccessor implements AnalogSourceWrapperAccess
     @Override
     public void removeSimluator(int aPort)
     {
-
+        // Nothing to do
     }
 
     @Override

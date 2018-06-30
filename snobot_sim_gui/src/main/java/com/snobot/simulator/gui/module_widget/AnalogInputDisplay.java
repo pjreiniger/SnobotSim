@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+
 import com.snobot.simulator.gui.Util;
 import com.snobot.simulator.gui.module_widget.settings.SimpleSettingsDialog;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
@@ -76,12 +79,11 @@ public class AnalogInputDisplay extends BaseWidgetDisplay<Integer, AnalogInDispl
 
 class AnalogInDisplay extends JPanel
 {
-
-    JPanel mCirclePanel = new JPanel()
+    private final class CirclePanel extends JPanel
     {
-
         private static final int sDOT_SIZE = 30;
-        
+
+        private CirclePanel()
         {
             setPreferredSize(new Dimension(sDOT_SIZE, sDOT_SIZE));
         }
@@ -93,40 +95,41 @@ class AnalogInDisplay extends JPanel
             aGraphics.setColor(Util.colorGetShadedColor(mVoltage, 5, 0));
             aGraphics.fillOval(0, 0, sDOT_SIZE, sDOT_SIZE);
         }
-    };
+    }
 
-    private FocusListener mFocusListener = new FocusListener()
+    private final FocusListener mFocusListener = new FocusListener()
     {
 
         @Override
-        public void focusLost(FocusEvent e)
+        public void focusLost(FocusEvent aEvent)
         {
             updateInput();
             mEditing = false;
         }
 
         @Override
-        public void focusGained(FocusEvent e)
+        public void focusGained(FocusEvent aEvent)
         {
             mEditing = true;
         }
     };
 
-    private ActionListener mActionListener = new ActionListener()
+    private final ActionListener mActionListener = new ActionListener()
     {
 
         @Override
-        public void actionPerformed(ActionEvent e)
+        public void actionPerformed(ActionEvent aEvent)
         {
             updateInput();
         }
-        
+
     };
 
+    private final int mHandle;
+    private final JTextField mVoltageTextField;
+
     private boolean mEditing;
-    private int mHandle;
     private double mVoltage;
-    private JTextField mVoltageTextField;
 
     public AnalogInDisplay(int aHandle)
     {
@@ -134,9 +137,10 @@ class AnalogInDisplay extends JPanel
         mVoltageTextField = new JTextField(6);
         mVoltageTextField.addFocusListener(mFocusListener);
         mVoltageTextField.addActionListener(mActionListener);
+        CirclePanel circlePanel = new CirclePanel();
 
         add(mVoltageTextField);
-        add(mCirclePanel);
+        add(circlePanel);
     }
 
     public void updateDisplay(double aValue)
@@ -168,7 +172,7 @@ class AnalogInDisplay extends JPanel
         }
         catch (NumberFormatException ex)
         {
-            ex.printStackTrace();
+            LogManager.getLogger().log(Level.WARN, ex);
         }
     }
 }

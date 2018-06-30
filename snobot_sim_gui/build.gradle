@@ -68,9 +68,6 @@ dependencies {
     runtime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':native-all'
     testRuntime jar.outputs.files // Necessary for having resources in jar 
     
-    runtime "openrio.mirror.third.ctre:CTRE-phoenix-java:" + getCtreVersion()
-    runtime "openrio.mirror.third.kauailabs:navx-java:" + getNavxVersion()
-    
     runtime project(':temp_hal_interface').packageNativetemp_hal_interface_jniFilesInJar.outputs.files
 }
 

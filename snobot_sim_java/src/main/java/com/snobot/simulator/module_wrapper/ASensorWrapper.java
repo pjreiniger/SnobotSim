@@ -64,6 +64,6 @@ public class ASensorWrapper implements ISensorWrapper
     @Override
     public void close()
     {
-
+        // Nothing to do
     }
 }
