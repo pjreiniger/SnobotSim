@@ -26,17 +26,17 @@ public:
     WpiEncoderWrapper(int aHandle, const std::string& aName);
     virtual ~WpiEncoderWrapper();
 
-    void Reset();
+    void Reset() override;
 
-    double GetDistance();
+    double GetDistance() override;
 
-    double GetVelocity();
+    double GetVelocity() override;
 
-    bool IsHookedUp();
+    bool IsHookedUp() override;
 
-    void SetSpeedController(const std::shared_ptr<ISpeedControllerWrapper>& aMotorWrapper);
+    void SetSpeedController(const std::shared_ptr<ISpeedControllerWrapper>& aMotorWrapper) override;
 
-    const std::shared_ptr<ISpeedControllerWrapper>& GetSpeedController();
+    const std::shared_ptr<ISpeedControllerWrapper>& GetSpeedController() override;
 
     void SetDistancePerTick(double aDPT);
 
