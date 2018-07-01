@@ -30,6 +30,7 @@ import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.motor_factory.MakeTransmission;
 import com.snobot.simulator.motor_sim.motor_factory.PublishedMotorFactory;
 import com.snobot.simulator.motor_sim.motor_factory.VexMotorFactory;
+import com.snobot.simulator.simulator_components.TankDriveConfig;
 import com.snobot.simulator.simulator_components.TankDriveGyroSimulator;
 import com.snobot.simulator.wrapper_accessors.SimulatorDataAccessor;
 
@@ -79,7 +80,7 @@ public class JavaSimulatorDataAccessor implements SimulatorDataAccessor
     public boolean connectTankDriveSimulator(int aLeftEncHandle, int aRightEncHandle, int aGyroHandle, double aTurnKp)
     {
         TankDriveGyroSimulator simulator = new TankDriveGyroSimulator(
-                new TankDriveGyroSimulator.TankDriveConfig(aLeftEncHandle, aRightEncHandle, aGyroHandle, aTurnKp));
+                new TankDriveConfig(aLeftEncHandle, aRightEncHandle, aGyroHandle, aTurnKp));
 
         return simulator.isSetup();
     }

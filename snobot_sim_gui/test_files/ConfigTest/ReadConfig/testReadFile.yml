@@ -174,17 +174,17 @@ mRelays:
   mName: Relay 0
   mType: com.snobot.simulator.module_wrapper.wpi.WpiRelayWrapper
 mSimulatorComponents:
-- !!com.snobot.simulator.simulator_components.TankDriveGyroSimulator$TankDriveConfig
+- !!com.snobot.simulator.simulator_components.TankDriveConfig
   mGyroHandle: 1
   mLeftEncoderHandle: 0
   mRightEncoderHandle: 1
   mTurnKp: 0.5
-- !!com.snobot.simulator.simulator_components.TankDriveGyroSimulator$TankDriveConfig
+- !!com.snobot.simulator.simulator_components.TankDriveConfig
   mGyroHandle: 100
   mLeftEncoderHandle: 0
   mRightEncoderHandle: 1
   mTurnKp: 1.0
-- !!com.snobot.simulator.simulator_components.TankDriveGyroSimulator$TankDriveConfig
+- !!com.snobot.simulator.simulator_components.TankDriveConfig
   mGyroHandle: 103
   mLeftEncoderHandle: 0
   mRightEncoderHandle: 1

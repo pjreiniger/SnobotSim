@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig;
-import com.snobot.simulator.simulator_components.TankDriveGyroSimulator.TankDriveConfig;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
@@ -97,7 +96,7 @@ public class TestTankDriveSimulator extends BaseSimulatorJavaTest
         Collection<Object> configs = DataAccessorFactory.getInstance().getSimulatorDataAccessor().getSimulatorComponentConfigs();
         Assertions.assertEquals(1, configs.size());
 
-        TankDriveGyroSimulator.TankDriveConfig config = (TankDriveConfig) configs.iterator().next();
+        TankDriveConfig config = (TankDriveConfig) configs.iterator().next();
         Assertions.assertEquals(0, config.getmGyroHandle());
         Assertions.assertEquals(0, config.getmLeftEncoderHandle());
         Assertions.assertEquals(1, config.getmRightEncoderHandle());
