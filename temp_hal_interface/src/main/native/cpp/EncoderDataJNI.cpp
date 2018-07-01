@@ -36,7 +36,6 @@ JNIEXPORT void JNICALL
 Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_registerResetCallback
   (JNIEnv* env, jclass, jint index, jobject callback, jboolean initialNotify)
 {
-
 }
 
 /*

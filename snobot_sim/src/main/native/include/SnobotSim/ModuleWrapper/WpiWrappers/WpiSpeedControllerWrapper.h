@@ -21,33 +21,33 @@ public:
     explicit WpiSpeedControllerWrapper(int aPort);
     virtual ~WpiSpeedControllerWrapper();
 
-    virtual int GetId() override;
+    int GetId() override;
 
-    virtual void SetMotorSimulator(const std::shared_ptr<IMotorSimulator>& aSimulator) override;
+    void SetMotorSimulator(const std::shared_ptr<IMotorSimulator>& aSimulator) override;
 
-    virtual const std::shared_ptr<IMotorSimulator>& GetMotorSimulator() override;
+    const std::shared_ptr<IMotorSimulator>& GetMotorSimulator() override;
 
-    virtual void SetFeedbackSensor(const std::shared_ptr<IFeedbackSensor>& aSimulator) override;
+    void SetFeedbackSensor(const std::shared_ptr<IFeedbackSensor>& aSimulator) override;
 
-    virtual const std::shared_ptr<IFeedbackSensor>& GetFeedbackSensor() override;
+    const std::shared_ptr<IFeedbackSensor>& GetFeedbackSensor() override;
 
-    virtual double GetVoltagePercentage() override;
+    double GetVoltagePercentage() override;
 
-    virtual void SetVoltagePercentage(double aSpeed) override;
+    void SetVoltagePercentage(double aSpeed) override;
 
-    virtual void Update(double aWaitTime) override;
+    void Update(double aWaitTime) override;
 
-    virtual double GetPosition() override;
+    double GetPosition() override;
 
-    virtual double GetVelocity() override;
+    double GetVelocity() override;
 
-    virtual double GetCurrent() override;
+    double GetCurrent() override;
 
-    virtual double GetAcceleration() override;
+    double GetAcceleration() override;
 
-    virtual void Reset() override;
+    void Reset() override;
 
-    virtual void Reset(double aPosition, double aVelocity, double aCurrent) override;
+    void Reset(double aPosition, double aVelocity, double aCurrent) override;
 
 protected:
     int mId;
