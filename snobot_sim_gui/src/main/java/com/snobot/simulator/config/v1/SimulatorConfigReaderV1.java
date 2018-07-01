@@ -23,7 +23,7 @@ import com.snobot.simulator.motor_sim.IMotorSimulatorConfig;
 import com.snobot.simulator.motor_sim.RotationalLoadMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
-import com.snobot.simulator.simulator_components.TankDriveGyroSimulator;
+import com.snobot.simulator.simulator_components.TankDriveConfig;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.simulator.wrapper_accessors.EncoderWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.IBasicSensorActuatorWrapperAccessor;
@@ -133,9 +133,9 @@ public class SimulatorConfigReaderV1
 
     protected void setupSimulatorComponents(Object aConfig)
     {
-        if (aConfig instanceof TankDriveGyroSimulator.TankDriveConfig)
+        if (aConfig instanceof TankDriveConfig)
         {
-            TankDriveGyroSimulator.TankDriveConfig config = (TankDriveGyroSimulator.TankDriveConfig) aConfig;
+            TankDriveConfig config = (TankDriveConfig) aConfig;
             DataAccessorFactory.getInstance().getSimulatorDataAccessor().connectTankDriveSimulator(config.getmLeftEncoderHandle(),
                     config.getmRightEncoderHandle(), config.getmGyroHandle(), config.getmTurnKp());
         }

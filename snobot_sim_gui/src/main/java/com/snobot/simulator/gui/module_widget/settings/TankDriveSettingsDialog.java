@@ -20,8 +20,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.snobot.simulator.simulator_components.TankDriveGyroSimulator;
-import com.snobot.simulator.simulator_components.TankDriveGyroSimulator.TankDriveConfig;
+import com.snobot.simulator.simulator_components.TankDriveConfig;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 public class TankDriveSettingsDialog extends JDialog
@@ -101,7 +100,7 @@ public class TankDriveSettingsDialog extends JDialog
 
         for (TankDriveSettingsPanel panel : mPanels)
         {
-            TankDriveGyroSimulator.TankDriveConfig config = panel.getConfig();
+            TankDriveConfig config = panel.getConfig();
             DataAccessorFactory.getInstance().getSimulatorDataAccessor().connectTankDriveSimulator(config.getmLeftEncoderHandle(),
                     config.getmRightEncoderHandle(), config.getmGyroHandle(), config.getmTurnKp());
         }
