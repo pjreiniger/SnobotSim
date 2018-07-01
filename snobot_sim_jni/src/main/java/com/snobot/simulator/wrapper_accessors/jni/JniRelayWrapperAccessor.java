@@ -23,7 +23,7 @@ public class JniRelayWrapperAccessor implements RelayWrapperAccessor
     }
 
     @Override
-    public void removeSimluator(int aPort)
+    public void removeSimulator(int aPort)
     {
         RelayWrapperJni.removeSimluator(aPort);
     }

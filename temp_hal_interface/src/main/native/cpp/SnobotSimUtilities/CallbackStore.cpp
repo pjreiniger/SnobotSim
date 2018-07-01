@@ -73,6 +73,29 @@ void AllocateCallback(JNIEnv* env, jint index, jobject callback,
     callbackStore->setCallbackId(id);
 }
 
+void AllocateCallback(JNIEnv* env, jint index, jobject callback,
+        jboolean initialNotify,
+        RegisterAllCallbackFunc createCallback)
+{
+    auto callbackStore = std::make_shared<CallbackStore>();
+
+    int* handleAsPtr = &handlePtrs[callbackHandles.size()];
+    callbackHandles.push_back(callbackStore);
+
+    void* handleAsVoidPtr = reinterpret_cast<void*>(handleAsPtr);
+
+    callbackStore->create(env, callback);
+
+    auto callbackFunc = [](const char* name, void* param, const HAL_Value* value) {
+        int* handleTmp = reinterpret_cast<int*>(param);
+        auto data = callbackHandles[*handleTmp];
+        data->performCallback(name, value);
+    };
+
+    createCallback(index, callbackFunc, handleAsVoidPtr,
+            initialNotify);
+}
+
 void AllocateChannelCallback(
         JNIEnv* env, jint index, jint channel, jobject callback,
         jboolean initialNotify, RegisterChannelCallbackFunc createCallback)

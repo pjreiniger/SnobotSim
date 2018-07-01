@@ -41,11 +41,13 @@ public class TestControllerLoop extends BaseSimulatorJavaTest
             mJoystick = new Joystick(0);
         }
 
+        @Override
         public void disabledPeriodic()
         {
             ++mDisabledCtr;
         }
 
+        @Override
         public void autonomousPeriodic()
         {
             ++mAutonCtr;
@@ -53,6 +55,7 @@ public class TestControllerLoop extends BaseSimulatorJavaTest
             mSpeedController0.set(1);
         }
 
+        @Override
         public void teleopPeriodic()
         {
             ++mEnabledCtr;

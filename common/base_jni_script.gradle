@@ -7,7 +7,7 @@ apply plugin: 'edu.wpi.first.NativeUtils'
 apply plugin: 'edu.wpi.first.GradleJni'
 
 apply from: "${rootDir}/common/base_java_script.gradle"
-apply from: '../config.gradle'
+apply from: "${rootDir}/common/config.gradle"
 
 
 dependencies {
@@ -61,7 +61,7 @@ model {
             }
             enableCheckTask true
             javaCompileTasks << compileJava
-            jniCrossCompileOptions << JniCrossCompileOptions('linux', 'athena', ["${rootDir}/common/arm-linux-jni".toString(), "${rootDir}/common/arm-linux-jni/linux".toString()])
+            jniCrossCompileOptions << JniCrossCompileOptions('athena')
             sources {
                 cpp {
                     source {

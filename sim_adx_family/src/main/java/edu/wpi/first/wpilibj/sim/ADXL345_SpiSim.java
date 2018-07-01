@@ -2,7 +2,8 @@ package edu.wpi.first.wpilibj.sim;
 
 import edu.wpi.first.hal.sim.mockdata.ADXL345_SPIAccelerometerDataJNI;
 
-public class ADXL345_SpiSim implements IThreeAxisAccelerometer {
+public class ADXL345_SpiSim implements IThreeAxisAccelerometer
+{
 	private final long nativePointer;
 
 	public ADXL345_SpiSim(int port)
@@ -45,4 +46,10 @@ public class ADXL345_SpiSim implements IThreeAxisAccelerometer {
 	{
 		ADXL345_SPIAccelerometerDataJNI.setZ(nativePointer, z);
 	}
+
+    @Override
+    public void close()
+    {
+        ADXL345_SPIAccelerometerDataJNI.deleteAccelerometer(nativePointer);
+    }
 }

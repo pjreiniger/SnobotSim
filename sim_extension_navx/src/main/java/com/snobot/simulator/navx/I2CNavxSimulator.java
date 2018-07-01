@@ -80,4 +80,10 @@ public class I2CNavxSimulator implements INavxSimulator
     {
         I2CNavxSimulatorJni.setRoll(mNativePointer, aRoll);
     }
+
+    @Override
+    public void close()
+    {
+        I2CNavxSimulatorJni.deleteNavx(mNativePointer);
+    }
 }

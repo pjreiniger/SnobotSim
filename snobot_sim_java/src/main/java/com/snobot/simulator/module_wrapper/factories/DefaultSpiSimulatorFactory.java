@@ -77,19 +77,19 @@ public class DefaultSpiSimulatorFactory extends BaseWrapperFactory implements IS
 
         if (sNAVX_TYPE.equals(aType))
         {
-            simulator = new SpiNavxSimulatorWrapper(fullType, aPort, 200 + aPort * 3);
+            simulator = new SpiNavxSimulatorWrapper(fullType, aPort);
         }
         else if (sADXRS450_TYPE.equals(aType))
         {
-            simulator = new ADXRS450GyroWrapper(new ADXRS450_GyroSim(aPort), 100 + aPort);
+            simulator = new ADXRS450GyroWrapper(new ADXRS450_GyroSim(aPort), aPort);
         }
         else if (sADXL345_TYPE.equals(aType))
         {
-            simulator = new ADXL345SpiWrapper(fullType, aPort, 100 + aPort * 3);
+            simulator = new ADXL345SpiWrapper(fullType, aPort);
         }
         else if (sADXL362_TYPE.equals(aType))
         {
-            simulator = new ADXL362SpiWrapper(fullType, aPort, 150 + aPort * 3);
+            simulator = new ADXL362SpiWrapper(fullType, aPort);
         }
 
         if (simulator == null)

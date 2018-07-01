@@ -1,7 +1,5 @@
 package com.snobot.simulator.simulator_components.adx_family;
 
-import java.nio.ByteBuffer;
-
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper;
@@ -13,14 +11,16 @@ import edu.wpi.first.wpilibj.sim.IThreeAxisAccelerometer;
 
 public abstract class ADXFamily3AxisAccelerometer extends ASensorWrapper implements II2CWrapper, ISpiWrapper
 {
-    IAccelerometerWrapper mXWrapper;
-    IAccelerometerWrapper mYWrapper;
-    IAccelerometerWrapper mZWrapper;
+    protected final IAccelerometerWrapper mXWrapper;
+    protected final IAccelerometerWrapper mYWrapper;
+    protected final IAccelerometerWrapper mZWrapper;
+    protected final IThreeAxisAccelerometer mWpiAccel;
 
     public ADXFamily3AxisAccelerometer(String aBaseName, IThreeAxisAccelerometer aWpiAccel, int aBasePort)
     {
         super("NotUsed");
 
+        mWpiAccel = aWpiAccel;
         mXWrapper = new BaseAccelerometerWrapper(aBaseName + " X Accel", aWpiAccel::getX, aWpiAccel::setX);
         mYWrapper = new BaseAccelerometerWrapper(aBaseName + " Y Accel", aWpiAccel::getY, aWpiAccel::setY);
         mZWrapper = new BaseAccelerometerWrapper(aBaseName + " Z Accel", aWpiAccel::getZ, aWpiAccel::setZ);
@@ -41,14 +41,9 @@ public abstract class ADXFamily3AxisAccelerometer extends ASensorWrapper impleme
     }
 
     @Override
-    public void handleRead(ByteBuffer aBuffer) // NOPMD
+    public void close() throws Exception
     {
-        // Nothing to do
-    }
-
-    @Override
-    public void handleWrite(ByteBuffer aBuffer) // NOPMD
-    {
-        // Nothing to do
+        super.close();
+        mWpiAccel.close();
     }
 }

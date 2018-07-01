@@ -23,7 +23,7 @@ public class JniDigitalSourceWrapperAccessor implements DigitalSourceWrapperAcce
     }
 
     @Override
-    public void removeSimluator(int aPort)
+    public void removeSimulator(int aPort)
     {
         DigitalSourceWrapperJni.removeSimluator(aPort);
     }

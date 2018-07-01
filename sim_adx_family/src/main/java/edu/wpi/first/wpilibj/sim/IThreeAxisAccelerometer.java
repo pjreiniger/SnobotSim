@@ -1,6 +1,9 @@
 package edu.wpi.first.wpilibj.sim;
 
-public interface IThreeAxisAccelerometer {
+import java.io.Closeable;
+
+public interface IThreeAxisAccelerometer extends Closeable
+{
 
 	double getX();
 

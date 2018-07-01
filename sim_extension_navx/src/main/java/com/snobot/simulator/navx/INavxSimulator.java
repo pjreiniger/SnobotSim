@@ -1,6 +1,8 @@
 package com.snobot.simulator.navx;
 
-public interface INavxSimulator
+import java.io.Closeable;
+
+public interface INavxSimulator extends Closeable
 {
 
     double getXAccel();

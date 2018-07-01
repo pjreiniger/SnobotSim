@@ -1,18 +1,5 @@
 apply plugin: 'maven-publish'
 
-if (!hasProperty('releaseType')) {
-    WPILibVersion {
-        releaseType = 'dev'
-    }
-}
-
-def pubVersion
-if (project.hasProperty("publishVersion")) {
-    pubVersion = project.publishVersion
-} else {
-    pubVersion = WPILibVersion.version
-}
-
 def baseArtifactId = project.baseId
 def javaBaseName = "_GROUP_edu_wpi_first_${project.baseId}_ID_${project.baseId}-java_CLS"
 

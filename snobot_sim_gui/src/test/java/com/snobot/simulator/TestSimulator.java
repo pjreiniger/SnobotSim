@@ -62,7 +62,6 @@ public class TestSimulator extends BaseSimulatorTest
         Assertions.assertFalse(simulator.mError);
     }
 
-    @Disabled
     @Test
     public void testValidUserConfig() throws Exception
     {
@@ -81,7 +80,6 @@ public class TestSimulator extends BaseSimulatorTest
         Assertions.assertTrue(simulator.mError);
     }
 
-    @Disabled
     @Test
     public void testCustomSimulatorName() throws Exception
     {

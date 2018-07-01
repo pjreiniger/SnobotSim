@@ -23,7 +23,7 @@ public class JniAccelerometerWrapperAccessor implements AccelerometerWrapperAcce
     }
 
     @Override
-    public void removeSimluator(int aPort)
+    public void removeSimulator(int aPort)
     {
         AccelerometerWrapperJni.removeSimluator(aPort);
     }

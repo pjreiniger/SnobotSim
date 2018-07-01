@@ -32,7 +32,7 @@ public class JavaGyroWrapperAccessor extends BaseWrapperAccessor<IGyroWrapper> i
     }
 
     @Override
-    public void removeSimluator(int aPort)
+    public void removeSimulator(int aPort)
     {
         try
         {

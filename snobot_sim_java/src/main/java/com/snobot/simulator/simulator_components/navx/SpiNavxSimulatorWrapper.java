@@ -4,8 +4,8 @@ import com.snobot.simulator.navx.SpiNavxSimulator;
 
 public class SpiNavxSimulatorWrapper extends BaseNavxSimulatorWrapper
 {
-    public SpiNavxSimulatorWrapper(String aBaseName, int aPort, int aBasePort)
+    public SpiNavxSimulatorWrapper(String aBaseName, int aPort)
     {
-        super(aBaseName, new SpiNavxSimulator(aPort), aBasePort);
+        super(aBaseName, new SpiNavxSimulator(aPort), 200 + aPort * 3);
     }
 }

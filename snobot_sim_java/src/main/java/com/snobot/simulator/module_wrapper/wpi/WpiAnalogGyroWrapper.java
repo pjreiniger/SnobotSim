@@ -18,9 +18,6 @@ public class WpiAnalogGyroWrapper extends ASensorWrapper implements IGyroWrapper
     {
         super(aName);
         mWpiSimulator = new AnalogGyroSim(aPort);
-
-        // mWpiSimulator.registerAngleCallback(this, false);
-        // mWpiSimulator.registerRateCallback(this, false);
     }
 
     @Override

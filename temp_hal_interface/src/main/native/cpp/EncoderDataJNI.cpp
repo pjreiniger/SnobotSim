@@ -25,7 +25,7 @@ Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_registerInitializedCallback
   (JNIEnv* env, jclass, jint index, jobject callback, jboolean initialNotify)
 {
     SnobotSim::AllocateCallback(env, index, callback, initialNotify,
-            &HALSIM_RegisterEncoderInitializedCallback);
+            &HALSIM_RegisterEncoderAllCallbacks);
 }
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_EncoderDataJNI
@@ -36,8 +36,7 @@ JNIEXPORT void JNICALL
 Java_edu_wpi_first_hal_sim_mockdata_EncoderDataJNI_registerResetCallback
   (JNIEnv* env, jclass, jint index, jobject callback, jboolean initialNotify)
 {
-    SnobotSim::AllocateCallback(env, index, callback, initialNotify,
-            &HALSIM_RegisterEncoderResetCallback);
+
 }
 
 /*

@@ -23,7 +23,7 @@ public class JniEncoderWrapperAccessor implements EncoderWrapperAccessor
     }
 
     @Override
-    public void removeSimluator(int aPort)
+    public void removeSimulator(int aPort)
     {
         EncoderWrapperJni.removeSimluator(aPort);
     }

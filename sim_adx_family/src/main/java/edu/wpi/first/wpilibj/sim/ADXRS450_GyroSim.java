@@ -1,8 +1,12 @@
 package edu.wpi.first.wpilibj.sim;
 
+import java.io.Closeable;
+
+import edu.wpi.first.hal.sim.mockdata.ADXL345_I2CAccelerometerDataJNI;
 import edu.wpi.first.hal.sim.mockdata.ADXRS450_GyroDataJNI;
 
-public class ADXRS450_GyroSim {
+public class ADXRS450_GyroSim implements Closeable
+{
 	private final long nativePointer;
 
 	public ADXRS450_GyroSim(int port)
@@ -19,4 +23,10 @@ public class ADXRS450_GyroSim {
 	{
 		ADXRS450_GyroDataJNI.setAngle(nativePointer, angle);
 	}
+
+    @Override
+    public void close()
+    {
+        ADXL345_I2CAccelerometerDataJNI.deleteAccelerometer(nativePointer);
+    }
 }

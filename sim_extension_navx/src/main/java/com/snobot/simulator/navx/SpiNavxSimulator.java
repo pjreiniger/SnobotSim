@@ -80,4 +80,10 @@ public class SpiNavxSimulator implements INavxSimulator
     {
         SpiNavxSimulatorJni.setRoll(mNativePointer, aRoll);
     }
+
+    @Override
+    public void close()
+    {
+        SpiNavxSimulatorJni.deleteNavx(mNativePointer);
+    }
 }

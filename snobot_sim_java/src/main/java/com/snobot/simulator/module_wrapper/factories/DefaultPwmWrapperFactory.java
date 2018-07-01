@@ -33,10 +33,4 @@ public class DefaultPwmWrapperFactory extends BaseWrapperFactory
 
         return success;
     }
-
-    public void tryCreate(int aPort, String aType)
-    {
-        // TODO Auto-generated method stub
-
-    }
 }

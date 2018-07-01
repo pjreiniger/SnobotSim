@@ -29,7 +29,6 @@ public class TestRegisterJavaCallback extends BaseSimulatorJavaTest
     public void testCallback()
     {
         RobotBase.initializeHardwareConfiguration();
-        RegisterCallbacksJni.registerAllCallbacks();
 
         checkSizes(0, 0, 0, 0, 0, 0);
 
@@ -50,26 +49,5 @@ public class TestRegisterJavaCallback extends BaseSimulatorJavaTest
 
         new Solenoid(0);
         checkSizes(1, 3, 1, 1, 0, 4);
-
     }
-
-    // @Test
-    // public void testUnsupportedOptions()
-    // {
-    // String doesntExistString = "DoesntExist";
-    // AnalogCallbackJni.analogCallback(doesntExistString, 0, null);
-    // AnalogGyroCallbackJni.analogGyroCallback(doesntExistString, 0, null);
-    // DigitalCallbackJni.digitalCallback(doesntExistString, 0, null);
-    // EncoderCallbackJni.encoderCallback(doesntExistString, 0, null);
-    // I2CCallbackJni.i2cCallback(doesntExistString, 0, (HalCallbackValue)
-    // null);
-    // I2CCallbackJni.i2cCallback(doesntExistString, 0, ByteBuffer.allocate(5));
-    // PcmCallbackJni.pcmCallback(doesntExistString, 0, null);
-    // PdpCallbackJni.pdpCallback(doesntExistString, 0, null);
-    // PwmCallbackJni.pwmCallback(doesntExistString, 0, null);
-    // RelayCallbackJni.relayCallback(doesntExistString, 0, null);
-    // SpiCallbackJni.spiCallback(doesntExistString, 0, (HalCallbackValue)
-    // null);
-    // SpiCallbackJni.spiCallback(doesntExistString, 0, ByteBuffer.allocate(5));
-    // }
 }

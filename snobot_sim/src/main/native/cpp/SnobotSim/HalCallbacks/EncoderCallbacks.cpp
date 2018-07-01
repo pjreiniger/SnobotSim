@@ -33,7 +33,7 @@ void SnobotSim::InitializeEncoderCallbacks()
     for (int i = 0; i < HAL_GetNumEncoders(); ++i)
     {
         gEncoderArrayIndices[i] = i;
-        HALSIM_RegisterEncoderInitializedCallback(i, &EncoderCallback, &gEncoderArrayIndices[i], false);
+        HALSIM_RegisterEncoderAllCallbacks(i, &EncoderCallback, &gEncoderArrayIndices[i], false);
     }
 }
 

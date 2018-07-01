@@ -31,7 +31,7 @@ public class JavaDataAccessor implements IDataAccessor
     public JavaDataAccessor()
     {
         LogConfigurator.loadLog4jConfig();
-        RegisterCallbacksJni.registerAllCallbacks();
+        RegisterCallbacksJni.reset();
 
         mAccelerometer = new JavaAccelerometerWrapperAccessor();
         mGyro = new JavaGyroWrapperAccessor();
@@ -119,7 +119,7 @@ public class JavaDataAccessor implements IDataAccessor
         {
             if (!aAccessor.isInitialized(port))
             {
-                aAccessor.removeSimluator(port);
+                aAccessor.removeSimulator(port);
                 errorMessage.append("  <li>").append(aName).append(port).append("</li>\n");
             }
         }

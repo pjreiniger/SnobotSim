@@ -23,7 +23,7 @@ public class JniSolenoidWrapperAccessor implements SolenoidWrapperAccessor
     }
 
     @Override
-    public void removeSimluator(int aPort)
+    public void removeSimulator(int aPort)
     {
         SolenoidWrapperJni.removeSimluator(aPort);
     }

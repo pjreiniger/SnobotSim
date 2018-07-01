@@ -4,9 +4,9 @@ import com.snobot.simulator.navx.I2CNavxSimulator;
 
 public class I2CNavxSimulatorWrapper extends BaseNavxSimulatorWrapper
 {
-    public I2CNavxSimulatorWrapper(String aBaseName, int aPort, int aBasePort)
+    public I2CNavxSimulatorWrapper(String aBaseName, int aPort)
     {
-        super(aBaseName, new I2CNavxSimulator(aPort), aBasePort);
+        super(aBaseName, new I2CNavxSimulator(aPort), 250 + aPort * 3);
     }
 
 }

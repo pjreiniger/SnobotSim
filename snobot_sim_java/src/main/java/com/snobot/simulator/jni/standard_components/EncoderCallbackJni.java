@@ -51,12 +51,11 @@ public final class EncoderCallbackJni
             {
                 SensorActuatorRegistry.get().getEncoders().get(mPort).reset();
             }
-            // else if ("DistancePerPulse".equals(aCallbackType))
-            // {
-            //
-            // //
-            // SensorActuatorRegistry.get().getEncoders().get(mPort).setDistancePerTick(aHalValue.getDouble());
-            // }
+            else if ("DistancePerPulse".equals(aCallbackType))
+            {
+                WpiEncoderWrapper wpiEncoder = (WpiEncoderWrapper) SensorActuatorRegistry.get().getEncoders().get(mPort);
+                wpiEncoder.setDistancePerTick(aHalValue.getDouble());
+            }
             else
             {
                 sLOGGER.log(Level.ERROR, "Unknown Encoder callback " + aCallbackType + " - " + aHalValue);

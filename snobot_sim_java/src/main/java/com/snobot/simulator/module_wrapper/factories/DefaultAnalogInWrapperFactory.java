@@ -22,7 +22,8 @@ public class DefaultAnalogInWrapperFactory extends BaseWrapperFactory
         }
         else if (CtreTalonSrxSpeedControllerSim.CtreAnalogIn.class.getName().equals(aType))
         {
-            SensorActuatorRegistry.get().register(new CtreTalonSrxSpeedControllerSim.CtreAnalogIn(aPort), aPort + 100);
+            SensorActuatorRegistry.get().register(new CtreTalonSrxSpeedControllerSim.CtreAnalogIn(aPort),
+                    aPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET);
             sLOGGER.log(Level.INFO, "Created CAN Encoder for port " + aPort);
         }
         else

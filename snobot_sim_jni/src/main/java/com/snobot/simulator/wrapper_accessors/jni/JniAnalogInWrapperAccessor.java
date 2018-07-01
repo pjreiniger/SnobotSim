@@ -23,7 +23,7 @@ public class JniAnalogInWrapperAccessor implements AnalogSourceWrapperAccessor
     }
 
     @Override
-    public void removeSimluator(int aPort)
+    public void removeSimulator(int aPort)
     {
         AnalogInWrapperJni.removeSimluator(aPort);
     }

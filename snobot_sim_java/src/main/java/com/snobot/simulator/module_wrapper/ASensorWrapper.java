@@ -25,36 +25,24 @@ public class ASensorWrapper implements ISensorWrapper
         mIsInitialized = aInitialized;
     }
 
-    /* (non-Javadoc)
-     * @see com.snobot.simulator.module_wrapper.ISensorWrapper#getName()
-     */
     @Override
     public String getName()
     {
         return mName;
     }
 
-    /* (non-Javadoc)
-     * @see com.snobot.simulator.module_wrapper.ISensorWrapper#setName(java.lang.String)
-     */
     @Override
     public void setName(String aName)
     {
         mName = aName;
     }
 
-    /* (non-Javadoc)
-     * @see com.snobot.simulator.module_wrapper.ISensorWrapper#getWantsHidden()
-     */
     @Override
     public boolean getWantsHidden()
     {
         return mWantsHidden;
     }
 
-    /* (non-Javadoc)
-     * @see com.snobot.simulator.module_wrapper.ISensorWrapper#setWantsHidden(boolean)
-     */
     @Override
     public void setWantsHidden(boolean aVisible)
     {
@@ -62,7 +50,7 @@ public class ASensorWrapper implements ISensorWrapper
     }
 
     @Override
-    public void close()
+    public void close() throws Exception
     {
         // Nothing to do
     }

@@ -13,7 +13,7 @@ apply plugin: 'cpp'
 apply plugin: 'visual-studio'
 apply plugin: 'edu.wpi.first.NativeUtils'
 
-apply from: '../config.gradle'
+apply from: "${rootDir}/common/config.gradle"
 
 ext.addSnobotSimToLinker = { binary->
     binary.lib project: ':snobot_sim', library: 'snobotSimCpp', linkage: 'shared'

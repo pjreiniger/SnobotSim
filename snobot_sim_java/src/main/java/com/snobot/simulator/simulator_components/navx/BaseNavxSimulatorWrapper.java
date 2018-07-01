@@ -1,10 +1,6 @@
 package com.snobot.simulator.simulator_components.navx;
 
-import java.nio.ByteBuffer;
-
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.io.IOException;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
@@ -18,18 +14,19 @@ import com.snobot.simulator.navx.INavxSimulator;
 
 public abstract class BaseNavxSimulatorWrapper extends ASensorWrapper implements ISpiWrapper, II2CWrapper
 {
-    private static final Logger sLOGGER = LogManager.getLogger(BaseNavxSimulatorWrapper.class);
-
-    protected IAccelerometerWrapper mXWrapper;
-    protected IAccelerometerWrapper mYWrapper;
-    protected IAccelerometerWrapper mZWrapper;
-    protected IGyroWrapper mYawWrapper;
-    protected IGyroWrapper mPitchWrapper;
-    protected IGyroWrapper mRollWrapper;
+    protected final INavxSimulator mNavxWrapper;
+    protected final IAccelerometerWrapper mXWrapper;
+    protected final IAccelerometerWrapper mYWrapper;
+    protected final IAccelerometerWrapper mZWrapper;
+    protected final IGyroWrapper mYawWrapper;
+    protected final IGyroWrapper mPitchWrapper;
+    protected final IGyroWrapper mRollWrapper;
 
     public BaseNavxSimulatorWrapper(String aBaseName, INavxSimulator aNavxWrapper, int aBasePort)
     {
         super("NotUsed");
+
+        mNavxWrapper = aNavxWrapper;
 
         mXWrapper = new BaseAccelerometerWrapper(aBaseName + " X Accel", aNavxWrapper::getXAccel, aNavxWrapper::setXAccel);
         mYWrapper = new BaseAccelerometerWrapper(aBaseName + " Y Accel", aNavxWrapper::getYAccel, aNavxWrapper::setYAccel);
@@ -62,14 +59,8 @@ public abstract class BaseNavxSimulatorWrapper extends ASensorWrapper implements
     }
 
     @Override
-    public void handleRead(ByteBuffer aBuffer)
+    public void close() throws IOException
     {
-        sLOGGER.log(Level.ERROR, "This shouldn't be called directly");
-    }
-
-    @Override
-    public void handleWrite(ByteBuffer aBuffer)
-    {
-        sLOGGER.log(Level.ERROR, "This shouldn't be called directly");
+        mNavxWrapper.close();
     }
 }

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.sim.SimValue;
 public class WpiEncoderWrapper extends BaseEncoderWrapper implements NotifyCallback
 {
     private final EncoderSim mWpiSimulator;
+    private double mDistancePerPulse;
 
     public WpiEncoderWrapper(int aPort)
     {
@@ -22,6 +23,7 @@ public class WpiEncoderWrapper extends BaseEncoderWrapper implements NotifyCallb
     {
         super("Encoder " + aPort);
 
+        mDistancePerPulse = 1;
         mWpiSimulator = new EncoderSim(aPort);
 
         // mWpiSimulator.registerCountCallback(this, false);
@@ -43,7 +45,7 @@ public class WpiEncoderWrapper extends BaseEncoderWrapper implements NotifyCallb
     public void setPosition(double aPosition)
     {
         super.setPosition(aPosition);
-        mWpiSimulator.setCount((int) (aPosition / mWpiSimulator.getDistancePerPulse()));
+        mWpiSimulator.setCount((int) (aPosition / mDistancePerPulse));
     }
 
     @Override
@@ -58,5 +60,10 @@ public class WpiEncoderWrapper extends BaseEncoderWrapper implements NotifyCallb
     {
         super.reset();
         mWpiSimulator.setReset(true);
+    }
+
+    public void setDistancePerTick(double aDistancePerPulse)
+    {
+        mDistancePerPulse = aDistancePerPulse;
     }
 }

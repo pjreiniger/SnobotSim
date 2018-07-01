@@ -1,11 +1,5 @@
 package com.snobot.simulator.simulator_components.adx_family;
 
-import java.nio.ByteBuffer;
-
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.BaseGyroWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
@@ -15,24 +9,20 @@ import edu.wpi.first.wpilibj.sim.ADXRS450_GyroSim;
 
 public class ADXRS450GyroWrapper extends BaseGyroWrapper implements ISpiWrapper
 {
-    private static final Logger sLOGGER = LogManager.getLogger(ADXRS450GyroWrapper.class);
+    private final ADXRS450_GyroSim mWpiSim;
 
-    public ADXRS450GyroWrapper(ADXRS450_GyroSim aWpiSim, int aBasePort)
+    public ADXRS450GyroWrapper(ADXRS450_GyroSim aWpiSim, int aPort)
     {
         super("ADXRS450 Gyro", aWpiSim::getAngle, aWpiSim::setAngle);
 
-        SensorActuatorRegistry.get().register((IGyroWrapper) this, aBasePort);
+        mWpiSim = aWpiSim;
+        SensorActuatorRegistry.get().register((IGyroWrapper) this, 100 + aPort);
     }
 
     @Override
-    public void handleRead(ByteBuffer aBuffer)
+    public void close() throws Exception
     {
-        sLOGGER.log(Level.ERROR, "This shouldn't be called directly");
-    }
-
-    @Override
-    public void handleWrite(ByteBuffer aBuffer)
-    {
-        sLOGGER.log(Level.ERROR, "This shouldn't be called directly");
+        super.close();
+        mWpiSim.close();
     }
 }

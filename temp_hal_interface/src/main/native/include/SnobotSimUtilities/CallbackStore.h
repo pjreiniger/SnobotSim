@@ -15,6 +15,10 @@ typedef int32_t (*RegisterCallbackFunc)(int32_t index,
         HAL_NotifyCallback callback,
         void* param, HAL_Bool initialNotify);
 
+typedef void (*RegisterAllCallbackFunc)(int32_t index,
+        HAL_NotifyCallback callback,
+        void* param, HAL_Bool initialNotify);
+
 typedef int32_t (*RegisterChannelCallbackFunc)(int32_t index, int32_t channel,
         HAL_NotifyCallback callback,
         void* param,
@@ -128,6 +132,10 @@ private:
 void AllocateCallback(JNIEnv* env, jint index, jobject callback,
         jboolean initialNotify,
         RegisterCallbackFunc createCallback);
+
+void AllocateCallback(JNIEnv* env, jint index, jobject callback,
+        jboolean initialNotify,
+        RegisterAllCallbackFunc createCallback);
 
 void AllocateChannelCallback(
         JNIEnv* env, jint index, jint channel, jobject callback,

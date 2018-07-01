@@ -2,18 +2,11 @@
 
 plugins {
     id 'java'
-    id 'edu.wpi.first.wpilib.versioning.WPILibVersioningPlugin' version '1.5.1'
-}
-
-apply plugin: 'eclipse'
-
-
-repositories {
-    mavenCentral()
-
-    maven {
-        url "http://raw.githubusercontent.com/pjreiniger/maven_repo/master/"
-    }
+    id "eclipse"
+    id "idea"
+    
+    id "jaci.openrio.gradle.GradleRIO" version "2018.01.21"
+    id "com.snobot.simulator.plugin.SnobotSimulatorPlugin" version "2018.01.10"
 }
 
 sourceSets {
@@ -34,47 +27,41 @@ sourceSets {
     }
 }
 
-ext.getNtCoreVersion = {
-    return '4.0.0-alpha-1-20170907000421-20-g95bce5d'
-}
-ext.getWpilibjVersion = {
-    return '2017.3.1-20170908015815-103-g57ba589'
-}
-ext.getWpiUtilVersion = {
-    return '2.0.0-20170907010827-33-gef85809'
-}
-ext.getSnobotSimVersion = {
-    return "0.2"
-}
-
 dependencies {
-    // WPILib
-    compile 'edu.wpi.first.wpilibj:wpilibj-java:' + getWpilibjVersion() + ':javaArtifact'
-    compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
-
-    // Testing
-    testCompile    'com.snobot.simulator:snobot_sim_gui:'  + getSnobotSimVersion() + ':all'
-    testRuntime    'com.snobot.simulator:snobot_sim_java:' + getSnobotSimVersion() + ':uber_native-linux'
-    testRuntime    'com.snobot.simulator:snobot_sim_java:' + getSnobotSimVersion() + ':uber_native-windows'
-
-    simulatorCompile sourceSets.main.output
-    simulatorCompile configurations.compile
-    simulatorCompile configurations.testCompile
-    simulatorRuntime configurations.testRuntime
     
-    // TODO nice to remove these
-    testCompile 'org.apache.logging.log4j:log4j-api:2.11.0'
-    testCompile 'org.apache.logging.log4j:log4j-core:2.11.0'
-    testRuntime 'jfree:jcommon:1.0.16'
-    testRuntime 'jfree:jfreechart:1.0.13'
-    testRuntime 'net.java.jinput:jinput:2.0.7'
-    testRuntime 'org.yaml:snakeyaml:1.18'
-    testRuntime 'com.miglayout:miglayout-swing:4.2'
+    // GradleRIO
+    compile wpilib()
     
-    
+    // Simulator
+    testCompile snobotSimCompile()
+    testCompile snobotSimJavaCompile()
 }
 
+/////////////////////////////////////////////////////////////////////////////////
+// GradleRIO setup
+/////////////////////////////////////////////////////////////////////////////////
+def TEAM = 174
+def ROBOT_CLASS = "org.snobot.Snobot2018"
+
+// Define my targets (RoboRIO) and artifacts (deployable files)
+// This is added by GradleRIO's backing project EmbeddedTools.
+deploy {
+    targets {
+        target("roborio", jaci.openrio.gradle.frc.RoboRIO) {
+            team = TEAM
+        }
+    }
+    artifacts {
+        artifact('frcJava', jaci.openrio.gradle.frc.FRCJavaArtifact) {
+            targets << "roborio"
+        }
+    }
+}
 
 jar {
-    dependsOn { classes }
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest jaci.openrio.gradle.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
+
+// SnobotSIm
+build.dependsOn snobotSimUnzipNativeTools

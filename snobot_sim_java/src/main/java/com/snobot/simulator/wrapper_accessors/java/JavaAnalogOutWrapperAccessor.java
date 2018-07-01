@@ -32,7 +32,7 @@ public class JavaAnalogOutWrapperAccessor extends BaseWrapperAccessor<IAnalogOut
     }
 
     @Override
-    public void removeSimluator(int aPort)
+    public void removeSimulator(int aPort)
     {
         try
         {

@@ -36,7 +36,7 @@ public class JavaEncoderWrapperAccessor extends BaseWrapperAccessor<IEncoderWrap
     }
 
     @Override
-    public void removeSimluator(int aPort)
+    public void removeSimulator(int aPort)
     {
         try
         {

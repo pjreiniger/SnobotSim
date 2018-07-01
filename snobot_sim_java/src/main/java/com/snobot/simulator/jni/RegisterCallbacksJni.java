@@ -25,7 +25,6 @@ public final class RegisterCallbacksJni extends BaseSnobotJni
     public static void reset()
     {
         SimulatorJNI.resetHandles();
-        // SimulatorJNI.initialize();
 
         AnalogInCallbackJni.reset();
         AnalogOutCallbackJni.reset();
@@ -41,20 +40,4 @@ public final class RegisterCallbacksJni extends BaseSnobotJni
 
         CanCallbackJni.reset();
     }
-
-    public static void registerAllCallbacks()
-    {
-        // AnalogCallbackJni.registerAnalogCallback();
-        // AnalogGyroCallbackJni.registerAnalogGyroCallback();
-        // CanCallbackJni.registerCanCallback();
-        // DigitalCallbackJni.registerDigitalCallback();
-        // EncoderCallbackJni.registerEncoderCallback();
-        // I2CCallbackJni.registerI2CCallback();
-        // PcmCallbackJni.registerPcmCallback();
-        // PdpCallbackJni.registerPdpCallback();
-        // PwmCallbackJni.registerPwmCallback();
-        // RelayCallbackJni.registerRelayCallback();
-        // SpiCallbackJni.registerSpiCallback();
-    }
-
 }

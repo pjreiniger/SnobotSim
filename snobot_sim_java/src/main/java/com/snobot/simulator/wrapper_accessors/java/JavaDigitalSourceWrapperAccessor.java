@@ -32,7 +32,7 @@ public class JavaDigitalSourceWrapperAccessor extends BaseWrapperAccessor<IDigit
     }
 
     @Override
-    public void removeSimluator(int aPort)
+    public void removeSimulator(int aPort)
     {
         try
         {

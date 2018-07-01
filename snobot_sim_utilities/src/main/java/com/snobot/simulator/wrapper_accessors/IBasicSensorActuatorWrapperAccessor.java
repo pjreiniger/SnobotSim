@@ -18,5 +18,5 @@ public interface IBasicSensorActuatorWrapperAccessor
 
     boolean createSimulator(int aPort, String aType);
 
-    void removeSimluator(int aPort);
+    void removeSimulator(int aPort);
 }

@@ -22,8 +22,8 @@ public class DefaultGyroWrapperFactory extends BaseWrapperFactory
             SensorActuatorRegistry.get().register(wrapper, aPort);
         }
         else if (ADXRS450GyroWrapper.class.getName().equals(aType))
-        { // NOPMD
-            // Set up elsewhere
+        {
+            sLOGGER.log(Level.DEBUG, "ADXRS450GyroWrapper is set up elsewhere");
         }
         else
         {
