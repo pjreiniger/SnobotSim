@@ -40,10 +40,6 @@ public final class AnalogOutCallbackJni
                 }
                 SensorActuatorRegistry.get().getAnalogOut().get(mPort).setInitialized(true);
             }
-            else if ("Voltage".equals(aCallbackType))
-            {
-                sLOGGER.log(Level.DEBUG, "Ignoring voltage feedback");
-            }
             else
             {
                 sLOGGER.log(Level.ERROR, "Unknown Analog callback " + aCallbackType + " - " + aHalValue);

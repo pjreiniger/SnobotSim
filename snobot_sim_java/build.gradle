@@ -66,9 +66,3 @@ eclipse.classpath.file.whenMerged { classpath ->
         }
     }
 }
-
-test {
-    useJUnitPlatform {
-        excludeTags 'NavX'
-    }
-}

@@ -40,10 +40,6 @@ public final class AnalogGyroCallbackJni
                 SensorActuatorRegistry.get().getAnalogIn().get(mPort).setWantsHidden(true);
                 SensorActuatorRegistry.get().getGyros().get(mPort).setInitialized(true);
             }
-            else if ("Angle".equals(aCallbackType))
-            {
-                SensorActuatorRegistry.get().getGyros().get(mPort).setAngle(aHalValue.getDouble());
-            }
             else
             {
                 sLOGGER.log(Level.ERROR, "Unknown AnalogGyro callback " + aCallbackType + " - " + aHalValue);

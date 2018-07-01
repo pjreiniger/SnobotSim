@@ -40,18 +40,6 @@ public final class RelayCallbackJni
                 }
                 SensorActuatorRegistry.get().getRelays().get(mPort).setInitialized(true);
             }
-            else if ("InitializedReverse".equals(aCallbackType))
-            { // NOPMD
-              // Nothing to do, assume it was initialized in forwards call
-            }
-            else if ("Forward".equals(aCallbackType))
-            {
-                SensorActuatorRegistry.get().getRelays().get(mPort).setRelayForwards(aHalValue.getBoolean());
-            }
-            else if ("Reverse".equals(aCallbackType))
-            {
-                SensorActuatorRegistry.get().getRelays().get(mPort).setRelayReverse(aHalValue.getBoolean());
-            }
             else
             {
                 sLOGGER.log(Level.ERROR, "Unknown Relay callback " + aCallbackType + " - " + aHalValue);

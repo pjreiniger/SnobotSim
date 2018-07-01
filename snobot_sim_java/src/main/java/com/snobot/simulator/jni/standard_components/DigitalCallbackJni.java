@@ -40,10 +40,6 @@ public final class DigitalCallbackJni
                 }
                 SensorActuatorRegistry.get().getDigitalSources().get(mPort).setInitialized(true);
             }
-            else if ("Value".equals(aCallbackType))
-            {
-                SensorActuatorRegistry.get().getDigitalSources().get(mPort).set(aHalValue.getBoolean());
-            }
             else
             {
                 sLOGGER.log(Level.ERROR, "Unknown Digital callback " + aCallbackType + " - " + aHalValue);
