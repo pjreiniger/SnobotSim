@@ -1,4 +1,4 @@
-package com.snobot.simulator.simulator_components;
+package com.snobot.simulator.simulator_components.config;
 
 public class TankDriveConfig
 {

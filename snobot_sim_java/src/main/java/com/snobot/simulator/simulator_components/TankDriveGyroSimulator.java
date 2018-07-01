@@ -13,7 +13,7 @@ public class TankDriveGyroSimulator implements ISimulatorUpdater
 {
     private static final Logger sLOGGER = LogManager.getLogger(TankDriveGyroSimulator.class);
 
-    private final TankDriveConfig mConfig;
+    private final com.snobot.simulator.simulator_components.config.TankDriveConfig mConfig;
     private final IEncoderWrapper mLeftEncoder;
     private final IEncoderWrapper mRightEncoder;
     private final IGyroWrapper mGyroWrapper;
@@ -23,7 +23,7 @@ public class TankDriveGyroSimulator implements ISimulatorUpdater
     private double mAngle; // degrees
 
 
-    public TankDriveGyroSimulator(TankDriveConfig aConfig)
+    public TankDriveGyroSimulator(com.snobot.simulator.simulator_components.config.TankDriveConfig aConfig)
     {
         mConfig = aConfig;
         mRightEncoder = SensorActuatorRegistry.get().getEncoders().get(aConfig.getmRightEncoderHandle());
@@ -69,6 +69,12 @@ public class TankDriveGyroSimulator implements ISimulatorUpdater
     public Object getConfig()
     {
         return mConfig;
+    }
+
+    // Backwards compatibility
+    public static class TankDriveConfig extends com.snobot.simulator.simulator_components.config.TankDriveConfig
+    {
+
     }
 
 }

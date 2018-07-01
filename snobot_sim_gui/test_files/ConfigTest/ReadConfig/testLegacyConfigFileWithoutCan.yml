@@ -63,6 +63,12 @@ mPwm:
     mMaxSpeed: 20.0
   mName: Elevator
 mRelays: []
+mSimulatorComponents:
+- !!com.snobot.simulator.simulator_components.TankDriveGyroSimulator$TankDriveConfig
+  mGyroHandle: 100
+  mLeftEncoderHandle: 0
+  mRightEncoderHandle: 1
+  mTurnKp: 33.33
 mSolenoids:
 - mHandle: 1
   mName: Claw (A)

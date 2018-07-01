@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.snobot.simulator.simulator_components.TankDriveConfig;
+import com.snobot.simulator.simulator_components.config.TankDriveConfig;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 public class TankDriveSettingsDialog extends JDialog
