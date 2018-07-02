@@ -16,6 +16,6 @@ dependencies {
 
 jar {
    from("${rootDir}/snobot_sim_utilities/src/main/java") {
-      include  '**/*.properties'
+      include  '**/*.xml'
    }
 }

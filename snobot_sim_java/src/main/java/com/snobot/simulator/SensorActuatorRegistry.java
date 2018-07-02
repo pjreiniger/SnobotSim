@@ -2,8 +2,8 @@ package com.snobot.simulator;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -28,18 +28,18 @@ public final class SensorActuatorRegistry
 
     private static SensorActuatorRegistry mInstance = new SensorActuatorRegistry();
 
-    private final Map<Integer, IPwmWrapper> mSpeedControllerMap = new HashMap<>();
-    private final Map<Integer, IRelayWrapper> mRelayWrapperMap = new HashMap<>();
-    private final Map<Integer, IDigitalIoWrapper> mDigitalSourceWrapperMap = new HashMap<>();
-    private final Map<Integer, IAnalogInWrapper> mAnalogInWrapperMap = new HashMap<>();
-    private final Map<Integer, IAnalogOutWrapper> mAnalogOutWrapperMap = new HashMap<>();
-    private final Map<Integer, ISolenoidWrapper> mSolenoidWrapperMap = new HashMap<>();
-    private final Map<Integer, IEncoderWrapper> mEncoderWrapperMap = new HashMap<>();
+    private final Map<Integer, IPwmWrapper> mSpeedControllerMap = new TreeMap<>();
+    private final Map<Integer, IRelayWrapper> mRelayWrapperMap = new TreeMap<>();
+    private final Map<Integer, IDigitalIoWrapper> mDigitalSourceWrapperMap = new TreeMap<>();
+    private final Map<Integer, IAnalogInWrapper> mAnalogInWrapperMap = new TreeMap<>();
+    private final Map<Integer, IAnalogOutWrapper> mAnalogOutWrapperMap = new TreeMap<>();
+    private final Map<Integer, ISolenoidWrapper> mSolenoidWrapperMap = new TreeMap<>();
+    private final Map<Integer, IEncoderWrapper> mEncoderWrapperMap = new TreeMap<>();
 
-    private final Map<Integer, IGyroWrapper> mGyroWrapperMap = new HashMap<>();
-    private final Map<Integer, IAccelerometerWrapper> mAccelerometerWrapperMap = new HashMap<>();
-    private final Map<Integer, II2CWrapper> mI2CWrapperMap = new HashMap<>();
-    private final Map<Integer, ISpiWrapper> mSpiWrapperMap = new HashMap<>();
+    private final Map<Integer, IGyroWrapper> mGyroWrapperMap = new TreeMap<>();
+    private final Map<Integer, IAccelerometerWrapper> mAccelerometerWrapperMap = new TreeMap<>();
+    private final Map<Integer, II2CWrapper> mI2CWrapperMap = new TreeMap<>();
+    private final Map<Integer, ISpiWrapper> mSpiWrapperMap = new TreeMap<>();
 
     private final Collection<ISimulatorUpdater> mSimulatorComponents = new ArrayList<>();
 

@@ -37,6 +37,7 @@ public final class CanCallbackJni
 
     public static void reset()
     {
+        sCAN_MANAGER.reset();
         CtreJni.registerCanMotorCallback(MOTOR_CALL);
         CtreJni.registerCanPigeonImuCallback(new CtrePigeonImuCallback());
     }

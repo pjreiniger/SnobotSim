@@ -1,5 +1,7 @@
 package edu.wpi.first.hal.sim.mockdata;
 
+import edu.wpi.first.wpilibj.hal.MatchInfoData;
+
 public class DriverStationDataJNI
 {
     public static native void setEnabled(boolean b);
@@ -15,5 +17,7 @@ public class DriverStationDataJNI
     public static native void setJoystickPOVs(byte aJoystickHandle, short[] aPovsArray);
 
     public static native void setJoystickButtons(byte aJoystickHandle, int aButtonMask, int aButtonCount);
+
+    public static native void setMatchInfo(MatchInfoData info);
 
 }

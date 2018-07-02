@@ -141,7 +141,7 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
         return mPidConstants[aSlot];
     }
 
-    public void setPositionGoal(int aDemand)
+    public void setPositionGoal(double aDemand)
     {
         double position = aDemand / getPositionUnitConversion();
 
@@ -155,7 +155,7 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
         mControlGoal = aSpeed;
     }
 
-    public void setMotionMagicGoal(int aDemand)
+    public void setMotionMagicGoal(double aDemand)
     {
         double goal = aDemand / getPositionUnitConversion();
 
@@ -163,7 +163,7 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
         mControlGoal = goal;
     }
 
-    public void setMotionProfilingCommand(int aDemand)
+    public void setMotionProfilingCommand(double aDemand)
     {
         mControlType = ControlType.MotionProfile;
         mControlGoal = aDemand;
@@ -414,8 +414,7 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
             newDevice = FeedbackDevice.Analog;
             break;
         // The Absolute and Relative encoders behave the same
-        case 6:
-        case 7:
+        case 8:
             newDevice = FeedbackDevice.Encoder;
             break;
         default:

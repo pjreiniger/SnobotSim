@@ -24,6 +24,11 @@ public class CtreManager
         mPigeonMap = new HashMap<>();
     }
 
+    public void reset()
+    {
+        mPigeonMap.clear();
+    }
+
     private CtreTalonSrxSpeedControllerSim getMotorControllerWrapper(int aCanPort)
     {
         return (CtreTalonSrxSpeedControllerSim) SensorActuatorRegistry.get().getSpeedControllers().get(aCanPort + 100);
@@ -45,7 +50,7 @@ public class CtreManager
             if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList()
                     .contains(aCanPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET))
             {
-                sLOGGER.log(Level.WARN, "CTRE Motor Controller was not set up for port " + aCanPort);
+                sLOGGER.log(Level.WARN, "CTRE Motor Controller is being created dynamically instead of in the config file for port " + aCanPort);
                 
                 DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(aCanPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET,
                         CtreTalonSrxSpeedControllerSim.class.getName());
@@ -82,6 +87,46 @@ public class CtreManager
                 break;
             case 7:
                 wrapper.setMotionMagicGoal(param0);
+                break;
+            case 15:
+                wrapper.set(0);
+                break;
+            default:
+                sLOGGER.log(Level.ERROR, String.format("Unknown demand mode %d", mode));
+                break;
+            }
+        }
+        else if ("Set_4".equals(aCallback))
+        {
+            CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
+
+            int mode = aData.getInt();
+            double demand0 = aData.getDouble();
+            double demand1 = aData.getDouble();
+            int demand1Type = aData.getInt();
+            sLOGGER.log(Level.DEBUG, "Setting_4 " + mode + ", " + demand0 + ", " + demand1 + ", " + demand1Type);
+
+            switch (mode)
+            {
+            case 0:
+                wrapper.set(demand0);
+                break;
+            case 1:
+                wrapper.setPositionGoal(demand0);
+                break;
+            case 2:
+                wrapper.setSpeedGoal(demand0);
+                break;
+            case 5:
+                int followerPort = ((int) demand0) & 0xFF;
+                CtreTalonSrxSpeedControllerSim leadTalon = getMotorControllerWrapper(followerPort);
+                leadTalon.addFollower(wrapper);
+                break;
+            case 6:
+                wrapper.setMotionProfilingCommand(demand0);
+                break;
+            case 7:
+                wrapper.setMotionMagicGoal(demand0);
                 break;
             case 15:
                 wrapper.set(0);
@@ -260,6 +305,22 @@ public class CtreManager
         }
     }
 
+    public CtrePigeonImuSim createPigeon(int aPort)
+    {
+        if (mPigeonMap.containsKey(aPort))
+        {
+            sLOGGER.log(Level.WARN, "Pigeon already registerd on " + aPort);
+            return null;
+        }
+        else
+        {
+            CtrePigeonImuSim sim = new CtrePigeonImuSim(CtrePigeonImuSim.sCTRE_OFFSET + aPort * 3);
+            mPigeonMap.put(aPort, sim);
+            return sim;
+        }
+
+    }
+
     public void handlePigeonMessage(String aName, int aPort, ByteBuffer aData)
     {
         aData.order(ByteOrder.LITTLE_ENDIAN);
@@ -268,14 +329,28 @@ public class CtreManager
 
         if ("Create".equals(aName))
         {
-            CtrePigeonImuSim sim = new CtrePigeonImuSim(400 + aPort * 3);
-            mPigeonMap.put(aPort, sim);
+            CtrePigeonImuSim pigeon = mPigeonMap.get(aPort);
+            if (pigeon == null)
+            {
+                sLOGGER.log(Level.WARN, "CTRE Pigeon is being created dynamically instead of in the config file for port " + aPort);
+                pigeon = createPigeon(aPort);
+            }
+
+            pigeon.setInitialized(true);
         }
 
         //////////////////////////
         //
         //////////////////////////
         else if ("GetRawGyro".equals(aName))
+        {
+            CtrePigeonImuSim wrapper = getPigeonWrapper(aPort);
+
+            aData.putDouble(wrapper.getYawWrapper().getAngle());
+            aData.putDouble(wrapper.getPitchWrapper().getAngle());
+            aData.putDouble(wrapper.getRollWrapper().getAngle());
+        }
+        else if ("GetYawPitchRoll".equals(aName))
         {
             CtrePigeonImuSim wrapper = getPigeonWrapper(aPort);
 

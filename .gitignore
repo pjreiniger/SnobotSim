@@ -235,3 +235,4 @@ snobot_sim/src/main/native/cpp/SnobotSim/SnobotSimHalVersion.cpp
 maven_repo
 !scripts/boilerplates/
 target/
+**/logs/snobot_sim

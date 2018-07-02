@@ -28,6 +28,8 @@ public class TestCtreCanTalonControlPosition extends BaseSimulatorJavaTest
 
             output.add(new Object[]{ i, FeedbackDevice.Analog });
             output.add(new Object[]{ i, FeedbackDevice.QuadEncoder });
+            output.add(new Object[]{ i, FeedbackDevice.CTRE_MagEncoder_Absolute });
+            output.add(new Object[]{ i, FeedbackDevice.CTRE_MagEncoder_Relative });
         }
 
         return output;
@@ -73,6 +75,8 @@ public class TestCtreCanTalonControlPosition extends BaseSimulatorJavaTest
         switch (aFeedbackDevice)
         {
         case QuadEncoder:
+        case CTRE_MagEncoder_Absolute:
+        case CTRE_MagEncoder_Relative:
             Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(aRawHandle));
             Assertions.assertEquals("CAN Encoder (" + aCanHandle + ")", DataAccessorFactory.getInstance().getEncoderAccessor().getName(aRawHandle));
             break;

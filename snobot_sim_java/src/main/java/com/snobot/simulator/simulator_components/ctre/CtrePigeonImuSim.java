@@ -7,6 +7,8 @@ import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 
 public class CtrePigeonImuSim extends ASensorWrapper
 {
+    public static final int sCTRE_OFFSET = 400;
+
     private final PigeonAccelWrapper mXAccel;
     private final PigeonAccelWrapper mYAccel;
     private final PigeonAccelWrapper mZAccel;
@@ -80,7 +82,7 @@ public class CtrePigeonImuSim extends ASensorWrapper
         return mZAccel;
     }
 
-    private static class PigeonGyroWrapper extends ASensorWrapper implements IGyroWrapper
+    public static class PigeonGyroWrapper extends ASensorWrapper implements IGyroWrapper
     {
         private double mAngle;
 

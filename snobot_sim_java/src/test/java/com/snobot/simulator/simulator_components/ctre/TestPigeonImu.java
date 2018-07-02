@@ -69,14 +69,19 @@ public class TestPigeonImu extends BaseSimulatorJavaTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList().contains(zPort));
 
         double[] rawAngles = new double[3];
+        double[] yawPitchRollAngles = new double[3];
         FusionStatus fusionStatus = new FusionStatus();
 
         aImu.getRawGyro(rawAngles);
         aImu.getFusedHeading(fusionStatus);
+        aImu.getYawPitchRoll(yawPitchRollAngles);
         Assertions.assertEquals(0, fusionStatus.heading, ANGLE_EPSILON);
         Assertions.assertEquals(0, rawAngles[0], ANGLE_EPSILON);
         Assertions.assertEquals(0, rawAngles[1], ANGLE_EPSILON);
         Assertions.assertEquals(0, rawAngles[2], ANGLE_EPSILON);
+        Assertions.assertEquals(0, yawPitchRollAngles[0], ANGLE_EPSILON);
+        Assertions.assertEquals(0, yawPitchRollAngles[1], ANGLE_EPSILON);
+        Assertions.assertEquals(0, yawPitchRollAngles[2], ANGLE_EPSILON);
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(yawPort), ANGLE_EPSILON);
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(pitchPort), ANGLE_EPSILON);
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(rollPort), ANGLE_EPSILON);
@@ -87,10 +92,14 @@ public class TestPigeonImu extends BaseSimulatorJavaTest
 
         aImu.getRawGyro(rawAngles);
         aImu.getFusedHeading(fusionStatus);
+        aImu.getYawPitchRoll(yawPitchRollAngles);
         Assertions.assertEquals(47, fusionStatus.heading, ANGLE_EPSILON);
         Assertions.assertEquals(47, rawAngles[0], ANGLE_EPSILON);
         Assertions.assertEquals(-98, rawAngles[1], ANGLE_EPSILON);
         Assertions.assertEquals(24, rawAngles[2], ANGLE_EPSILON);
+        Assertions.assertEquals(47, yawPitchRollAngles[0], ANGLE_EPSILON);
+        Assertions.assertEquals(-98, yawPitchRollAngles[1], ANGLE_EPSILON);
+        Assertions.assertEquals(24, yawPitchRollAngles[2], ANGLE_EPSILON);
         Assertions.assertEquals(47, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(yawPort), ANGLE_EPSILON);
         Assertions.assertEquals(-98, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(pitchPort), ANGLE_EPSILON);
         Assertions.assertEquals(24, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(rollPort), ANGLE_EPSILON);

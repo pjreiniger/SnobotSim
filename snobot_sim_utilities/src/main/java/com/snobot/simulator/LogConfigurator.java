@@ -15,7 +15,7 @@ public final class LogConfigurator
 
     public static void loadLog4jConfig()
     {
-        File logFile = new File("log4j2.properties");
+        File logFile = new File("log4j2.xml");
         URI fileUri = null;
         if (logFile.exists())
         {
