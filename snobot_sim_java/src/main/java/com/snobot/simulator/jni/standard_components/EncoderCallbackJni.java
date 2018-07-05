@@ -49,7 +49,10 @@ public final class EncoderCallbackJni
             }
             else if ("Reset".equals(aCallbackType))
             {
-                SensorActuatorRegistry.get().getEncoders().get(mPort).reset();
+                if (aHalValue.getBoolean())
+                {
+                    SensorActuatorRegistry.get().getEncoders().get(mPort).reset();
+                }
             }
             else if ("DistancePerPulse".equals(aCallbackType))
             {

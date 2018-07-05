@@ -60,6 +60,7 @@ public class WpiEncoderWrapper extends BaseEncoderWrapper implements NotifyCallb
     {
         super.reset();
         mWpiSimulator.setReset(true);
+        mWpiSimulator.setReset(false);
     }
 
     public void setDistancePerTick(double aDistancePerPulse)

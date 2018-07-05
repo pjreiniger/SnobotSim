@@ -1,6 +1,8 @@
 package com.snobot.simulator.module_wrapper;
 
+import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 
 public class BaseEncoderWrapper extends ASensorWrapper implements IEncoderWrapper
 {
@@ -39,6 +41,14 @@ public class BaseEncoderWrapper extends ASensorWrapper implements IEncoderWrappe
     @Override
     public void reset()
     {
+        for (IPwmWrapper pwmWrapper : SensorActuatorRegistry.get().getSpeedControllers().values())
+        {
+            if (pwmWrapper.getFeedbackSensor().equals(this))
+            {
+                pwmWrapper.reset();
+            }
+        }
+
         mPosition = 0;
         mVelocity = 0;
     }
