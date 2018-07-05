@@ -3,11 +3,11 @@
 
 ## [2018-1.0.1](https://github.com/pjreiniger/SnobotSim/releases/tag/2018-1.0.1)
 * Changed to Year-Sem.Ver.2 versioning system
+* Removed the eclipse boilerplate.  All Hail GradlRIO.
 * Moved internal sources around to fit into the standard gradle format (src/main/java vs src)
-* Externalized CTRE base simulators.  This should make it easier to pull in different version of the library, and avoid unsatisfied link errors
-* Updated the [https://plugins.gradle.org/plugin/com.snobot.simulator.plugin.SnobotSimulatorPlugin](SnobotSimulatorPlugin) to work with the code refactoring.  To use this release, you must use a plugin version of 2018-1.0.0
+* Externalized CTRE simulator core code.  This should make it easier to pull in different version of the library, and avoid unsatisfied link errors
+* Updated the [SnobotSimulatorPlugin](https://plugins.gradle.org/plugin/com.snobot.simulator.plugin.SnobotSimulatorPlugin) to work with the code refactoring.  To use this release, you must use a plugin version of 2018-1.0.0
   * This plugin upgrade allows you to run the simulator from the command line with `gradlew runSnobotSim`
-* Removed the eclipse boilerplate.  All Hail GradlRio.
 * Updated the configuration file format to know more about the simulator objects.  Should make it easier to create custom overrides.
   * There is a utility that will load the "v0" config file, but it will pop up with a warning.  It is recommended that you re-save your config to force it into the "v1" state
 * Simulator components get loaded on startup, rather than dynamically as the robot starts.
