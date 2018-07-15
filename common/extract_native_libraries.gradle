@@ -59,8 +59,11 @@ task extract_wpilib {
     }
 
     
-    if (OperatingSystem.current().isUnix()) {
+    if (OperatingSystem.current().isLinux()) {
         test.environment "LD_LIBRARY_PATH", dir.toString()
+    } else if (OperatingSystem.current().isMacOsX()) {
+        test.environment "LD_LIBRARY_PATH", dir.toString()
+        test.environment "DYLD_LIBRARY_PATH", dir.toString()
     } else if (OperatingSystem.current().isWindows()) {
         test.environment "PATH", dir.toString()
     }
