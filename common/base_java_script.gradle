@@ -1,4 +1,5 @@
 
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
@@ -27,7 +28,9 @@ jacocoTestReport {
 test {
     useJUnitPlatform()
     testLogging {
-        events "failed"
+        events TestLogEvent.FAILED,
+               TestLogEvent.SKIPPED,
+               TestLogEvent.STANDARD_OUT
         exceptionFormat "full"
     }
 }

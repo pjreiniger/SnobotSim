@@ -20,7 +20,7 @@ def nativeCtreclassifier = (
 
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
-        
+
     wpilibNativeDeps 'edu.wpi.first.wpiutil:wpiutil-cpp:' + getWpiUtilVersion() + ":${nativeclassifier}@zip"
     wpilibNativeDeps 'edu.wpi.first.hal:hal:' + allwpilibVersion() + ":${nativeclassifier}@zip"
     wpilibNativeDeps 'edu.wpi.first.halsim:halsim-adx_gyro_accelerometer:' + allwpilibVersion() + ":${nativeclassifier}@zip"
@@ -29,9 +29,9 @@ dependencies {
 }
 
 task extract_wpilib {
-    
+
     FileCollection extractedFiles = null as FileCollection
-    
+
     configurations.wpilibNativeDeps.dependencies
         .matching { Dependency dep -> dep != null && configurations.wpilibNativeDeps.files(dep).size() > 0 }
         .all { dep ->
@@ -46,11 +46,11 @@ task extract_wpilib {
     File dir = new File(project.buildDir, "extracted_native")
     if (dir.exists()) dir.deleteDir()
     dir.parentFile.mkdirs()
-    
+
     if (project.tasks.findByName('packageNativeFiles')) {
         dependsOn packageNativeFiles
     }
-    
+
     doLast {
         project.copy { CopySpec s ->
             s.from(project.files { extractedFiles.files })
@@ -58,14 +58,17 @@ task extract_wpilib {
         }
     }
 
-    
-    if (OperatingSystem.current().isUnix()) {
+
+    if (OperatingSystem.current().isLinux()) {
         test.environment "LD_LIBRARY_PATH", dir.toString()
+    } else if (OperatingSystem.current().isMacOsX()) {
+        test.environment "LD_LIBRARY_PATH", dir.toString()
+        test.environment "DYLD_LIBRARY_PATH", dir.toString()
     } else if (OperatingSystem.current().isWindows()) {
         test.environment "PATH", dir.toString()
     }
-    
-    
+
+
     project.eclipse.classpath.file.whenMerged { classpath ->
         classpath.entries.each {
             if(it.path.contains("wpilibj")) {
