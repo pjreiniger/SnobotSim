@@ -29,7 +29,7 @@ public class TestSpiGyro extends BaseSimulatorJniTest
     @MethodSource("getData")
     public void testSpiGyro(SPI.Port aPort)
     {
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(aPort.value, "ADXRS450");
+        DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(aPort.value, "ADXRS450");
         ADXRS450_Gyro gyro = new ADXRS450_Gyro(aPort);
 
         int gyroHandle = 100 + aPort.value;

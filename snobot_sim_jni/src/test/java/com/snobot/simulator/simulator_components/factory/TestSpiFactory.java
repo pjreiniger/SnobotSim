@@ -18,7 +18,7 @@ public class TestSpiFactory extends BaseSimulatorJniTest
     public void testAvailableDataTypes()
     {
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        Collection<String> available = DataAccessorFactory.getInstance().getSimulatorDataAccessor().getAvailableSpiSimulators();
+        Collection<String> available = DataAccessorFactory.getInstance().getSpiAccessor().getAvailableSpiSimulators();
 
         Assertions.assertEquals(4, available.size());
         Assertions.assertTrue(available.contains("NavX"));
@@ -31,7 +31,7 @@ public class TestSpiFactory extends BaseSimulatorJniTest
     public void testInvalidType()
     {
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(0, "DoesntExist");
+        DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(0, "DoesntExist");
 
         new ADXL345_SPI(SPI.Port.kOnboardCS0, Range.k2G);
     }

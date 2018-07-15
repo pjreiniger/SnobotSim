@@ -37,7 +37,7 @@ public class TestADXL345SPIAccelerometer extends BaseSimulatorJniTest
     @MethodSource("getData")
     public void testADXL345_SPI(SPI.Port aPort, Range aRange)
     {
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(aPort.value, "ADXL345");
+        DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(aPort.value, "ADXL345");
 
         ADXL345_SPI accel = new ADXL345_SPI(aPort, aRange);
 

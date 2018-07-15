@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
-import com.snobot.simulator.wrapper_accessors.SimulatorDataAccessor;
+import com.snobot.simulator.wrapper_accessors.DriverStationDataAccessor;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -22,14 +22,14 @@ public class TestMatchData extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DriverStation.getInstance().getReplayNumber());
         Assertions.assertEquals("", DriverStation.getInstance().getGameSpecificMessage());
         
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setMatchInfo(
+        DataAccessorFactory.getInstance().getDriverStationAccessor().setMatchInfo(
                 "Event Name",
-                SimulatorDataAccessor.MatchType.Qualification,
+                DriverStationDataAccessor.MatchType.Qualification,
                 55,
                 2,
                 "Game Data");
 
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForNextUpdateLoop();
+        DataAccessorFactory.getInstance().getDriverStationAccessor().waitForNextUpdateLoop();
 
         // Run for a little bit to get the driver station to take the data
         try

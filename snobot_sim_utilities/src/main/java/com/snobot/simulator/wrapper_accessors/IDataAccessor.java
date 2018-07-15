@@ -20,7 +20,13 @@ public interface IDataAccessor
 
     SolenoidWrapperAccessor getSolenoidAccessor();
 
+    SpiWrapperAccessor getSpiAccessor();
+
+    I2CWrapperAccessor getI2CAccessor();
+
     SpeedControllerWrapperAccessor getSpeedControllerAccessor();
+
+    DriverStationDataAccessor getDriverStationAccessor();
 
     SimulatorDataAccessor getSimulatorDataAccessor();
 

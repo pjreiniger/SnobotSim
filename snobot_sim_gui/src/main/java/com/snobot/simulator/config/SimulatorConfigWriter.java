@@ -88,8 +88,8 @@ public class SimulatorConfigWriter
         dumpPwmConfig(DataAccessorFactory.getInstance().getSpeedControllerAccessor(), output.getmPwm());
         dumpSimulatorComponents(DataAccessorFactory.getInstance().getSimulatorDataAccessor(), output.getmSimulatorComponents());
 
-        output.setmDefaultI2CWrappers(DataAccessorFactory.getInstance().getSimulatorDataAccessor().getI2CWrapperTypes());
-        output.setmDefaultSpiWrappers(DataAccessorFactory.getInstance().getSimulatorDataAccessor().getSpiWrapperTypes());
+        output.setmDefaultI2CWrappers(DataAccessorFactory.getInstance().getI2CAccessor().getI2CWrapperTypes());
+        output.setmDefaultSpiWrappers(DataAccessorFactory.getInstance().getSpiAccessor().getSpiWrapperTypes());
 
         return output;
     }

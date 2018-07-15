@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.config.SimulatorConfigWriter;
 import com.snobot.simulator.gui.joysticks.JoystickManagerDialog;
@@ -44,7 +44,7 @@ public class SimulatorFrame extends JFrame
     public void updateLoop()
     {
         mBasicPanel.update();
-        mEnablePanel.setTime(DataAccessorFactory.getInstance().getSimulatorDataAccessor().getTimeSinceEnabled());
+        mEnablePanel.setTime(DataAccessorFactory.getInstance().getDriverStationAccessor().getTimeSinceEnabled());
     }
 
     private void initComponenents()
@@ -58,8 +58,8 @@ public class SimulatorFrame extends JFrame
             @Override
             public void actionPerformed(ActionEvent aEvent)
             {
-                DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDisabled(!mEnablePanel.isEnabled());
-                DataAccessorFactory.getInstance().getSimulatorDataAccessor().setAutonomous(mEnablePanel.isAuton());
+                DataAccessorFactory.getInstance().getDriverStationAccessor().setDisabled(!mEnablePanel.isEnabled());
+                DataAccessorFactory.getInstance().getDriverStationAccessor().setAutonomous(mEnablePanel.isAuton());
             }
         });
 
@@ -123,11 +123,11 @@ public class SimulatorFrame extends JFrame
         add(driverStationPanel, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDisabled(false);
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setAutonomous(false);
+        DataAccessorFactory.getInstance().getDriverStationAccessor().setDisabled(false);
+        DataAccessorFactory.getInstance().getDriverStationAccessor().setAutonomous(false);
 
         mEnablePanel.setRobotEnabled(true);
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDisabled(false);
+        DataAccessorFactory.getInstance().getDriverStationAccessor().setDisabled(false);
     }
 
     private void saveSettings()

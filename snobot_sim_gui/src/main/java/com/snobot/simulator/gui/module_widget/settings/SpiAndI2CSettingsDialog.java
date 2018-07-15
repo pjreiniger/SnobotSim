@@ -44,16 +44,16 @@ public class SpiAndI2CSettingsDialog extends JDialog
         mSpiSettings = new HashMap<>();
         mI2CSettings = new HashMap<>();
 
-        Map<Integer, String> defaultSpiMapping = DataAccessorFactory.getInstance().getSimulatorDataAccessor().getSpiWrapperTypes();
-        Map<Integer, String> defaultI2CMapping = DataAccessorFactory.getInstance().getSimulatorDataAccessor().getI2CWrapperTypes();
+        Map<Integer, String> defaultSpiMapping = DataAccessorFactory.getInstance().getSpiAccessor().getSpiWrapperTypes();
+        Map<Integer, String> defaultI2CMapping = DataAccessorFactory.getInstance().getI2CAccessor().getI2CWrapperTypes();
         Collection<String> availableSpiOptions = new ArrayList<>();
         Collection<String> availableI2COptions = new ArrayList<>();
 
         availableSpiOptions.add(sDEFAULT_ITEM);
-        availableSpiOptions.addAll(DataAccessorFactory.getInstance().getSimulatorDataAccessor().getAvailableSpiSimulators());
+        availableSpiOptions.addAll(DataAccessorFactory.getInstance().getSpiAccessor().getAvailableSpiSimulators());
 
         availableI2COptions.add(sDEFAULT_ITEM);
-        availableI2COptions.addAll(DataAccessorFactory.getInstance().getSimulatorDataAccessor().getAvailableI2CSimulators());
+        availableI2COptions.addAll(DataAccessorFactory.getInstance().getI2CAccessor().getAvailableI2CSimulators());
 
         int rowCtr = 0;
         GridBagConstraints constraints = new GridBagConstraints();
@@ -117,7 +117,7 @@ public class SpiAndI2CSettingsDialog extends JDialog
             {
                 value = selected.toString();
             }
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(pair.getKey(), value);
+            DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(pair.getKey(), value);
         }
 
         for (Entry<Integer, ComponentRow> pair : mI2CSettings.entrySet())
@@ -128,7 +128,7 @@ public class SpiAndI2CSettingsDialog extends JDialog
             {
                 value = selected.toString();
             }
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().createI2CSimulator(pair.getKey(), value);
+            DataAccessorFactory.getInstance().getI2CAccessor().createI2CSimulator(pair.getKey(), value);
         }
 
         JOptionPane.showMessageDialog(null,

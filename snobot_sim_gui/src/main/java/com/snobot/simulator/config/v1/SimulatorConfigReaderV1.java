@@ -99,11 +99,11 @@ public class SimulatorConfigReaderV1
     {
         for (Entry<Integer, String> pair : mConfig.getmDefaultI2CWrappers().entrySet())
         {
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().createI2CSimulator(pair.getKey(), pair.getValue());
+            DataAccessorFactory.getInstance().getI2CAccessor().createI2CSimulator(pair.getKey(), pair.getValue());
         }
         for (Entry<Integer, String> pair : mConfig.getmDefaultSpiWrappers().entrySet())
         {
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(pair.getKey(), pair.getValue());
+            DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(pair.getKey(), pair.getValue());
         }
 
         createBasicSimulatorComponents(DataAccessorFactory.getInstance().getGyroAccessor(), mConfig.getmGyros());

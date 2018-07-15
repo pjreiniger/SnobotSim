@@ -354,7 +354,7 @@ public class Simulator
         for (int i = 0; i < joysticks.length; ++i)
         {
             IMockJoystick joystick = joysticks[i];
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().setJoystickInformation(i, joystick.getAxisValues(), joystick.getPovValues(),
+            DataAccessorFactory.getInstance().getDriverStationAccessor().setJoystickInformation(i, joystick.getAxisValues(), joystick.getPovValues(),
                     joystick.getButtonCount(),
                     joystick.getButtonMask());
         }
@@ -370,7 +370,7 @@ public class Simulator
             {
                 try
                 {
-                    DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForProgramToStart();
+                    DataAccessorFactory.getInstance().getDriverStationAccessor().waitForProgramToStart();
 
                     String errors = DataAccessorFactory.getInstance().getInitializationErrors();
                     showInitializationMessage(errors);
@@ -381,7 +381,7 @@ public class Simulator
 
                     while (mRunningSimulator)
                     {
-                        DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForNextUpdateLoop();
+                        DataAccessorFactory.getInstance().getDriverStationAccessor().waitForNextUpdateLoop();
                         DataAccessorFactory.getInstance().getSimulatorDataAccessor().updateSimulatorComponents();
 
                         mSimulator.update();
@@ -410,7 +410,7 @@ public class Simulator
                 try
                 {
                     DriverStation.getInstance();
-                    DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForNextUpdateLoop();
+                    DataAccessorFactory.getInstance().getDriverStationAccessor().waitForNextUpdateLoop();
                     mRobot.startCompetition();
                 }
                 catch (UnsatisfiedLinkError e)

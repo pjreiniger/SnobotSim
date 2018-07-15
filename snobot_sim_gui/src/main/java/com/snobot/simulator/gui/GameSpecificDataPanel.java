@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
-import com.snobot.simulator.wrapper_accessors.SimulatorDataAccessor.MatchType;
+import com.snobot.simulator.wrapper_accessors.DriverStationDataAccessor.MatchType;
 
 public class GameSpecificDataPanel extends JPanel
 {
@@ -180,7 +180,7 @@ public class GameSpecificDataPanel extends JPanel
             LogManager.getLogger().log(Level.ERROR, "Could not parse match number", ex);
         }
 
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setMatchInfo(
+        DataAccessorFactory.getInstance().getDriverStationAccessor().setMatchInfo(
                 mEventNameField.getText(),
                 (MatchType) mMatchTypeCB.getSelectedItem(),
                 matchNumber,

@@ -39,7 +39,7 @@ public class TestADXL345I2CAccelerometer extends BaseSimulatorJavaTest
     {
         final double DOUBLE_EPSILON = 1 / 256.0; // Resoultion isn't as good as
                                                  // normal sensors
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createI2CSimulator(aPort.value, "ADXL345");
+        DataAccessorFactory.getInstance().getI2CAccessor().createI2CSimulator(aPort.value, "ADXL345");
         ADXL345_I2C accel = new ADXL345_I2C(aPort, aRange);
 
         int xHandle = 50 + aPort.value * 3;

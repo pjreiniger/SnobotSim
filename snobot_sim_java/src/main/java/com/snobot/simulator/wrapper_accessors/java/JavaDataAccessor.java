@@ -6,14 +6,17 @@ import com.snobot.simulator.wrapper_accessors.AccelerometerWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.AnalogSourceWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.simulator.wrapper_accessors.DigitalSourceWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.DriverStationDataAccessor;
 import com.snobot.simulator.wrapper_accessors.EncoderWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.GyroWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.I2CWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.IBasicSensorActuatorWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.IDataAccessor;
 import com.snobot.simulator.wrapper_accessors.RelayWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.SimulatorDataAccessor;
 import com.snobot.simulator.wrapper_accessors.SolenoidWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.SpiWrapperAccessor;
 
 public class JavaDataAccessor implements IDataAccessor
 {
@@ -26,6 +29,9 @@ public class JavaDataAccessor implements IDataAccessor
     private final RelayWrapperAccessor mRelay;
     private final SolenoidWrapperAccessor mSolenoid;
     private final SpeedControllerWrapperAccessor mPwm;
+    private final I2CWrapperAccessor mI2C;
+    private final SpiWrapperAccessor mSpi;
+    private final DriverStationDataAccessor mDriverStation;
     private final SimulatorDataAccessor mSimulator;
 
     public JavaDataAccessor()
@@ -42,6 +48,9 @@ public class JavaDataAccessor implements IDataAccessor
         mRelay = new JavaRelayWrapperAccessor();
         mSolenoid = new JavaSolenoidWrapperAccessor();
         mPwm = new JavaSpeedControllerWrapperAccessor();
+        mSpi = new JavaSpiWrapperAccessor();
+        mI2C = new JavaI2CWrapperAccessor();
+        mDriverStation = new JavaDriverStationWrapperAccessor();
         mSimulator = new JavaSimulatorDataAccessor();
     }
 
@@ -103,6 +112,24 @@ public class JavaDataAccessor implements IDataAccessor
     public SpeedControllerWrapperAccessor getSpeedControllerAccessor()
     {
         return mPwm;
+    }
+
+    @Override
+    public SpiWrapperAccessor getSpiAccessor()
+    {
+        return mSpi;
+    }
+
+    @Override
+    public I2CWrapperAccessor getI2CAccessor()
+    {
+        return mI2C;
+    }
+
+    @Override
+    public DriverStationDataAccessor getDriverStationAccessor()
+    {
+        return mDriverStation;
     }
 
     @Override

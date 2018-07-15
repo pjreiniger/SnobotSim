@@ -95,22 +95,22 @@ public class TestControllerLoop extends BaseSimulatorJavaTest
 
         double waitForDataPeriod = .02;
 
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForProgramToStart();
+        DataAccessorFactory.getInstance().getDriverStationAccessor().waitForProgramToStart();
 
         float[] joystickAxes = new float[]{0.0f};
         short[] joystickPov = new short[] {};
         int joystickButtonCount = 1;
 
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setJoystickInformation(0, joystickAxes, joystickPov, joystickButtonCount, 0);
+        DataAccessorFactory.getInstance().getDriverStationAccessor().setJoystickInformation(0, joystickAxes, joystickPov, joystickButtonCount, 0);
 
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSimulatorDataAccessor().getMatchTime(), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getDriverStationAccessor().getMatchTime(), DOUBLE_EPSILON);
 
         // Startup in disabled
         simulateForTime(.5, () ->
         {
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForNextUpdateLoop(waitForDataPeriod);
+            DataAccessorFactory.getInstance().getDriverStationAccessor().waitForNextUpdateLoop(waitForDataPeriod);
         });
-        Assertions.assertEquals(.5, DataAccessorFactory.getInstance().getSimulatorDataAccessor().getMatchTime(), DOUBLE_EPSILON);
+        Assertions.assertEquals(.5, DataAccessorFactory.getInstance().getDriverStationAccessor().getMatchTime(), DOUBLE_EPSILON);
         Assertions.assertTrue(robot.mDisabledCtr > 0);
         Assertions.assertEquals(Relay.Value.kOff, robot.mRelay.get());
         Assertions.assertEquals(0, robot.mSpeedController0.get(), DOUBLE_EPSILON);
@@ -121,12 +121,12 @@ public class TestControllerLoop extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(0), DOUBLE_EPSILON);
 
         // Move to enabled+teleop
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDisabled(false);
+        DataAccessorFactory.getInstance().getDriverStationAccessor().setDisabled(false);
         simulateForTime(.5, () ->
         {
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForNextUpdateLoop(waitForDataPeriod);
+            DataAccessorFactory.getInstance().getDriverStationAccessor().waitForNextUpdateLoop(waitForDataPeriod);
         });
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSimulatorDataAccessor().getMatchTime(), DOUBLE_EPSILON);
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getDriverStationAccessor().getMatchTime(), DOUBLE_EPSILON);
         Assertions.assertTrue(robot.mEnabledCtr > 0);
         Assertions.assertEquals(Relay.Value.kForward, robot.mRelay.get());
         Assertions.assertEquals(0, robot.mSpeedController0.get(), DOUBLE_EPSILON);
@@ -137,12 +137,12 @@ public class TestControllerLoop extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(0), DOUBLE_EPSILON);
 
         // Move to enabled+auton
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setAutonomous(true);
+        DataAccessorFactory.getInstance().getDriverStationAccessor().setAutonomous(true);
         simulateForTime(.5, () ->
         {
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForNextUpdateLoop(waitForDataPeriod);
+            DataAccessorFactory.getInstance().getDriverStationAccessor().waitForNextUpdateLoop(waitForDataPeriod);
         });
-        Assertions.assertEquals(1.5, DataAccessorFactory.getInstance().getSimulatorDataAccessor().getMatchTime(), DOUBLE_EPSILON);
+        Assertions.assertEquals(1.5, DataAccessorFactory.getInstance().getDriverStationAccessor().getMatchTime(), DOUBLE_EPSILON);
         Assertions.assertTrue(robot.mAutonCtr > 0);
         Assertions.assertEquals(Relay.Value.kOff, robot.mRelay.get());
         Assertions.assertEquals(1, robot.mSpeedController0.get(), DOUBLE_EPSILON);
@@ -153,34 +153,34 @@ public class TestControllerLoop extends BaseSimulatorJavaTest
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(0), DOUBLE_EPSILON);
 
         // Back to teleop for joystick testing
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setAutonomous(false);
+        DataAccessorFactory.getInstance().getDriverStationAccessor().setAutonomous(false);
         simulateForTime(.5, () ->
         {
             joystickAxes[0] = 1f;
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().setJoystickInformation(0, joystickAxes, joystickPov, joystickButtonCount, 1);
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForNextUpdateLoop(waitForDataPeriod);
+            DataAccessorFactory.getInstance().getDriverStationAccessor().setJoystickInformation(0, joystickAxes, joystickPov, joystickButtonCount, 1);
+            DataAccessorFactory.getInstance().getDriverStationAccessor().waitForNextUpdateLoop(waitForDataPeriod);
         });
-        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getSimulatorDataAccessor().getMatchTime(), DOUBLE_EPSILON);
+        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getDriverStationAccessor().getMatchTime(), DOUBLE_EPSILON);
         Assertions.assertEquals(1, robot.mSpeedController1.get(), DOUBLE_EPSILON);
         Assertions.assertTrue(robot.mSolenoid.get());
 
         simulateForTime(.5, () ->
         {
             joystickAxes[0] = 0f;
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().setJoystickInformation(0, joystickAxes, joystickPov, joystickButtonCount, 0);
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForNextUpdateLoop(waitForDataPeriod);
+            DataAccessorFactory.getInstance().getDriverStationAccessor().setJoystickInformation(0, joystickAxes, joystickPov, joystickButtonCount, 0);
+            DataAccessorFactory.getInstance().getDriverStationAccessor().waitForNextUpdateLoop(waitForDataPeriod);
         });
-        Assertions.assertEquals(2.5, DataAccessorFactory.getInstance().getSimulatorDataAccessor().getMatchTime(), DOUBLE_EPSILON);
+        Assertions.assertEquals(2.5, DataAccessorFactory.getInstance().getDriverStationAccessor().getMatchTime(), DOUBLE_EPSILON);
         Assertions.assertEquals(0, robot.mSpeedController1.get(), DOUBLE_EPSILON);
         Assertions.assertFalse(robot.mSolenoid.get());
 
         // Back to disabled
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().setDisabled(true);
+        DataAccessorFactory.getInstance().getDriverStationAccessor().setDisabled(true);
         simulateForTime(.5, () ->
         {
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForNextUpdateLoop(waitForDataPeriod);
+            DataAccessorFactory.getInstance().getDriverStationAccessor().waitForNextUpdateLoop(waitForDataPeriod);
         });
-        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getSimulatorDataAccessor().getMatchTime(), DOUBLE_EPSILON);
+        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getDriverStationAccessor().getMatchTime(), DOUBLE_EPSILON);
         Assertions.assertEquals(Relay.Value.kForward, robot.mRelay.get());
         Assertions.assertEquals(0, robot.mSpeedController0.get(), DOUBLE_EPSILON);
         Assertions.assertEquals(0, robot.mSpeedController1.get(), DOUBLE_EPSILON);

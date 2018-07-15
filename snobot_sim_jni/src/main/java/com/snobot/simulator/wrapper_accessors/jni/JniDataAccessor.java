@@ -4,13 +4,16 @@ import com.snobot.simulator.LogConfigurator;
 import com.snobot.simulator.wrapper_accessors.AccelerometerWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.AnalogSourceWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.DigitalSourceWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.DriverStationDataAccessor;
 import com.snobot.simulator.wrapper_accessors.EncoderWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.GyroWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.I2CWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.IDataAccessor;
 import com.snobot.simulator.wrapper_accessors.RelayWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.SimulatorDataAccessor;
 import com.snobot.simulator.wrapper_accessors.SolenoidWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.SpiWrapperAccessor;
 
 public class JniDataAccessor implements IDataAccessor
 {
@@ -23,6 +26,9 @@ public class JniDataAccessor implements IDataAccessor
     private final RelayWrapperAccessor mRelay;
     private final SolenoidWrapperAccessor mSolenoid;
     private final SpeedControllerWrapperAccessor mPwm;
+    private final I2CWrapperAccessor mI2C;
+    private final SpiWrapperAccessor mSpi;
+    private final DriverStationDataAccessor mDriverStation;
     private final SimulatorDataAccessor mSimulator;
 
     public JniDataAccessor()
@@ -38,6 +44,9 @@ public class JniDataAccessor implements IDataAccessor
         mRelay = new JniRelayWrapperAccessor();
         mSolenoid = new JniSolenoidWrapperAccessor();
         mPwm = new JniSpeedControllerWrapperAccessor();
+        mSpi = new JniSpiWrapperAccessor();
+        mI2C = new JniI2CWrapperAccessor();
+        mDriverStation = new JniDriverStationWrapperAccessor();
         mSimulator = new JniSimulatorDataAccessor();
     }
 
@@ -99,6 +108,24 @@ public class JniDataAccessor implements IDataAccessor
     public SpeedControllerWrapperAccessor getSpeedControllerAccessor()
     {
         return mPwm;
+    }
+
+    @Override
+    public SpiWrapperAccessor getSpiAccessor()
+    {
+        return mSpi;
+    }
+
+    @Override
+    public I2CWrapperAccessor getI2CAccessor()
+    {
+        return mI2C;
+    }
+
+    @Override
+    public DriverStationDataAccessor getDriverStationAccessor()
+    {
+        return mDriverStation;
     }
 
     @Override

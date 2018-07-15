@@ -65,7 +65,7 @@ public class BaseSimulatorJavaTest
             INITIALIZED = true;
         }
 
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().waitForNextUpdateLoop();
+        DataAccessorFactory.getInstance().getDriverStationAccessor().waitForNextUpdateLoop();
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
         RobotBase.initializeHardwareConfiguration();
     }

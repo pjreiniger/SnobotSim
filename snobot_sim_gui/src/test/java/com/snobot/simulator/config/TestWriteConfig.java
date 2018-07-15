@@ -18,11 +18,11 @@ public class TestWriteConfig extends BaseSimulatorTest
     public void testWriteConfig()
     {
 
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(0, "ADXRS450");
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(1, "ADXL345");
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(2, "ADXL362");
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createSpiSimulator(3, "ADXRS450");
-        DataAccessorFactory.getInstance().getSimulatorDataAccessor().createI2CSimulator(0, "ADXL345");
+        DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(0, "ADXRS450");
+        DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(1, "ADXL345");
+        DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(2, "ADXL362");
+        DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(3, "ADXRS450");
+        DataAccessorFactory.getInstance().getI2CAccessor().createI2CSimulator(0, "ADXL345");
 
         // Used to create some components
         new MockRobot();
