@@ -61,7 +61,6 @@ task extract_wpilib {
     
     if (OperatingSystem.current().isUnix()) {
         test.environment "LD_LIBRARY_PATH", dir.toString()
-        test.environment "DYLD_FALLBACK_LIBRARY_PATH" dir.toString()
     } else if (OperatingSystem.current().isWindows()) {
         test.environment "PATH", dir.toString()
     }
