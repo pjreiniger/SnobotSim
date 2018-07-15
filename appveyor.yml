@@ -20,7 +20,7 @@ init:
     }
 
 build_script:
-- cmd: gradlew.bat build jacocoTestReport publish -Pmaven_repo=build/maven_repo -i -PciBuild
+- cmd: gradlew.bat build jacocoTestReport publish -Pmaven_repo=build/maven_repo -PciBuild
 
 after_build:
 - cmd: "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
