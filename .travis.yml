@@ -18,6 +18,10 @@ before_install:
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 
+# Don't want to run gradlew assemble
+install:
+- true
+
 cache:
   directories:
     - $HOME/.gradle/caches/
