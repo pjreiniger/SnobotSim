@@ -55,7 +55,6 @@ model {
     }
 }
 
-apply from: "$rootDir/captureWpiLibraries.gradle"
 dependencies {
     
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
@@ -64,8 +63,8 @@ dependencies {
     testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
     
     testCompile project(":snobot_sim_utilities")
-    testRuntime captureWpiLibraries.outputs.files
-    testRuntime project(':temp_hal_interface').packageNativetemp_hal_interface_jniFilesInJar.outputs.files
+    //testRuntime captureWpiLibraries.outputs.files
+    testRuntime project(':temp_hal_interface').packageNativeFiles.outputs.files
     
     
     //testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()

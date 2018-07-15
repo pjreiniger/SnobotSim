@@ -25,9 +25,6 @@ plugins {
 }
 apply plugin: 'nebula-aggregate-javadocs'
 
-repositories {
-    mavenCentral()
-}
 
 ext.build_simulator_cpp = false
 ext.build_simulator_java = true
@@ -71,6 +68,19 @@ ext.getJaci3rdPartyMirror = {
     return 'https://raw.githubusercontent.com/Open-RIO/Maven-Mirror/master/m2'
 }
 
+ext.getCtreOverrideRepo = {
+    return "http://raw.githubusercontent.com/pjreiniger/maven_repo/master/"
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+
+    maven { url getWpiRepo() }
+    maven { url getJaci3rdPartyMirror() }
+    maven { url getCtreOverrideRepo() }
+}
+
 /////////////////////////////////////////
 
 def getCtreNativeExtractedLocation() {
@@ -103,11 +113,7 @@ if(hasProperty('maven_version'))
     ext.maven_version = maven_version
 }
 
-apply from: 'publish.gradle'
-
 task wrapper(type: Wrapper) {
     gradleVersion = '4.7'
 }
-
-apply from: "$rootDir/combine_libraries.gradle"
 

@@ -2,13 +2,6 @@ import edu.wpi.first.nativeutils.NativeUtils
 import org.gradle.api.file.FileCollection
 import org.gradle.internal.os.OperatingSystem
 
-repositories {
-    mavenCentral()
-    maven {
-        url "http://first.wpi.edu/FRC/roborio/maven/release/"
-    }
-}
-
 apply plugin: 'cpp'
 apply plugin: 'visual-studio'
 apply plugin: 'edu.wpi.first.NativeUtils'

@@ -76,8 +76,7 @@ apply from: "${rootDir}/common/base_jni_script.gradle"
      }
  }
  
- 
-apply from: "$rootDir/captureWpiLibraries.gradle"
+configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
     
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
@@ -86,15 +85,15 @@ dependencies {
     testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
     
     testCompile project(":snobot_sim_utilities")
-    testRuntime captureWpiLibraries.outputs.files
-    testRuntime project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files
-    
-    
+    wpilibNativeDeps project(':sim_adx_family').packageNativeFiles.outputs.files
+
     //testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
     testCompile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     testRuntime 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
     testRuntime 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
     testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
-    
 }
+
+apply from: "${rootDir}/common/extract_native_libraries.gradle"
+test.dependsOn extract_wpilib

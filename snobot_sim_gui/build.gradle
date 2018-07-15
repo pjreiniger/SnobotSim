@@ -19,7 +19,7 @@ configurations {
     compile.extendsFrom(native3rdPartyDeps)
 }
 
-apply from: "$rootDir/captureWpiLibraries.gradle"
+configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
     
     // WPILib
@@ -56,9 +56,8 @@ dependencies {
     if(build_simulator_java)
     {
         compile project(":snobot_sim_java")
-        runtime captureWpiLibraries.outputs.files
-        runtime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
-        runtime project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files
+        wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
+        wpilibNativeDeps project(':sim_adx_family').packageNativeFiles.outputs.files
     }
     
     // Test
@@ -68,22 +67,11 @@ dependencies {
     runtime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':native-all'
     testRuntime jar.outputs.files // Necessary for having resources in jar 
     
-    runtime project(':temp_hal_interface').packageNativetemp_hal_interface_jniFilesInJar.outputs.files
+    wpilibNativeDeps project(':temp_hal_interface').packageNativeFiles.outputs.files
 }
 
-apply from: "$rootDir/common/prepare_ctre_library.gradle"
-compileJava.dependsOn prepareCtreLibrary
-tasks.withType(Test) {
-    systemProperty "java.library.path", getCtreNativeExtractedLocation()
-}
-
-eclipse.classpath.file.whenMerged { classpath ->
-    classpath.entries.each {
-        if(it.path.contains("ctre_sim_override")) {
-            it.setNativeLibraryLocation(getCtreNativeExtractedLocation())
-        }
-    }
-}
+apply from: "${rootDir}/common/extract_native_libraries.gradle"
+test.dependsOn extract_wpilib
 
 
 task unzipNativeLibraries(type: Copy) {

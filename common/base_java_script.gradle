@@ -11,18 +11,9 @@ repositories {
     mavenCentral()
     mavenLocal()
 
-    maven {
-        url "http://dev.imjac.in/maven/"
-    }
-    maven {
-        url "http://first.wpi.edu/FRC/roborio/maven/release/"
-    }
-    maven {
-        url "http://raw.githubusercontent.com/pjreiniger/maven_repo/master/"
-    }
-    maven {
-        url getJaci3rdPartyMirror()
-    }
+    maven { url getWpiRepo() }
+    maven { url getJaci3rdPartyMirror() }
+    maven { url getCtreOverrideRepo() }
 }
 
 
@@ -39,8 +30,6 @@ test {
         events "failed"
         exceptionFormat "full"
     }
-
-    ignoreFailures = org.gradle.internal.os.OperatingSystem.current().isMacOsX()
 }
 
 

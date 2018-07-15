@@ -17,7 +17,7 @@ apply from: "${rootDir}/common/base_java_script.gradle"
 apply from: "../create_version_file.gradle"
 createJavaVersion("src/main/java/com/snobot/simulator/wrapper_accessors/java", "JaveSimulatorVersion", "com.snobot.simulator.wrapper_accessors.java", getVersionName())
 
-apply from: "$rootDir/captureWpiLibraries.gradle"
+configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
     compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
     compile 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
@@ -44,25 +44,19 @@ dependencies {
     testCompile "openrio.mirror.third.ctre:CTRE-phoenix-java:" + getCtreVersion()
     testCompile "openrio.mirror.third.kauailabs:navx-java:" + getNavxVersion()
     
-    testRuntime captureWpiLibraries.outputs.files
-    testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
-    testRuntime project(':sim_adx_family').packageNativeadx_family_jniFilesInJar.outputs.files
+    wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
+    wpilibNativeDeps project(':sim_adx_family').packageNativeFiles.outputs.files
+    
     
     
     compile project(':temp_hal_interface')
-    testRuntime project(':temp_hal_interface').packageNativetemp_hal_interface_jniFilesInJar.outputs.files
+    compile project(':temp_hal_interface').packageNativeFiles.outputs.files
+    wpilibNativeDeps project(':temp_hal_interface').packageNativeFiles.outputs.files
 }
 
-apply from: "$rootDir/common/prepare_ctre_library.gradle"
-compileJava.dependsOn prepareCtreLibrary
-tasks.withType(Test) {
-    systemProperty "java.library.path", getCtreNativeExtractedLocation()
-}
-
-eclipse.classpath.file.whenMerged { classpath ->
-    classpath.entries.each {
-        if(it.path.contains("ctre_sim_override")) {
-            it.setNativeLibraryLocation(getCtreNativeExtractedLocation())
-        }
-    }
-}
+apply from: "${rootDir}/common/extract_native_libraries.gradle"
+//classes.dependsOn project(':temp_hal_interface').packageNativeFiles
+build.dependsOn project(':temp_hal_interface').build
+extract_wpilib.dependsOn project(':temp_hal_interface').packageNativeFiles
+extract_wpilib.dependsOn project(':temp_hal_interface').packageNativeFiles
+test.dependsOn extract_wpilib

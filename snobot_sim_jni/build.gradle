@@ -41,8 +41,7 @@ ext
 
 apply from: "${rootDir}/common/base_jni_script.gradle"
 
-apply from: "$rootDir/captureWpiLibraries.gradle"
-
+configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
     
     compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
@@ -68,13 +67,16 @@ dependencies {
     testCompile "openrio.mirror.third.kauailabs:navx-java:" + getNavxVersion()
     
     compile project(":snobot_sim_utilities")
-    testRuntime captureWpiLibraries.outputs.files
-    testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
-    testRuntime project(':snobot_sim_jni').packageNativesnobotSimJniFilesInJar.outputs.files
-    testRuntime project(':snobot_sim').packageNativeFilesInJar.outputs.files
+
+    wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
+    wpilibNativeDeps project(':snobot_sim_jni').packageNativeFiles.outputs.files
+    wpilibNativeDeps project(':snobot_sim').packageNativeFilesInJar.outputs.files
     
     
 }
+
+apply from: "${rootDir}/common/extract_native_libraries.gradle"
+test.dependsOn extract_wpilib
 
 
 model {

@@ -77,7 +77,7 @@ model {
 }
 
 
-apply from: "$rootDir/captureWpiLibraries.gradle"
+configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
     
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
@@ -87,8 +87,7 @@ dependencies {
     testCompile "openrio.mirror.third.kauailabs:navx-java:" + getNavxVersion()
     
     testCompile project(":snobot_sim_utilities")
-    testRuntime captureWpiLibraries.outputs.files
-    testRuntime project(':sim_extension_navx').packageNativenavx_simulator_jniFilesInJar.outputs.files
+    wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
     
     
     //testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
@@ -102,3 +101,6 @@ dependencies {
     testRuntime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
     
 }
+
+apply from: "${rootDir}/common/extract_native_libraries.gradle"
+test.dependsOn extract_wpilib
