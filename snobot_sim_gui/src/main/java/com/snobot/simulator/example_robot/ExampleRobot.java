@@ -106,4 +106,10 @@ public class ExampleRobot extends IterativeRobot
         SmartDashboard.putNumber("Gyro", mAnalogGyro.getAngle());
     }
 
+    @Override
+    public void disabledPeriodic()
+    {
+        // Nothing to do
+    }
+
 }

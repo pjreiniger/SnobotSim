@@ -46,7 +46,7 @@ public final class Main
 
         try
         {
-            Simulator simulator = new Simulator(parseLogLevel(argList), DEFAULT_PLUGIN_DIR, sUSER_CONFIG_DIR);
+            Simulator simulator = new Simulator(parseLogLevel(argList), DEFAULT_PLUGIN_DIR, sUSER_CONFIG_DIR, false);
             simulator.startSimulation();
         }
         catch (ClassNotFoundException e)

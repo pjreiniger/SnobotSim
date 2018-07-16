@@ -22,7 +22,7 @@ public class TestSimulator extends BaseSimulatorTest
 
         public MockSimulator(SnobotLogLevel aLogLevel, File aPluginDirectory, String aUserConfigDir) throws Exception
         {
-            super(aLogLevel, aPluginDirectory, aUserConfigDir);
+            super(aLogLevel, aPluginDirectory, aUserConfigDir, true);
         }
 
         @Override
