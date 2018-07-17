@@ -1,6 +1,22 @@
 
 # Current Release
 
+## [2018-2.0.0](https://github.com/pjreiniger/SnobotSim/releases/tag/2018-2.0.0)
+* Modified the native library loading scheme to help support [HAL Extensions](https://github.com/wpilibsuite/allwpilib/tree/master/simulation/halsim_ds_nt).  Also means that mac builds now work
+* Added command line option to disable the driver station simulation.  
+  * Opens the door to being able to use an extension to talk to the real driver station instead.  This extension is in the works and should be part of the 2019 wpilib release
+* Note: Requires the [2018-2.0.0 Plugin](https://github.com/pjreiniger/SnobotSimPlugin/releases/tag/v2018_2.0.0) to use downstream 
+
+### Known Issues
+#### CTRE
+* Voltage and AppliedThrottle control modes are in beta support.  This means that that they *should* work as expected
+* MotionMagic, Position, and Velocity control modes are in alpha support.  This means that they *may, sort of, sometimes* work as expected.  They are tested against, but may not anywhere near the same as the real world
+* Everything else is unsupported.  Attempting to use other functions will simply log a warning.  For the average team, these features will not hinder the majority of your pre-robot testing
+
+
+
+# Old releases
+
 ## [2018-1.0.1](https://github.com/pjreiniger/SnobotSim/releases/tag/2018-1.0.1)
 * Changed to Year-Sem.Ver.2 versioning system
 * Removed the eclipse boilerplate.  All Hail GradlRIO.
@@ -20,9 +36,6 @@
 * MotionMagic, Position, and Velocity control modes are in alpha support.  This means that they *may, sort of, sometimes* work as expected.  They are tested against, but may not anywhere near the same as the real world
 * Everything else is unsupported.  Attempting to use other functions will simply log a warning.  For the average team, these features will not hinder the majority of your pre-robot testing
 
-
-
-# Old releases
 
 ## [0.8.0](https://github.com/pjreiniger/SnobotSim/releases/tag/0.8.0) (improvments also include 7.1, 7.2, 7.3 because I forgot)
 * Fixed issues with match time and the frequency loops were being called
