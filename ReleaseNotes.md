@@ -3,9 +3,9 @@
 
 ## [2018-2.0.0](https://github.com/pjreiniger/SnobotSim/releases/tag/2018-2.0.0)
 * Modified the native library loading scheme to help support [HAL Extensions](https://github.com/wpilibsuite/allwpilib/tree/master/simulation/halsim_ds_nt).  Also means that mac builds now work
-* Added command line option to disable the driver station simulation.  
+* Added command line option to disable the driver station simulation.
   * Opens the door to being able to use an extension to talk to the real driver station instead.  This extension is in the works and should be part of the 2019 wpilib release
-* Note: Requires the [2018-2.0.0 Plugin](https://github.com/pjreiniger/SnobotSimPlugin/releases/tag/v2018_2.0.0) to use downstream 
+* Note: Requires the [2018-2.0.0 Plugin](https://github.com/pjreiniger/SnobotSimPlugin/releases/tag/v2018_2.0.0) to use downstream
 
 ### Known Issues
 #### CTRE
