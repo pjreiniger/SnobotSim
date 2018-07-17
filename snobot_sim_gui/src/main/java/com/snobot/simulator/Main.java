@@ -32,10 +32,16 @@ public final class Main
         DefaultDataAccessorFactory.initalize();
 
         Collection<String> argList = Arrays.asList(aArgs);
+        boolean useBuiltinDriverStation = true;
 
         if (argList.contains("version"))
         {
             printVersions();
+        }
+
+        if (argList.contains("disable_driver_station"))
+        {
+            useBuiltinDriverStation = true;
         }
 
         if (argList.contains("find_robots"))
@@ -46,7 +52,7 @@ public final class Main
 
         try
         {
-            Simulator simulator = new Simulator(parseLogLevel(argList), DEFAULT_PLUGIN_DIR, sUSER_CONFIG_DIR, false);
+            Simulator simulator = new Simulator(parseLogLevel(argList), DEFAULT_PLUGIN_DIR, sUSER_CONFIG_DIR, useBuiltinDriverStation);
             simulator.startSimulation();
         }
         catch (ClassNotFoundException e)
