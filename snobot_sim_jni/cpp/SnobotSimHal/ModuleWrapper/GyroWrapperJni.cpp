@@ -8,7 +8,7 @@
 #include "SnobotSim/ModuleWrapper/Interfaces/IGyroWrapper.h"
 #include "SnobotSim/ModuleWrapper/Factories/GyroFactory.h"
 #include "com_snobot_simulator_jni_module_wrapper_GyroWrapperJni.h"
-#include "support/jni_util.h"
+#include "wpi/jni_util.h"
 
 using namespace wpi::java;
 

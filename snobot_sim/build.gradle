@@ -45,7 +45,7 @@ model {
         }
         halsim(DependencyConfig) {
             groupId = 'edu.wpi.first.hal'
-            artifactId = 'hal'
+            artifactId = 'hal-cpp'
             headerClassifier = 'headers'
             ext = 'zip'
             version = allwpilibVersion()
@@ -53,7 +53,7 @@ model {
         }
         adxfamily(DependencyConfig) {
             groupId = 'edu.wpi.first.halsim'
-            artifactId = 'halsim-adx_gyro_accelerometer'
+            artifactId = 'halsim_adx_gyro_accelerometer'
             headerClassifier = 'headers'
             ext = 'zip'
             version = allwpilibVersion()

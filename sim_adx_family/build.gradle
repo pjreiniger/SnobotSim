@@ -37,7 +37,7 @@ apply from: "${rootDir}/common/base_jni_script.gradle"
          }
          halsim(DependencyConfig) {
              groupId = 'edu.wpi.first.hal'
-             artifactId = 'hal'
+             artifactId = 'hal-cpp'
              headerClassifier = 'headers'
              ext = 'zip'
              version = allwpilibVersion()
@@ -45,7 +45,7 @@ apply from: "${rootDir}/common/base_jni_script.gradle"
          }
          adxfamily(DependencyConfig) {
              groupId = 'edu.wpi.first.halsim'
-             artifactId = 'halsim-adx_gyro_accelerometer'
+             artifactId = 'halsim_adx_gyro_accelerometer'
              headerClassifier = 'headers'
              ext = 'zip'
              version = allwpilibVersion()
@@ -87,7 +87,7 @@ dependencies {
     testCompile project(":snobot_sim_utilities")
     wpilibNativeDeps project(':sim_adx_family').packageNativeFiles.outputs.files
 
-    //testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
+    testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
     testCompile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     testRuntime 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
     testRuntime 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()

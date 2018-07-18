@@ -12,7 +12,7 @@
 #include <cstring>
 #include <memory>
 
-#include "support/mutex.h"
+#include "wpi/mutex.h"
 
 class NavxSimulator
 {

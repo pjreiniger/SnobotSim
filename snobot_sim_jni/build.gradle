@@ -46,7 +46,7 @@ dependencies {
     
     compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
     compile 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
-    //compile 'edu.wpi.first.cameraserver:cameraserver-java:' + allwpilibVersion()
+    compile 'edu.wpi.first.cameraserver:cameraserver-java:' + allwpilibVersion()
     
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
@@ -57,7 +57,7 @@ dependencies {
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
     
     testCompile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
-    //testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
+    testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
     testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
     testRuntime 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
@@ -103,7 +103,7 @@ model {
         }
         halsim(DependencyConfig) {
             groupId = 'edu.wpi.first.hal'
-            artifactId = 'hal'
+            artifactId = 'hal-cpp'
             headerClassifier = 'headers'
             ext = 'zip'
             version = allwpilibVersion()

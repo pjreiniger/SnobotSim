@@ -22,9 +22,9 @@ configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
 
     wpilibNativeDeps 'edu.wpi.first.wpiutil:wpiutil-cpp:' + getWpiUtilVersion() + ":${nativeclassifier}@zip"
-    wpilibNativeDeps 'edu.wpi.first.hal:hal:' + allwpilibVersion() + ":${nativeclassifier}@zip"
-    wpilibNativeDeps 'edu.wpi.first.halsim:halsim-adx_gyro_accelerometer:' + allwpilibVersion() + ":${nativeclassifier}@zip"
-    wpilibNativeDeps 'edu.wpi.first.wpilibj:wpilibj-jniShared:' + allwpilibVersion() + ":${nativeclassifier}"
+    wpilibNativeDeps 'edu.wpi.first.hal:hal-cpp:' + allwpilibVersion() + ":${nativeclassifier}@zip"
+    wpilibNativeDeps 'edu.wpi.first.halsim:halsim_adx_gyro_accelerometer:' + allwpilibVersion() + ":${nativeclassifier}@zip"
+    //wpilibNativeDeps 'edu.wpi.first.wpilibj:wpilibj-jniShared:' + allwpilibVersion() + ":${nativeclassifier}"
     wpilibNativeDeps 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ":native-${nativeCtreclassifier}"
 }
 

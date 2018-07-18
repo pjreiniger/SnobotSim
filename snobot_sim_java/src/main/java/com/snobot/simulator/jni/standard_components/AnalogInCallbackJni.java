@@ -9,7 +9,7 @@ import com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.AnalogInDataJNI;
-import edu.wpi.first.wpilibj.SensorBase;
+import edu.wpi.first.wpilibj.SensorUtil;
 import edu.wpi.first.wpilibj.sim.SimValue;
 
 public final class AnalogInCallbackJni
@@ -49,7 +49,7 @@ public final class AnalogInCallbackJni
 
     public static void reset()
     {
-        for (int i = 0; i < SensorBase.kAnalogInputChannels; ++i)
+        for (int i = 0; i < SensorUtil.kAnalogInputChannels; ++i)
         {
             AnalogInDataJNI.resetData(i);
 
