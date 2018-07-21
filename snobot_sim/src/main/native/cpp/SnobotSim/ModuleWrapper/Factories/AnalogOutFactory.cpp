@@ -13,12 +13,10 @@
 
 AnalogOutFactory::AnalogOutFactory()
 {
-    // TODO Auto-generated constructor stub
 }
 
 AnalogOutFactory::~AnalogOutFactory()
 {
-    // TODO Auto-generated destructor stub
 }
 
 bool AnalogOutFactory::Create(int aHandle, const std::string& aType)
@@ -27,8 +25,12 @@ bool AnalogOutFactory::Create(int aHandle, const std::string& aType)
 
     if (aType == "WpiAnalogOutWrapper")
     {
-        SensorActuatorRegistry::Get().Register(aHandle,
-                std::shared_ptr<IAnalogOutWrapper>(new WpiAnalogOutWrapper(aHandle)));
+        SNOBOT_LOG(SnobotLogging::WARN, "Not set up before loading robot");
+        if (!SensorActuatorRegistry::Get().GetIAnalogOutWrapper(aHandle, false))
+        {
+            SensorActuatorRegistry::Get().Register(aHandle,
+                    std::shared_ptr<IAnalogOutWrapper>(new WpiAnalogOutWrapper(aHandle)));
+        }
     }
     else
     {

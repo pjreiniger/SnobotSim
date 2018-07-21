@@ -72,7 +72,7 @@ dependencies {
     wpilibNativeDeps project(':snobot_sim_jni').packageNativeFiles.outputs.files
     wpilibNativeDeps project(':snobot_sim').packageNativeFilesInJar.outputs.files
     
-    
+    testRuntime project(':snobot_sim_jni').packageNativeFiles.outputs.files
 }
 
 apply from: "${rootDir}/common/extract_native_libraries.gradle"

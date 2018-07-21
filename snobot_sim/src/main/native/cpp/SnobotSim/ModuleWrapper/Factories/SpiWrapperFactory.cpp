@@ -18,19 +18,12 @@ const std::string SpiWrapperFactory::ADXL345_ACCELEROMETER_NAME = "ADXL345";
 const std::string SpiWrapperFactory::ADXL362_ACCELEROMETER_NAME = "ADXL362";
 const std::string SpiWrapperFactory::NAVX = "NavX";
 
-SpiWrapperFactory SpiWrapperFactory::sINSTANCE;
-
 SpiWrapperFactory::SpiWrapperFactory()
 {
 }
 
 SpiWrapperFactory::~SpiWrapperFactory()
 {
-}
-
-SpiWrapperFactory& SpiWrapperFactory::Get()
-{
-    return sINSTANCE;
 }
 
 void SpiWrapperFactory::RegisterDefaultWrapperType(int aPort, const std::string& aWrapperType)

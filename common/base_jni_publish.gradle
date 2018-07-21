@@ -31,6 +31,8 @@ task cppSourcesZip(type: Zip) {
 model {
     publishing {
 
+        def jniLibraryTaskList = createComponentZipTasks($.components, libraryName, zipBaseName, Zip, project, includeStandardZipFormat)
+
         def createAllTask
         if(!project.hasProperty('ciBuild')) {
             createAllTask = createAllCombined(project.packageNativeFiles, libraryName, zipBaseName, Jar, project)
@@ -46,6 +48,10 @@ model {
                 artifactId = project.baseArtifactId
                 groupId project.artifactGroupId
                 version maven_version
+
+                jniLibraryTaskList.each {
+                    artifact it
+                }
 
                 artifact cppHeadersZip
                 artifact cppSourcesZip

@@ -10,7 +10,7 @@
 #include "SnobotSim/PortUnwrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "com_snobot_simulator_jni_module_wrapper_EncoderWrapperJni.h"
-#include "SnobotSim/ModuleWrapper/Factories/EncoderFactory.h"
+#include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "support/jni_util.h"
 
 using namespace wpi::java;
@@ -103,9 +103,7 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_Encoder
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_EncoderWrapperJni_createSimulator
   (JNIEnv * env, jclass, jint aHandle, jstring aType)
 {
-	static EncoderFactory factory;
-
-	return factory.Create(aHandle, env->GetStringUTFChars(aType, NULL));
+	return FactoryContainer::Get().GetEncoderFactory()->Create(aHandle, env->GetStringUTFChars(aType, NULL));
 }
 
 /*

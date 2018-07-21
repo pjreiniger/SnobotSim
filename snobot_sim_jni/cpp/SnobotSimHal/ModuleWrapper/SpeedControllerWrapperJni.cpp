@@ -13,7 +13,7 @@
 #include "SnobotSim/MotorSim/StaticLoadDcMotorSim.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "com_snobot_simulator_jni_module_wrapper_SpeedControllerWrapperJni.h"
-#include "SnobotSim/ModuleWrapper/Factories/SpeedControllerFactory.h"
+#include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "support/jni_util.h"
 
 using namespace wpi::java;
@@ -77,9 +77,7 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCo
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedControllerWrapperJni_createSimulator
   (JNIEnv * env, jclass, jint aHandle, jstring aType)
 {
-	static SpeedControllerFactory factory;
-
-	return factory.Create(aHandle, env->GetStringUTFChars(aType, NULL));
+	return FactoryContainer::Get().GetSpeedControllerFactory()->Create(aHandle, env->GetStringUTFChars(aType, NULL));
 }
 
 /*

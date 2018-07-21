@@ -1,9 +1,11 @@
 
 apply plugin: 'maven-publish'
 
-task cppSourcesZip(type: Zip) {
-    destinationDir = project.buildDir
+def libraryZipBaseName = '_GROUP_com_snobot_simulator_snobot_sim_ID_snobot_sim_CLS'
+def standaloneZipBaseName = '_GROUP_com_snobot_simulator_snobot_sim_ID_snobot_sim_standalone_CLS'
 
+task libraryCppSourcesZip(type: Zip) {
+    destinationDir = project.buildDir
     classifier = "sources"
 
     from('src/main/native') {
@@ -11,21 +13,71 @@ task cppSourcesZip(type: Zip) {
     }
 }
 
-publishing {
-    repositories {
-       maven {
-           url maven_publishing_path
-       }
+task libraryCppHeadersZip(type: Zip) {
+    destinationDir = project.buildDir
+    classifier = "headers"
+
+    from('src/main/native/include') {
+        into '/'
     }
-    publications {
-        snobot_sim(MavenPublication) {
-            groupId 'com.snobot.simulator'
-            artifactId 'snobot_sim'
-            version maven_version
+}
 
-            artifact cppSourcesZip
+task standaloneCppSourcesZip(type: Zip) {
+    destinationDir = project.buildDir
+    classifier = "sources"
 
+    from('src/standalone/native') {
+        into 'SnobotSim'
+    }
+}
+
+task standaloneCppHeadersZip(type: Zip) {
+    destinationDir = project.buildDir
+    classifier = "headers"
+
+    from('src/standalone/native/include') {
+        into '/'
+    }
+}
+
+model {
+    publishing {
+        repositories {
+           maven {
+               url maven_publishing_path
+           }
         }
-    }
+        
+        def snobotSimTaskList = createComponentZipTasks($.components, 'snobotSimCpp', libraryZipBaseName, Zip, project, includeStandardZipFormat)
+        def snobotSimStandaloneTaskList = createComponentZipTasks($.components, 'standaloneSnobotSimBase', standaloneZipBaseName, Zip, project, includeStandardZipFormat)
 
+        publications {
+            snobot_sim(MavenPublication) {
+                groupId 'com.snobot.simulator'
+                artifactId 'snobot_sim'
+                version maven_version
+                
+                snobotSimTaskList.each {
+                    artifact it
+                }
+
+                artifact libraryCppHeadersZip
+                artifact libraryCppSourcesZip
+            }
+            
+            snobot_sim_standalone(MavenPublication) {
+                groupId 'com.snobot.simulator'
+                artifactId 'snobot_sim_cpp_standalone'
+                version maven_version
+
+                snobotSimStandaloneTaskList.each {
+                    artifact it
+                }
+                
+                artifact standaloneCppHeadersZip
+                artifact standaloneCppSourcesZip
+            }
+        }
+
+    }
 }

@@ -49,7 +49,7 @@ model {
             headerClassifier = 'headers'
             ext = 'zip'
             version = allwpilibVersion()
-            sharedConfigs = [ snobotSimCpp: [] ]
+            sharedConfigs = [ snobotSimCpp: [], standaloneSnobotSimBase: [] ]
         }
         adxfamily(DependencyConfig) {
             groupId = 'edu.wpi.first.halsim'
@@ -80,7 +80,22 @@ model {
                 }
             }
         }
-
+        
+        standaloneSnobotSimBase(NativeLibrarySpec) {
+            sources {
+                cpp {
+                    source {
+                        srcDirs = ['src/standalone/native/cpp']
+                        includes = ['**/*.cpp']
+                    }
+                    exportedHeaders {
+                        srcDirs = ["src/standalone/native/include"]
+                    }
+                    lib project: ':snobot_sim', library: 'snobotSimCpp', linkage: 'shared'
+                    lib project: ':sim_extension_navx', library: 'navx_simulator', linkage: 'shared'
+                }
+            }
+        }
     }
     binaries {
         withType(StaticLibraryBinarySpec) {

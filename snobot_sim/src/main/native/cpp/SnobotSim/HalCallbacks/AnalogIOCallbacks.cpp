@@ -4,6 +4,7 @@
 #include "MockData/AnalogInData.h"
 #include "MockData/AnalogOutData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
+#include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogInWrapper.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogOutWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
@@ -17,8 +18,7 @@ void AnalogInCallback(const char* name, void* param, const struct HAL_Value* val
     {
         if (!SensorActuatorRegistry::Get().GetIAnalogInWrapper(port, false))
         {
-            SensorActuatorRegistry::Get().Register(port,
-                    std::shared_ptr<IAnalogInWrapper>(new WpiAnalogInWrapper(port)));
+            FactoryContainer::Get().GetAnalogInFactory()->Create(port, "WpiAnalogInWrapper");
         }
         SensorActuatorRegistry::Get().GetIAnalogInWrapper(port)->SetInitialized(true);
     }
@@ -37,8 +37,7 @@ void AnalogOutCallback(const char* name, void* param, const struct HAL_Value* va
     {
         if (!SensorActuatorRegistry::Get().GetIAnalogOutWrapper(port, false))
         {
-            SensorActuatorRegistry::Get().Register(port,
-                    std::shared_ptr<IAnalogOutWrapper>(new WpiAnalogOutWrapper(port)));
+            FactoryContainer::Get().GetAnalogOutFactory()->Create(port, "WpiAnalogOutWrapper");
         }
         SensorActuatorRegistry::Get().GetIAnalogOutWrapper(port)->SetInitialized(true);
     }
