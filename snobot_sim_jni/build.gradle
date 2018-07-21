@@ -28,8 +28,8 @@ ext
                       ]
     
     libraryBaseName = 'snobotSimJni'
-    librarySrcDirs = [ 'cpp']
-    libraryHeaderDirs = [ 'cpp' ]
+    librarySrcDirs = [ 'src/main/native']
+    libraryHeaderDirs = [ 'src/main/native' ]
     
     include_navx_lib = true
     
@@ -40,6 +40,8 @@ ext
 
 
 apply from: "${rootDir}/common/base_jni_script.gradle"
+
+sourceSets.main.java.srcDir "src/cpp_wrapper/java"
 
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
@@ -111,3 +113,6 @@ model {
         }
     }
 }
+
+apply from: "publish.gradle"
+
