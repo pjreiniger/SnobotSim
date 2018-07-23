@@ -7,8 +7,8 @@
 #include "SnobotSim/ModuleWrapper/Interfaces/ISolenoidWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "com_snobot_simulator_jni_module_wrapper_SolenoidWrapperJni.h"
-#include "SnobotSim/ModuleWrapper/Factories/SolenoidFactory.h"
-#include "wpi/jni_util.h"
+#include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
+#include "support/jni_util.h"
 
 using namespace wpi::java;
 
@@ -70,9 +70,7 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_Solenoi
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SolenoidWrapperJni_createSimulator
   (JNIEnv * env, jclass, jint aHandle, jstring aType)
 {
-	static SolenoidFactory factory;
-
-	return factory.Create(aHandle, env->GetStringUTFChars(aType, NULL));
+	return FactoryContainer::Get().GetSolenoidFactory()->Create(aHandle, env->GetStringUTFChars(aType, NULL));
 }
 
 /*

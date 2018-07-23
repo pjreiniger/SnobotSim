@@ -8,8 +8,8 @@
 #include "SnobotSim/ModuleWrapper/Interfaces/IDigitalIoWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "com_snobot_simulator_jni_module_wrapper_DigitalSourceWrapperJni.h"
-#include "SnobotSim/ModuleWrapper/Factories/DigitalIoFactory.h"
-#include "wpi/jni_util.h"
+#include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
+#include "support/jni_util.h"
 
 using namespace wpi::java;
 
@@ -72,9 +72,7 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_Digital
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_DigitalSourceWrapperJni_createSimulator
   (JNIEnv * env, jclass, jint aHandle, jstring aType)
 {
-	static DigitalIoFactory factory;
-
-	return factory.Create(aHandle, env->GetStringUTFChars(aType, NULL));
+	return FactoryContainer::Get().GetDigitalIoFactory()->Create(aHandle, env->GetStringUTFChars(aType, NULL));
 }
 
 /*

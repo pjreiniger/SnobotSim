@@ -13,12 +13,10 @@
 
 RelayFactory::RelayFactory()
 {
-    // TODO Auto-generated constructor stub
 }
 
 RelayFactory::~RelayFactory()
 {
-    // TODO Auto-generated destructor stub
 }
 
 bool RelayFactory::Create(int aHandle, const std::string& aType)
@@ -27,8 +25,13 @@ bool RelayFactory::Create(int aHandle, const std::string& aType)
 
     if (aType == "WpiRelayWrapper")
     {
-        SensorActuatorRegistry::Get().Register(aHandle,
-                std::shared_ptr<IRelayWrapper>(new WpiRelayWrapper(aHandle)));
+        if (!SensorActuatorRegistry::Get().GetIRelayWrapper(aHandle, false))
+        {
+            SNOBOT_LOG(SnobotLogging::WARN, "Not set up before loading robot");
+
+            SensorActuatorRegistry::Get().Register(aHandle,
+                    std::shared_ptr<IRelayWrapper>(new WpiRelayWrapper(aHandle)));
+        }
     }
     else
     {

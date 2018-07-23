@@ -13,12 +13,10 @@
 
 SpeedControllerFactory::SpeedControllerFactory()
 {
-    // TODO Auto-generated constructor stub
 }
 
 SpeedControllerFactory::~SpeedControllerFactory()
 {
-    // TODO Auto-generated destructor stub
 }
 
 bool SpeedControllerFactory::Create(int aHandle, const std::string& aType)
@@ -27,8 +25,13 @@ bool SpeedControllerFactory::Create(int aHandle, const std::string& aType)
 
     if (aType == "WpiPwmWrapper")
     {
-        SensorActuatorRegistry::Get().Register(aHandle,
-                std::shared_ptr<ISpeedControllerWrapper>(new WpiSpeedControllerWrapper(aHandle)));
+        if (!SensorActuatorRegistry::Get().GetISpeedControllerWrapper(aHandle, false))
+        {
+            SNOBOT_LOG(SnobotLogging::WARN, "Not set up before loading robot");
+
+            SensorActuatorRegistry::Get().Register(aHandle,
+                    std::shared_ptr<ISpeedControllerWrapper>(new WpiSpeedControllerWrapper(aHandle)));
+        }
     }
     else
     {

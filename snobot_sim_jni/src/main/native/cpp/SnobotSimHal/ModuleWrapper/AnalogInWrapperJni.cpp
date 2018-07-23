@@ -7,8 +7,8 @@
 #include "SnobotSim/ModuleWrapper/Interfaces/IAnalogInWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "com_snobot_simulator_jni_module_wrapper_AnalogInWrapperJni.h"
-#include "SnobotSim/ModuleWrapper/Factories/AnalogInFactory.h"
-#include "wpi/jni_util.h"
+#include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
+#include "support/jni_util.h"
 
 using namespace wpi::java;
 
@@ -72,9 +72,7 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_AnalogI
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_AnalogInWrapperJni_createSimulator
   (JNIEnv * env, jclass, jint aHandle, jstring aType)
 {
-	static AnalogInFactory factory;
-
-	return factory.Create(aHandle, env->GetStringUTFChars(aType, NULL));
+	return FactoryContainer::Get().GetAnalogInFactory()->Create(aHandle, env->GetStringUTFChars(aType, NULL));
 }
 
 /*

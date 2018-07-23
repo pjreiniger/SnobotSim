@@ -1,0 +1,39 @@
+
+
+def jniWrapperZipBaseName = '_GROUP_com_snobot_simulator_snobot_sim_jni_wrapper_ID_snobot_sim_CLS'
+
+task jniWrapperCppHeadersZip(type: Zip) {
+    destinationDir = project.buildDir
+    classifier = "cpp_jni_wrapper-headers"
+
+    println "In here"
+    from('src/cpp_wrapper/native/include') {
+        into '/'
+    }
+    
+    from('build/jniinclude/compileJava') {
+        include "com_snobot_simulator_cpp_wrapper_CppJniWrapper.h"
+        into '/'
+    }
+}
+
+model {
+    publishing {
+        repositories {
+           maven {
+               url maven_publishing_path
+           }
+        }
+        
+        publications {
+            
+            snobot_sim_cpp_jni_wrapper(MavenPublication) {
+                groupId 'com.snobot.simulator'
+                artifactId 'snobot_sim_jni'
+                version maven_version
+                
+                artifact jniWrapperCppHeadersZip
+            }
+        }
+    }
+}

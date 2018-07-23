@@ -6,7 +6,7 @@
 #include "SnobotSim/GetSensorActuatorHelper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "SnobotSim/ModuleWrapper/Interfaces/IGyroWrapper.h"
-#include "SnobotSim/ModuleWrapper/Factories/GyroFactory.h"
+#include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "com_snobot_simulator_jni_module_wrapper_GyroWrapperJni.h"
 #include "wpi/jni_util.h"
 
@@ -83,9 +83,7 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_GyroWra
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_GyroWrapperJni_createSimulator
   (JNIEnv * env, jclass, jint aHandle, jstring aType)
 {
-	static GyroFactory factory;
-
-	return factory.Create(aHandle, env->GetStringUTFChars(aType, NULL));
+	return FactoryContainer::Get().GetGyroFactory()->Create(aHandle, env->GetStringUTFChars(aType, NULL));
 }
 
 /*

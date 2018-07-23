@@ -73,6 +73,7 @@ public final class JniLibraryResourceLoader
     {
         try
         {
+            sLOGGER.log(Level.DEBUG, "Loading native library" + aLibraryname);
             System.loadLibrary(aLibraryname);
             return true;
         }

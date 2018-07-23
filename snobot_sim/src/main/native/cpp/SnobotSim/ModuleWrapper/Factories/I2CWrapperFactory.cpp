@@ -14,19 +14,12 @@
 const std::string I2CWrapperFactory::I2C_ACCELEROMETER_NAME = "ADXL345";
 const std::string I2CWrapperFactory::NAVX = "NavX";
 
-I2CWrapperFactory I2CWrapperFactory::sINSTANCE;
-
 I2CWrapperFactory::I2CWrapperFactory()
 {
 }
 
 I2CWrapperFactory::~I2CWrapperFactory()
 {
-}
-
-I2CWrapperFactory& I2CWrapperFactory::Get()
-{
-    return sINSTANCE;
 }
 
 void I2CWrapperFactory::RegisterDefaultWrapperType(int aPort, const std::string& aWrapperType)

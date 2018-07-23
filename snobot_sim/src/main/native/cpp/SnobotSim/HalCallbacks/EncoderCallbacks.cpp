@@ -3,6 +3,7 @@
 
 #include "MockData/EncoderData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
+#include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiEncoderWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 
@@ -15,8 +16,7 @@ void EncoderCallback(const char* name, void* param, const struct HAL_Value* valu
     {
         if (!SensorActuatorRegistry::Get().GetIEncoderWrapper(port, false))
         {
-            SensorActuatorRegistry::Get().Register(port,
-                    std::shared_ptr<IEncoderWrapper>(new WpiEncoderWrapper(port, port)));
+            FactoryContainer::Get().GetEncoderFactory()->Create(port, "WpiEncoderWrapper");
         }
         SensorActuatorRegistry::Get().GetIEncoderWrapper(port)->SetInitialized(true);
     }

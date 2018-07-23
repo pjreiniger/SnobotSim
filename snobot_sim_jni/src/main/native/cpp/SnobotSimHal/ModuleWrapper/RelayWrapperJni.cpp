@@ -5,7 +5,7 @@
 
 #include "SnobotSim/GetSensorActuatorHelper.h"
 #include "SnobotSim/ModuleWrapper/Interfaces/IRelayWrapper.h"
-#include "SnobotSim/ModuleWrapper/Factories/RelayFactory.h"
+#include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "com_snobot_simulator_jni_module_wrapper_RelayWrapperJni.h"
 #include "wpi/jni_util.h"
@@ -70,9 +70,7 @@ JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWr
 JNIEXPORT jboolean JNICALL Java_com_snobot_simulator_jni_module_1wrapper_RelayWrapperJni_createSimulator
   (JNIEnv * env, jclass, jint aHandle, jstring aType)
 {
-	static RelayFactory factory;
-
-	return factory.Create(aHandle, env->GetStringUTFChars(aType, NULL));
+	return FactoryContainer::Get().GetRelayFactory()->Create(aHandle, env->GetStringUTFChars(aType, NULL));
 }
 
 /*

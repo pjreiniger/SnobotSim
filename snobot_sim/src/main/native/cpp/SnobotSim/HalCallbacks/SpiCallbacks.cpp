@@ -10,7 +10,7 @@
 #include "MockData/SPIData.h"
 #include "SnobotSim/GetSensorActuatorHelper.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
-#include "SnobotSim/ModuleWrapper/Factories/SpiWrapperFactory.h"
+#include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/Interfaces/ISpiWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 
@@ -21,7 +21,7 @@ void SpiCallback(const char* name, void* param, const struct HAL_Value* value)
 
     if ("Initialized" == nameStr)
     {
-        std::shared_ptr<ISpiWrapper> spiWrapper = SpiWrapperFactory::Get().GetSpiWrapper(port);
+        std::shared_ptr<ISpiWrapper> spiWrapper = FactoryContainer::Get().GetSpiWrapperFactory()->GetSpiWrapper(port);
         SensorActuatorRegistry::Get().Register(port, spiWrapper);
     }
     else
