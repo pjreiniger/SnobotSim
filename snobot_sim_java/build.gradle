@@ -36,6 +36,7 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
+    testRuntime 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
     testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
     testRuntime 'org.opencv:opencv-java:' + getWpilibOpencvVersion()

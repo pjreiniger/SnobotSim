@@ -5,7 +5,7 @@
  *      Author: PJ
  */
 
-#include "StandaloneSimulator.h"
+#include "SnobotSim/StandaloneSimulator.h"
 
 #include <thread>
 

@@ -10,21 +10,16 @@ import edu.wpi.first.wpilibj.ADXL345_SPI.AllAxes;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.hal.HAL;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
-import edu.wpi.first.wpiutil.RuntimeDetector;
 
 public class TestLinking
 {
     @Test
     public void testLinking()
     {
-        if (!RuntimeDetector.isWindows())
-        {
-            JniLibraryResourceLoader.loadLibrary("uv");
-        }
         JniLibraryResourceLoader.loadLibrary("wpiutil");
         JniLibraryResourceLoader.loadLibrary("wpiHal");
         JniLibraryResourceLoader.loadLibrary("halsim_adx_gyro_accelerometer");
-        JniLibraryResourceLoader.loadLibrary("adx_family_jni");
+        JniLibraryResourceLoader.loadLibrary("adx_family");
         HAL.initialize(0, 0);
 
         SPI.Port port = SPI.Port.kOnboardCS1;

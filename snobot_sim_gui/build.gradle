@@ -23,8 +23,6 @@ configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
     
     // WPILib
-    compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
-    compile 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
     compile 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
     runtime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
     compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
@@ -64,6 +62,7 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
+    testCompile 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
     runtime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':native-all'
     testRuntime jar.outputs.files // Necessary for having resources in jar 
     

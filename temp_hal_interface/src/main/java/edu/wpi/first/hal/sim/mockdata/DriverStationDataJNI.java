@@ -1,7 +1,5 @@
 package edu.wpi.first.hal.sim.mockdata;
 
-import edu.wpi.first.wpilibj.hal.MatchInfoData;
-
 public class DriverStationDataJNI
 {
     public static native void setEnabled(boolean b);
@@ -18,6 +16,6 @@ public class DriverStationDataJNI
 
     public static native void setJoystickButtons(byte aJoystickHandle, int aButtonMask, int aButtonCount);
 
-    public static native void setMatchInfo(MatchInfoData info);
+    public static native void setMatchInfo(String eventName, String gameSpecificMessage, int matchNumber, int replayNumber, int matchType);
 
 }

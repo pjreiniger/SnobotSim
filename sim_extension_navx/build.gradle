@@ -11,7 +11,7 @@ ext
                         [':sim_extension_navx', 'navx_simulator', 'shared']
                       ]
     
-    libraryBaseName = 'navx_simulator_jni'
+    libraryBaseName = 'navx_simulator'
     librarySrcDirs = [ 'src/main/native/sim']
     libraryHeaderDirs = [ "src/main/native/include", ]
     
@@ -61,6 +61,7 @@ model {
     }
     components {
         navx_simulator(NativeLibrarySpec) {
+            baseName = "navx_simulator_base"
             sources {
                 cpp {
                     source {
@@ -93,6 +94,7 @@ dependencies {
     //testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
     testCompile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     //testRuntime 'edu.wpi.first.cameraserver:cameraserver-java:' + allwpilibVersion()
+    testRuntime 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
     testCompile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
     testRuntime 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
     testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'

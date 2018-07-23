@@ -10,7 +10,8 @@
 
 #include <iostream>
 
-#include <StandaloneSimulator.h>
+#include "SnobotSim/StandaloneSimulator.h"
+#include "SnobotSim/Logging/SnobotLogger.h"
 
 #define START_STANDALONE_SIMULATOR(_ClassName_, _SimulatorName_)                                                               \
     int main()                                                                                                                 \

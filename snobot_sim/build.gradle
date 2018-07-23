@@ -62,7 +62,7 @@ model {
     }
     components {
         snobotSimCpp(NativeLibrarySpec) {
-            baseName = 'snobotSimCpp'
+            baseName = 'snobot_sim'
             
             apply from: "../create_version_file.gradle"
             createCppVersion("src/main/native/cpp/SnobotSim", "SnobotSim", "SnobotSimHalVersion", getVersionName())
@@ -79,27 +79,6 @@ model {
                     lib project: ':sim_extension_navx', library: 'navx_simulator', linkage: 'shared'
                 }
             }
-        }
-        
-        standaloneSnobotSimBase(NativeLibrarySpec) {
-            sources {
-                cpp {
-                    source {
-                        srcDirs = ['src/standalone/native/cpp']
-                        includes = ['**/*.cpp']
-                    }
-                    exportedHeaders {
-                        srcDirs = ["src/standalone/native/include"]
-                    }
-                    lib project: ':snobot_sim', library: 'snobotSimCpp', linkage: 'shared'
-                    lib project: ':sim_extension_navx', library: 'navx_simulator', linkage: 'shared'
-                }
-            }
-        }
-    }
-    binaries {
-        withType(StaticLibraryBinarySpec) {
-            it.buildable = false
         }
     }
 }
