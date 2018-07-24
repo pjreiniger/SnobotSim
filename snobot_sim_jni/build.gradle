@@ -28,8 +28,8 @@ ext
                       ]
     
     libraryBaseName = 'snobotSimJni'
-    librarySrcDirs = [ 'cpp']
-    libraryHeaderDirs = [ 'cpp' ]
+    librarySrcDirs = [ 'src/main/native']
+    libraryHeaderDirs = [ 'src/main/native' ]
     
     include_navx_lib = true
     
@@ -40,6 +40,8 @@ ext
 
 
 apply from: "${rootDir}/common/base_jni_script.gradle"
+
+sourceSets.main.java.srcDir "src/cpp_wrapper/java"
 
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
@@ -58,6 +60,7 @@ dependencies {
     
     testCompile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
+    testRuntime 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
     testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
     testRuntime 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
@@ -71,8 +74,6 @@ dependencies {
     wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
     wpilibNativeDeps project(':snobot_sim_jni').packageNativeFiles.outputs.files
     wpilibNativeDeps project(':snobot_sim').packageNativeFilesInJar.outputs.files
-    
-    
 }
 
 apply from: "${rootDir}/common/extract_native_libraries.gradle"
