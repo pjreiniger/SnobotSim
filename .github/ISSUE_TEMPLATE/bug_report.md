@@ -12,7 +12,7 @@ Please provide the following information
 1. SnobotSimPlugin version
 2. SnobotSim version
 3. GradleRIO version
-4. Your Operating System
+4. Your Operating System. If you are amazingly using a 32-bit os include that. If you are using linux, please include a more in depth report (distro, version, etc)
 5. If your project is open source and you don't mind, a link to your repository
 
 
