@@ -2,7 +2,7 @@ package com.snobot.simulator.wrapper_accessors;
 
 public final class DataAccessorFactory
 {
-    private static IDataAccessor sInstance = null;
+    private static IDataAccessor sInstance;
 
     private DataAccessorFactory()
     {

@@ -129,6 +129,6 @@ clean {
 }
 
 
-findbugs {
-    ignoreFailures = true
-}
+//findbugs {
+//    ignoreFailures = true
+//}

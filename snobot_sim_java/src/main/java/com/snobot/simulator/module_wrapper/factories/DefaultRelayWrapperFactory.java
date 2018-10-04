@@ -12,6 +12,7 @@ public class DefaultRelayWrapperFactory extends BaseWrapperFactory
 {
     private static final Logger sLOGGER = LogManager.getLogger(JavaRelayWrapperAccessor.class);
 
+    @Override
     public boolean create(int aPort, String aType)
     {
         boolean success = true;

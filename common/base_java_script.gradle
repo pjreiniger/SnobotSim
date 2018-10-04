@@ -5,7 +5,7 @@ apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
-apply plugin: 'findbugs'
+apply plugin: 'com.github.spotbugs'
 apply plugin: 'eclipse'
 
 repositories {
@@ -39,22 +39,25 @@ test {
 /////////////////////////////////////////////////////////////////////////////////
 // Style/Formatting stuff
 checkstyle {
-    toolVersion = "8.1"
+    toolVersion = "8.10"
     configFile = new File(rootDir, "styleguide/checkstyle.xml")
 }
 
 pmd {
+    toolVersion = '6.3.0'
     consoleOutput  = true
     reportsDir = file("${project.buildDir}/reports/pmd")
     ruleSetFiles = files(file("$rootDir/styleguide/pmd-ruleset.xml"))
     ruleSets = []
 }
 
-findbugs {
-    excludeFilter = file("$rootDir/styleguide/findbugs_suppressions.xml")
-    effort = "max"
+spotbugs {
+  toolVersion = '3.1.7'
+  excludeFilter = file("$rootDir/styleguide/findbugs_suppressions.xml")
+  effort = "max"
 }
-tasks.withType(FindBugs) {
+
+tasks.withType(SpotBugsTask) {
     reports {
         xml.enabled false
         html.enabled true

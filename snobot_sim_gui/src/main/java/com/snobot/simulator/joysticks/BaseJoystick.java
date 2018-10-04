@@ -35,6 +35,7 @@ public class BaseJoystick implements IMockJoystick
         mPovValues = new short[mPOV.size()];
     }
 
+    @Override
     public Controller getController()
     {
         return mController;
@@ -141,6 +142,7 @@ public class BaseJoystick implements IMockJoystick
         return mPovValues;
     }
 
+    @Override
     public String getName()
     {
         return mName;

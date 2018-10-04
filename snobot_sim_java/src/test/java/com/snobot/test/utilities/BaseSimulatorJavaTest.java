@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.RobotBase;
 
 public class BaseSimulatorJavaTest
 {
-    private static boolean INITIALIZED = false;
+    private static boolean INITIALIZED;
     protected static final double DOUBLE_EPSILON = .00001;
 
     private void delete(File aPath)

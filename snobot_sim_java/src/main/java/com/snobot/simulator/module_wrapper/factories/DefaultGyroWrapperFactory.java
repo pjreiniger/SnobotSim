@@ -14,6 +14,7 @@ public class DefaultGyroWrapperFactory extends BaseWrapperFactory
 {
     private static final Logger sLOGGER = LogManager.getLogger(DefaultGyroWrapperFactory.class);
 
+    @Override
     public boolean create(int aPort, String aType)
     {
         boolean success = true;

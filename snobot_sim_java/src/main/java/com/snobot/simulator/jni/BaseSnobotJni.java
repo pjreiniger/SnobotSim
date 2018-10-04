@@ -17,6 +17,5 @@ public class BaseSnobotJni
         JniLibraryResourceLoader.loadLibrary("CTRE_PhoenixCCI");
 
         HAL.initialize(500, 0);
-        RegisterCallbacksJni.reset();
     }
 }
