@@ -3,10 +3,12 @@ package com.snobot.simulator;
 import java.io.File;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class TestPluginSniffer
 {
+    @Disabled
     @Test
     public void testPluginSnifferWithNoPlugins() throws Exception
     {

@@ -19,6 +19,7 @@ public class TestReadConfig extends BaseSimulatorTest
 {
     public static final int sTEST_PARAMETER = 5;
 
+    @Override
     @BeforeEach
     public void setup() // NOPMD
     {
@@ -52,6 +53,7 @@ public class TestReadConfig extends BaseSimulatorTest
         Assertions.assertNull(reader.getConfig());
     }
 
+    @Override
     @AfterEach
     public void cleanup()
     {

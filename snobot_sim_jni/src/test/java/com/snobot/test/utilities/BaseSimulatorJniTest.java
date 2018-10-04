@@ -12,11 +12,10 @@ import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.simulator.wrapper_accessors.jni.JniDataAccessor;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotBase;
 
 public class BaseSimulatorJniTest
 {
-    private static boolean INITIALIZED = false;
+    private static boolean INITIALIZED;
     protected static final double DOUBLE_EPSILON = .0002;
 
     private void delete(File aPath)
@@ -67,7 +66,6 @@ public class BaseSimulatorJniTest
         }
 
         SnobotSimulatorJni.reset();
-        RobotBase.initializeHardwareConfiguration();
     }
 
     protected void simulateForTime(double aSeconds, Runnable aTask)

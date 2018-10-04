@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.simulator.wrapper_accessors.SimulatorDataAccessor.SnobotLogLevel;
 
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
 
 public final class Main
@@ -105,7 +104,6 @@ public final class Main
     {
         try
         {
-            RobotBase.initializeHardwareConfiguration();
             PluginSniffer sniffer = new PluginSniffer();
             sniffer.loadPlugins(DEFAULT_PLUGIN_DIR);
             sniffer.findRobots();

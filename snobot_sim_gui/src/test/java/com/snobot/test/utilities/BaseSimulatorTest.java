@@ -10,12 +10,11 @@ import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.simulator.wrapper_accessors.SimulatorDataAccessor.SnobotLogLevel;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpiutil.RuntimeDetector;
 
 public class BaseSimulatorTest
 {
-    private static boolean INITIALIZED = false;
+    private static boolean INITIALIZED;
     protected static final double DOUBLE_EPSILON = .00001;
 
     protected final void delete(File aPath)
@@ -53,7 +52,6 @@ public class BaseSimulatorTest
         }
 
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        RobotBase.initializeHardwareConfiguration();
     }
 
     @AfterEach

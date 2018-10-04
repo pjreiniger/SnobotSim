@@ -8,7 +8,6 @@ import com.snobot.simulator.wrapper_accessors.DriverStationDataAccessor;
 
 import edu.wpi.first.hal.sim.mockdata.DriverStationDataJNI;
 import edu.wpi.first.hal.sim.mockdata.SimulatorJNI;
-import edu.wpi.first.wpilibj.hal.MatchInfoData;
 
 public class JavaDriverStationWrapperAccessor implements DriverStationDataAccessor
 {
@@ -85,13 +84,7 @@ public class JavaDriverStationWrapperAccessor implements DriverStationDataAccess
     @Override
     public void setMatchInfo(String aEventName, MatchType aMatchType, int aMatchNumber, int aReplayNumber, String aGameSpecificMessage)
     {
-        MatchInfoData data = new MatchInfoData();
-        data.eventName = aEventName;
-        data.matchType = aMatchType.ordinal();
-        data.matchNumber = aMatchNumber;
-        data.replayNumber = aReplayNumber;
-        data.gameSpecificMessage = aGameSpecificMessage;
-        DriverStationDataJNI.setMatchInfo(data);
+        DriverStationDataJNI.setMatchInfo(aEventName, aGameSpecificMessage, aMatchNumber, aReplayNumber, aMatchType.ordinal());
     }
 
     @Override

@@ -34,7 +34,7 @@ ext.build_simulator_java = true
 // Specify WPI Versions
 
 ext.allwpilibVersion = {
-    return '2018.4.1-20180630034724-1073-gebd41fe'
+    return '2018.4.1-20180920004758-1186-gbedef47'
 }
 
 ext.getWpiUtilVersion = {
@@ -51,11 +51,11 @@ ext.getWpilibOpencvVersion = {
     return '3.2.0'
 }
 ext.getCtreVersion = {
-    return '80.2.1.1'
+    return '5.2.1.1'
     //return '5.3.1.0'
 }
 ext.getCtreSimVersion = {
-    return 'V0_' + '5.2.1.1'
+    return 'V0_' + getCtreVersion()
 }
 ext.getNavxVersion = {
     return '3.0.346'

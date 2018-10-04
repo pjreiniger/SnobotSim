@@ -18,7 +18,7 @@ public class TestSimulator extends BaseSimulatorTest
 
     public class MockSimulator extends Simulator
     {
-        boolean mError = false;
+        boolean mError;
 
         public MockSimulator(SnobotLogLevel aLogLevel, File aPluginDirectory, String aUserConfigDir) throws Exception
         {
