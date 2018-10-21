@@ -13,8 +13,8 @@ def nativeclassifier = (
 def nativeCtreclassifier = (
     OperatingSystem.current().isWindows() ?
     System.getProperty("os.arch") == 'amd64' ? 'windows-x86-64' : 'windows-x86' :
-    OperatingSystem.current().isMacOsX() ? "os x" :
-    OperatingSystem.current().isLinux() ? "linux" :
+    OperatingSystem.current().isMacOsX() ? "os x-x86-64" :
+    OperatingSystem.current().isLinux() ? "linux-x86-64" :
     null
 )
 
