@@ -7,7 +7,7 @@
 
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogInWrapper.h"
 
-#include "MockData/AnalogInData.h"
+#include "mockdata/AnalogInData.h"
 #include "SnobotSim/PortUnwrapper.h"
 
 WpiAnalogInWrapper::WpiAnalogInWrapper(int aPort) :

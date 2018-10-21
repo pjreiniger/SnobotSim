@@ -1,5 +1,6 @@
 package com.snobot.simulator.simulator_components.adx_family;
 
+
 import edu.wpi.first.wpilibj.sim.ADXL362Sim;
 
 public class ADXL362SpiWrapper extends ADXFamily3AxisAccelerometer

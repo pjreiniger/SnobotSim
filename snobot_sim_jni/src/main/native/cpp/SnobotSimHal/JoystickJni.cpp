@@ -3,7 +3,7 @@
 
 #include <cassert>
 
-#include "MockData/DriverStationData.h"
+#include "mockdata/DriverStationData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "com_snobot_simulator_jni_JoystickJni.h"
 

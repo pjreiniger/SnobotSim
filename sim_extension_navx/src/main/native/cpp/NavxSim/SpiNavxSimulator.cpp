@@ -7,7 +7,7 @@
 
 #include "NavxSim/SpiNavxSimulator.h"
 
-#include "MockData/SPIData.h"
+#include "mockdata/SPIData.h"
 
 static void NavxSPIReadBufferCallback(const char* name, void* param,
         uint8_t* buffer, uint32_t count)

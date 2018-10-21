@@ -1,6 +1,6 @@
 package com.snobot.simulator.jni.standard_components;
 
-import edu.wpi.first.wpilibj.sim.NotifyCallback;
+import edu.wpi.first.hal.sim.NotifyCallback;
 
 public abstract class PortBasedNotifyCallback implements NotifyCallback
 {

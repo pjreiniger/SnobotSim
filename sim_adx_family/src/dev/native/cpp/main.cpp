@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-#include <HAL/HAL.h>
+#include <hal/HAL.h>
 
 #include "ADXRS450_SpiGyroWrapperData.h"
 

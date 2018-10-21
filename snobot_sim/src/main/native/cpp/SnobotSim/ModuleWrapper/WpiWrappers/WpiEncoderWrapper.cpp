@@ -7,7 +7,7 @@
 
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiEncoderWrapper.h"
 
-#include "MockData/EncoderData.h"
+#include "mockdata/EncoderData.h"
 #include "SnobotSim/PortUnwrapper.h"
 
 WpiEncoderWrapper::WpiEncoderWrapper(int aPortA, int aPortB) :

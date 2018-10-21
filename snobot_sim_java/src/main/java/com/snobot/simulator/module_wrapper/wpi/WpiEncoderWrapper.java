@@ -5,9 +5,9 @@ import org.apache.logging.log4j.LogManager;
 
 import com.snobot.simulator.module_wrapper.BaseEncoderWrapper;
 
-import edu.wpi.first.wpilibj.sim.EncoderSim;
-import edu.wpi.first.wpilibj.sim.NotifyCallback;
-import edu.wpi.first.wpilibj.sim.SimValue;
+import edu.wpi.first.hal.sim.EncoderSim;
+import edu.wpi.first.hal.sim.NotifyCallback;
+import edu.wpi.first.hal.sim.SimValue;
 
 public class WpiEncoderWrapper extends BaseEncoderWrapper implements NotifyCallback
 {

@@ -9,7 +9,7 @@
 
 #include <thread>
 
-#include "HAL/HAL.h"
+#include "hal/HAL.h"
 #include "SnobotSim/GetSensorActuatorHelper.h"
 #include "SnobotSim/HalCallbacks/CallbackSetup.h"
 #include "SnobotSim/Logging/SnobotCoutLogger.h"

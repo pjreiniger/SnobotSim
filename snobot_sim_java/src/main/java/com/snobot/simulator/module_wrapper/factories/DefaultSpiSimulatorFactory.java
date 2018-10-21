@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import edu.wpi.first.wpilibj.sim.ADXRS450_GyroSim;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,8 +18,6 @@ import com.snobot.simulator.simulator_components.adx_family.ADXL362SpiWrapper;
 import com.snobot.simulator.simulator_components.adx_family.ADXRS450GyroWrapper;
 import com.snobot.simulator.simulator_components.navx.BaseNavxSimulatorWrapper;
 import com.snobot.simulator.simulator_components.navx.SpiNavxSimulatorWrapper;
-
-import edu.wpi.first.wpilibj.sim.ADXRS450_GyroSim;
 
 public class DefaultSpiSimulatorFactory extends BaseWrapperFactory implements ISpiSimulatorFactory
 {

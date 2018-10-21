@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import com.snobot.simulator.jni.module_wrapper.SpeedControllerWrapperJni;
 import com.snobot.test.utilities.BaseSimulatorJniTest;
 
-import edu.wpi.first.wpilibj.hal.HAL;
+import edu.wpi.first.hal.HAL;
 
 public class TestLinking extends BaseSimulatorJniTest
 {

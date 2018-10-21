@@ -7,7 +7,7 @@
 
 #include "SnobotSim/HalCallbacks/AnalogGyroCallbacks.h"
 
-#include "MockData/AnalogGyroData.h"
+#include "mockdata/AnalogGyroData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogGyroWrapper.h"
