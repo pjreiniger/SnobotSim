@@ -7,8 +7,6 @@ platform:
 
 build_script:
 - ps: >-
-    echo $env:PLATFORM
-
     mkdir build
     
     $ProgressPreference = 'SilentlyContinue'
@@ -17,11 +15,15 @@ build_script:
       echo "32 Bit"
       
       wget "https://github.com/wpilibsuite/frc-openjdk-windows/releases/download/v11.0.0u28-1/jdk-x86-11.0.0u28-1.zip" -O "build\jdk.zip"
+    
+      $Env:JAVA_HOME = "$pwd/build/jdkinst/jdk"
     }
     else {
       echo "64 bit"
       
       wget "https://download.java.net/java/ga/jdk11/openjdk-11_windows-x64_bin.zip" -O "build\jdk.zip"
+    
+      $Env:JAVA_HOME = "$pwd/build/jdkinst/jdk-11"
     }
     Expand-Archive build\jdk.zip -DestinationPath build/jdkinst
     
@@ -31,9 +33,6 @@ build_script:
     
     dir build\jdkinst
     
-    dir build\jdkinst\jdk-11
-    
-    $Env:JAVA_HOME = "$pwd/build/jdkinst/jdk-11"
 - cmd: gradlew.bat build jacocoTestReport publish -Pmaven_repo=build/maven_repo -PciBuild
 
 after_build:
