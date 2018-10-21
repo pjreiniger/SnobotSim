@@ -31,7 +31,9 @@ build_script:
     
     dir build\jdkinst
     
-    $Env:JAVA_HOME = "$pwd/build/jdkinst"
+    dir build\jdkinst\jdk-11
+    
+    $Env:JAVA_HOME = "$pwd/build/jdkinst/jdk-11"
 - cmd: gradlew.bat build jacocoTestReport publish -Pmaven_repo=build/maven_repo -PciBuild
 
 after_build:
