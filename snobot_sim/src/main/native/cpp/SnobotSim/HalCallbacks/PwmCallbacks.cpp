@@ -2,7 +2,7 @@
 
 #include "SnobotSim/HalCallbacks/PwmCallbacks.h"
 
-#include "MockData/PWMData.h"
+#include "mockdata/PWMData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiSpeedControllerWrapper.h"

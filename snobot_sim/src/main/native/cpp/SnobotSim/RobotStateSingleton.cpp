@@ -10,7 +10,7 @@
 #include <chrono>
 #include <future>
 
-#include "MockData/DriverStationData.h"
+#include "mockdata/DriverStationData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 

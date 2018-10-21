@@ -1,7 +1,7 @@
 
 #include "SnobotSim/HalCallbacks/DigitalIOCallbacks.h"
 
-#include "MockData/DIOData.h"
+#include "mockdata/DIOData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiDigitalIoWrapper.h"

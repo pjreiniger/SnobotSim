@@ -7,7 +7,7 @@
 
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiDigitalIoWrapper.h"
 
-#include "MockData/DIOData.h"
+#include "mockdata/DIOData.h"
 #include "SnobotSim/PortUnwrapper.h"
 
 WpiDigitalIoWrapper::WpiDigitalIoWrapper(int aPort) :

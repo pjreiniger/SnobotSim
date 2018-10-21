@@ -7,7 +7,7 @@
 
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiSolenoidWrapper.h"
 
-#include "MockData/PCMData.h"
+#include "mockdata/PCMData.h"
 #include "SnobotSim/PortUnwrapper.h"
 
 WpiSolenoidWrapper::WpiSolenoidWrapper(int aPort) :

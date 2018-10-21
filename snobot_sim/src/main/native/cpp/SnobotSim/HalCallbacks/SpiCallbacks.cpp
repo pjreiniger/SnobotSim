@@ -7,7 +7,7 @@
 
 #include "SnobotSim/HalCallbacks/SpiCallbacks.h"
 
-#include "MockData/SPIData.h"
+#include "mockdata/SPIData.h"
 #include "SnobotSim/GetSensorActuatorHelper.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"

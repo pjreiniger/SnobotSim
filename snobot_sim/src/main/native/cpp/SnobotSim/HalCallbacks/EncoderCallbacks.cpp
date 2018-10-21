@@ -1,7 +1,7 @@
 
 #include "SnobotSim/HalCallbacks/EncoderCallbacks.h"
 
-#include "MockData/EncoderData.h"
+#include "mockdata/EncoderData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiEncoderWrapper.h"

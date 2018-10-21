@@ -7,7 +7,7 @@
 
 #include "SnobotSim/HalCallbacks/I2CCallbacks.h"
 
-#include "MockData/I2CData.h"
+#include "mockdata/I2CData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/Interfaces/II2CWrapper.h"

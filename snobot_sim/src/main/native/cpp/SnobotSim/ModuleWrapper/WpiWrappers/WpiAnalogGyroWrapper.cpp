@@ -7,7 +7,7 @@
 
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogGyroWrapper.h"
 
-#include "MockData/AnalogGyroData.h"
+#include "mockdata/AnalogGyroData.h"
 
 WpiAnalogGyroWrapper::WpiAnalogGyroWrapper(int aPort) :
         AModuleWrapper("Analog Gyro"),
