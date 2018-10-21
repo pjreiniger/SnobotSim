@@ -47,10 +47,10 @@ script:
            python3.5 -m wpiformat -y 2018 -clang 5.0;
            git --no-pager diff --exit-code HEAD  # Ensure formatter made no changes
         fi;
-       ./gradlew build -x :snobot_sim_gui:test -x :snobot_sim_jni:test
-       # Clone the hacky repo, publish into it
-       git clone --depth=50 --branch=master https://github.com/pjreiniger/maven_repo.git ../../pjreiniger/maven_repo
-       ./gradlew publish  -PciBuild -Pmaven_repo=../../pjreiniger/maven_repo
+        ./gradlew build -x :snobot_sim_gui:test -x :snobot_sim_jni:test
+        # Clone the hacky repo, publish into it
+        git clone --depth=50 --branch=master https://github.com/pjreiniger/maven_repo.git ../../pjreiniger/maven_repo
+        ./gradlew publish  -PciBuild -Pmaven_repo=../../pjreiniger/maven_repo
 
 deploy:
   - provider: script
