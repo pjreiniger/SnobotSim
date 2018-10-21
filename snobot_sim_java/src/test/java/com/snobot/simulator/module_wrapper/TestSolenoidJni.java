@@ -1,6 +1,7 @@
 package com.snobot.simulator.module_wrapper;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper;
@@ -60,6 +61,7 @@ public class TestSolenoidJni extends BaseSimulatorJavaTest
         });
     }
 
+    @Disabled
     @Test
     public void testSet()
     {

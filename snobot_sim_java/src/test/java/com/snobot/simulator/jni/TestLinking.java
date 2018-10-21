@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
-import edu.wpi.first.wpilibj.hal.HAL;
+import edu.wpi.first.hal.HAL;
 
 public class TestLinking extends BaseSimulatorJavaTest
 {

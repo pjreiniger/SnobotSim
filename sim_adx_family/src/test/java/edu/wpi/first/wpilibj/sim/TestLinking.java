@@ -8,7 +8,7 @@ import com.snobot.simulator.JniLibraryResourceLoader;
 import edu.wpi.first.wpilibj.ADXL345_SPI;
 import edu.wpi.first.wpilibj.ADXL345_SPI.AllAxes;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.hal.HAL;
+import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 
 public class TestLinking

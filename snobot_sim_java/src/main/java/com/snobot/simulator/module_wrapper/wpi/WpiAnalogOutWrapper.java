@@ -6,9 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IAnalogOutWrapper;
 
-import edu.wpi.first.wpilibj.sim.AnalogOutSim;
-import edu.wpi.first.wpilibj.sim.NotifyCallback;
-import edu.wpi.first.wpilibj.sim.SimValue;
+import edu.wpi.first.hal.sim.AnalogOutSim;
+import edu.wpi.first.hal.sim.NotifyCallback;
+import edu.wpi.first.hal.sim.SimValue;
 
 public class WpiAnalogOutWrapper extends ASensorWrapper implements IAnalogOutWrapper, NotifyCallback
 {

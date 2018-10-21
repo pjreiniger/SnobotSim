@@ -10,7 +10,7 @@ import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.PWMDataJNI;
 import edu.wpi.first.wpilibj.SensorUtil;
-import edu.wpi.first.wpilibj.sim.SimValue;
+import edu.wpi.first.hal.sim.SimValue;
 
 public final class PwmCallbackJni
 {

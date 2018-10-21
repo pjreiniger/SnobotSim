@@ -6,9 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IRelayWrapper;
 
-import edu.wpi.first.wpilibj.sim.NotifyCallback;
-import edu.wpi.first.wpilibj.sim.RelaySim;
-import edu.wpi.first.wpilibj.sim.SimValue;
+import edu.wpi.first.hal.sim.NotifyCallback;
+import edu.wpi.first.hal.sim.RelaySim;
+import edu.wpi.first.hal.sim.SimValue;
 
 public class WpiRelayWrapper extends ASensorWrapper implements IRelayWrapper, NotifyCallback
 {

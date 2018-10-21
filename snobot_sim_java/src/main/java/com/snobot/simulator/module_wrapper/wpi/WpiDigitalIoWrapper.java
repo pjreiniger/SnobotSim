@@ -6,9 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IDigitalIoWrapper;
 
-import edu.wpi.first.wpilibj.sim.DIOSim;
-import edu.wpi.first.wpilibj.sim.NotifyCallback;
-import edu.wpi.first.wpilibj.sim.SimValue;
+import edu.wpi.first.hal.sim.DIOSim;
+import edu.wpi.first.hal.sim.NotifyCallback;
+import edu.wpi.first.hal.sim.SimValue;
 
 public class WpiDigitalIoWrapper extends ASensorWrapper implements IDigitalIoWrapper, NotifyCallback
 {
