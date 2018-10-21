@@ -7,8 +7,6 @@
 
 #include "NavxSim/NavxSimulator.h"
 
-#include "MockData/NotifyCallbackHelpers.h"
-
 NavxSimulator::NavxSimulator()
 {
 }

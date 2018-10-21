@@ -19,12 +19,14 @@ public class BaseGuiSimulatorTest extends BaseSimulatorTest
         return mFrame;
     }
 
+    @Override
     @BeforeEach
     public void setup()
     {
         super.setup();
     }
 
+    @Override
     @AfterEach
     public void cleanup()
     {

@@ -8,6 +8,8 @@
 #ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MODULEWRAPPER_FACTORIES_FACTORYCONTAINER_H_
 #define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MODULEWRAPPER_FACTORIES_FACTORYCONTAINER_H_
 
+#include <memory>
+
 #include "SnobotSim/ModuleWrapper/Factories/AccelerometerFactory.h"
 #include "SnobotSim/ModuleWrapper/Factories/AnalogInFactory.h"
 #include "SnobotSim/ModuleWrapper/Factories/AnalogOutFactory.h"
@@ -22,7 +24,6 @@
 
 class EXPORT_ FactoryContainer
 {
-
 private:
     FactoryContainer();
     FactoryContainer(const FactoryContainer& that) = delete;

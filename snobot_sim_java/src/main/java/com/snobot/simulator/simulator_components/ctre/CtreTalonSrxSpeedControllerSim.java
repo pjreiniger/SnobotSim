@@ -22,8 +22,8 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
 
     public static final int sCTRE_OFFSET = 100;
 
-    private boolean mLoggedCantOverrideFwdLimitSwitch = false;
-    private boolean mLoggedCantOverrideRevLimitSwitch = false;
+    private boolean mLoggedCantOverrideFwdLimitSwitch;
+    private boolean mLoggedCantOverrideRevLimitSwitch;
 
     public enum ControlType
     {

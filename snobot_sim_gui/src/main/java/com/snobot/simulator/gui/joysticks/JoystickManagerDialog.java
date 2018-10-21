@@ -79,6 +79,7 @@ public class JoystickManagerDialog extends JDialog
         add(tabbedPane, BorderLayout.CENTER);
     }
 
+    @Override
     public void setVisible(boolean aVisible)
     {
         if (aVisible && !mIsOpen)

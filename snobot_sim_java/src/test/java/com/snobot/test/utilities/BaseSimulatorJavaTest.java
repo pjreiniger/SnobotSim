@@ -10,11 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.simulator.wrapper_accessors.java.JavaDataAccessor;
 
-import edu.wpi.first.wpilibj.RobotBase;
-
 public class BaseSimulatorJavaTest
 {
-    private static boolean INITIALIZED = false;
+    private static boolean INITIALIZED;
     protected static final double DOUBLE_EPSILON = .00001;
 
     private void delete(File aPath)
@@ -67,7 +65,6 @@ public class BaseSimulatorJavaTest
 
         DataAccessorFactory.getInstance().getDriverStationAccessor().waitForNextUpdateLoop();
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        RobotBase.initializeHardwareConfiguration();
     }
 
     protected void simulateForTime(double aSeconds, Runnable aTask)

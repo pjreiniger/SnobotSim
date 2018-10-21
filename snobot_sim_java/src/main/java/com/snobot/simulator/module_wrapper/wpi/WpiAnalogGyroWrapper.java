@@ -26,11 +26,13 @@ public class WpiAnalogGyroWrapper extends ASensorWrapper implements IGyroWrapper
         LogManager.getLogger(WpiAnalogGyroWrapper.class).log(Level.WARN, "Callback " + aCallbackType + " not supported");
     }
 
+    @Override
     public void setAngle(double aAngle)
     {
         mWpiSimulator.setAngle(aAngle);
     }
 
+    @Override
     public double getAngle()
     {
         return mWpiSimulator.getAngle();

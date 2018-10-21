@@ -45,7 +45,6 @@ import edu.wpi.first.wpilibj.tables.ITable;
 
 public class AHRS extends SendableBase implements PIDSource
 {
-
     /**
      * Identifies one of the three sensing axes on the navX sensor board.  Note that these axes are
      * board-relative ("Board Frame"), and are not necessarily the same as the logical axes of the

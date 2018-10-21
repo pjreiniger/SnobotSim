@@ -41,6 +41,7 @@ public abstract class BaseDcMotorSimulator implements IMotorSimulator
         return mMotorModel.getPosition() * mConversionFactor;
     }
 
+    @Override
     public double getAcceleration()
     {
         return mMotorModel.getAcceleration() * mConversionFactor;
@@ -58,6 +59,7 @@ public abstract class BaseDcMotorSimulator implements IMotorSimulator
         mMotorModel.reset(aPosition, aVelocity, aCurrent);
     }
 
+    @Override
     public double getCurrent()
     {
         return mMotorModel.getCurrent();

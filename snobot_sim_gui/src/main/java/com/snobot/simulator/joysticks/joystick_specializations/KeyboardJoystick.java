@@ -149,6 +149,7 @@ public class KeyboardJoystick extends BaseJoystick
         return mAxisValues;
     }
 
+    @Override
     public short[] getPovValues()
     {
         boolean up = mController.getComponent(Identifier.Key.UP).getPollData() != 0;

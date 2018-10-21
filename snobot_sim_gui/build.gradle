@@ -129,6 +129,6 @@ clean {
 }
 
 
-findbugs {
+spotbugs {
     ignoreFailures = true
 }

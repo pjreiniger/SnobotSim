@@ -17,6 +17,11 @@ import edu.wpi.first.hal.sim.mockdata.SimulatorJNI;
 
 public final class RegisterCallbacksJni extends BaseSnobotJni
 {
+    static
+    {
+        reset();
+    }
+
     private RegisterCallbacksJni()
     {
 

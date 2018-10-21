@@ -22,9 +22,9 @@ public class TestControllerLoop extends BaseSimulatorJavaTest
 {
     private static class TestRobot extends IterativeRobot
     {
-        public int mDisabledCtr = 0;
-        public int mEnabledCtr = 0;
-        public int mAutonCtr = 0;
+        public int mDisabledCtr;
+        public int mEnabledCtr;
+        public int mAutonCtr;
 
         private final SpeedController mSpeedController0;
         private final SpeedController mSpeedController1;

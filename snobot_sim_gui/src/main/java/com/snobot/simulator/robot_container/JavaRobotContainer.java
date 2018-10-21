@@ -21,8 +21,6 @@ public class JavaRobotContainer implements IRobotClassContainer
     @Override
     public void constructRobot() throws InstantiationException, IllegalAccessException, ClassNotFoundException
     {
-
-        RobotBase.initializeHardwareConfiguration();
         mRobot = (RobotBase) Class.forName(mRobotClassName).newInstance();
     }
 

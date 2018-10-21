@@ -66,6 +66,7 @@ public class TankDriveGyroSimulator implements ISimulatorUpdater
         return mIsSetup;
     }
 
+    @Override
     public Object getConfig()
     {
         return mConfig;

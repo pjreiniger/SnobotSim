@@ -17,8 +17,6 @@ public class RotationalLoadDcMotorSimTest extends BaseSimulatorJavaTest
     @Test
     public void testMotor() throws IOException
     {
-        double dt = .0001;
-
         double armCenterOfMass = .82;  // m
         double armMass = .2;  // kg
 

@@ -113,6 +113,7 @@ public class DefaultSpiSimulatorFactory extends BaseWrapperFactory implements IS
         return simulator == null;
     }
 
+    @Override
     public Collection<String> getAvailableTypes()
     {
         return Arrays.asList(sNAVX_TYPE, sADXRS450_TYPE, sADXL345_TYPE, sADXL362_TYPE);

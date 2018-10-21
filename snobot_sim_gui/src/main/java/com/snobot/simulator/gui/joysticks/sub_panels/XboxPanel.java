@@ -44,6 +44,7 @@ public class XboxPanel extends JPanel
         repaint();
     }
 
+    @Override
     public void paint(Graphics aGraphics)
     {
         if (mControllerImage == null)

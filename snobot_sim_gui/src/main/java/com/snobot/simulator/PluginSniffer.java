@@ -74,6 +74,7 @@ public class PluginSniffer
         mDiscoveredJars = aPluginDir.listFiles(new FilenameFilter()
         {
 
+            @Override
             public boolean accept(File aDir, String aName)
             {
                 return aName.endsWith(".jar");

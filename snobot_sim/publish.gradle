@@ -28,15 +28,15 @@ model {
                url maven_publishing_path
            }
         }
-        
+
         def snobotSimTaskList = createComponentZipTasks($.components, 'snobotSimCpp', zipBaseName, Zip, project, includeStandardZipFormat)
-        
+
         publications {
             snobot_sim(MavenPublication) {
                 groupId 'com.snobot.simulator'
                 artifactId 'snobot_sim'
                 version maven_version
-                
+
                 snobotSimTaskList.each {
                     artifact it
                 }

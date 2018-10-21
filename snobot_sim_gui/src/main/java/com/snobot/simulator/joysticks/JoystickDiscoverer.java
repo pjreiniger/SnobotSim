@@ -94,6 +94,7 @@ public final class JoystickDiscoverer
         List<Map.Entry<String, ControllerConfiguration>> list = new LinkedList<Map.Entry<String, ControllerConfiguration>>(aMap.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<String, ControllerConfiguration>>()
         {
+            @Override
             public int compare(Map.Entry<String, ControllerConfiguration> aObject1, Map.Entry<String, ControllerConfiguration> aObject2)
             {
                 // Hacky sort, we just want the keyboard to bubble down

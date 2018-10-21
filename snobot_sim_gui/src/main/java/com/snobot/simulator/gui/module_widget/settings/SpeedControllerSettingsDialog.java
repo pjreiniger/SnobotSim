@@ -68,6 +68,7 @@ public class SpeedControllerSettingsDialog extends SimpleSettingsDialog
         mSimModeSelector.setSelectedItem(mode);
     }
 
+    @Override
     public void setVisible(boolean aVisible)
     {
         MotorSimType mode = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getMotorSimType(mHandle);

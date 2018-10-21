@@ -81,16 +81,19 @@ public abstract class BasePwmWrapper extends ASensorWrapper implements IPwmWrapp
         mMotorSimulator.reset(aPosition, aVelocity, aCurrent);
     }
 
+    @Override
     public void setFeedbackSensor(IMotorFeedbackSensor aFeedbackSensor)
     {
         mFeedbackSensor = aFeedbackSensor;
     }
 
+    @Override
     public IMotorFeedbackSensor getFeedbackSensor()
     {
         return mFeedbackSensor;
     }
 
+    @Override
     public void update(double aWaitTime)
     {
         mMotorSimulator.update(aWaitTime);

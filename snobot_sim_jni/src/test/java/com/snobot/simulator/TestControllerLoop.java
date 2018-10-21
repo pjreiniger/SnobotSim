@@ -22,9 +22,9 @@ public class TestControllerLoop extends BaseSimulatorJniTest
 {
     private static class TestRobot extends IterativeRobot
     {
-        public int mDisabledCtr = 0;
-        public int mEnabledCtr = 0;
-        public int mAutonCtr = 0;
+        public int mDisabledCtr;
+        public int mEnabledCtr;
+        public int mAutonCtr;
 
         private final SpeedController mSpeedController0;
         private final SpeedController mSpeedController1;
@@ -41,11 +41,13 @@ public class TestControllerLoop extends BaseSimulatorJniTest
             mJoystick = new Joystick(0);
         }
 
+        @Override
         public void disabledPeriodic()
         {
             ++mDisabledCtr;
         }
 
+        @Override
         public void autonomousPeriodic()
         {
             ++mAutonCtr;
@@ -53,6 +55,7 @@ public class TestControllerLoop extends BaseSimulatorJniTest
             mSpeedController0.set(1);
         }
 
+        @Override
         public void teleopPeriodic()
         {
             ++mEnabledCtr;

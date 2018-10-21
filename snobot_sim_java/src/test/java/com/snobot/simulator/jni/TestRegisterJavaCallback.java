@@ -9,7 +9,6 @@ import com.snobot.test.utilities.BaseSimulatorJavaTest;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -28,8 +27,6 @@ public class TestRegisterJavaCallback extends BaseSimulatorJavaTest
     @Test
     public void testCallback()
     {
-        RobotBase.initializeHardwareConfiguration();
-
         checkSizes(0, 0, 0, 0, 0, 0);
 
         SpeedController sc0 = new Talon(0);
