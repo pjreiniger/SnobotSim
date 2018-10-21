@@ -26,7 +26,9 @@ build_script:
     Expand-Archive build\jdk.zip -DestinationPath build/jdkinst
     
     dir
+    
     dir build
+    
     dir build\jdkinst
     
     $Env:JAVA_HOME = "$pwd/build/jdkinst"
