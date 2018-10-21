@@ -26,8 +26,10 @@ build_script:
     Expand-Archive build\jdk.zip -DestinationPath build/jdkinst
     
     dir
+    dir build
+    dir build\jdkinst
     
-    $Env:JAVA_HOME = "$pwd.Path/build/jdkinst"
+    $Env:JAVA_HOME = "$pwd/build/jdkinst"
 - cmd: gradlew.bat build jacocoTestReport publish -Pmaven_repo=build/maven_repo -PciBuild
 
 after_build:
