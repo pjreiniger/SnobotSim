@@ -7,7 +7,7 @@
 
 #include "NavxSim/I2CNavxSimulator.h"
 
-#include "MockData/I2CData.h"
+#include "mockdata/I2CData.h"
 
 static void NavxI2CReadBufferCallback(const char* name, void* param,
         uint8_t* buffer, uint32_t count)

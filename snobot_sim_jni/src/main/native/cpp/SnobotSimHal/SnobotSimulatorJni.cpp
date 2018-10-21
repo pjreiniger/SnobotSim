@@ -3,7 +3,7 @@
 
 #include <cassert>
 
-#include "HAL/HAL.h"
+#include "hal/HAL.h"
 #include "SnobotSim/HalCallbacks/CallbackSetup.h"
 #include "SnobotSim/Logging/SnobotCoutLogger.h"
 #include "SnobotSim/Logging/SnobotLogger.h"

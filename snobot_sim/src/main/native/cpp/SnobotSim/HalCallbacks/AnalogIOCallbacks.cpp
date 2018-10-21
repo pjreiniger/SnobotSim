@@ -1,8 +1,8 @@
 
 #include "SnobotSim/HalCallbacks/AnalogIOCallbacks.h"
 
-#include "MockData/AnalogInData.h"
-#include "MockData/AnalogOutData.h"
+#include "mockdata/AnalogInData.h"
+#include "mockdata/AnalogOutData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogInWrapper.h"

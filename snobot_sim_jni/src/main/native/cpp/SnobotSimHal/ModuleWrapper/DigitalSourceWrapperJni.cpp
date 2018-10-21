@@ -3,7 +3,7 @@
 
 #include <cassert>
 
-#include "MockData/DIOData.h"
+#include "mockdata/DIOData.h"
 #include "SnobotSim/GetSensorActuatorHelper.h"
 #include "SnobotSim/ModuleWrapper/Interfaces/IDigitalIoWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"

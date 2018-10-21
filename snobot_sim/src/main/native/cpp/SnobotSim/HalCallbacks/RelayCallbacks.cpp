@@ -2,7 +2,7 @@
 
 #include "SnobotSim/HalCallbacks/RelayCallbacks.h"
 
-#include "MockData/RelayData.h"
+#include "mockdata/RelayData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiRelayWrapper.h"

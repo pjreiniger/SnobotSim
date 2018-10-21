@@ -3,8 +3,8 @@
 
 #include <cassert>
 
-#include "MockData/DriverStationData.h"
-#include "MockData/MockHooks.h"
+#include "mockdata/DriverStationData.h"
+#include "mockdata/MockHooks.h"
 #include "SnobotSim/RobotStateSingleton.h"
 #include "com_snobot_simulator_jni_RobotStateSingletonJni.h"
 

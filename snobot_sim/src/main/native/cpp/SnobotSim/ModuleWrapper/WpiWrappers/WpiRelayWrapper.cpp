@@ -7,7 +7,7 @@
 
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiRelayWrapper.h"
 
-#include "MockData/RelayData.h"
+#include "mockdata/RelayData.h"
 #include "SnobotSim/PortUnwrapper.h"
 
 WpiRelayWrapper::WpiRelayWrapper(int aPort) :
