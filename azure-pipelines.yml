@@ -26,22 +26,22 @@ jobs:
         failOnStderr: true
 
  - job: Linux
-    pool:
-      vmImage: 'Ubuntu 16.04'
-    
-    steps:
-    - task: Gradle@2
-      inputs:
-        workingDirectory: ''
-        gradleWrapperFile: 'gradlew'
-        gradleOptions: '-Xmx3072m'
-        javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '1.11'
-        jdkArchitectureOption: 'x64'
-        publishJUnitResults: true
-        testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build'
-        options: '-PciBuild'
+   pool:
+     vmImage: 'Ubuntu 16.04'
+   
+   steps:
+   - task: Gradle@2
+     inputs:
+       workingDirectory: ''
+       gradleWrapperFile: 'gradlew'
+       gradleOptions: '-Xmx3072m'
+       javaHomeOption: 'JDKVersion'
+       jdkVersionOption: '1.11'
+       jdkArchitectureOption: 'x64'
+       publishJUnitResults: true
+       testResultsFiles: '**/TEST-*.xml'
+       tasks: 'build'
+       options: '-PciBuild'
  - job: Windows_64_Bit
    pool:
      vmImage: 'vs2017-win2016'
