@@ -9,7 +9,7 @@ import com.snobot.simulator.module_wrapper.wpi.WpiEncoderWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.EncoderDataJNI;
-import edu.wpi.first.wpilibj.sim.SimValue;
+import edu.wpi.first.hal.sim.SimValue;
 
 public final class EncoderCallbackJni
 {

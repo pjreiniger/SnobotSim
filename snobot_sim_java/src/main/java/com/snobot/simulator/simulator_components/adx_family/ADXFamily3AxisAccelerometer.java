@@ -6,7 +6,6 @@ import com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IAccelerometerWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.II2CWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
-
 import edu.wpi.first.wpilibj.sim.IThreeAxisAccelerometer;
 
 public abstract class ADXFamily3AxisAccelerometer extends ASensorWrapper implements II2CWrapper, ISpiWrapper

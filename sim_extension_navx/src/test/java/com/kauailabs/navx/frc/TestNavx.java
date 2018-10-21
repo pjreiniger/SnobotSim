@@ -9,7 +9,7 @@ import com.snobot.simulator.navx.I2CNavxSimulator;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.hal.HAL;
+import edu.wpi.first.hal.HAL;
 
 @Tag("NavX")
 public class TestNavx

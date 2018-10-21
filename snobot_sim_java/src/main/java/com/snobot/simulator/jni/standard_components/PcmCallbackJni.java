@@ -10,8 +10,8 @@ import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 import edu.wpi.first.hal.sim.mockdata.PCMDataJNI;
 import edu.wpi.first.wpilibj.SensorUtil;
-import edu.wpi.first.wpilibj.sim.NotifyCallback;
-import edu.wpi.first.wpilibj.sim.SimValue;
+import edu.wpi.first.hal.sim.NotifyCallback;
+import edu.wpi.first.hal.sim.SimValue;
 
 public final class PcmCallbackJni
 {

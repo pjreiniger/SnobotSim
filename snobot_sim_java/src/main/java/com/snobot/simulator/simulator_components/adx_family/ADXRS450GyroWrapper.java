@@ -4,8 +4,8 @@ import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.BaseGyroWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
-
 import edu.wpi.first.wpilibj.sim.ADXRS450_GyroSim;
+
 
 public class ADXRS450GyroWrapper extends BaseGyroWrapper implements ISpiWrapper
 {

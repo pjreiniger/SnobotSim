@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import com.snobot.simulator.SensorActuatorRegistry;
 
 import edu.wpi.first.hal.sim.mockdata.I2CDataJNI;
-import edu.wpi.first.wpilibj.sim.SimValue;
+import edu.wpi.first.hal.sim.SimValue;
 
 public final class I2CCallbackJni
 {

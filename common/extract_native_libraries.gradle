@@ -25,7 +25,7 @@ dependencies {
     wpilibNativeDeps 'edu.wpi.first.hal:hal-cpp:' + allwpilibVersion() + ":${nativeclassifier}@zip"
     wpilibNativeDeps 'edu.wpi.first.halsim:halsim_adx_gyro_accelerometer:' + allwpilibVersion() + ":${nativeclassifier}@zip"
     //wpilibNativeDeps 'edu.wpi.first.wpilibj:wpilibj-jniShared:' + allwpilibVersion() + ":${nativeclassifier}"
-    wpilibNativeDeps 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ":native-${nativeCtreclassifier}"
+    wpilibNativeDeps 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ":${nativeCtreclassifier}"
 }
 
 task extract_wpilib {

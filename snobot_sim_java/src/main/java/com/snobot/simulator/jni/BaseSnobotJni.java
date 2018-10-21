@@ -2,7 +2,7 @@ package com.snobot.simulator.jni;
 
 import com.snobot.simulator.JniLibraryResourceLoader;
 
-import edu.wpi.first.wpilibj.hal.HAL;
+import edu.wpi.first.hal.HAL;
 
 public class BaseSnobotJni
 {
