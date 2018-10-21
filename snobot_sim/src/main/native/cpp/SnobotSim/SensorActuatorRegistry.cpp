@@ -7,8 +7,8 @@
 
 #include "SnobotSim/SensorActuatorRegistry.h"
 
-#include "hal/handles/HandlesInternal.h"
 #include "SnobotSim/SimulatorComponents/CompressorWrapper.h"
+#include "hal/handles/HandlesInternal.h"
 
 SensorActuatorRegistry* SensorActuatorRegistry::sInstance = new SensorActuatorRegistry();
 

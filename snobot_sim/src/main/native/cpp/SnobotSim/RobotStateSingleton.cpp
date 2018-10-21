@@ -10,9 +10,9 @@
 #include <chrono>
 #include <future>
 
-#include "mockdata/DriverStationData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
+#include "mockdata/DriverStationData.h"
 
 RobotStateSingleton RobotStateSingleton::sINSTANCE;
 

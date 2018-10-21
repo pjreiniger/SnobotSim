@@ -9,12 +9,12 @@
 
 #include <thread>
 
-#include "hal/HAL.h"
 #include "SnobotSim/GetSensorActuatorHelper.h"
 #include "SnobotSim/HalCallbacks/CallbackSetup.h"
 #include "SnobotSim/Logging/SnobotCoutLogger.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/RobotStateSingleton.h"
+#include "hal/HAL.h"
 
 void SnobotSim::InitializeStandaloneSim()
 {

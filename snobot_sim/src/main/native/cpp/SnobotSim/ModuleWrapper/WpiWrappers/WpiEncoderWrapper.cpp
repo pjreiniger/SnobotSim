@@ -7,8 +7,8 @@
 
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiEncoderWrapper.h"
 
-#include "mockdata/EncoderData.h"
 #include "SnobotSim/PortUnwrapper.h"
+#include "mockdata/EncoderData.h"
 
 WpiEncoderWrapper::WpiEncoderWrapper(int aPortA, int aPortB) :
         WpiEncoderWrapper(aPortA, "Encoder " + std::to_string(UnwrapPort(aPortA)))

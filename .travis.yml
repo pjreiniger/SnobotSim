@@ -20,7 +20,7 @@ notifications:
 
 before_install:
   - |
-         if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
+         if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
             ./.travis_setup_linux.sh;
          else
             mkdir build
@@ -43,7 +43,7 @@ cache:
 
 script:
   - |
-        if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
+        if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
            python3.5 -m wpiformat -y 2018 -clang 5.0;
            git --no-pager diff --exit-code HEAD  # Ensure formatter made no changes
         fi;
