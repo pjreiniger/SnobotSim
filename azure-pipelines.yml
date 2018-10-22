@@ -71,7 +71,7 @@ jobs:
       displayName: 'Publish Artifact: maven repo'
       inputs:
         PathtoPublish: 'build/maven_repo'
-        ArtifactName: 'maven repo'
+        ArtifactName: 'Win64 Maven'
 
 
  - job: Windows_32_Bit
@@ -103,7 +103,7 @@ jobs:
       displayName: 'Publish Artifact: maven repo'
       inputs:
         PathtoPublish: 'build/maven_repo'
-        ArtifactName: 'maven repo'
+        ArtifactName: 'Win32 Maven'
 
  - job: Mac
    pool:
@@ -131,4 +131,28 @@ jobs:
       displayName: 'Publish Artifact: maven repo'
       inputs:
         PathtoPublish: 'build/maven_repo'
-        ArtifactName: 'maven repo'
+        ArtifactName: 'OSX Maven'
+        
+ - job: PrepareMaven
+   pool:
+     vmImage: 'ubuntu-16.04'
+   steps:
+    - checkout: none #skip checking out the default repository resource
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download Build Artifacts'
+      inputs:
+        - artifactName: 'Win32 Maven'
+          downloadPath: $(System.DefaultWorkingDirectory)/win32
+        - artifactName: 'Win64 Maven'
+          downloadPath: $(System.DefaultWorkingDirectory)/win64
+        - artifactName: 'OSX Maven'
+          downloadPath: $(System.DefaultWorkingDirectory)/mac
+    
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: maven repo'
+      inputs:
+        PathtoPublish: $(System.DefaultWorkingDirectory)
+        ArtifactName: 'Full Maven'
+ 
+   dependsOn: [ Windows_64_Bit, Windows_32_Bit, Mac ]
+   condition: succeeded()
