@@ -71,7 +71,7 @@ jobs:
       displayName: 'Publish Artifact: maven repo'
       inputs:
         PathtoPublish: 'build/maven_repo'
-        ArtifactName: 'Win64 Maven'
+        ArtifactName: 'Win64Maven'
 
 
  - job: Windows_32_Bit
@@ -103,7 +103,7 @@ jobs:
       displayName: 'Publish Artifact: maven repo'
       inputs:
         PathtoPublish: 'build/maven_repo'
-        ArtifactName: 'Win32 Maven'
+        ArtifactName: 'Win32Maven'
 
  - job: Mac
    pool:
@@ -131,7 +131,7 @@ jobs:
       displayName: 'Publish Artifact: maven repo'
       inputs:
         PathtoPublish: 'build/maven_repo'
-        ArtifactName: 'OSX Maven'
+        ArtifactName: 'OSXMaven'
 
  - job: PrepareMaven
    pool:
@@ -142,20 +142,26 @@ jobs:
     - task: DownloadBuildArtifacts@0
       displayName: 'Download Windows 32 Artifacts'
       inputs:
-        artifactName: 'Win32 Maven'
+        artifactName: 'Win32Maven'
         downloadPath: $(System.DefaultWorkingDirectory)/win32
 
     - task: DownloadBuildArtifacts@0
       displayName: 'Download Windows 64 Artifacts'
       inputs:
-        artifactName: 'Win64 Maven'
+        artifactName: 'Win64Maven'
         downloadPath: $(System.DefaultWorkingDirectory)/win64
 
     - task: DownloadBuildArtifacts@0
       displayName: 'Download Build Artifacts'
       inputs:
-        artifactName: 'OSX Maven'
+        artifactName: 'OSXMaven'
         downloadPath: $(System.DefaultWorkingDirectory)/mac
+
+    - displayName: 'Copy files'
+      powershell: |
+        Copy-Item $(System.DefaultWorkingDirectory)/win32/Win32Maven $(System.DefaultWorkingDirectory)/output -recurse -force
+        Copy-Item $(System.DefaultWorkingDirectory)/win64/Win64Maven $(System.DefaultWorkingDirectory)/output -recurse -force
+        Copy-Item $(System.DefaultWorkingDirectory)/mac/OSXMaven     $(System.DefaultWorkingDirectory)/output -recurse -force
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Combined Artifacts'
