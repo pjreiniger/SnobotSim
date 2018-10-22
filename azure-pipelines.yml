@@ -64,8 +64,15 @@ jobs:
         gradleOptions: '-Xmx3072m'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build'
+        tasks: 'build publish'
         options: '-PciBuild'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: maven repo'
+      inputs:
+        PathtoPublish: 'build/maven_repo'
+        ArtifactName: 'maven repo'
+
 
  - job: Windows_32_Bit
    pool:
@@ -89,8 +96,14 @@ jobs:
         gradleOptions: '-Xmx1024m'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build'
+        tasks: 'build publish'
         options: '-PciBuild'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: maven repo'
+      inputs:
+        PathtoPublish: 'build/maven_repo'
+        ArtifactName: 'maven repo'
 
  - job: Mac
    pool:
@@ -111,5 +124,11 @@ jobs:
         jdkDirectory: '/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build'
+        tasks: 'build publish'
         options: '-PciBuild'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: maven repo'
+      inputs:
+        PathtoPublish: 'build/maven_repo'
+        ArtifactName: 'maven repo'
