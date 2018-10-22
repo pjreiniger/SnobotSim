@@ -42,9 +42,17 @@ def detect_version(start_dir):
             output = d
             
     return output
+    
+    
+def debug():
+    print (os.getcwd())
+    print (os.listdir(os.getcwd() + "/.."))
+
 
 
 def main():
+    debug()
+
     start_dir = os.path.abspath("../output/") + "/"
     version = detect_version(start_dir)
     
