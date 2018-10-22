@@ -157,11 +157,15 @@ jobs:
         artifactName: 'OSXMaven'
         downloadPath: $(System.DefaultWorkingDirectory)/mac
 
-    - displayName: 'Copy files'
-      powershell: |
+    - powershell: |
         Copy-Item $(System.DefaultWorkingDirectory)/win32/Win32Maven $(System.DefaultWorkingDirectory)/output -recurse -force
         Copy-Item $(System.DefaultWorkingDirectory)/win64/Win64Maven $(System.DefaultWorkingDirectory)/output -recurse -force
         Copy-Item $(System.DefaultWorkingDirectory)/mac/OSXMaven     $(System.DefaultWorkingDirectory)/output -recurse -force
+
+    - task: PythonScript@0
+      displayName: 'Run a Python script'
+      inputs:
+        scriptPath: ci_tools/create_all.py
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Combined Artifacts'
