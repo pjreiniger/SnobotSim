@@ -4,26 +4,26 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 jobs:
- - job: Styleguide
-   pool:
-     vmImage: 'Ubuntu 16.04'
-
-   steps:
-      - script: |
-          sudo apt-get update -y
-          sudo apt-get install clang-format-5.0 python3-setuptools -y
-          sudo pip3 install --upgrade pip
-          sudo pip3 install wpiformat
-          git checkout -b master
-        displayName: 'Install Dependencies'
-      - script: |
-          wpiformat -y 2018 -clang 5.0
-        displayName: 'Run WPIFormat'
-        failOnStderr: true
-      - script: |
-          git --no-pager diff --exit-code HEAD  # Ensure formatter made no changes
-        displayName: 'Check WPIFormat Output'
-        failOnStderr: true
+# - job: Styleguide
+#   pool:
+#     vmImage: 'Ubuntu 16.04'
+#
+#   steps:
+#      - script: |
+#          sudo apt-get update -y
+#          sudo apt-get install clang-format-5.0 python3-setuptools -y
+#          sudo pip3 install --upgrade pip
+#          sudo pip3 install wpiformat
+#          git checkout -b master
+#        displayName: 'Install Dependencies'
+#      - script: |
+#          wpiformat -y 2018 -clang 5.0
+#        displayName: 'Run WPIFormat'
+#        failOnStderr: true
+#      - script: |
+#          git --no-pager diff --exit-code HEAD  # Ensure formatter made no changes
+#        displayName: 'Check WPIFormat Output'
+#        failOnStderr: true
 #
 # - job: Linux
 #   pool:
@@ -132,36 +132,36 @@ jobs:
       inputs:
         PathtoPublish: 'build/maven_repo'
         ArtifactName: 'OSX Maven'
-        
+
  - job: PrepareMaven
    pool:
      vmImage: 'ubuntu-16.04'
    steps:
     - checkout: none #skip checking out the default repository resource
-    
+
     - task: DownloadBuildArtifacts@0
       displayName: 'Download Windows 32 Artifacts'
       inputs:
         artifactName: 'Win32 Maven'
         downloadPath: $(System.DefaultWorkingDirectory)/win32
-          
+
     - task: DownloadBuildArtifacts@0
-      displayName: 'Download Build Artifacts'
+      displayName: 'Download Windows 64 Artifacts'
       inputs:
-        artifactName: 'Download Windows 64 Artifacts'
+        artifactName: 'Win64 Maven'
         downloadPath: $(System.DefaultWorkingDirectory)/win64
-          
+
     - task: DownloadBuildArtifacts@0
       displayName: 'Download Build Artifacts'
       inputs:
         artifactName: 'OSX Maven'
         downloadPath: $(System.DefaultWorkingDirectory)/mac
-    
+
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Combined Artifacts'
       inputs:
         PathtoPublish: $(System.DefaultWorkingDirectory)
         ArtifactName: 'Full Maven'
- 
+
    dependsOn: [ Windows_64_Bit, Windows_32_Bit, Mac ]
    condition: succeeded()
