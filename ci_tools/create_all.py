@@ -45,7 +45,7 @@ def detect_version(start_dir):
 
 
 def main():
-    start_dir = os.path.abspath("../build/") + "/"
+    start_dir = os.path.abspath("../output/") + "/"
     version = detect_version(start_dir)
     
     createAll(start_dir, "com/snobot/simulator", "navx_simulator", version)
