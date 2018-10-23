@@ -45,6 +45,7 @@ def detect_version(start_dir):
 
 def debug(start_dir):
     print ("Start Dir : " + start_dir)
+    print ("Start Dir : "  + str(os.listdir(start_dir)))
     print ("CWD       : " + os.getcwd())
     print ("UP        : "  + str(os.listdir(os.getcwd() + "/..")))
 
