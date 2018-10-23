@@ -163,9 +163,9 @@ jobs:
 
     - task: PythonScript@0
       displayName: 'Run a Python script'
-      arguments: "start_dir=output"
       inputs:
         scriptPath: ci_tools/create_all.py
+        arguments: "--start_dir=$(System.DefaultWorkingDirectory)/output"
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Combined Artifacts'
