@@ -65,7 +65,7 @@ jobs:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         tasks: 'build publish'
-        options: '-PciBuild'
+        options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: maven repo'
@@ -97,7 +97,7 @@ jobs:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         tasks: 'build publish'
-        options: '-PciBuild'
+        options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: maven repo'
@@ -125,7 +125,7 @@ jobs:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         tasks: 'build publish'
-        options: '-PciBuild'
+        options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: maven repo'
