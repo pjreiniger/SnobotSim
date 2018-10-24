@@ -25,23 +25,23 @@ jobs:
 #        displayName: 'Check WPIFormat Output'
 #        failOnStderr: true
 #
-# - job: Linux
-#   pool:
-#     vmImage: 'Ubuntu 16.04'
-#
-#   steps:
-#   - task: Gradle@2
-#     inputs:
-#       workingDirectory: ''
-#       gradleWrapperFile: 'gradlew'
-#       gradleOptions: '-Xmx3072m'
-#       javaHomeOption: 'JDKVersion'
-#       jdkVersionOption: '1.11'
-#       jdkArchitectureOption: 'x64'
-#       publishJUnitResults: true
-#       testResultsFiles: '**/TEST-*.xml'
-#       tasks: 'build'
-#       options: '-PciBuild'
+ - job: Linux
+   pool:
+     vmImage: 'Ubuntu 16.04'
+
+   steps:
+   - task: Gradle@2
+     inputs:
+       workingDirectory: ''
+       gradleWrapperFile: 'gradlew'
+       gradleOptions: '-Xmx3072m'
+       javaHomeOption: 'JDKVersion'
+       jdkVersionOption: '1.11'
+       jdkArchitectureOption: 'x64'
+       publishJUnitResults: true
+       testResultsFiles: '**/TEST-*.xml'
+       tasks: 'build'
+       options: '-PciBuild'
  - job: Windows_64_Bit
    pool:
      vmImage: 'vs2017-win2016'
@@ -161,11 +161,11 @@ jobs:
         Copy-Item $(System.DefaultWorkingDirectory)/win64/Win64Maven/*   $(System.DefaultWorkingDirectory)/output     -recurse -force -verbose
         Copy-Item $(System.DefaultWorkingDirectory)/mac/OSXMaven/*       $(System.DefaultWorkingDirectory)/output     -recurse -force -verbose
 
-    #- task: PythonScript@0
-    #  displayName: 'Create Combined Native Jar'
-    #  inputs:
-    #    scriptPath: ci_tools/create_all.py
-    #    arguments: "--start_dir=$(System.DefaultWorkingDirectory)/output"
+    - task: PythonScript@0
+      displayName: 'Create Combined Native Jar'
+      inputs:
+        scriptPath: ci_tools/create_all.py
+        arguments: "--start_dir=$(System.DefaultWorkingDirectory)/output"
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Combined Artifacts'
