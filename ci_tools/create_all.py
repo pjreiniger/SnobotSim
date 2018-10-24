@@ -1,5 +1,6 @@
 
 import os
+import shutil
 import zipfile
 import argparse
 
@@ -28,6 +29,8 @@ def createAll(start_dir, root_path, library_name, version):
             zip_path = full_path[len(temp_build_dir)+len(os.sep):] #XXX: relative path
             print (full_path + ", " + zip_path)
             ziph.write(full_path, zip_path)
+            
+    shutil.rmtree(temp_build_dir)
 
 
 def detect_version(start_dir):
@@ -61,9 +64,7 @@ def main():
     debug(args.start_dir)
     version = detect_version(start_dir)
 
-    createAll(start_dir, "com/snobot/simulator", "navx_simulator", version)
-    createAll(start_dir, "com/snobot/simulator", "adx_family", version)
-    createAll(start_dir, "com/snobot/simulator", "snobot_sim_jni", version)
+    createAll(start_dir, "com/snobot/simulator", "ctre_sim_override", version)
 
 
 if __name__ == "__main__":

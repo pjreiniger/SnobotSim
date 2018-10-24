@@ -157,12 +157,12 @@ jobs:
         downloadPath: $(System.DefaultWorkingDirectory)/mac
 
     - powershell: |
-        Copy-Item $(System.DefaultWorkingDirectory)/win32/Win32Maven $(System.DefaultWorkingDirectory)/output -recurse -force
-        Copy-Item $(System.DefaultWorkingDirectory)/win64/Win64Maven $(System.DefaultWorkingDirectory)/output -recurse -force
-        Copy-Item $(System.DefaultWorkingDirectory)/mac/OSXMaven     $(System.DefaultWorkingDirectory)/output -recurse -force
+        Copy-Item $(System.DefaultWorkingDirectory)/win32/Win32Maven/com $(System.DefaultWorkingDirectory)/output/com -recurse -force -verbose
+        Copy-Item $(System.DefaultWorkingDirectory)/win64/Win64Maven/*   $(System.DefaultWorkingDirectory)/output     -recurse -force -verbose
+        Copy-Item $(System.DefaultWorkingDirectory)/mac/OSXMaven/*       $(System.DefaultWorkingDirectory)/output     -recurse -force -verbose
 
     - task: PythonScript@0
-      displayName: 'Run a Python script'
+      displayName: 'Create Combined Native Jar'
       inputs:
         scriptPath: ci_tools/create_all.py
         arguments: "--start_dir=$(System.DefaultWorkingDirectory)/output"
@@ -170,7 +170,7 @@ jobs:
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Combined Artifacts'
       inputs:
-        PathtoPublish: $(System.DefaultWorkingDirectory)
+        PathtoPublish: $(System.DefaultWorkingDirectory)/output
         ArtifactName: 'Full Maven'
 
    dependsOn: [ Windows_64_Bit, Windows_32_Bit, Mac ]
