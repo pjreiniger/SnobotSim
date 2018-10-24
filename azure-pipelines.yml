@@ -170,7 +170,7 @@ jobs:
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Combined Artifacts'
       inputs:
-        PathtoPublish: $(System.DefaultWorkingDirectory)
+        PathtoPublish: $(System.DefaultWorkingDirectory)/output
         ArtifactName: 'Full Maven'
 
    dependsOn: [ Windows_64_Bit, Windows_32_Bit, Mac ]

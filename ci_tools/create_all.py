@@ -64,7 +64,9 @@ def main():
     debug(args.start_dir)
     version = detect_version(start_dir)
 
-    createAll(start_dir, "com/snobot/simulator", "ctre_sim_override", version)
+    createAll(start_dir, "com/snobot/simulator", "navx_simulator", version)
+    createAll(start_dir, "com/snobot/simulator", "adx_family", version)
+    createAll(start_dir, "com/snobot/simulator", "snobot_sim_jni", version)
 
 
 if __name__ == "__main__":
