@@ -103,7 +103,7 @@ def getCtreNativeExtractedLocation() {
 
 // Publshing Information
 
-ext.maven_publishing_path = 'build/maven_repo/'
+ext.maven_publishing_path = "$rootDir/build/maven_repo/"
 if(hasProperty('maven_repo'))
 {
     ext.maven_publishing_path = maven_repo

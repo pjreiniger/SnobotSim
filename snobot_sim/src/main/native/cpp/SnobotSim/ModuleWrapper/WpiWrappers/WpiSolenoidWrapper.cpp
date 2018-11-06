@@ -7,8 +7,8 @@
 
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiSolenoidWrapper.h"
 
-#include "mockdata/PCMData.h"
 #include "SnobotSim/PortUnwrapper.h"
+#include "mockdata/PCMData.h"
 
 WpiSolenoidWrapper::WpiSolenoidWrapper(int aPort) :
         AModuleWrapper("Solenoid " + std::to_string(UnwrapPort(aPort))),

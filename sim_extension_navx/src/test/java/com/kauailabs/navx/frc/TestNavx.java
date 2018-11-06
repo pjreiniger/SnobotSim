@@ -3,6 +3,7 @@ package com.kauailabs.navx.frc;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 import com.snobot.simulator.JniLibraryResourceLoader;
 import com.snobot.simulator.navx.I2CNavxSimulator;
@@ -17,6 +18,7 @@ public class TestNavx
     private static final long SHUTDOWN_TIME = 50;
     private static final String sNAVX_TYPE = "NavX";
 
+    @Disabled
     @Test
     public void testI2CNavx() throws InterruptedException
     {

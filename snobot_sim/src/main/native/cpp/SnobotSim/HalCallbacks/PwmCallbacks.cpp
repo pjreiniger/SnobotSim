@@ -2,11 +2,11 @@
 
 #include "SnobotSim/HalCallbacks/PwmCallbacks.h"
 
-#include "mockdata/PWMData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiSpeedControllerWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
+#include "mockdata/PWMData.h"
 
 void PwmCallback(const char* name, void* param, const struct HAL_Value* value)
 {

@@ -1,13 +1,13 @@
 
 #include "SnobotSim/HalCallbacks/AnalogIOCallbacks.h"
 
-#include "mockdata/AnalogInData.h"
-#include "mockdata/AnalogOutData.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogInWrapper.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogOutWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
+#include "mockdata/AnalogInData.h"
+#include "mockdata/AnalogOutData.h"
 
 void AnalogInCallback(const char* name, void* param, const struct HAL_Value* value)
 {

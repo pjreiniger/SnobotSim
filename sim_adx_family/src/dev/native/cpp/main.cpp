@@ -5,9 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include <iostream>
-
 #include <hal/HAL.h>
+
+#include <iostream>
 
 #include "ADXRS450_SpiGyroWrapperData.h"
 

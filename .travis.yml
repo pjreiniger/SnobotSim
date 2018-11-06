@@ -20,7 +20,7 @@ notifications:
 
 before_install:
   - |
-         if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
+         if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
             ./.travis_setup_linux.sh;
          else
             mkdir build
@@ -43,10 +43,11 @@ cache:
 
 script:
   - |
-        if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
+        if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
            python3.5 -m wpiformat -y 2018 -clang 5.0;
            git --no-pager diff --exit-code HEAD  # Ensure formatter made no changes
         fi;
+  - |
         ./gradlew build -x :snobot_sim_gui:test -x :snobot_sim_jni:test
         # Clone the hacky repo, publish into it
         git clone --depth=50 --branch=master https://github.com/pjreiniger/maven_repo.git ../../pjreiniger/maven_repo

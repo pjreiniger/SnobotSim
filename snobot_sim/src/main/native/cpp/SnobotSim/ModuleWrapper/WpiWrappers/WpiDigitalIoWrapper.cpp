@@ -7,8 +7,8 @@
 
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiDigitalIoWrapper.h"
 
-#include "mockdata/DIOData.h"
 #include "SnobotSim/PortUnwrapper.h"
+#include "mockdata/DIOData.h"
 
 WpiDigitalIoWrapper::WpiDigitalIoWrapper(int aPort) :
         AModuleWrapper("Digital IO " + std::to_string(UnwrapPort(aPort))),

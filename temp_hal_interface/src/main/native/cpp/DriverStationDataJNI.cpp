@@ -3,8 +3,8 @@
 
 #include <cstring>
 
-#include "mockdata/DriverStationData.h"
 #include "edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI.h"
+#include "mockdata/DriverStationData.h"
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_DriverStationDataJNI
