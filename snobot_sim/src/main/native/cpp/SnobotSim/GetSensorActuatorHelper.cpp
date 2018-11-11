@@ -22,7 +22,7 @@
             wrapper = SensorActuatorRegistry::Get().Get##WrapperType(packedPort, false);                                                      \
             if (!wrapper && aLogOnMissing)                                                                                                    \
             {                                                                                                                                 \
-                SNOBOT_LOG(SnobotLogging::CRITICAL, "Could not find " << #WrapperType << " for handles " << aHandle << " or " << packedPort); \
+                SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Could not find " << #WrapperType << " for handles " << aHandle << " or " << packedPort); \
             }                                                                                                                                 \
         }                                                                                                                                     \
         return wrapper;                                                                                                                       \

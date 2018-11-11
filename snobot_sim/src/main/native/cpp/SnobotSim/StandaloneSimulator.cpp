@@ -19,14 +19,14 @@
 void SnobotSim::InitializeStandaloneSim()
 {
     static SnobotLogging::SnobotCoutLogger snobotLogger;
-    snobotLogger.SetLogLevel(SnobotLogging::DEBUG);
+    snobotLogger.SetLogLevel(SnobotLogging::LOG_LEVEL_DEBUG);
     SnobotLogging::SetLogger(&snobotLogger);
 
-    SNOBOT_LOG(SnobotLogging::INFO, "Initializing the simulator");
+    SNOBOT_LOG(SnobotLogging::LOG_LEVEL_INFO, "Initializing the simulator");
 
     if (!HAL_Initialize(500, 0))
     {
-        SNOBOT_LOG(SnobotLogging::CRITICAL, "Couldn't initialize the hal");
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Couldn't initialize the hal");
         return;
     }
 

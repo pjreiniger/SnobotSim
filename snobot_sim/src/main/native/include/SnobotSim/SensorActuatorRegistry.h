@@ -78,18 +78,18 @@ protected:
         {
             if (aOverwriteOnConflict)
             {
-                SNOBOT_LOG(SnobotLogging::INFO, "Overwriting registration of " << aType << " on port " << aPort);
+                SNOBOT_LOG(SnobotLogging::LOG_LEVEL_INFO, "Overwriting registration of " << aType << " on port " << aPort);
             }
             else
             {
-                SNOBOT_LOG(SnobotLogging::WARN, "Type " << aType << " already has registered item on port " << aPort << ".");
+                SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Type " << aType << " already has registered item on port " << aPort << ".");
                 return false;
             }
         }
 
         aMap[aPort] = aItem;
 
-        SNOBOT_LOG(SnobotLogging::DEBUG, "Registered " << aType << " on port " << aPort << ".  The map has " << aMap.size() << " elements.")
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Registered " << aType << " on port " << aPort << ".  The map has " << aMap.size() << " elements.")
 
         return true;
     }
@@ -103,7 +103,7 @@ protected:
         {
             if (logError)
             {
-                SNOBOT_LOG(SnobotLogging::CRITICAL, "Unregistered " << aType << " on port " << aPort << ".  Map has " << aMap.size() << " elements.")
+                SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Unregistered " << aType << " on port " << aPort << ".  Map has " << aMap.size() << " elements.")
                 StackTraceHelper::PrintStackTracker();
             }
             return std::shared_ptr<ItemType>();

@@ -17,11 +17,11 @@ namespace SnobotLogging
 {
 enum LogLevel
 {
-    DEBUG = 0,
-    INFO = 1,
-    WARN = 2,
-    CRITICAL = 3,
-    NONE = 4,
+    LOG_LEVEL_DEBUG = 0,
+    LOG_LEVEL_INFO = 1,
+    LOG_LEVEL_WARN = 2,
+    LOG_LEVEL_CRITICAL = 3,
+    LOG_LEVEL_NONE = 4,
 };
 
 class EXPORT_ ISnobotLogger

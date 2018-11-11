@@ -17,7 +17,7 @@
     int main()                                                                                                                 \
     {                                                                                                                          \
         SnobotSim::InitializeStandaloneSim();                                                                                  \
-        SNOBOT_LOG(SnobotLogging::INFO, "Starting SnobotSim with " << #_ClassName_ << " with simulator " << #_SimulatorName_); \
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_INFO, "Starting SnobotSim with " << #_ClassName_ << " with simulator " << #_SimulatorName_); \
         static _ClassName_ robot;                                                                                              \
         static _SimulatorName_ simulator;                                                                                      \
         std::thread t(&_SimulatorName_::UpdateSimulatorComponentsThread, simulator);                                           \

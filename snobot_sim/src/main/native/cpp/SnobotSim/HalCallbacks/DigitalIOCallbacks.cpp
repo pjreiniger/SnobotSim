@@ -23,7 +23,7 @@ void DigitalIOCallback(const char* name, void* param, const struct HAL_Value* va
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::WARN, "Unknown name " << nameStr);
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Unknown name " << nameStr);
     }
 }
 

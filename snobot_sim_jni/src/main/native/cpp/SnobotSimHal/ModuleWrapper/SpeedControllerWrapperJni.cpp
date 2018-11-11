@@ -196,7 +196,7 @@ JNIEXPORT jint JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedContro
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::CRITICAL, "Unknown motor sim type " << type);
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Unknown motor sim type " << type);
     }
 
     return -1;
@@ -249,11 +249,11 @@ JNIEXPORT jobject JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCon
     }
     else if(type == "Null" || type == "Simple")
     {
-        SNOBOT_LOG(SnobotLogging::WARN, "The type " << type << " does not have a DC Motor config...");
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "The type " << type << " does not have a DC Motor config...");
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::CRITICAL, "Unknown motor sim type " << type);
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Unknown motor sim type " << type);
     }
 
     return output;
@@ -277,7 +277,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCon
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::DEBUG, "Could not cast motor sim to desired type ");
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Could not cast motor sim to desired type ");
     }
 
     return 0;
@@ -300,7 +300,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCon
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::DEBUG, "Could not cast motor sim to desired type ");
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Could not cast motor sim to desired type ");
     }
 
     return 0;
@@ -323,7 +323,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCon
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::DEBUG, "Could not cast motor sim to desired type ");
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Could not cast motor sim to desired type ");
     }
 
     return 0;
@@ -346,7 +346,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCon
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::DEBUG, "Could not cast motor sim to desired type ");
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Could not cast motor sim to desired type ");
     }
 
     return 0;
@@ -369,7 +369,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCon
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::DEBUG, "Could not cast motor sim to desired type ");
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Could not cast motor sim to desired type ");
     }
 
     return 0;
@@ -384,7 +384,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCon
 JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedControllerWrapperJni_reset
   (JNIEnv *, jclass, jint portHandle, jdouble aPosition, jdouble aVelocity, jdouble aCurrent)
 {
-    SNOBOT_LOG(SnobotLogging::WARN, "Resetting... " << aPosition << ", " << aVelocity << ", " << aCurrent)
+    SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Resetting... " << aPosition << ", " << aVelocity << ", " << aCurrent)
     return SensorActuatorRegistry::Get().GetISpeedControllerWrapper(portHandle)->Reset(aPosition, aVelocity, aCurrent);
 }
 

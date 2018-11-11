@@ -24,7 +24,7 @@ void RelayCallback(const char* name, void* param, const struct HAL_Value* value)
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::WARN, "Unknown name " << nameStr);
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Unknown name " << nameStr);
     }
 }
 

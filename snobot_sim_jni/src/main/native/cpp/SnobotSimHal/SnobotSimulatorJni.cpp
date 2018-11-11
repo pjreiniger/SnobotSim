@@ -31,7 +31,7 @@ JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_SnobotSimulatorJni_initiali
 {
     if(!HAL_Initialize(0, 0))
     {
-        SNOBOT_LOG(SnobotLogging::CRITICAL, "Couldn't initialize!!!");
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Couldn't initialize!!!");
     }
 
     SnobotSim::InitializeSnobotCallbacks();

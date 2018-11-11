@@ -27,7 +27,7 @@ bool AccelerometerFactory::Create(int aHandle, const std::string& aType)
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::WARN, "Unknown type " << aType);
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Unknown type " << aType);
         success = false;
     }
 

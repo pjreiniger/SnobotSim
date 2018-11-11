@@ -59,19 +59,19 @@ void SnobotCoutLogger::Log(
 
     switch (aLogLevel)
     {
-    case DEBUG:
+    case LOG_LEVEL_DEBUG:
         logLevelStr << "Debug  ";
         break;
-    case INFO:
+    case LOG_LEVEL_INFO:
         logLevelStr << "Info   ";
         break;
-    case WARN:
+    case LOG_LEVEL_WARN:
         logLevelStr << "Warn   ";
         break;
-    case CRITICAL:
+    case LOG_LEVEL_CRITICAL:
         logLevelStr << "Error  ";
         break;
-    case NONE:
+    case LOG_LEVEL_NONE:
         logLevelStr << "Invalid";
         break;
     }
@@ -84,7 +84,7 @@ void SnobotCoutLogger::Log(
         shortenedFileName = shortenedFileName.substr(mDirectorySubstring.size());
     }
 
-    if (aLogLevel <= INFO)
+    if (aLogLevel <= LOG_LEVEL_INFO)
     {
         std::cout << logLevelStr.str() << " " << shortenedFileName << ":" << aLineNumber << " - " << aMessage << std::endl;
     }
