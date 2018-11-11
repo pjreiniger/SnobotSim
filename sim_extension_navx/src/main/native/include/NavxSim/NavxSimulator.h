@@ -14,7 +14,13 @@
 
 #include "wpi/mutex.h"
 
-class NavxSimulator
+#ifdef _MSC_VER
+#define EXPORT_ __declspec(dllexport)
+#else
+#define EXPORT_
+#endif
+
+class EXPORT_ NavxSimulator
 {
 public:
     NavxSimulator();

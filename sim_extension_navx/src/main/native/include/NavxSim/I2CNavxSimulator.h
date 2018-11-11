@@ -10,7 +10,7 @@
 
 #include "NavxSim/NavxSimulator.h"
 
-class I2CNavxSimulator : public NavxSimulator
+class EXPORT_ I2CNavxSimulator : public NavxSimulator
 {
 public:
     explicit I2CNavxSimulator(int port);

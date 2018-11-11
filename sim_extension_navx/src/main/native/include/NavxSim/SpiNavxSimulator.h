@@ -10,7 +10,7 @@
 
 #include "NavxSim/NavxSimulator.h"
 
-class SpiNavxSimulator : public NavxSimulator
+class EXPORT_ SpiNavxSimulator : public NavxSimulator
 {
 public:
     explicit SpiNavxSimulator(int aPort);
