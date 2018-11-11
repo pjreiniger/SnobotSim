@@ -34,7 +34,7 @@ ext.build_simulator_java = true
 // Specify WPI Versions
 
 ext.allwpilibVersion = {
-    return '2019.1.1-beta-1'
+    return '2019.1.1-beta-2'
 }
 
 ext.getWpiUtilVersion = {
@@ -61,8 +61,8 @@ ext.getNavxVersion = {
     return '3.0.346'
 }
 ext.getWpiRepo = {
-    //return "http://first.wpi.edu/FRC/roborio/maven/release/"
-    return "http://first.wpi.edu/FRC/roborio/maven/development/"
+    return "http://first.wpi.edu/FRC/roborio/maven/release/"
+    //return "http://first.wpi.edu/FRC/roborio/maven/development/"
 }
 
 ext.getJaci3rdPartyMirror = {
@@ -111,7 +111,7 @@ if(hasProperty('maven_repo'))
 ext.maven_publishing_path = new File(maven_publishing_path).getAbsolutePath()
 println "Publishing maven to " + ext.maven_publishing_path.toString()
 
-ext.maven_version = "2018-2.1.0"
+ext.maven_version = "2019-0.0.0"
 if(hasProperty('maven_version'))
 {
     ext.maven_version = maven_version

@@ -7,6 +7,7 @@
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiSolenoidWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "mockdata/PCMData.h"
+#include "hal/Ports.h"
 
 void SolenoidCallback(const char* name, void* param, const struct HAL_Value* value)
 {

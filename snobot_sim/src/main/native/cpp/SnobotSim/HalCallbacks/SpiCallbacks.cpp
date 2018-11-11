@@ -13,6 +13,7 @@
 #include "SnobotSim/ModuleWrapper/Interfaces/ISpiWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "mockdata/SPIData.h"
+#include "hal/Ports.h"
 
 void SpiCallback(const char* name, void* param, const struct HAL_Value* value)
 {

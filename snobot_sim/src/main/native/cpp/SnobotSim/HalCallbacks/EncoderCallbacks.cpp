@@ -6,6 +6,7 @@
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiEncoderWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "mockdata/EncoderData.h"
+#include "hal/Ports.h"
 
 void EncoderCallback(const char* name, void* param, const struct HAL_Value* value)
 {

@@ -8,6 +8,7 @@
 #include "SnobotSim/SensorActuatorRegistry.h"
 #include "mockdata/AnalogInData.h"
 #include "mockdata/AnalogOutData.h"
+#include "hal/Ports.h"
 
 void AnalogInCallback(const char* name, void* param, const struct HAL_Value* value)
 {
