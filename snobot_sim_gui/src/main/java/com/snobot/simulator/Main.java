@@ -1,6 +1,5 @@
 package com.snobot.simulator;
 
-import java.io.File;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,11 +14,9 @@ import edu.wpi.first.wpilibj.util.WPILibVersion;
 
 public final class Main
 {
-    private static final File DEFAULT_PLUGIN_DIR = new File("user_libs");
     private static final String sUSER_CONFIG_DIR = "simulator_config/";
 
     private static final PrintStream VERSION_PRINTER = System.out;
-    private static final String sROBOT_DELIMETER = "################################\n";
 
     private Main()
     {
@@ -40,18 +37,12 @@ public final class Main
 
         if (argList.contains("disable_driver_station"))
         {
-            useBuiltinDriverStation = true;
-        }
-
-        if (argList.contains("find_robots"))
-        {
-            discoverRobots();
-            System.exit(0);
+            useBuiltinDriverStation = false;
         }
 
         try
         {
-            Simulator simulator = new Simulator(parseLogLevel(argList), DEFAULT_PLUGIN_DIR, sUSER_CONFIG_DIR, useBuiltinDriverStation);
+            Simulator simulator = new Simulator(parseLogLevel(argList), sUSER_CONFIG_DIR, useBuiltinDriverStation);
             simulator.startSimulation();
         }
         catch (ClassNotFoundException e)
@@ -98,64 +89,5 @@ public final class Main
         VERSION_PRINTER.println("SnobotSim HAL  : " + DataAccessorFactory.getInstance().getSimulatorDataAccessor().getNativeBuildVersion());
         VERSION_PRINTER.println("SnobotSim GUI  : " + SnobotSimGuiVersion.Version);
         VERSION_PRINTER.println("SnobotSim Type : " + DataAccessorFactory.getInstance().getAccessorType());
-    }
-
-    private static void discoverRobots()
-    {
-        try
-        {
-            PluginSniffer sniffer = new PluginSniffer();
-            sniffer.loadPlugins(DEFAULT_PLUGIN_DIR);
-            sniffer.findRobots();
-
-            StringBuilder output = new StringBuilder(200);
-            output.append("\n\n\n\n") // NOPMD
-                .append("# <--------------------------------------->\n")
-                .append("# <- Here is a config script you can use ->\n")
-                .append("# <--------------------------------------->\n")
-                .append("\n\n\n\n");
-
-            if (!sniffer.getCppRobots().isEmpty())
-            {
-                output.append(sROBOT_DELIMETER)
-                        .append("#          CPP Robots          #\n")
-                        .append(sROBOT_DELIMETER)
-                        .append("\n\n");
-
-                for (Class<?> clazzName : sniffer.getCppRobots())
-                {
-                    output.append("# ").append(clazzName.getSimpleName()).append("\n") // NOPMD
-                            .append("robot_class      : ").append(clazzName.getName())
-                            .append('\n') // NOPMD
-                            .append("robot_type       : cpp\n") // NOPMD
-                            .append("simulator_class  :\n") // NOPMD
-                            .append("simulator_config : simulator_config/2016-TeamXXXX.yml\n") // NOPMD
-                            .append("\n\n");
-                }
-            }
-
-            if (!sniffer.getJavaRobots().isEmpty())
-            {
-                output.append(sROBOT_DELIMETER);
-                output.append("#          Java Robots         #\n");
-                output.append(sROBOT_DELIMETER);
-
-                for (Class<?> clazzName : sniffer.getJavaRobots())
-                {
-                    output.append("# ").append(clazzName.getSimpleName()).append("\n") // NOPMD
-                            .append("robot_class     : ").append(clazzName.getName()).append("\n") // NOPMD
-                            .append("robot_type      : java\n") // NOPMD
-                            .append("simulator_class :\n") // NOPMD
-                            .append("\n\n");
-                }
-            }
-
-            VERSION_PRINTER.println(output.toString());
-        }
-        catch (Exception e)
-        {
-            LogManager.getLogger().log(Level.ERROR, e);
-            System.exit(-1);
-        }
     }
 }
