@@ -62,7 +62,7 @@ public final class Main
         }
         catch (Exception e)
         {
-            LogManager.getLogger().log(Level.ERROR, e);
+            LogManager.getLogger().log(Level.ERROR, "Unknown exception...", e);
             System.exit(1);
         }
     }
