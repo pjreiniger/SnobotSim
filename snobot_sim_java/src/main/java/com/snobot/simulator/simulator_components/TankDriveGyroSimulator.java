@@ -5,8 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.ISimulatorUpdater;
 
 public class TankDriveGyroSimulator implements ISimulatorUpdater
@@ -14,8 +14,8 @@ public class TankDriveGyroSimulator implements ISimulatorUpdater
     private static final Logger sLOGGER = LogManager.getLogger(TankDriveGyroSimulator.class);
 
     private final com.snobot.simulator.simulator_components.config.TankDriveConfig mConfig;
-    private final IEncoderWrapper mLeftEncoder;
-    private final IEncoderWrapper mRightEncoder;
+    private final IPwmWrapper mLeftMotor;
+    private final IPwmWrapper mRightMotor;
     private final IGyroWrapper mGyroWrapper;
     private final double mKP;
     private final boolean mIsSetup;
@@ -26,18 +26,18 @@ public class TankDriveGyroSimulator implements ISimulatorUpdater
     public TankDriveGyroSimulator(com.snobot.simulator.simulator_components.config.TankDriveConfig aConfig)
     {
         mConfig = aConfig;
-        mRightEncoder = SensorActuatorRegistry.get().getEncoders().get(aConfig.getmRightEncoderHandle());
-        mLeftEncoder = SensorActuatorRegistry.get().getEncoders().get(aConfig.getmLeftEncoderHandle());
+        mRightMotor = SensorActuatorRegistry.get().getSpeedControllers().get(aConfig.getmRightMotorHandle());
+        mLeftMotor = SensorActuatorRegistry.get().getSpeedControllers().get(aConfig.getmLeftMotorHandle());
         mGyroWrapper = SensorActuatorRegistry.get().getGyros().get(aConfig.getmGyroHandle());
         mKP = aConfig.getmTurnKp();
 
-        mIsSetup = mLeftEncoder != null && mRightEncoder != null && mGyroWrapper != null;
+        mIsSetup = mLeftMotor != null && mRightMotor != null && mGyroWrapper != null;
 
         if (!mIsSetup)
         {
             sLOGGER.log(Level.ERROR, "Can't simulate gyro, some inputs are null: "
-                    + "Left Encoder (" + mLeftEncoder + "), Right Encoder (" + mRightEncoder + ")" + "Gyro (" + mGyroWrapper
-                    + ").  Available Encoders: " + SensorActuatorRegistry.get().getEncoders().keySet() + ", Available Gyros: "
+                    + "Left SpeedController (" + mLeftMotor + "), Right SpeedController (" + mRightMotor + ")" + "Gyro (" + mGyroWrapper
+                    + ").  Available SpeedControllers: " + SensorActuatorRegistry.get().getSpeedControllers().keySet() + ", Available Gyros: "
                     + SensorActuatorRegistry.get().getGyros().keySet());
         }
 
@@ -49,9 +49,8 @@ public class TankDriveGyroSimulator implements ISimulatorUpdater
     {
         if (mIsSetup)
         {
-
-            double rightDist = mRightEncoder.getPosition();
-            double leftDist = mLeftEncoder.getPosition();
+            double rightDist = mRightMotor.getPosition();
+            double leftDist = mLeftMotor.getPosition();
 
             mAngle = (leftDist - rightDist) / (Math.PI * mKP) * 180.0;
 
