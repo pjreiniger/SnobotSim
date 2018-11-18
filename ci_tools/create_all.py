@@ -11,13 +11,13 @@ def createAll(start_dir, root_path, library_name, version):
     natives = []
     # natives.append(os.path.join(library_path, library_name + "-" + version + "-linux-x86-64.jar"))
     natives.append(
-        os.path.join(library_path, 
+        os.path.join(library_path,
                      library_name + "-" + version + "-os x-x86-64.jar"))
     natives.append(
-        os.path.join(library_path, 
+        os.path.join(library_path,
                      library_name + "-" + version + "-windows-x86.jar"))
     natives.append(
-        os.path.join(library_path, 
+        os.path.join(library_path,
                      library_name + "-" + version + "-windows-x86-64.jar"))
 
     for native in natives:
@@ -32,7 +32,7 @@ def createAll(start_dir, root_path, library_name, version):
     for root, dirs, files in os.walk(temp_build_dir):
         for file in files:
             full_path = os.path.join(root, file)
-            zip_path = full_path[len(temp_build_dir) + 
+            zip_path = full_path[len(temp_build_dir) +
                                  len(os.sep):]  #XXX: relative path
             print(full_path + ", " + zip_path)
             ziph.write(full_path, zip_path)
