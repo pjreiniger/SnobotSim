@@ -6,8 +6,8 @@
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiRelayWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
-#include "mockdata/RelayData.h"
 #include "hal/Ports.h"
+#include "mockdata/RelayData.h"
 
 void RelayCallback(const char* name, void* param, const struct HAL_Value* value)
 {

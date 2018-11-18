@@ -29,7 +29,7 @@ public class CppRobotContainer implements IRobotClassContainer
         mJniClass = Class.forName(mRobotClassName);
 
         String libraryName = (String) mJniClass.getMethod("getLibraryName").invoke(null);
-        
+
         String openCvVersion = "343";
 
         JniLibraryResourceLoader.loadLibrary("ntcore");

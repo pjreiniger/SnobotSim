@@ -71,8 +71,8 @@ void EXPORT_ Log(
         SnobotLogging::Log(logLevel, __LINE__, __FILE__, message.str()); \
     }
 
-#define LOG_UNSUPPORTED() SNOBOT_LOG(SnobotLogging::CRITICAL, "Unsupported function " << __FUNCTION_NAME__);
-#define LOG_UNSUPPORTED_WITH_MESSAGE(message) SNOBOT_LOG(SnobotLogging::CRITICAL, "Unsupported function " << __FUNCTION_NAME__ << " " << message);
+#define LOG_UNSUPPORTED() SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Unsupported function " << __FUNCTION_NAME__);
+#define LOG_UNSUPPORTED_WITH_MESSAGE(message) SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Unsupported function " << __FUNCTION_NAME__ << " " << message);
 #define LOG_UNSUPPORTED_WITH_LEVEL(level) SNOBOT_LOG(level, "Unsupported function " << __FUNCTION_NAME__);
 #define LOG_UNSUPPORTED_WITH_LEVEL_AND_MSG(level, message) SNOBOT_LOG(level, "Unsupported function " << __FUNCTION_NAME__ << " " << message);
 
