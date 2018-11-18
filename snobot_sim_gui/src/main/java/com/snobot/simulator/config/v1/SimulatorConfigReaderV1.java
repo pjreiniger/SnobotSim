@@ -136,8 +136,8 @@ public class SimulatorConfigReaderV1
         if (aConfig instanceof TankDriveConfig)
         {
             TankDriveConfig config = (TankDriveConfig) aConfig;
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().connectTankDriveSimulator(config.getmLeftEncoderHandle(),
-                    config.getmRightEncoderHandle(), config.getmGyroHandle(), config.getmTurnKp());
+            DataAccessorFactory.getInstance().getSimulatorDataAccessor().connectTankDriveSimulator(config.getmLeftMotorHandle(),
+                    config.getmRightMotorHandle(), config.getmGyroHandle(), config.getmTurnKp());
         }
     }
 

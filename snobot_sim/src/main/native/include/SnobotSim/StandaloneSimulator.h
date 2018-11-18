@@ -8,9 +8,11 @@
 #ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_STANDALONESIMULATOR_H_
 #define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_STANDALONESIMULATOR_H_
 
+#include "SnobotSim/ExportHelper.h"
+
 namespace SnobotSim
 {
-class AStandaloneSimulator
+class EXPORT_ AStandaloneSimulator
 {
 public:
     AStandaloneSimulator();
@@ -22,7 +24,7 @@ public:
     void UpdateSimulatorComponentsThread();
 };
 
-void InitializeStandaloneSim();
+void EXPORT_ InitializeStandaloneSim();
 } // namespace SnobotSim
 
 #endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_STANDALONESIMULATOR_H_

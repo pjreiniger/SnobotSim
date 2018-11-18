@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Enumeration;
@@ -69,21 +70,16 @@ public class Simulator
      *
      * @param aLogLevel
      *            The log level to set up the simulator with
-     * @param aPluginDirectory
-     *            The directory to search for plugins
      * @param aUserConfigDir
      *            The config directory where settings are saved
      * @throws Exception
      *             Throws an exception if the plugin loading failed
      */
-    public Simulator(SnobotLogLevel aLogLevel, File aPluginDirectory, String aUserConfigDir, boolean aUseSnobotSimDriverstation) throws Exception
+    public Simulator(SnobotLogLevel aLogLevel, String aUserConfigDir, boolean aUseSnobotSimDriverstation) throws Exception
     {
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().setLogLevel(aLogLevel);
 
         printAsciiArt("/com/snobot/simulator/yeti_art.txt");
-
-        PluginSniffer sniffer = new PluginSniffer();
-        sniffer.loadPlugins(aPluginDirectory);
 
         mUseSnobotSimDriverstation = aUseSnobotSimDriverstation;
         mUserConfigDirectory = aUserConfigDir;
@@ -143,7 +139,7 @@ public class Simulator
             sLOGGER.log(Level.WARN, "Could not create default config file at " + defaultConfigFile);
         }
 
-        try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(aFile), "UTF-8"))
+        try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(aFile), StandardCharsets.UTF_8))
         {
             defaults.store(fw, "");
         }
@@ -233,7 +229,7 @@ public class Simulator
         }
         else
         {
-            throw new RuntimeException("Unsuppored robot type " + aRobotType);
+            throw new RuntimeException("Unsupported robot type " + aRobotType);
         }
 
         mRobot.constructRobot();

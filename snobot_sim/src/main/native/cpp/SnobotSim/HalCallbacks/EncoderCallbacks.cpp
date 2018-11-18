@@ -5,6 +5,7 @@
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiEncoderWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
+#include "hal/Ports.h"
 #include "mockdata/EncoderData.h"
 
 void EncoderCallback(const char* name, void* param, const struct HAL_Value* value)
@@ -22,7 +23,7 @@ void EncoderCallback(const char* name, void* param, const struct HAL_Value* valu
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::WARN, "Unknown name " << nameStr);
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Unknown name " << nameStr);
     }
 }
 

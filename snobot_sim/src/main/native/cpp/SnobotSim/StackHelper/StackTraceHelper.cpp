@@ -45,7 +45,7 @@ void PrintStackTracker()
     sw.ShowCallstack();
     std::ofstream fullDump(fullDumpFilename);
     fullDump << sw.mFullStream.str() << std::endl;
-    SNOBOT_LOG(SnobotLogging::CRITICAL,
+    SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL,
             "\nDumping stack trace... Full windows trace can be seen at " << fullDumpFilename << ".\n\n"
                                                                           << sw.mFilteredStream.str())
 }

@@ -75,6 +75,7 @@
     <exclude name="DoNotCallSystemExit" />
     <exclude name="FinalizeDoesNotCallSuperFinalize" />
     <exclude name="NullAssignment" />
+    <exclude name="MissingSerialVersionUID" />
   </rule>
 
   <rule ref="category/java/multithreading.xml">

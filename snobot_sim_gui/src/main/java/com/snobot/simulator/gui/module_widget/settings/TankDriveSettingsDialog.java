@@ -101,8 +101,8 @@ public class TankDriveSettingsDialog extends JDialog
         for (TankDriveSettingsPanel panel : mPanels)
         {
             TankDriveConfig config = panel.getConfig();
-            DataAccessorFactory.getInstance().getSimulatorDataAccessor().connectTankDriveSimulator(config.getmLeftEncoderHandle(),
-                    config.getmRightEncoderHandle(), config.getmGyroHandle(), config.getmTurnKp());
+            DataAccessorFactory.getInstance().getSimulatorDataAccessor().connectTankDriveSimulator(config.getmLeftMotorHandle(),
+                    config.getmRightMotorHandle(), config.getmGyroHandle(), config.getmTurnKp());
         }
     }
 
@@ -152,12 +152,12 @@ public class TankDriveSettingsDialog extends JDialog
                 mLeftMotorSelection.addItem(option);
                 mRightMotorSelection.addItem(option);
 
-                if (option.mHandle == aComp.getmLeftEncoderHandle())
+                if (option.mHandle == aComp.getmLeftMotorHandle())
                 {
                     mLeftMotorSelection.setSelectedItem(option);
                 }
 
-                if (option.mHandle == aComp.getmRightEncoderHandle())
+                if (option.mHandle == aComp.getmRightMotorHandle())
                 {
                     mRightMotorSelection.setSelectedItem(option);
                 }

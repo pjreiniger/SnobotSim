@@ -6,6 +6,7 @@
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiSolenoidWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
+#include "hal/Ports.h"
 #include "mockdata/PCMData.h"
 
 void SolenoidCallback(const char* name, void* param, const struct HAL_Value* value)
@@ -23,7 +24,7 @@ void SolenoidCallback(const char* name, void* param, const struct HAL_Value* val
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::WARN, "Unknown name " << nameStr);
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Unknown name " << nameStr);
     }
 }
 

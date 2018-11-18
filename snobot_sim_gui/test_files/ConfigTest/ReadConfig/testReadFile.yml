@@ -176,18 +176,18 @@ mRelays:
 mSimulatorComponents:
 - !!com.snobot.simulator.simulator_components.config.TankDriveConfig
   mGyroHandle: 1
-  mLeftEncoderHandle: 0
-  mRightEncoderHandle: 1
+  mLeftMotorHandle: 0
+  mRightMotorHandle: 1
   mTurnKp: 0.5
 - !!com.snobot.simulator.simulator_components.config.TankDriveConfig
   mGyroHandle: 100
-  mLeftEncoderHandle: 0
-  mRightEncoderHandle: 1
+  mLeftMotorHandle: 0
+  mRightMotorHandle: 1
   mTurnKp: 1.0
 - !!com.snobot.simulator.simulator_components.config.TankDriveConfig
   mGyroHandle: 103
-  mLeftEncoderHandle: 0
-  mRightEncoderHandle: 1
+  mLeftMotorHandle: 0
+  mRightMotorHandle: 1
   mTurnKp: 2.0
 mSolenoids:
 - mHandle: 0

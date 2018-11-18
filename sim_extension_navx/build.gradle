@@ -7,12 +7,9 @@ ext
     libraryName = "navx_simulator_jni"
     getNativeVersion = { binary -> NativeUtils.getPlatformPath(binary) }
     jniClasses = ['com.snobot.simulator.navx.I2CNavxSimulatorJni', 'com.snobot.simulator.navx.SpiNavxSimulatorJni']
-    extra_libraries = [
-                        [':sim_extension_navx', 'navx_simulator', 'shared']
-                      ]
     
     libraryBaseName = 'navx_simulator'
-    librarySrcDirs = [ 'src/main/native/sim']
+    librarySrcDirs = [ 'src/main/native']
     libraryHeaderDirs = [ "src/main/native/include", ]
     
     baseId = "navx_simulator"
@@ -34,8 +31,7 @@ model {
             headerClassifier = 'headers'
             ext = 'zip'
             version = getWpiUtilVersion()
-            sharedConfigs = [ navx_simulator: [],
-                              navx_simulator_jni: [] ]
+            sharedConfigs = [ navx_simulator_jni: [] ]
         }
         halsim(DependencyConfig) {
             groupId = 'edu.wpi.first.hal'
@@ -43,8 +39,7 @@ model {
             headerClassifier = 'headers'
             ext = 'zip'
             version = allwpilibVersion()
-            sharedConfigs = [ navx_simulator: [],
-                              navx_simulator_jni: []  ]
+            sharedConfigs = [ navx_simulator_jni: []  ]
         }
     }
     exportsConfigs {
@@ -57,22 +52,6 @@ model {
                                   '_CT??_R0?AVbad_cast',
                                   '_CT??_R0?AVruntime_error', '_CT??_R0?AVsystem_error', '_CTA5?AVfailure',
                                   '_TI5?AVfailure' ]
-        }
-    }
-    components {
-        navx_simulator(NativeLibrarySpec) {
-            baseName = "navx_simulator_base"
-            sources {
-                cpp {
-                    source {
-                        srcDirs = [ 'src/main/native/cpp' ]
-                        includes = ["**/*.cpp"]
-                    }
-                    exportedHeaders {
-                        srcDirs = ["src/main/native/include"]
-                    }
-                }
-            }
         }
     }
 }

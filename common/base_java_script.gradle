@@ -47,7 +47,7 @@ checkstyle {
 }
 
 pmd {
-    toolVersion = '6.3.0'
+    toolVersion = '6.7.0'
     consoleOutput  = true
     reportsDir = file("${project.buildDir}/reports/pmd")
     ruleSetFiles = files(file("$rootDir/styleguide/pmd-ruleset.xml"))

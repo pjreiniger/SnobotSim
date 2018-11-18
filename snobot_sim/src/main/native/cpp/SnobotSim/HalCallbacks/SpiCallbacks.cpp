@@ -12,6 +12,7 @@
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/Interfaces/ISpiWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
+#include "hal/Ports.h"
 #include "mockdata/SPIData.h"
 
 void SpiCallback(const char* name, void* param, const struct HAL_Value* value)
@@ -26,7 +27,7 @@ void SpiCallback(const char* name, void* param, const struct HAL_Value* value)
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::WARN, "Unknown name " << nameStr);
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Unknown name " << nameStr);
     }
 }
 

@@ -150,7 +150,7 @@ DcMotorModelConfig VexMotorFactory::CreateMotor(
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::CRITICAL, "Unknown motor sim name " << aName);
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Unknown motor sim name " << aName);
     }
 
     factoryParams.mMotorName = "";

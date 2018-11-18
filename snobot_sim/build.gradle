@@ -76,7 +76,7 @@ model {
                     exportedHeaders {
                         srcDirs = ["src/main/native/include"]
                     }
-                    lib project: ':sim_extension_navx', library: 'navx_simulator', linkage: 'shared'
+                    lib project: ':sim_extension_navx', library: 'navx_simulator_jni', linkage: 'shared'
                 }
             }
         }

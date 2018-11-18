@@ -27,7 +27,7 @@ bool SpeedControllerFactory::Create(int aHandle, const std::string& aType)
     {
         if (!SensorActuatorRegistry::Get().GetISpeedControllerWrapper(aHandle, false))
         {
-            SNOBOT_LOG(SnobotLogging::WARN, "Not set up before loading robot");
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Not set up before loading robot");
 
             SensorActuatorRegistry::Get().Register(aHandle,
                     std::shared_ptr<ISpeedControllerWrapper>(new WpiSpeedControllerWrapper(aHandle)));
@@ -35,7 +35,7 @@ bool SpeedControllerFactory::Create(int aHandle, const std::string& aType)
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::WARN, "Unknown type " << aType);
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Unknown type " << aType);
         success = false;
     }
 

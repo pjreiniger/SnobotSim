@@ -66,8 +66,8 @@ mRelays: []
 mSimulatorComponents:
 - !!com.snobot.simulator.simulator_components.TankDriveGyroSimulator$TankDriveConfig
   mGyroHandle: 100
-  mLeftEncoderHandle: 0
-  mRightEncoderHandle: 1
+  mLeftMotorHandle: 0
+  mRightMotorHandle: 1
   mTurnKp: 33.33
 mSolenoids:
 - mHandle: 1

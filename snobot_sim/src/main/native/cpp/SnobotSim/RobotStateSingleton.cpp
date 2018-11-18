@@ -32,7 +32,7 @@ RobotStateSingleton& RobotStateSingleton::Get()
 
 void RobotStateSingleton::Reset()
 {
-    SNOBOT_LOG(SnobotLogging::INFO, "Resetting State Singleton");
+    SNOBOT_LOG(SnobotLogging::LOG_LEVEL_INFO, "Resetting State Singleton");
 }
 
 void RobotStateSingleton::WaitForNextControlLoop(double aWaitTime)

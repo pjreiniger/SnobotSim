@@ -5,6 +5,7 @@
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiDigitalIoWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
+#include "hal/Ports.h"
 #include "mockdata/DIOData.h"
 
 void DigitalIOCallback(const char* name, void* param, const struct HAL_Value* value)
@@ -22,7 +23,7 @@ void DigitalIOCallback(const char* name, void* param, const struct HAL_Value* va
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::WARN, "Unknown name " << nameStr);
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Unknown name " << nameStr);
     }
 }
 

@@ -2,8 +2,8 @@ package com.snobot.simulator.simulator_components.config;
 
 public class TankDriveConfig
 {
-    private int mLeftEncoderHandle;
-    private int mRightEncoderHandle;
+    private int mLeftMotorHandle;
+    private int mRightMotorHandle;
     private int mGyroHandle;
     private double mTurnKp;
 
@@ -14,30 +14,30 @@ public class TankDriveConfig
 
     public TankDriveConfig(int aLeftHandle, int aRightHandle, int aGyroHandle, double aTurnKp)
     {
-        mLeftEncoderHandle = aLeftHandle;
-        mRightEncoderHandle = aRightHandle;
+        mLeftMotorHandle = aLeftHandle;
+        mRightMotorHandle = aRightHandle;
         mGyroHandle = aGyroHandle;
         mTurnKp = aTurnKp;
     }
 
-    public int getmLeftEncoderHandle()
+    public int getmLeftMotorHandle()
     {
-        return mLeftEncoderHandle;
+        return mLeftMotorHandle;
     }
 
-    public void setmLeftEncoderHandle(int aLeftEncoderHandle)
+    public void setmLeftMotorHandle(int aLeftMotorHandle)
     {
-        this.mLeftEncoderHandle = aLeftEncoderHandle;
+        this.mLeftMotorHandle = aLeftMotorHandle;
     }
 
-    public int getmRightEncoderHandle()
+    public int getmRightMotorHandle()
     {
-        return mRightEncoderHandle;
+        return mRightMotorHandle;
     }
 
-    public void setmRightEncoderHandle(int aRightEncoderHandle)
+    public void setmRightMotorHandle(int aRightMotorHandle)
     {
-        this.mRightEncoderHandle = aRightEncoderHandle;
+        this.mRightMotorHandle = aRightMotorHandle;
     }
 
     public int getmGyroHandle()
