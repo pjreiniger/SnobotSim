@@ -1,6 +1,20 @@
 
 # Current Release
 
+## [2019-0.0.0](https://github.com/pjreiniger/SnobotSim/releases/tag/2019-0.0.0)
+### 2019 Beta Version
+* Updated to work with wpilib 2019
+* Added some [example](https://github.com/pjreiniger/SnobotSimExamples) on how to use the simulator. Note: these are a work in progress.
+
+### Important notes
+* Requires [2019-0.0.0 Plugin](https://github.com/pjreiniger/SnobotSimPlugin/releases/tag/v2019_0.0.0) to use downstream
+* wpilib is still in beta as well. This means that there might be issues in their software which can cause confusion when using the simulator. Also, since the real "full" beta hasn't been released, I don't think you will be able to run this version of wpilib on a real robot. This is meant for simulation purposes only.
+* 3rd party libraries (like CTRE and NavX) have not released their 2019 libraries. There might be a lot of things that have to change to work with those once they get released.
+
+
+
+# Old releases
+
 ## [2018-2.0.0](https://github.com/pjreiniger/SnobotSim/releases/tag/2018-2.0.0)
 * Modified the native library loading scheme to help support [HAL Extensions](https://github.com/wpilibsuite/allwpilib/tree/master/simulation/halsim_ds_nt).  Also means that mac builds now work
 * Added command line option to disable the driver station simulation.
@@ -12,10 +26,6 @@
 * Voltage and AppliedThrottle control modes are in beta support.  This means that that they *should* work as expected
 * MotionMagic, Position, and Velocity control modes are in alpha support.  This means that they *may, sort of, sometimes* work as expected.  They are tested against, but may not anywhere near the same as the real world
 * Everything else is unsupported.  Attempting to use other functions will simply log a warning.  For the average team, these features will not hinder the majority of your pre-robot testing
-
-
-
-# Old releases
 
 ## [2018-1.0.1](https://github.com/pjreiniger/SnobotSim/releases/tag/2018-1.0.1)
 * Changed to Year-Sem.Ver.2 versioning system
