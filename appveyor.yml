@@ -33,7 +33,9 @@ build_script:
 
     dir build\jdkinst
 
-- cmd: gradlew.bat build jacocoTestReport publish -Pmaven_repo=build/maven_repo -PciBuild
+- cmd: gradlew.bat build jacocoTestReport publishToMavenLocal -PciBuild
+- cmd: mkdir "build\publish_artifacts"
+- cmd: xcopy /s "%USERPROFILE%\.m2\repository\com\snobot\simulator" "build\publish_artifacts"
 
 after_build:
 - cmd: "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
@@ -86,20 +88,5 @@ artifacts:
 - path: snobot_sim_gui/build/test-results
   name: testResults
 
-- path: build/maven_repo/com/snobot/simulator/snobot_sim_jni/**/snobot_sim_jni-*.jar
-  name: simulator_jni
-
-- path: build/maven_repo/com/snobot/simulator/snobot_sim_java/**/snobot_sim_java-*.jar
-  name: simulator_java
-
-- path: build/maven_repo/com/snobot/simulator/snobot_sim_gui_application/**/snobot_sim_gui_application*.zip
-  name: simulator_application
-
-- path: build/maven_repo/com/snobot/simulator/snobot_sim_gui/**/snobot_sim_gui*.jar
-  name: simulator_gui
-
-- path: build/maven_repo/com/snobot/simulator/snobot_sim_gui_eclipse_boilerplate/**/snobot_sim_gui_eclipse_boilerplate-*.zip
-  name: eciplse_boilerplate
-
-- path: build/maven_repo
+- path: build/publish_artifacts
   name: full_maven_repo
