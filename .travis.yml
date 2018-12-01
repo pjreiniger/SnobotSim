@@ -52,6 +52,13 @@ script:
         # Clone the hacky repo, publish into it
         git clone --depth=50 --branch=master https://github.com/pjreiniger/maven_repo.git ../../pjreiniger/maven_repo
         ./gradlew publish  -PciBuild -Pmaven_repo=../../pjreiniger/maven_repo
+        # Temp
+        ./gradlew publish  -PciBuild -Pmaven_repo=../../pjreiniger/test_dump
+        ls -l
+        ls -l ../../pjreiniger
+        ls -l ../../pjreiniger/maven_repo
+        echo "Hello..."
+        ls -l ../../pjreiniger/test_dump
 
 deploy:
   - provider: script
@@ -59,6 +66,11 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+  - provider: script
+    script: pwd; cd ../../pjreiniger/maven_repo; pwd; ls; chmod +x commit_updates.sh; ./commit_updates.sh
+    skip_cleanup: true
+    on:
+      branch: 2019-beta-0.0.1-RC
 
 env:
   global:
