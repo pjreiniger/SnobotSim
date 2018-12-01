@@ -33,7 +33,7 @@ public class TestRelayJni extends BaseSimulatorJniTest
     @Test
     public void testCreateRelaysWithSetup()
     {
-        DataAccessorFactory.getInstance().getRelayAccessor().createSimulator(3, "WpiRelayWrapper");
+        DataAccessorFactory.getInstance().getRelayAccessor().createSimulator(3, "com.snobot.simulator.module_wrapper.wpi.WpiRelayWrapper");
         Assertions.assertFalse(DataAccessorFactory.getInstance().getRelayAccessor().isInitialized(3));
 
         new Relay(3);

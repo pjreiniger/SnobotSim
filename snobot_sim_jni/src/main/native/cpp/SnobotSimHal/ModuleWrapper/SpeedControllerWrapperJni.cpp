@@ -277,7 +277,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCon
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Could not cast motor sim to desired type ");
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Could not cast motor sim to desired type ");
     }
 
     return 0;
@@ -285,10 +285,10 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCon
 
 /*
  * Class:     com_snobot_simulator_jni_module_wrapper_SpeedControllerWrapperJni
- * Method:    getMotorSimStaticModelConfig
+ * Method:    getMotorSimStaticModelConfig_load
  * Signature: (I)D
  */
-JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedControllerWrapperJni_getMotorSimStaticModelConfig
+JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedControllerWrapperJni_getMotorSimStaticModelConfig_1load
   (JNIEnv *, jclass, jint aPortHandle)
 {
     const std::shared_ptr<IMotorSimulator>& motorSim =
@@ -300,7 +300,30 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCon
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Could not cast motor sim to desired type ");
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Could not cast motor sim to desired type ");
+    }
+
+    return 0;
+}
+
+/*
+ * Class:     com_snobot_simulator_jni_module_wrapper_SpeedControllerWrapperJni
+ * Method:    getMotorSimStaticModelConfig_conversionFactor
+ * Signature: (I)D
+ */
+JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedControllerWrapperJni_getMotorSimStaticModelConfig_1conversionFactor
+  (JNIEnv *, jclass, jint aPortHandle)
+{
+    const std::shared_ptr<IMotorSimulator>& motorSim =
+            SensorActuatorRegistry::Get().GetISpeedControllerWrapper(aPortHandle)->GetMotorSimulator();
+    const std::shared_ptr<StaticLoadDcMotorSim>& castMotorSim = std::dynamic_pointer_cast<StaticLoadDcMotorSim>(motorSim);
+    if(castMotorSim)
+    {
+        return castMotorSim->GetConversionFactor();
+    }
+    else
+    {
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Could not cast motor sim to desired type ");
     }
 
     return 0;
@@ -323,7 +346,7 @@ JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_SpeedCon
     }
     else
     {
-        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Could not cast motor sim to desired type ");
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Could not cast motor sim to desired type ");
     }
 
     return 0;

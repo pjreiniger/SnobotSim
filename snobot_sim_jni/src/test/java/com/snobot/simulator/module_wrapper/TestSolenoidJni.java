@@ -39,7 +39,7 @@ public class TestSolenoidJni extends BaseSimulatorJniTest
     @Test
     public void testCreateSolenoidWithSetup()
     {
-        DataAccessorFactory.getInstance().getSolenoidAccessor().createSimulator(3, "WpiSolenoidWrapper");
+        DataAccessorFactory.getInstance().getSolenoidAccessor().createSimulator(3, "com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper");
         Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().isInitialized(3));
 
         new Solenoid(3);

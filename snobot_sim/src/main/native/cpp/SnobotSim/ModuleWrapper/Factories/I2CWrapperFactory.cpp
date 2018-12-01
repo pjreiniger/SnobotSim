@@ -46,7 +46,7 @@ std::shared_ptr<II2CWrapper> I2CWrapperFactory::GetI2CWrapper(int aPort)
         std::map<int, std::string>::iterator iter = mDefaultsMap.find(aPort);
         if (iter != mDefaultsMap.end())
         {
-            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_INFO, "Using specified default '" << iter->second << "' on port " << aPort);
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Using specified default '" << iter->second << "' on port " << aPort);
             i2cWrapper = CreateWrapper(aPort, iter->second);
         }
         else

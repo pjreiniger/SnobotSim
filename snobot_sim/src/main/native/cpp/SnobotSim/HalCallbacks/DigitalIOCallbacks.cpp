@@ -17,7 +17,8 @@ void DigitalIOCallback(const char* name, void* param, const struct HAL_Value* va
     {
         if (!SensorActuatorRegistry::Get().GetIDigitalIoWrapper(port, false))
         {
-            FactoryContainer::Get().GetDigitalIoFactory()->Create(port, "WpiDigitalIoWrapper");
+            FactoryContainer::Get().GetDigitalIoFactory()->Create(port, "com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper");
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Simulator on port " << port << " was not registered before starting the robot");
         }
         SensorActuatorRegistry::Get().GetIDigitalIoWrapper(port)->SetInitialized(true);
     }

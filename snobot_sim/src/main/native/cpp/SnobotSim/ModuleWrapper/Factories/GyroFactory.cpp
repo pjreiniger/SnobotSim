@@ -23,15 +23,14 @@ bool GyroFactory::Create(int aHandle, const std::string& aType)
 {
     bool success = true;
 
-    if (aType == "WpiAnalogGyroWrapper")
+    if (aType == "com.snobot.simulator.module_wrapper.wpi.WpiAnalogGyroWrapper")
     {
-        if (!SensorActuatorRegistry::Get().GetIGyroWrapper(aHandle, false))
-        {
-            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Not set up before loading robot");
-
-            std::shared_ptr<IGyroWrapper> gyroWrapper(new WpiAnalogGyroWrapper(aHandle));
-            SensorActuatorRegistry::Get().Register(aHandle, gyroWrapper);
-        }
+        std::shared_ptr<IGyroWrapper> gyroWrapper(new WpiAnalogGyroWrapper(aHandle));
+        SensorActuatorRegistry::Get().Register(aHandle, gyroWrapper);
+    }
+    else if (aType == "com.snobot.simulator.simulator_components.adx_family.ADXRS450GyroWrapper")
+    {
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "This type is set up elsewhere, won't do anything here");
     }
     else
     {

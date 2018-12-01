@@ -81,8 +81,9 @@ public class JniSpeedControllerWrapperAccessor implements SpeedControllerWrapper
     @Override
     public StaticLoadMotorSimulationConfig getMotorSimStaticModelConfig(int aPort)
     {
-        double load = SpeedControllerWrapperJni.getMotorSimStaticModelConfig(aPort);
-        return new StaticLoadMotorSimulationConfig(load);
+        double load = SpeedControllerWrapperJni.getMotorSimStaticModelConfig_load(aPort);
+        double conversionFactor = SpeedControllerWrapperJni.getMotorSimStaticModelConfig_conversionFactor(aPort);
+        return new StaticLoadMotorSimulationConfig(load, conversionFactor);
     }
 
     @Override

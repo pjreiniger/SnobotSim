@@ -18,7 +18,8 @@ void SolenoidCallback(const char* name, void* param, const struct HAL_Value* val
     {
         if (!SensorActuatorRegistry::Get().GetISolenoidWrapper(port, false))
         {
-            FactoryContainer::Get().GetSolenoidFactory()->Create(port, "WpiSolenoidWrapper");
+            FactoryContainer::Get().GetSolenoidFactory()->Create(port, "com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper");
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Simulator on port " << port << " was not registered before starting the robot");
         }
         SensorActuatorRegistry::Get().GetISolenoidWrapper(port)->SetInitialized(true);
     }

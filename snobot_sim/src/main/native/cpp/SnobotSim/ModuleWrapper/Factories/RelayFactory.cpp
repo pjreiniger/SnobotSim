@@ -23,15 +23,10 @@ bool RelayFactory::Create(int aHandle, const std::string& aType)
 {
     bool success = true;
 
-    if (aType == "WpiRelayWrapper")
+    if (aType == "com.snobot.simulator.module_wrapper.wpi.WpiRelayWrapper")
     {
-        if (!SensorActuatorRegistry::Get().GetIRelayWrapper(aHandle, false))
-        {
-            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Not set up before loading robot");
-
-            SensorActuatorRegistry::Get().Register(aHandle,
-                    std::shared_ptr<IRelayWrapper>(new WpiRelayWrapper(aHandle)));
-        }
+        SensorActuatorRegistry::Get().Register(aHandle,
+                std::shared_ptr<IRelayWrapper>(new WpiRelayWrapper(aHandle)));
     }
     else
     {

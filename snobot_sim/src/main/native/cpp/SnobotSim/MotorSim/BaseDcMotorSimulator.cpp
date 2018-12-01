@@ -63,6 +63,11 @@ void BaseDcMotorSimulator::Reset(double aPosition, double aVelocity, double aCur
     mMotorModel.Reset(aPosition, aVelocity, aCurrent);
 }
 
+double BaseDcMotorSimulator::GetConversionFactor()
+{
+    return mConversionFactor;
+}
+
 double BaseDcMotorSimulator::GetCurrent()
 {
     return mMotorModel.GetCurrent();

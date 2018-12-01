@@ -23,7 +23,8 @@ void AnalogGyroCallback(const char* name, void* param, const struct HAL_Value* v
     {
         if (!SensorActuatorRegistry::Get().GetIGyroWrapper(port, false))
         {
-            FactoryContainer::Get().GetGyroFactory()->Create(port, "WpiAnalogGyroWrapper");
+            FactoryContainer::Get().GetGyroFactory()->Create(port, "com.snobot.simulator.module_wrapper.wpi.WpiAnalogGyroWrapper");
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Simulator on port " << port << " was not registered before starting the robot");
         }
 
         std::shared_ptr<IAnalogInWrapper> analogWrapper = SensorActuatorRegistry::Get().GetIAnalogInWrapper(port);

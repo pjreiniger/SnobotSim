@@ -17,7 +17,8 @@ void EncoderCallback(const char* name, void* param, const struct HAL_Value* valu
     {
         if (!SensorActuatorRegistry::Get().GetIEncoderWrapper(port, false))
         {
-            FactoryContainer::Get().GetEncoderFactory()->Create(port, "WpiEncoderWrapper");
+            FactoryContainer::Get().GetEncoderFactory()->Create(port, "com.snobot.simulator.module_wrapper.wpi.WpiEncoderWrapper");
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Simulator on port " << port << " was not registered before starting the robot");
         }
         SensorActuatorRegistry::Get().GetIEncoderWrapper(port)->SetInitialized(true);
     }

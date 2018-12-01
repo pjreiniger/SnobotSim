@@ -33,7 +33,7 @@ public class TestPwmJni extends BaseSimulatorJniTest
     @Test
     public void testCreatePwmWithSetup()
     {
-        DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(3, "WpiPwmWrapper");
+        DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(3, "com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper");
         Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(3));
 
         new Talon(3);

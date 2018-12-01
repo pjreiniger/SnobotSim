@@ -23,15 +23,10 @@ bool SpeedControllerFactory::Create(int aHandle, const std::string& aType)
 {
     bool success = true;
 
-    if (aType == "WpiPwmWrapper")
+    if (aType == "com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper")
     {
-        if (!SensorActuatorRegistry::Get().GetISpeedControllerWrapper(aHandle, false))
-        {
-            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Not set up before loading robot");
-
-            SensorActuatorRegistry::Get().Register(aHandle,
-                    std::shared_ptr<ISpeedControllerWrapper>(new WpiSpeedControllerWrapper(aHandle)));
-        }
+        SensorActuatorRegistry::Get().Register(aHandle,
+                std::shared_ptr<ISpeedControllerWrapper>(new WpiSpeedControllerWrapper(aHandle)));
     }
     else
     {

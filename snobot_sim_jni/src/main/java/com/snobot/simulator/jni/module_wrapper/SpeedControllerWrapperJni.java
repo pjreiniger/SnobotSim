@@ -45,7 +45,9 @@ public final class SpeedControllerWrapperJni extends BaseSimulatorJni
 
     public static native double getMotorSimSimpleModelConfig(int aPort);
 
-    public static native double getMotorSimStaticModelConfig(int aPort);
+    public static native double getMotorSimStaticModelConfig_load(int aPort);
+
+    public static native double getMotorSimStaticModelConfig_conversionFactor(int aPort);
 
     public static native double getMotorSimGravitationalModelConfig(int aPort);
 

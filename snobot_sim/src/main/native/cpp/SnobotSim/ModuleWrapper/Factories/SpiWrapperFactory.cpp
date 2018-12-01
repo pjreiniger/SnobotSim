@@ -50,7 +50,7 @@ std::shared_ptr<ISpiWrapper> SpiWrapperFactory::GetSpiWrapper(int aPort)
         std::map<int, std::string>::iterator iter = mDefaultsMap.find(aPort);
         if (iter != mDefaultsMap.end())
         {
-            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_INFO, "Using specified default '" << iter->second << "' on port " << aPort);
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Using specified default '" << iter->second << "' on port " << aPort);
             spiWrapper = CreateWrapper(aPort, iter->second);
         }
         else

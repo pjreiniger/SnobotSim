@@ -22,8 +22,9 @@ bool AccelerometerFactory::Create(int aHandle, const std::string& aType)
 {
     bool success = true;
 
-    if (aType == "WpiAnalogGyroWrapper")
+    if (aType == "com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper")
     {
+        SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "This type is set up elsewhere, won't do anything here");
     }
     else
     {

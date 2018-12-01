@@ -27,6 +27,19 @@ public:
                 mTransmissionEfficiency(0)
         {
         }
+
+        FactoryParams(
+                std::string motorName,
+                int numMotors,
+                double gearReduction,
+                double transmissionEfficiency) :
+        mMotorName(motorName),
+        mNumMotors(numMotors),
+        mGearReduction(gearReduction),
+        mTransmissionEfficiency(transmissionEfficiency)
+        {
+
+        }
     };
 
     DcMotorModelConfig(

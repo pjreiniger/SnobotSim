@@ -36,7 +36,7 @@ public class TestAnalogIOJni extends BaseSimulatorJniTest
     @Test
     public void testCreateAnalogInWithSetup()
     {
-        DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(3, "WpiAnalogInWrapper");
+        DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(3, "com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper");
         Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().isInitialized(3));
 
         new AnalogInput(3);
@@ -58,7 +58,7 @@ public class TestAnalogIOJni extends BaseSimulatorJniTest
     @Test
     public void testCreateAnalogOutWithSetup()
     {
-        DataAccessorFactory.getInstance().getAnalogOutAccessor().createSimulator(1, "WpiAnalogOutWrapper");
+        DataAccessorFactory.getInstance().getAnalogOutAccessor().createSimulator(1, "com.snobot.simulator.module_wrapper.wpi.WpiAnalogOutWrapper");
         Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogOutAccessor().isInitialized(1));
 
         new AnalogOutput(1);

@@ -18,7 +18,8 @@ void RelayCallback(const char* name, void* param, const struct HAL_Value* value)
     {
         if (!SensorActuatorRegistry::Get().GetIRelayWrapper(port, false))
         {
-            FactoryContainer::Get().GetRelayFactory()->Create(port, "WpiRelayWrapper");
+            FactoryContainer::Get().GetRelayFactory()->Create(port, "com.snobot.simulator.module_wrapper.wpi.WpiRelayWrapper");
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Simulator on port " << port << " was not registered before starting the robot");
         }
         SensorActuatorRegistry::Get().GetIRelayWrapper(port)->SetInitialized(true);
     }

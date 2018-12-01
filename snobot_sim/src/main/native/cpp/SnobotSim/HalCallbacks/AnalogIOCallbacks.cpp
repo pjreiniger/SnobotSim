@@ -19,7 +19,8 @@ void AnalogInCallback(const char* name, void* param, const struct HAL_Value* val
     {
         if (!SensorActuatorRegistry::Get().GetIAnalogInWrapper(port, false))
         {
-            FactoryContainer::Get().GetAnalogInFactory()->Create(port, "WpiAnalogInWrapper");
+            FactoryContainer::Get().GetAnalogInFactory()->Create(port, "com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper");
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Simulator on port " << port << " was not registered before starting the robot");
         }
         SensorActuatorRegistry::Get().GetIAnalogInWrapper(port)->SetInitialized(true);
     }
@@ -38,7 +39,8 @@ void AnalogOutCallback(const char* name, void* param, const struct HAL_Value* va
     {
         if (!SensorActuatorRegistry::Get().GetIAnalogOutWrapper(port, false))
         {
-            FactoryContainer::Get().GetAnalogOutFactory()->Create(port, "WpiAnalogOutWrapper");
+            FactoryContainer::Get().GetAnalogOutFactory()->Create(port, "com.snobot.simulator.module_wrapper.wpi.WpiAnalogOutWrapper");
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Simulator on port " << port << " was not registered before starting the robot");
         }
         SensorActuatorRegistry::Get().GetIAnalogOutWrapper(port)->SetInitialized(true);
     }

@@ -33,7 +33,7 @@ public class TestDigitalIOJni extends BaseSimulatorJniTest
     @Test
     public void testCreateDigitalInWithSetup()
     {
-        DataAccessorFactory.getInstance().getDigitalAccessor().createSimulator(3, "WpiDigitalIoWrapper");
+        DataAccessorFactory.getInstance().getDigitalAccessor().createSimulator(3, "com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper");
         Assertions.assertFalse(DataAccessorFactory.getInstance().getDigitalAccessor().isInitialized(3));
 
         new DigitalInput(3);

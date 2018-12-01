@@ -18,7 +18,8 @@ void PwmCallback(const char* name, void* param, const struct HAL_Value* value)
     {
         if (!SensorActuatorRegistry::Get().GetISpeedControllerWrapper(port, false))
         {
-            FactoryContainer::Get().GetSpeedControllerFactory()->Create(port, "WpiPwmWrapper");
+            FactoryContainer::Get().GetSpeedControllerFactory()->Create(port, "com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper");
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Simulator on port " << port << " was not registered before starting the robot");
         }
         SensorActuatorRegistry::Get().GetISpeedControllerWrapper(port)->SetInitialized(true);
     }

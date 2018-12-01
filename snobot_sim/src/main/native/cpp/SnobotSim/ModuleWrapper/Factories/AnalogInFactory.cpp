@@ -23,15 +23,10 @@ bool AnalogInFactory::Create(int aHandle, const std::string& aType)
 {
     bool success = true;
 
-    if (aType == "WpiAnalogInWrapper")
+    if (aType == "com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper")
     {
-        if (!SensorActuatorRegistry::Get().GetIAnalogInWrapper(aHandle, false))
-        {
-            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_WARN, "Not set up before loading robot");
-
-            SensorActuatorRegistry::Get().Register(aHandle,
-                    std::shared_ptr<IAnalogInWrapper>(new WpiAnalogInWrapper(aHandle)));
-        }
+        SensorActuatorRegistry::Get().Register(aHandle,
+                std::shared_ptr<IAnalogInWrapper>(new WpiAnalogInWrapper(aHandle)));
     }
     else
     {
