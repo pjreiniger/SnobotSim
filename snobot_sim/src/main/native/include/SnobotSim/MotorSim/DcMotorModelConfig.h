@@ -33,12 +33,11 @@ public:
                 int numMotors,
                 double gearReduction,
                 double transmissionEfficiency) :
-        mMotorName(motorName),
-        mNumMotors(numMotors),
-        mGearReduction(gearReduction),
-        mTransmissionEfficiency(transmissionEfficiency)
+                mMotorName(motorName),
+                mNumMotors(numMotors),
+                mGearReduction(gearReduction),
+                mTransmissionEfficiency(transmissionEfficiency)
         {
-
         }
     };
 
