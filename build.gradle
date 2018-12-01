@@ -18,8 +18,8 @@ buildscript {
 
 plugins {
     id 'net.ltgt.errorprone' version '0.0.15'
-    id 'edu.wpi.first.NativeUtils' version '1.7.4'
-    id 'edu.wpi.first.GradleJni' version '0.3.0' apply false
+    id 'edu.wpi.first.NativeUtils' version '2.0.1'
+    id 'edu.wpi.first.GradleJni' version '0.3.1' apply false
     id "com.diffplug.gradle.spotless" version "3.10.0"
     id 'com.gradle.build-scan' version '1.15.1'
     id "com.github.spotbugs" version "1.6.4"
@@ -111,7 +111,7 @@ if(hasProperty('maven_repo'))
 ext.maven_publishing_path = new File(maven_publishing_path).getAbsolutePath()
 println "Publishing maven to " + ext.maven_publishing_path.toString()
 
-ext.maven_version = "2019-0.0.0"
+ext.maven_version = "2019-0.0.1-RC"
 if(hasProperty('maven_version'))
 {
     ext.maven_version = maven_version
