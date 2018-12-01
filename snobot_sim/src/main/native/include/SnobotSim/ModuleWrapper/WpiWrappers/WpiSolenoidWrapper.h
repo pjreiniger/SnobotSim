@@ -5,8 +5,7 @@
  *      Author: PJ
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MODULEWRAPPER_WPIWRAPPERS_WPISOLENOIDWRAPPER_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MODULEWRAPPER_WPIWRAPPERS_WPISOLENOIDWRAPPER_H_
+#pragma once
 
 #include "SnobotSim/ModuleWrapper/AModuleWrapper.h"
 #include "SnobotSim/ModuleWrapper/Interfaces/ISolenoidWrapper.h"
@@ -25,5 +24,3 @@ protected:
     const int mModule;
     const int mChannel;
 };
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MODULEWRAPPER_WPIWRAPPERS_WPISOLENOIDWRAPPER_H_

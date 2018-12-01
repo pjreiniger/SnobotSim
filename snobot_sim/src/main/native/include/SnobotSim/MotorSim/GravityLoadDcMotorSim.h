@@ -5,9 +5,7 @@
  *      Author: preiniger
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_GRAVITYLOADDCMOTORSIM_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_GRAVITYLOADDCMOTORSIM_H_
-
+#pragma once
 #include "SnobotSim/MotorSim/BaseDcMotorSimulator.h"
 
 class EXPORT_ GravityLoadDcMotorSim : public BaseDcMotorSimulator
@@ -25,5 +23,3 @@ protected:
 
     static const double sGRAVITY;
 };
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_GRAVITYLOADDCMOTORSIM_H_

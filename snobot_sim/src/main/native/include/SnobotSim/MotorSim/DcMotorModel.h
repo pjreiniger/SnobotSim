@@ -5,9 +5,7 @@
  *      Author: preiniger
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_DCMOTORMODEL_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_DCMOTORMODEL_H_
-
+#pragma once
 #include "SnobotSim/MotorSim/DcMotorModelConfig.h"
 
 class EXPORT_ DcMotorModel
@@ -34,5 +32,3 @@ protected:
     double mAcceleration;
     double mCurrent;
 };
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_DCMOTORMODEL_H_

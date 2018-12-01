@@ -5,9 +5,7 @@
  *      Author: PJ
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_DCMOTORMODELCONFIG_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_DCMOTORMODELCONFIG_H_
-
+#pragma once
 #include <string>
 
 #include "SnobotSim/ExportHelper.h"
@@ -79,5 +77,3 @@ public:
     // Indicates the motor has a brake, i.e. when givin 0 volts it will stay put
     bool mHasBrake;
 };
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_DCMOTORMODELCONFIG_H_

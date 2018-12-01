@@ -5,9 +5,7 @@
  *      Author: preiniger
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_PORTUNWRAPPER_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_PORTUNWRAPPER_H_
-
+#pragma once
 inline int UnwrapPort(int aInPort)
 {
     int output;
@@ -31,5 +29,3 @@ inline int WrapPort(int aInPort)
 
     return output;
 }
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_PORTUNWRAPPER_H_

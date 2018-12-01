@@ -5,9 +5,8 @@
  *      Author: PJ
  */
 
-#ifndef SRC_CPP_WRAPPER_INCLUDE_CPPSIMULATORJNIMACRO_H_
-#define SRC_CPP_WRAPPER_INCLUDE_CPPSIMULATORJNIMACRO_H_
 
+#pragma once
 
 #ifdef _MSC_VER
 #define EXPORT_ __declspec(dllexport)
@@ -54,6 +53,3 @@ JNIEXPORT void JNICALL Java_com_snobot_simulator_cpp_1wrapper_CppJniWrapper_star
 }                                                                                                              \
 
 
-
-
-#endif /* SRC_CPP_WRAPPER_INCLUDE_CPPSIMULATORJNIMACRO_H_ */

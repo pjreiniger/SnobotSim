@@ -5,8 +5,7 @@
  *      Author: PJ
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MODULEWRAPPER_FACTORIES_FACTORYCONTAINER_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MODULEWRAPPER_FACTORIES_FACTORYCONTAINER_H_
+#pragma once
 
 #include <memory>
 
@@ -58,5 +57,3 @@ protected:
     std::shared_ptr<SpeedControllerFactory> mSpeedControllerFactory;
     std::shared_ptr<SpiWrapperFactory> mSpiWrapperFactory;
 };
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MODULEWRAPPER_FACTORIES_FACTORYCONTAINER_H_

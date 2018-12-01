@@ -5,8 +5,7 @@
  *      Author: PJ
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_STARTSTANDALONESIMULATORMACRO_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_STARTSTANDALONESIMULATORMACRO_H_
+#pragma once
 
 #include <iostream>
 
@@ -23,5 +22,3 @@
         std::thread t(&_SimulatorName_::UpdateSimulatorComponentsThread, simulator);                                                     \
         robot.StartCompetition();                                                                                                        \
     }
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_STARTSTANDALONESIMULATORMACRO_H_

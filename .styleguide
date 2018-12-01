@@ -13,6 +13,7 @@ generatedFileExclude {
 }
 
 modifiableFileExclude {
+  3rdParty/
   \.zip$
   \.png$
   \jni.h$

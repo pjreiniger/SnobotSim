@@ -5,8 +5,7 @@
  *      Author: PJ
  */
 
-#ifndef SNOBOTSIM_SIM_EXTENSION_NAVX_SRC_MAIN_NATIVE_INCLUDE_NAVXSIM_NAVXSIMULATOR_H_
-#define SNOBOTSIM_SIM_EXTENSION_NAVX_SRC_MAIN_NATIVE_INCLUDE_NAVXSIM_NAVXSIMULATOR_H_
+#pragma once
 
 #include <atomic>
 #include <cstring>
@@ -82,5 +81,3 @@ protected:
     std::atomic<double> mPitch{ 0.0 };
     std::atomic<double> mRoll{ 0.0 };
 };
-
-#endif // SNOBOTSIM_SIM_EXTENSION_NAVX_SRC_MAIN_NATIVE_INCLUDE_NAVXSIM_NAVXSIMULATOR_H_

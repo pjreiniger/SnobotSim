@@ -236,3 +236,4 @@ maven_repo
 !scripts/boilerplates/
 target/
 **/logs/snobot_sim
+callstack_dump.txt

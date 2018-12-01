@@ -5,8 +5,7 @@
  *      Author: PJ
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_LOGGING_SNOBOTLOGGER_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_LOGGING_SNOBOTLOGGER_H_
+#pragma once
 
 #include <sstream>
 #include <string>
@@ -75,5 +74,3 @@ void EXPORT_ Log(
 #define LOG_UNSUPPORTED_WITH_MESSAGE(message) SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Unsupported function " << __FUNCTION_NAME__ << " " << message);
 #define LOG_UNSUPPORTED_WITH_LEVEL(level) SNOBOT_LOG(level, "Unsupported function " << __FUNCTION_NAME__);
 #define LOG_UNSUPPORTED_WITH_LEVEL_AND_MSG(level, message) SNOBOT_LOG(level, "Unsupported function " << __FUNCTION_NAME__ << " " << message);
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_LOGGING_SNOBOTLOGGER_H_

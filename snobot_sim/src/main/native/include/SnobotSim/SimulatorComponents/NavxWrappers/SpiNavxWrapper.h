@@ -5,9 +5,7 @@
  *      Author: PJ
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_SIMULATORCOMPONENTS_NAVXWRAPPERS_SPINAVXWRAPPER_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_SIMULATORCOMPONENTS_NAVXWRAPPERS_SPINAVXWRAPPER_H_
-
+#pragma once
 #include "SnobotSim/ModuleWrapper/Interfaces/ISpiWrapper.h"
 #include "SnobotSim/SimulatorComponents/NavxWrappers/BaseNavxWrapper.h"
 
@@ -17,5 +15,3 @@ public:
     explicit SpiNavxWrapper(int aPort);
     virtual ~SpiNavxWrapper();
 };
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_SIMULATORCOMPONENTS_NAVXWRAPPERS_SPINAVXWRAPPER_H_

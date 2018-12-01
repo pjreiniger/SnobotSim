@@ -5,9 +5,7 @@
  *      Author: preiniger
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_ROBOTSTATESINGLETON_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_ROBOTSTATESINGLETON_H_
-
+#pragma once
 #include <chrono>
 #include <condition_variable>
 #include <mutex>
@@ -37,5 +35,3 @@ public:
 protected:
     std::chrono::time_point<std::chrono::system_clock> mTimeEnabled;
 };
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_ROBOTSTATESINGLETON_H_

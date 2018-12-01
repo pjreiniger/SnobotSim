@@ -5,8 +5,7 @@
  *      Author: PJ
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_STANDALONESIMULATOR_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_STANDALONESIMULATOR_H_
+#pragma once
 
 #include "SnobotSim/ExportHelper.h"
 
@@ -26,5 +25,3 @@ public:
 
 void EXPORT_ InitializeStandaloneSim();
 } // namespace SnobotSim
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_STANDALONESIMULATOR_H_

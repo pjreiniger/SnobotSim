@@ -5,9 +5,7 @@
  *      Author: preiniger
  */
 
-#ifndef SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_ROTATIONALLOADDCMOTORSIM_H_
-#define SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_ROTATIONALLOADDCMOTORSIM_H_
-
+#pragma once
 #include <memory>
 
 #include "SnobotSim/ModuleWrapper/Interfaces/ISpeedControllerWrapper.h"
@@ -40,5 +38,3 @@ protected:
     const double mArmCenterOfMass;
     const double mArmMass;
 };
-
-#endif // SNOBOTSIM_SNOBOT_SIM_SRC_MAIN_NATIVE_INCLUDE_SNOBOTSIM_MOTORSIM_ROTATIONALLOADDCMOTORSIM_H_
