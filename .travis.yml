@@ -57,8 +57,19 @@ script:
         ls -l
         ls -l ../../pjreiniger
         ls -l ../../pjreiniger/maven_repo
+        ls -l ../../pjreiniger/maven_repo/com
+        ls -l ../../pjreiniger/maven_repo/com/snobot
+        ls -l ../../pjreiniger/maven_repo/com/snobot/simulator
+        ls -l ../../pjreiniger/maven_repo/com/snobot/simulator/navx_simulator
+        ls -l ../../pjreiniger/maven_repo/com/snobot/simulator/navx_simulator/2019-0.0.1-RC
         echo "Hello..."
+        mkdir ../../pjreiniger/test_dump
         ls -l ../../pjreiniger/test_dump
+        ls -l ../../pjreiniger/test_dump/com
+        ls -l ../../pjreiniger/test_dump/com/snobot
+        ls -l ../../pjreiniger/test_dump/com/snobot/simulator
+        ls -l ../../pjreiniger/test_dump/com/snobot/simulator/navx_simulator
+        ls -l ../../pjreiniger/test_dump/com/snobot/simulator/navx_simulator/2019-0.0.1-RC
 
 deploy:
   - provider: script
