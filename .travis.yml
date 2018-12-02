@@ -53,7 +53,6 @@ script:
         git clone --depth=50 --branch=master https://github.com/pjreiniger/maven_repo.git ../../pjreiniger/maven_repo
         ./gradlew publish  -PciBuild -Pmaven_repo=../../pjreiniger/maven_repo
         # Temp
-        ./gradlew publish  -PciBuild -Pmaven_repo=../../pjreiniger/test_dump
         ls -l
         ls -l ../../pjreiniger
         ls -l ../../pjreiniger/maven_repo
@@ -62,14 +61,23 @@ script:
         ls -l ../../pjreiniger/maven_repo/com/snobot/simulator
         ls -l ../../pjreiniger/maven_repo/com/snobot/simulator/navx_simulator
         ls -l ../../pjreiniger/maven_repo/com/snobot/simulator/navx_simulator/2019-0.0.1-RC
-        echo "Hello..."
+        echo "Starting test dump..."
         mkdir ../../pjreiniger/test_dump
+        ./gradlew publish  -PciBuild -Pmaven_repo=../../pjreiniger/test_dump
         ls -l ../../pjreiniger/test_dump
         ls -l ../../pjreiniger/test_dump/com
         ls -l ../../pjreiniger/test_dump/com/snobot
         ls -l ../../pjreiniger/test_dump/com/snobot/simulator
         ls -l ../../pjreiniger/test_dump/com/snobot/simulator/navx_simulator
         ls -l ../../pjreiniger/test_dump/com/snobot/simulator/navx_simulator/2019-0.0.1-RC
+        echo "Trying local publishing"
+        ./gradlew publishToMavenLocal -PciBuild
+        ls -l ~/.m2
+        ls -l ~/.m2/repository
+        ls -l ~/.m2/repository/com
+        ls -l ~/.m2/repository/com/snobot
+        ls -l ~/.m2/repository/com/snobot/simulator
+        ls -l ~/.m2/repository/com/snobot/simulator/navx_simulator
 
 deploy:
   - provider: script
