@@ -72,7 +72,7 @@ script:
         ls -l ~/.m2/repository/com/snobot/simulator
         ls -l ~/.m2/repository/com/snobot/simulator/navx_simulator
         ls -l ~/.m2/repository/com/snobot/simulator/navx_simulator/2019-0.0.1-RC
-        cp -rf ~/.m2/repository/com ../../pjreiniger/maven_repo
+        cp -rf ~/.m2/repository/com/snobot ../../pjreiniger/maven_repo/com
         ls -l
         ls -l ../../pjreiniger
         ls -l ../../pjreiniger/maven_repo

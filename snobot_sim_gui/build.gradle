@@ -1,7 +1,4 @@
 
-import org.gradle.internal.os.OperatingSystem
-
-
 evaluationDependsOn(':snobot_sim_utilities')
 evaluationDependsOn(':sim_adx_family')
 evaluationDependsOn(':sim_extension_navx')
@@ -44,12 +41,10 @@ dependencies {
     // Internal
     compile project(":snobot_sim_utilities")
     
-    def os_name = org.gradle.internal.os.OperatingSystem.current().getFamilyName();
     if(build_simulator_cpp)
     {
         compile project(":snobot_sim_jni")
-        runtime     files("${rootDir}/snobot_sim_jni/build/libs/snobot_sim_jni-uber_native-" + os_name  +".jar")
-        testRuntime files("${rootDir}/snobot_sim_jni/build/libs/snobot_sim_jni-uber_native-" + os_name  +".jar")
+        wpilibNativeDeps project(':snobot_sim_jni').packageNativeFiles.outputs.files
     }
     
     if(build_simulator_java)
