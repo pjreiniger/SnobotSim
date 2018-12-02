@@ -53,6 +53,7 @@ script:
         git clone --depth=50 --branch=master https://github.com/pjreiniger/maven_repo.git ../../pjreiniger/maven_repo
         ./gradlew publishToMavenLocal -PciBuild
         if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+            echo "TODO: "
             #sleep 60
         fi;
         ls -l
