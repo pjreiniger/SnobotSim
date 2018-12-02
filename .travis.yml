@@ -52,9 +52,6 @@ script:
         # Clone the hacky repo, publish into it
         git clone --depth=50 --branch=master https://github.com/pjreiniger/maven_repo.git ../../pjreiniger/maven_repo
         ./gradlew publishToMavenLocal -PciBuild
-        if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-            sleep 180 # Sleep for 3 minutes, make sure mac has published. Still quicker than the windows builds
-        fi;
 
 deploy:
   - provider: script
