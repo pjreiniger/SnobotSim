@@ -78,6 +78,7 @@ script:
         ls -l ~/.m2/repository/com/snobot
         ls -l ~/.m2/repository/com/snobot/simulator
         ls -l ~/.m2/repository/com/snobot/simulator/navx_simulator
+        ls -l ~/.m2/repository/com/snobot/simulator/navx_simulator/2019-0.0.1-RC
 
 deploy:
   - provider: script
