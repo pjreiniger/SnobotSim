@@ -102,14 +102,10 @@ def getCtreNativeExtractedLocation() {
 }
 
 // Publshing Information
-
-ext.maven_publishing_path = "$rootDir/build/maven_repo/"
 if(hasProperty('maven_repo'))
 {
-    ext.maven_publishing_path = maven_repo
+    throw new GradleException("This isn't supported anymore")
 }
-ext.maven_publishing_path = new File(maven_publishing_path).getAbsolutePath()
-println "Publishing maven to " + ext.maven_publishing_path.toString()
 
 ext.maven_version = "2019-0.0.1-RC"
 if(hasProperty('maven_version'))

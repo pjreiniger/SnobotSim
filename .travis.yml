@@ -51,8 +51,10 @@ script:
         ./gradlew build -x :snobot_sim_gui:test -x :snobot_sim_jni:test
         # Clone the hacky repo, publish into it
         git clone --depth=50 --branch=master https://github.com/pjreiniger/maven_repo.git ../../pjreiniger/maven_repo
-        ./gradlew publish  -PciBuild -Pmaven_repo=../../pjreiniger/maven_repo
-        # Temp
+        ./gradlew publishToMavenLocal -PciBuild
+        if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+            #sleep 60
+        fi;
         ls -l
         ls -l ../../pjreiniger
         ls -l ../../pjreiniger/maven_repo
@@ -61,17 +63,7 @@ script:
         ls -l ../../pjreiniger/maven_repo/com/snobot/simulator
         ls -l ../../pjreiniger/maven_repo/com/snobot/simulator/navx_simulator
         ls -l ../../pjreiniger/maven_repo/com/snobot/simulator/navx_simulator/2019-0.0.1-RC
-        echo "Starting test dump..."
-        mkdir ../../pjreiniger/test_dump
-        ./gradlew publish  -PciBuild -Pmaven_repo=../../pjreiniger/test_dump
-        ls -l ../../pjreiniger/test_dump
-        ls -l ../../pjreiniger/test_dump/com
-        ls -l ../../pjreiniger/test_dump/com/snobot
-        ls -l ../../pjreiniger/test_dump/com/snobot/simulator
-        ls -l ../../pjreiniger/test_dump/com/snobot/simulator/navx_simulator
-        ls -l ../../pjreiniger/test_dump/com/snobot/simulator/navx_simulator/2019-0.0.1-RC
-        echo "Trying local publishing"
-        ./gradlew publishToMavenLocal -PciBuild
+        echo "Checking out the local repo"
         ls -l ~/.m2
         ls -l ~/.m2/repository
         ls -l ~/.m2/repository/com
@@ -79,6 +71,15 @@ script:
         ls -l ~/.m2/repository/com/snobot/simulator
         ls -l ~/.m2/repository/com/snobot/simulator/navx_simulator
         ls -l ~/.m2/repository/com/snobot/simulator/navx_simulator/2019-0.0.1-RC
+        cp ~/.m2/repository/com ../../pjreiniger/maven_repo/com
+        ls -l
+        ls -l ../../pjreiniger
+        ls -l ../../pjreiniger/maven_repo
+        ls -l ../../pjreiniger/maven_repo/com
+        ls -l ../../pjreiniger/maven_repo/com/snobot
+        ls -l ../../pjreiniger/maven_repo/com/snobot/simulator
+        ls -l ../../pjreiniger/maven_repo/com/snobot/simulator/navx_simulator
+        ls -l ../../pjreiniger/maven_repo/com/snobot/simulator/navx_simulator/2019-0.0.1-RC
 
 deploy:
   - provider: script

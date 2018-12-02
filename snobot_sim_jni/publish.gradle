@@ -19,12 +19,6 @@ task jniWrapperCppHeadersZip(type: Zip) {
 
 model {
     publishing {
-        repositories {
-           maven {
-               url maven_publishing_path
-           }
-        }
-        
         publications {
             
             snobot_sim_cpp_jni_wrapper(MavenPublication) {

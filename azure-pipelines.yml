@@ -64,7 +64,7 @@ jobs:
         gradleOptions: '-Xmx3072m'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build publish'
+        tasks: 'build publishToMavenLocal'
         options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
     - task: PublishBuildArtifacts@1
@@ -96,7 +96,7 @@ jobs:
         gradleOptions: '-Xmx1024m'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build publish'
+        tasks: 'build publishToMavenLocal'
         options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
     - task: PublishBuildArtifacts@1
@@ -124,7 +124,7 @@ jobs:
         jdkDirectory: '/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build publish'
+        tasks: 'build publishToMavenLocal'
         options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
     - task: PublishBuildArtifacts@1

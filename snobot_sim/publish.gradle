@@ -23,11 +23,6 @@ task cppHeadersZip(type: Zip) {
 
 model {
     publishing {
-        repositories {
-           maven {
-               url maven_publishing_path
-           }
-        }
 
         def snobotSimTaskList = createComponentZipTasks($.components, 'snobotSimCpp', zipBaseName, Zip, project, includeStandardZipFormat)
 

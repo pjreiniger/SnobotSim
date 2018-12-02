@@ -25,11 +25,6 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 }
 
 publishing {
-    repositories {
-       maven {
-           url maven_publishing_path
-       }
-    }
     publications {
 
         snobot_sim_java(MavenPublication) {
