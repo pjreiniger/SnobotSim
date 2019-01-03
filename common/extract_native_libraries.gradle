@@ -10,14 +10,6 @@ def nativeclassifier = (
     null
 )
 
-def nativeCtreclassifier = (
-    OperatingSystem.current().isWindows() ?
-    System.getProperty("os.arch") == 'amd64' ? 'windows-x86-64' : 'windows-x86' :
-    OperatingSystem.current().isMacOsX() ? "os x-x86-64" :
-    OperatingSystem.current().isLinux() ? "linux-x86-64" :
-    null
-)
-
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
 
@@ -25,7 +17,7 @@ dependencies {
     wpilibNativeDeps 'edu.wpi.first.hal:hal-cpp:' + allwpilibVersion() + ":${nativeclassifier}@zip"
     wpilibNativeDeps 'edu.wpi.first.halsim:halsim_adx_gyro_accelerometer:' + allwpilibVersion() + ":${nativeclassifier}@zip"
     //wpilibNativeDeps 'edu.wpi.first.wpilibj:wpilibj-jniShared:' + allwpilibVersion() + ":${nativeclassifier}"
-    wpilibNativeDeps 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ":${nativeCtreclassifier}"
+    wpilibNativeDeps 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ":${nativeclassifier}"
 }
 
 task extract_wpilib {

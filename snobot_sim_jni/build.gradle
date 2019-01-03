@@ -66,8 +66,9 @@ dependencies {
     testRuntime 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
     testRuntime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
     
-    testCompile "openrio.mirror.third.ctre:CTRE-phoenix-java:" + getCtreVersion()
-    testCompile "openrio.mirror.third.kauailabs:navx-java:" + getNavxVersion()
+    testCompile "com.ctre.frcbeta.phoenix:api-java:" + getCtreVersion()
+    testCompile "com.ctre.frcbeta.phoenix:wpiapi-java:" + getCtreVersion()
+    testCompile "com.kauailabs.navx.frc:navx-java:" + getNavxVersion()
     
     compile project(":snobot_sim_utilities")
 

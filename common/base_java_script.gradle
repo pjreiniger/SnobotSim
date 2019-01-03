@@ -13,7 +13,8 @@ repositories {
     mavenLocal()
 
     maven { url getWpiRepo() }
-    maven { url getJaci3rdPartyMirror() }
+    maven { url getNavxRepo() }
+    maven { url getCtreRepo() }
     maven { url getCtreOverrideRepo() }
 }
 

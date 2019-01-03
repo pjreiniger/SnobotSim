@@ -64,7 +64,7 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
-    testCompile "openrio.mirror.third.kauailabs:navx-java:" + getNavxVersion()
+    testCompile "com.kauailabs.navx.frc:navx-java:" + getNavxVersion()
     
     testCompile project(":snobot_sim_utilities")
     wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
