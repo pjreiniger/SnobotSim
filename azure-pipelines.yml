@@ -67,11 +67,11 @@ jobs:
         tasks: 'build publishToMavenLocal'
         options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: maven repo'
-      inputs:
-        PathtoPublish: 'build/maven_repo'
-        ArtifactName: 'Win64Maven'
+    #- task: PublishBuildArtifacts@1
+    #  displayName: 'Publish Artifact: maven repo'
+    #  inputs:
+    #    PathtoPublish: 'build/maven_repo'
+    #    ArtifactName: 'Win64Maven'
 
 
  - job: Windows_32_Bit
@@ -99,11 +99,11 @@ jobs:
         tasks: 'build publishToMavenLocal'
         options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: maven repo'
-      inputs:
-        PathtoPublish: 'build/maven_repo'
-        ArtifactName: 'Win32Maven'
+    #- task: PublishBuildArtifacts@1
+    #  displayName: 'Publish Artifact: maven repo'
+    #  inputs:
+    #    PathtoPublish: 'build/maven_repo'
+    #    ArtifactName: 'Win32Maven'
 
  - job: Mac
    pool:
@@ -127,11 +127,11 @@ jobs:
         tasks: 'build publishToMavenLocal'
         options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: maven repo'
-      inputs:
-        PathtoPublish: 'build/maven_repo'
-        ArtifactName: 'OSXMaven'
+    #- task: PublishBuildArtifacts@1
+    #  displayName: 'Publish Artifact: maven repo'
+    #  inputs:
+    #    PathtoPublish: 'build/maven_repo'
+    #    ArtifactName: 'OSXMaven'
 
  - job: PrepareMaven
    pool:
@@ -161,11 +161,11 @@ jobs:
         Copy-Item $(System.DefaultWorkingDirectory)/win64/Win64Maven/*   $(System.DefaultWorkingDirectory)/output     -recurse -force -verbose
         Copy-Item $(System.DefaultWorkingDirectory)/mac/OSXMaven/*       $(System.DefaultWorkingDirectory)/output     -recurse -force -verbose
 
-    - task: PythonScript@0
-      displayName: 'Create Combined Native Jar'
-      inputs:
-        scriptPath: ci_tools/create_all.py
-        arguments: "--start_dir=$(System.DefaultWorkingDirectory)/output"
+    #- task: PythonScript@0
+    #  displayName: 'Create Combined Native Jar'
+    #  inputs:
+    #    scriptPath: ci_tools/create_all.py
+    #    arguments: "--start_dir=$(System.DefaultWorkingDirectory)/output"
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Combined Artifacts'
