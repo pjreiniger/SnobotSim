@@ -64,14 +64,14 @@ jobs:
         gradleOptions: '-Xmx3072m'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build publishToMavenLocal'
+        tasks: 'build publish'
         options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
-    #- task: PublishBuildArtifacts@1
-    #  displayName: 'Publish Artifact: maven repo'
-    #  inputs:
-    #    PathtoPublish: 'build/maven_repo'
-    #    ArtifactName: 'Win64Maven'
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: maven repo'
+      inputs:
+        PathtoPublish: 'build/maven_repo'
+        ArtifactName: 'Win64Maven'
 
 
  - job: Windows_32_Bit
@@ -96,14 +96,14 @@ jobs:
         gradleOptions: '-Xmx1024m'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build publishToMavenLocal'
+        tasks: 'build publish'
         options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
-    #- task: PublishBuildArtifacts@1
-    #  displayName: 'Publish Artifact: maven repo'
-    #  inputs:
-    #    PathtoPublish: 'build/maven_repo'
-    #    ArtifactName: 'Win32Maven'
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: maven repo'
+      inputs:
+        PathtoPublish: 'build/maven_repo'
+        ArtifactName: 'Win32Maven'
 
  - job: Mac
    pool:
@@ -124,14 +124,14 @@ jobs:
         jdkDirectory: '/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build publishToMavenLocal'
+        tasks: 'build publish'
         options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
-    #- task: PublishBuildArtifacts@1
-    #  displayName: 'Publish Artifact: maven repo'
-    #  inputs:
-    #    PathtoPublish: 'build/maven_repo'
-    #    ArtifactName: 'OSXMaven'
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: maven repo'
+      inputs:
+        PathtoPublish: 'build/maven_repo'
+        ArtifactName: 'OSXMaven'
 
  - job: PrepareMaven
    pool:

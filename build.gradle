@@ -92,6 +92,7 @@ ext {
 }
 
 // Publshing Information
+ext.maven_publishing_path = "$rootDir/build/maven_repo/"
 if(hasProperty('maven_repo'))
 {
     throw new GradleException("This isn't supported anymore")
