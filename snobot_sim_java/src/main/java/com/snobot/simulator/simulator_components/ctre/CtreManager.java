@@ -369,4 +369,14 @@ public class CtreManager
             sLOGGER.log(Level.ERROR, "Unknown pigeon callback: " + aName);
         }
     }
+
+    public void handleCanifierMessage(String aName, int aDeviceId, ByteBuffer aBuffer)
+    {
+        sLOGGER.log(Level.ERROR, "Unknown canifier callback: " + aName);
+    }
+
+    public void handleBuffTrajPointStreamMessage(String aName, int aDeviceId, ByteBuffer aBuffer)
+    {
+        sLOGGER.log(Level.ERROR, "Unknown buff traj callback: " + aName);
+    }
 }

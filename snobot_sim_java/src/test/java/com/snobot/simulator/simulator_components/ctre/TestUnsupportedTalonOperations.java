@@ -4,15 +4,16 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.ctre.phoenix.ParamEnum;
+import com.ctre.phoenix.motion.BufferedTrajectoryPointStream;
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.TrajectoryPoint;
-import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
 import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.Faults;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.FollowerType;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -41,7 +42,7 @@ public class TestUnsupportedTalonOperations extends BaseSimulatorJavaTest
         final TalonSRX talon = new TalonSRX(11);
 
         TrajectoryPoint trajectoryPoint = new TrajectoryPoint();
-        trajectoryPoint.timeDur = TrajectoryDuration.Trajectory_Duration_10ms;
+        trajectoryPoint.timeDur = 10;
 
         talon.getHandle();
         talon.getDeviceID();
@@ -69,6 +70,10 @@ public class TestUnsupportedTalonOperations extends BaseSimulatorJavaTest
         talon.selectDemandType(false);
         talon.setSensorPhase(false);
         talon.setInverted(false);
+        for (InvertType invertType : InvertType.values())
+        {
+            talon.setInverted(invertType);
+        }
         talon.getInverted();
         talon.configFactoryDefault(0);
         talon.configFactoryDefault();
@@ -282,8 +287,12 @@ public class TestUnsupportedTalonOperations extends BaseSimulatorJavaTest
         talon.getClosedLoopTarget(0);
         talon.getClosedLoopTarget();
         talon.getActiveTrajectoryPosition();
+        talon.getActiveTrajectoryPosition(0);
         talon.getActiveTrajectoryVelocity();
+        talon.getActiveTrajectoryVelocity(0);
         talon.getActiveTrajectoryHeading();
+        talon.getActiveTrajectoryArbFeedFwd();
+        talon.getActiveTrajectoryArbFeedFwd(0);
         talon.configMotionCruiseVelocity(0, 0);
         talon.configMotionCruiseVelocity(0);
         talon.configMotionAcceleration(0, 0);
@@ -291,6 +300,11 @@ public class TestUnsupportedTalonOperations extends BaseSimulatorJavaTest
         talon.clearMotionProfileTrajectories();
         talon.getMotionProfileTopLevelBufferCount();
         talon.pushMotionProfileTrajectory(trajectoryPoint);
+        for (ControlMode controlMode : ControlMode.values())
+        {
+            talon.startMotionProfile(new BufferedTrajectoryPointStream(), 0, controlMode);
+        }
+        talon.isMotionProfileFinished();
         talon.isMotionProfileTopLevelBufferFull();
         talon.processMotionProfileBuffer();
         talon.getMotionProfileStatus(new MotionProfileStatus());
@@ -299,6 +313,8 @@ public class TestUnsupportedTalonOperations extends BaseSimulatorJavaTest
         talon.changeMotionControlFramePeriod(0);
         talon.configMotionProfileTrajectoryPeriod(0, 0);
         talon.configMotionProfileTrajectoryPeriod(0);
+        talon.configMotionProfileTrajectoryInterpolationEnable(false, 0);
+        talon.configMotionProfileTrajectoryInterpolationEnable(false);
         talon.configFeedbackNotContinuous(false, 0);
         talon.configRemoteSensorClosedLoopDisableNeutralOnLOS(false, 0);
         talon.configClearPositionOnLimitF(false, 0);
@@ -347,7 +363,6 @@ public class TestUnsupportedTalonOperations extends BaseSimulatorJavaTest
         }
         talon.follow(followTalon);
         talon.valueUpdated();
-        talon.configureSlot(new SlotConfiguration(), 0, 0, false);
         talon.configureSlot(new SlotConfiguration());
         talon.getSlotConfigs(new SlotConfiguration(), 0, 0);
         talon.getSlotConfigs(new SlotConfiguration());

@@ -12,7 +12,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.TrajectoryPoint;
-import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
@@ -100,9 +99,7 @@ public class TestCtreCanTalonControlMotionProfile extends BaseSimulatorJavaTest
         double pos = 0.0;
         double vel = 0.0;
         
-        int durationMs = (int) (aDt * 1e3);
-        TrajectoryDuration duration = TrajectoryDuration.Trajectory_Duration_20ms;
-        Assertions.assertEquals(durationMs, duration.value);
+        int duration = (int) (aDt * 1e3);
 
         for (double t = 0; t < aT1; t += aDt)
         {
