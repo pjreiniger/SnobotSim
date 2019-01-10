@@ -38,10 +38,10 @@ model {
             createAllTask = createAllCombined(project.packageNativeFiles, libraryName, zipBaseName, Jar, project)
         }
 
-         repositories { 
-           maven {  
-               url maven_publishing_path    
-           }    
+         repositories {
+           maven {
+               url maven_publishing_path
+           }
         }
 
         publications {

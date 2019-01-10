@@ -25,10 +25,10 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 }
 
 publishing {
-     repositories { 
-       maven {  
-           url maven_publishing_path    
-       }    
+     repositories {
+       maven {
+           url maven_publishing_path
+       }
     }
 
     publications {
