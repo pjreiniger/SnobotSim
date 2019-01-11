@@ -1,6 +1,21 @@
 
 # Current Release
 
+## [2019-0.0.1](https://github.com/pjreiniger/SnobotSim/releases/tag/v2019-0.0.1)
+### First release of the 2019 build season
+* Updated to work with wpilib 2019.1.1
+* Updated to work with CTRE-Phoenix 5.12.0
+* Updated [examples](https://github.com/pjreiniger/SnobotSimExamples) to work with the kickoff release of VsCode/wpilib/CTRE/NavX
+* Requires [2019-0.2.0 Plugin](https://github.com/pjreiniger/SnobotSimPlugin/releases/tag/2019-0.2.0) to use downstream
+
+### Known Issues
+* C++ simulations with a gui broke during GradleRIO alpha testing. C++ teams, I know I've said it for a year, but you should be able to use this before seasons end
+* CTRE simulation is hot off the presses. Unit tests work, but new features and functions are probably not supported.
+
+
+
+# Old releases
+
 ## [2019-0.0.0](https://github.com/pjreiniger/SnobotSim/releases/tag/2019-0.0.0)
 ### 2019 Beta Version
 * Updated to work with wpilib 2019
@@ -10,10 +25,6 @@
 * Requires [2019-0.0.0 Plugin](https://github.com/pjreiniger/SnobotSimPlugin/releases/tag/v2019_0.0.0) to use downstream
 * wpilib is still in beta as well. This means that there might be issues in their software which can cause confusion when using the simulator. Also, since the real "full" beta hasn't been released, I don't think you will be able to run this version of wpilib on a real robot. This is meant for simulation purposes only.
 * 3rd party libraries (like CTRE and NavX) have not released their 2019 libraries. There might be a lot of things that have to change to work with those once they get released.
-
-
-
-# Old releases
 
 ## [2018-2.0.0](https://github.com/pjreiniger/SnobotSim/releases/tag/2018-2.0.0)
 * Modified the native library loading scheme to help support [HAL Extensions](https://github.com/wpilibsuite/allwpilib/tree/master/simulation/halsim_ds_nt).  Also means that mac builds now work
