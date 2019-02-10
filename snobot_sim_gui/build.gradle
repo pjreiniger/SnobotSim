@@ -59,7 +59,6 @@ dependencies {
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
     runtime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':all'
-    testRuntime jar.outputs.files // Necessary for having resources in jar 
 }
 
 apply from: "${rootDir}/common/extract_native_libraries.gradle"
@@ -102,16 +101,6 @@ if(build_simulator_cpp)
 if(build_simulator_java)
 {
     compileJava.dependsOn(":snobot_sim_java:build")
-}
-
-jar {
-   baseName = "snobotSim"
-
-   from("${rootDir}/snobot_sim_gui/src/main/java") {
-      include  '**/*.png'
-      include  '**/*.properties'
-      include  '**/*.txt'
-   }
 }
 
 compileJava {
