@@ -98,7 +98,7 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
 
     public CtreTalonSrxSpeedControllerSim(int aCanHandle)
     {
-        super(aCanHandle, "CAN SC " + (aCanHandle - sCTRE_OFFSET));
+        super(aCanHandle, "CTRE SC " + (aCanHandle - sCTRE_OFFSET));
 
         mCanHandle = aCanHandle - sCTRE_OFFSET;
 

@@ -35,7 +35,7 @@ public class DefaultGyroWrapperFactory extends BaseWrapperFactory
 
             if (portWithoutOffset % 3 == 0)
             {
-                CanCallbackJni.sCAN_MANAGER.createPigeon(basePort);
+                CanCallbackJni.sCTRE_MANAGER.createPigeon(basePort);
             }
             else
             {

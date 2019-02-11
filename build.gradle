@@ -56,6 +56,12 @@ ext.getCtreVersion = {
 ext.getCtreSimVersion = {
     return getCtreVersion() + "_V0_RC"
 }
+ext.getRevRoboticsVersion = {
+    return '1.0.28'
+}
+ext.getRevRoboticsSimVersion = {
+    return getRevRoboticsVersion() + "_V0"
+}
 ext.getNavxVersion = {
     return '3.1.340'
 }
@@ -70,6 +76,10 @@ ext.getNavxRepo = {
 
 ext.getCtreRepo = {
     return 'http://devsite.ctr-electronics.com/maven/release/'
+}
+
+ext.getRevRepo = {
+    return 'http://www.revrobotics.com/content/sw/max/sdk/maven/'
 }
 
 ext.getCtreOverrideRepo = {
@@ -98,7 +108,7 @@ if(hasProperty('maven_repo'))
     throw new GradleException("This isn't supported anymore")
 }
 
-ext.maven_version = "2019-0.0.1-RC"
+ext.maven_version = "2019-1.0.0-RC"
 if(hasProperty('maven_version'))
 {
     ext.maven_version = maven_version

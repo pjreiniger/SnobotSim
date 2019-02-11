@@ -5,10 +5,12 @@ import java.nio.ByteBuffer;
 import com.snobot.simulator.ctre.CtreCallback;
 import com.snobot.simulator.ctre.CtreJni;
 import com.snobot.simulator.simulator_components.ctre.CtreManager;
+import com.snobot.simulator.simulator_components.rev.RevManager;
 
 public final class CanCallbackJni
 {
-    public static final CtreManager sCAN_MANAGER = new CtreManager();
+    public static final CtreManager sCTRE_MANAGER = new CtreManager();
+    public static final RevManager sREV_MANAGER = new RevManager();
 
     private CanCallbackJni()
     {
@@ -20,7 +22,7 @@ public final class CanCallbackJni
         @Override
         public void callback(String aName, int aDeviceId, ByteBuffer aBuffer, int aCount)
         {
-            sCAN_MANAGER.handleMotorControllerMessage(aName, aDeviceId, aBuffer);
+            sCTRE_MANAGER.handleMotorControllerMessage(aName, aDeviceId, aBuffer);
         }
     }
 
@@ -29,7 +31,7 @@ public final class CanCallbackJni
         @Override
         public void callback(String aName, int aDeviceId, ByteBuffer aBuffer, int aCount)
         {
-            sCAN_MANAGER.handlePigeonMessage(aName, aDeviceId, aBuffer);
+            sCTRE_MANAGER.handlePigeonMessage(aName, aDeviceId, aBuffer);
         }
     }
 
@@ -38,7 +40,7 @@ public final class CanCallbackJni
         @Override
         public void callback(String aName, int aDeviceId, ByteBuffer aBuffer, int aCount)
         {
-            sCAN_MANAGER.handleCanifierMessage(aName, aDeviceId, aBuffer);
+            sCTRE_MANAGER.handleCanifierMessage(aName, aDeviceId, aBuffer);
         }
     }
 
@@ -47,19 +49,19 @@ public final class CanCallbackJni
         @Override
         public void callback(String aName, int aDeviceId, ByteBuffer aBuffer, int aCount)
         {
-            sCAN_MANAGER.handleBuffTrajPointStreamMessage(aName, aDeviceId, aBuffer);
+            sCTRE_MANAGER.handleBuffTrajPointStreamMessage(aName, aDeviceId, aBuffer);
         }
     }
 
-    private static final CtreMotorControllerCallback MOTOR_CALL = new CtreMotorControllerCallback();
-
     public static void reset()
     {
-        sCAN_MANAGER.reset();
-        CtreJni.registerCanMotorCallback(MOTOR_CALL);
+        sCTRE_MANAGER.reset();
+        CtreJni.registerCanMotorCallback(new CtreMotorControllerCallback());
         CtreJni.registerCanPigeonImuCallback(new CtrePigeonImuCallback());
         CtreJni.registerCanCanifierCallback(new CtreCanifierCallback());
         CtreJni.registerCanBuffTrajPointStreamCallback(new CtreBuffTrajPointStreamCallback());
+
+        sREV_MANAGER.reset();
     }
 
 }

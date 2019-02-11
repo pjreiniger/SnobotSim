@@ -28,7 +28,9 @@ dependencies {
     compile project(':sim_adx_family')
     compile project(':sim_extension_navx')
     compile 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion()
+    compile 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion()
     testRuntime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':all'
+    testRuntime 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion() + ':all'
     
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
@@ -43,6 +45,7 @@ dependencies {
     testCompile "com.ctre.phoenix:api-java:" + getCtreVersion()
     testCompile "com.ctre.phoenix:wpiapi-java:" + getCtreVersion()
     testCompile "com.kauailabs.navx.frc:navx-java:" + getNavxVersion()
+    testCompile "com.revrobotics.frc:SparkMax-java:" + getRevRoboticsVersion()
     
     wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
     wpilibNativeDeps project(':sim_adx_family').packageNativeFiles.outputs.files

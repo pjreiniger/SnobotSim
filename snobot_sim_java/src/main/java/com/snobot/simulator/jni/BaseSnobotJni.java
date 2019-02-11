@@ -14,6 +14,7 @@ public class BaseSnobotJni
         JniLibraryResourceLoader.loadLibrary("navx_simulator");
         JniLibraryResourceLoader.loadLibrary("adx_family");
         JniLibraryResourceLoader.loadLibrary("CTRE_PhoenixCCI");
+        JniLibraryResourceLoader.loadLibrary("RevSimulation");
 
         HAL.initialize(500, 0);
     }
