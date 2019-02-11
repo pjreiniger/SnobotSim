@@ -71,4 +71,8 @@
         <Class name="com.snobot.test.utilities.MockRobot"/>
         <Bug pattern="URF_UNREAD_FIELD" />
     </Match>
+    <Match>
+        <Class name="com.snobot.simulator.simulator_components.rev.TestUnsupportedRevFunctions"/>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" />
+    </Match>
 </FindBugsFilter>

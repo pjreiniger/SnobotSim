@@ -28,11 +28,11 @@ public class RevManager extends BaseRevDeviceManager
     }
 
     @Override
-    protected void set(int deviceId, float setpoint, short auxSetpoint, byte pidSlot, byte rsvd)
+    protected void set(int aDeviceId, float aSetpoint, short aAuxSetpoint, byte aPidSlot, byte aRsvd)
     {
-        super.set(deviceId, setpoint, auxSetpoint, pidSlot, rsvd);
-        RevSpeedControllerSimWrapper wrapper = getMotorControllerWrapper(deviceId);
-        wrapper.set(setpoint);
+        super.set(aDeviceId, aSetpoint, aAuxSetpoint, aPidSlot, aRsvd);
+        RevSpeedControllerSimWrapper wrapper = getMotorControllerWrapper(aDeviceId);
+        wrapper.set(aSetpoint);
     }
 
     public void reset()
