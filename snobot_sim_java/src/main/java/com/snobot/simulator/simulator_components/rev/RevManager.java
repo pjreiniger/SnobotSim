@@ -1,38 +1,154 @@
 package com.snobot.simulator.simulator_components.rev;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.rev.BaseRevDeviceManager;
-import com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim;
+import com.snobot.simulator.simulator_components.smart_sc.BaseCanSmartSpeedController;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 public class RevManager extends BaseRevDeviceManager
 {
     private static final Logger sLOGGER = LogManager.getLogger(RevManager.class);
 
-    @Override
-    protected void createSim(int aCanPort)
+    @SuppressWarnings("PMD")
+    protected int handleSend(int aDeviceId, int aApiId, ByteBuffer aData)
     {
-        if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList()
-                .contains(aCanPort + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET))
-        {
-            sLOGGER.log(Level.WARN, "REV Motor Controller is being created dynamically instead of in the config file for port " + aCanPort);
+        int output = 0;
 
-            DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(aCanPort + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET,
-                    RevSpeedControllerSimWrapper.class.getName());
+        String arbAsString = mArbIdLookup.get(aApiId);
+        if (arbAsString == null)
+        {
+            sLOGGER.log(Level.ERROR, "Unknown API Id " + aApiId);
+            return 1;
         }
-        SensorActuatorRegistry.get().getSpeedControllers().get(aCanPort + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET).setInitialized(true);
+
+        switch (arbAsString)
+        {
+        case "heartbeat":
+        {
+            sLOGGER.log(Level.TRACE, "Hearbeat not supported");
+            break;
+        }
+        case "SetpointOut":
+        {
+            if (aData.capacity() == 0)
+            {
+                return output;
+            }
+
+            aData.order(ByteOrder.LITTLE_ENDIAN);
+            float setpoint = aData.getFloat();
+            short auxSetpoint = aData.getShort();
+            byte pidSlot = aData.get();
+            byte rsvd = aData.get();
+
+            set(aDeviceId, setpoint, auxSetpoint, pidSlot, rsvd);
+            break;
+        }
+        // Firmware Revision
+        case "getFirmwareVersion":
+        {
+            // Assume this only happens when starting a thing.
+            createSim(aDeviceId);
+            break;
+        }
+        case "follow":
+        {
+            aData.order(ByteOrder.LITTLE_ENDIAN);
+
+            int followerID = aData.getInt();
+            int leadId = followerID & 0x3F;
+
+            BaseCanSmartSpeedController leadWrapper = getMotorControllerWrapper(leadId);
+            RevSpeedControllerSimWrapper follower = getMotorControllerWrapper(aDeviceId);
+
+            sLOGGER.log(Level.ERROR, "Setting " + aDeviceId + " to follow " + leadId + " --- " + "FID: " + followerID);
+
+            leadWrapper.addFollower(follower);
+
+            break;
+        }
+        default:
+            sLOGGER.log(Level.DEBUG, "Unsupported option " + arbAsString + "(" + aApiId + ")");
+            break;
+        }
+
+        return output;
     }
 
     @Override
+    protected int handleRead(int aDeviceId, int aApiId, ByteBuffer aBuffer)
+    {
+        int output = 0;
+
+        String arbAsString = mArbIdLookup.get(aApiId);
+        if (arbAsString == null)
+        {
+            sLOGGER.log(Level.ERROR, "Unknown API Id " + aApiId);
+            return 1;
+        }
+
+        switch (arbAsString) // NOPMD
+        {
+        // Firmware Revision
+        case "getFirmwareVersion":
+        {
+            sLOGGER.log(Level.DEBUG, "Getting firmware version");
+            writeFirmwareVersion(aBuffer);
+            break;
+        }
+        case "getPeriodicStatus0":
+        {
+            writePeriodicStatus0(aDeviceId, aBuffer);
+            break;
+        }
+        default:
+            for (int i = 0; i < aBuffer.capacity(); ++i)
+            {
+                aBuffer.put(i, (byte) 0);
+            }
+            sLOGGER.log(Level.DEBUG, "Unsupported option " + arbAsString + "(" + aApiId + ")");
+            break;
+        }
+
+        return output;
+    }
+
+    protected void createSim(int aCanPort)
+    {
+        if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList()
+                .contains(aCanPort + BaseCanSmartSpeedController.sCAN_SC_OFFSET))
+        {
+            sLOGGER.log(Level.WARN, "REV Motor Controller is being created dynamically instead of in the config file for port " + aCanPort);
+
+            DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(aCanPort + BaseCanSmartSpeedController.sCAN_SC_OFFSET,
+                    RevSpeedControllerSimWrapper.class.getName());
+        }
+        SensorActuatorRegistry.get().getSpeedControllers().get(aCanPort + BaseCanSmartSpeedController.sCAN_SC_OFFSET).setInitialized(true);
+    }
+
     protected void set(int aDeviceId, float aSetpoint, short aAuxSetpoint, byte aPidSlot, byte aRsvd)
     {
-        super.set(aDeviceId, aSetpoint, aAuxSetpoint, aPidSlot, aRsvd);
         RevSpeedControllerSimWrapper wrapper = getMotorControllerWrapper(aDeviceId);
         wrapper.set(aSetpoint);
+    }
+
+    protected void writePeriodicStatus0(int aDeviceId, ByteBuffer aBuffer)
+    {
+        RevSpeedControllerSimWrapper wrapper = getMotorControllerWrapper(aDeviceId);
+
+        aBuffer.order(ByteOrder.LITTLE_ENDIAN);
+        aBuffer.rewind();
+        aBuffer.putShort((short) (wrapper.get() * 32767.0)); // appliedOutput
+        aBuffer.putShort((short) 0); // faults
+        aBuffer.putShort((short) 0); // stickyFaults
+        aBuffer.put((byte) 0); // bits
     }
 
     public void reset()
@@ -40,8 +156,8 @@ public class RevManager extends BaseRevDeviceManager
 
     }
 
-    private RevSpeedControllerSimWrapper getMotorControllerWrapper(int aCanPort)
+    protected <WrapperType> WrapperType getMotorControllerWrapper(int aCanPort)
     {
-        return (RevSpeedControllerSimWrapper) SensorActuatorRegistry.get().getSpeedControllers().get(aCanPort + 100);
+        return (WrapperType) SensorActuatorRegistry.get().getSpeedControllers().get(aCanPort + 100);
     }
 }

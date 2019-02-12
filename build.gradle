@@ -108,7 +108,7 @@ if(hasProperty('maven_repo'))
     throw new GradleException("This isn't supported anymore")
 }
 
-ext.maven_version = "2019-1.0.0-RC"
+ext.maven_version = "2019-1.0.0"
 if(hasProperty('maven_version'))
 {
     ext.maven_version = maven_version

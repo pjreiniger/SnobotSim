@@ -54,17 +54,17 @@ script:
         ./gradlew publishToMavenLocal -PciBuild
         cp -rf ~/.m2/repository/com/snobot ../../pjreiniger/maven_repo/com
 
-deploy:
-  - provider: script
-    script: pwd; cd ../../pjreiniger/maven_repo; pwd; ls; chmod +x commit_updates.sh; ./commit_updates.sh
-    skip_cleanup: true
-    on:
-      branch: master
-  - provider: script
-    script: pwd; cd ../../pjreiniger/maven_repo; pwd; ls; chmod +x commit_updates.sh; ./commit_updates.sh
-    skip_cleanup: true
-    on:
-      branch: 2019-beta-0.0.1-RC
+#deploy:
+#  - provider: script
+#    script: pwd; cd ../../pjreiniger/maven_repo; pwd; ls; chmod +x commit_updates.sh; ./commit_updates.sh
+#    skip_cleanup: true
+#    on:
+#      branch: master
+#  - provider: script
+#    script: pwd; cd ../../pjreiniger/maven_repo; pwd; ls; chmod +x commit_updates.sh; ./commit_updates.sh
+#    skip_cleanup: true
+#    on:
+#      branch: 2019-beta-0.0.1-RC
 
 env:
   global:

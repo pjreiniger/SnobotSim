@@ -75,6 +75,7 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
             mPidConstants[i] = new PIDFConstants();
         }
 
+        mControlType = ControlType.Raw;
         mFollowers = new ArrayList<>();
     }
 
@@ -327,4 +328,10 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
 
     protected abstract double calculateMotionProfileOutput(double aCurrentPosition, double aCurrentVelocity, int aModeType);
 
+    @Override
+    public String toString()
+    {
+        return "BaseCanSmartSpeedController [mCanHandle=" + mCanHandle + "]";
+    }
+    
 }

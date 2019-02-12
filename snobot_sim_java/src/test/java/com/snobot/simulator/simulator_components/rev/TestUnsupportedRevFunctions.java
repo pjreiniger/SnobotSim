@@ -1,5 +1,6 @@
 package com.snobot.simulator.simulator_components.rev;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -29,46 +30,53 @@ public class TestUnsupportedRevFunctions extends BaseSimulatorJavaTest
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
 
         CANSparkMax follower = new CANSparkMax(11, MotorType.kBrushed);
+        new TalonSRX(15);
         ExternalFollower externalFollower = new ExternalFollower(15, 0);
 
-        sc.set(0);
-        sc.set(-.1);
-        sc.set(0);
+        runOperations(sc, follower, externalFollower);
+    }
 
-        sc.burnFlash();
-        sc.clearFaults();
-        sc.disable();
-        sc.follow(follower);
-        sc.follow(follower, true);
-        sc.follow(externalFollower, 11);
-        sc.follow(externalFollower, 12, true);
-        sc.get(); // TODO investigate
-        sc.getAppliedOutput();
+    private void runOperations(CANSparkMax aSc, CANSparkMax aFollower, ExternalFollower aExternalFollower)
+    {
 
-        sc.getBusVoltage();
+        aSc.set(0);
+        aSc.set(-.1);
+        aSc.set(0);
 
-        sc.getFaults();
-        sc.getIdleMode();
-        sc.getInverted();
-        sc.getMotorTemperature();
-        sc.getOutputCurrent();
-        sc.getPIDController();
-        sc.getRampRate();
+        aSc.burnFlash();
+        aSc.clearFaults();
+        aSc.disable();
+        aSc.follow(aFollower);
+        aSc.follow(aFollower, true);
+        aSc.follow(aExternalFollower, 10);
+        aSc.follow(aExternalFollower, 10, true);
+        aSc.get(); // TODO investigate
+        aSc.getAppliedOutput();
+
+        aSc.getBusVoltage();
+
+        aSc.getFaults();
+        aSc.getIdleMode();
+        aSc.getInverted();
+        aSc.getMotorTemperature();
+        aSc.getOutputCurrent();
+        aSc.getPIDController();
+        aSc.getRampRate();
         for (FaultID faultId : FaultID.values())
         {
-            sc.getStickyFault(faultId); // TODO investigate
-            sc.getFault(faultId);
+            aSc.getStickyFault(faultId); // TODO investigate
+            aSc.getFault(faultId);
         }
-        sc.getStickyFaults();
-        sc.isFollower();
-        sc.pidWrite(0);
-        sc.set(.5);
-        sc.setCANTimeout(20);
+        aSc.getStickyFaults();
+        aSc.isFollower();
+        aSc.pidWrite(0);
+        aSc.set(.5);
+        aSc.setCANTimeout(20);
 
         for (LimitSwitchPolarity polarity : LimitSwitchPolarity.values())
         {
-            CANDigitalInput reverseSwitch = sc.getReverseLimitSwitch(polarity);
-            CANDigitalInput fowrardSwitch = sc.getForwardLimitSwitch(polarity);
+            CANDigitalInput reverseSwitch = aSc.getReverseLimitSwitch(polarity);
+            CANDigitalInput fowrardSwitch = aSc.getForwardLimitSwitch(polarity);
 
             reverseSwitch.enableLimitSwitch(false);
             reverseSwitch.enableLimitSwitch(true);
@@ -83,37 +91,37 @@ public class TestUnsupportedRevFunctions extends BaseSimulatorJavaTest
 
         for (IdleMode mode : IdleMode.values())
         {
-            sc.setIdleMode(mode);
+            aSc.setIdleMode(mode);
         }
-        sc.setInverted(true);
-        sc.setInverted(false);
-        sc.setRampRate(.5);
-        sc.setSecondaryCurrentLimit(.6);
-        sc.setSecondaryCurrentLimit(.8, 10);
-        sc.setSmartCurrentLimit(3);
-        sc.setSmartCurrentLimit(5, 8);
-        sc.setSmartCurrentLimit(6, 7, 12);
-        sc.stopMotor();
+        aSc.setInverted(true);
+        aSc.setInverted(false);
+        aSc.setRampRate(.5);
+        aSc.setSecondaryCurrentLimit(.6);
+        aSc.setSecondaryCurrentLimit(.8, 10);
+        aSc.setSmartCurrentLimit(3);
+        aSc.setSmartCurrentLimit(5, 8);
+        aSc.setSmartCurrentLimit(6, 7, 12);
+        aSc.stopMotor();
 
-        sc.getControlFramePeriod();
-        sc.getDeviceId();
-        sc.getFirmwareString();
-        sc.getFirmwareVersion();
+        aSc.getControlFramePeriod();
+        aSc.getDeviceId();
+        aSc.getFirmwareString();
+        aSc.getFirmwareVersion();
         // sc.getMotorType();
 
         for (ConfigParameter parameter : ConfigParameter.values())
         {
-            sc.getParameterBoolean(parameter);
-            sc.getParameterDouble(parameter);
-            sc.getParameterInt(parameter);
-            sc.setParameter(parameter, false);
-            sc.setParameter(parameter, 1.0);
-            sc.setParameter(parameter, 1);
+            aSc.getParameterBoolean(parameter);
+            aSc.getParameterDouble(parameter);
+            aSc.getParameterInt(parameter);
+            aSc.setParameter(parameter, false);
+            aSc.setParameter(parameter, 1.0);
+            aSc.setParameter(parameter, 1);
 
             for (ParameterType type : ParameterType.values())
             {
-                sc.getParameterCore(parameter, type);
-                sc.setParameterCore(parameter, type, 1);
+                aSc.getParameterCore(parameter, type);
+                aSc.setParameterCore(parameter, type, 1);
             }
         }
 
@@ -121,20 +129,20 @@ public class TestUnsupportedRevFunctions extends BaseSimulatorJavaTest
 
         for (PeriodicFrame frame : PeriodicFrame.values())
         {
-            sc.setPeriodicFramePeriod(frame, 5);
+            aSc.setPeriodicFramePeriod(frame, 5);
         }
-        sc.getSerialNumber();
-        sc.setControlFramePeriod(32);
+        aSc.getSerialNumber();
+        aSc.setControlFramePeriod(32);
 
         for (MotorType motorType : MotorType.values())
         {
-            sc.setMotorType(motorType);
+            aSc.setMotorType(motorType);
         }
 
-        CANEncoder encoder = sc.getEncoder();
+        CANEncoder encoder = aSc.getEncoder();
         encoder.getPosition();
         encoder.getVelocity();
 
-        sc.close();
+        aSc.close();
     }
 }
