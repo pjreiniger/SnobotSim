@@ -1,7 +1,5 @@
 package com.snobot.simulator.simulator_components.ctre;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,46 +10,16 @@ import org.apache.logging.log4j.Logger;
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.module_wrapper.BaseEncoderWrapper;
-import com.snobot.simulator.module_wrapper.BasePwmWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IAnalogInWrapper;
+import com.snobot.simulator.simulator_components.smart_sc.BaseCanSmartSpeedController;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
-public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
+public class CtreTalonSrxSpeedControllerSim extends BaseCanSmartSpeedController
 {
     private static final Logger sLOGGER = LogManager.getLogger(CtreTalonSrxSpeedControllerSim.class);
 
-    public static final int sCTRE_OFFSET = 100;
-
     private boolean mLoggedCantOverrideFwdLimitSwitch;
     private boolean mLoggedCantOverrideRevLimitSwitch;
-
-    public enum ControlType
-    {
-        Raw, Position, Speed, MotionMagic, MotionProfile
-    }
-
-    public enum FeedbackDevice
-    {
-        QuadEncoder, Encoder, Analog
-    }
-
-    protected static class PIDFConstants
-    {
-        public double mP;
-        public double mI;
-        public double mD;
-        public double mF;
-        public double mIZone;
-
-        public PIDFConstants()
-        {
-            mP = 0;
-            mI = 0;
-            mD = 0;
-            mF = 0;
-            mIZone = 0;
-        }
-    }
 
     public static class MotionProfilePoint
     {
@@ -74,93 +42,17 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
 
     }
 
-    protected final int mCanHandle; // The handle without the offset applied
-    protected ControlType mControlType;
-
-    // Feedback control
-    protected PIDFConstants[] mPidConstants = {new PIDFConstants(), new PIDFConstants()};
-    protected int mCurrentPidProfile;
-    protected FeedbackDevice mFeedbackDevice;
-    protected double mControlGoal;
-    protected double mSumError;
-    protected double mLastError;
-
     // Motion Profile
     protected List<MotionProfilePoint> mMotionProfilePoints;
     protected int mMotionProfileProcessedCounter;
     protected int mMotionProfileCurrentPointIndex;
 
-    // Motion Magic
-    protected double mMotionMagicMaxAcceleration;
-    protected double mMotionMagicMaxVelocity;
-
-    protected List<CtreTalonSrxSpeedControllerSim> mFollowers;
-
     public CtreTalonSrxSpeedControllerSim(int aCanHandle)
     {
-        super(aCanHandle, "CTRE SC " + (aCanHandle - sCTRE_OFFSET));
-
-        mCanHandle = aCanHandle - sCTRE_OFFSET;
-
-        mCurrentPidProfile = 0;
-        mControlType = ControlType.Raw;
+        super(aCanHandle, "CTRE", 2);
 
         mMotionProfilePoints = new LinkedList<>();
         mMotionProfileProcessedCounter = 0;
-
-        mFollowers = new ArrayList<>();
-    }
-
-    public void setPGain(int aSlot, double aP)
-    {
-        mPidConstants[aSlot].mP = aP;
-    }
-
-    public void setIGain(int aSlot, double aI)
-    {
-        mPidConstants[aSlot].mI = aI;
-    }
-
-    public void setDGain(int aSlot, double aD)
-    {
-        mPidConstants[aSlot].mD = aD;
-    }
-
-    public void setFGain(int aSlot, double aF)
-    {
-        mPidConstants[aSlot].mF = aF;
-    }
-
-    public void setIZone(int aSlot, double aIzone)
-    {
-        mPidConstants[aSlot].mIZone = aIzone;
-    }
-
-    public PIDFConstants getPidConstants(int aSlot)
-    {
-        return mPidConstants[aSlot];
-    }
-
-    public void setPositionGoal(double aDemand)
-    {
-        double position = aDemand / getPositionUnitConversion();
-
-        mControlType = ControlType.Position;
-        mControlGoal = position;
-    }
-
-    public void setSpeedGoal(double aSpeed)
-    {
-        mControlType = ControlType.Speed;
-        mControlGoal = aSpeed;
-    }
-
-    public void setMotionMagicGoal(double aDemand)
-    {
-        double goal = aDemand / getPositionUnitConversion();
-
-        mControlType = ControlType.MotionMagic;
-        mControlGoal = goal;
     }
 
     public void setMotionProfilingCommand(double aDemand)
@@ -170,127 +62,7 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
     }
 
     @Override
-    public void update(double aWaitTime)
-    {
-        switch (mControlType)
-        {
-        case Position:
-        {
-            double output = calculateFeedbackOutput(getPosition(), mControlGoal);
-            super.set(output);
-            break;
-        }
-        case Speed:
-        {
-            double output = calculateFeedbackOutput(getVelocity(), mControlGoal);
-            super.set(output);
-            break;
-        }
-        case MotionMagic:
-        {
-            double output = calculateMotionMagicOutput(getPosition(), getVelocity(), mControlGoal);
-            super.set(output);
-            break;
-        }
-        case MotionProfile:
-        {
-            double output = calculateMotionProfileOutput(getPosition(), getVelocity(), (int) mControlGoal);
-            super.set(output);
-            break;
-        }
-        // Just use normal update
-        case Raw:
-            break;
-        default:
-            sLOGGER.log(Level.ERROR, "Unsupported control type : " + mControlType);
-            break;
-        }
-        super.update(aWaitTime);
-    }
-
-    @Override
-    public void set(double aVoltagePercentage)
-    {
-        super.set(aVoltagePercentage);
-        for (CtreTalonSrxSpeedControllerSim follower : mFollowers)
-        {
-            follower.set(aVoltagePercentage);
-        }
-    }
-
-    protected double calculateFeedbackOutput(double aCurrent, double aGoal)
-    {
-        double error = aGoal - aCurrent;
-        double dErr = error - mLastError;
-
-        mSumError += error;
-        if (error > mPidConstants[mCurrentPidProfile].mIZone)
-        {
-            mSumError = 0;
-        }
-
-        double pComp = mPidConstants[mCurrentPidProfile].mP * error;
-        double iComp = mPidConstants[mCurrentPidProfile].mI * mSumError;
-        double dComp = mPidConstants[mCurrentPidProfile].mD * dErr;
-        double fComp = mPidConstants[mCurrentPidProfile].mF * aGoal;
-
-        double output = pComp + iComp + dComp + fComp;
-
-        output = Math.min(output, 1.0);
-        output = Math.max(output, -1.0);
-
-        mLastError = error;
-
-        sLOGGER.log(Level.DEBUG, "Updating CAN PID: Error: " + error + ", Output: " + output
-                + " (Cur: " + aCurrent + ", Goal: " + aGoal + ") "
-                + " (P: " + pComp + ", I: " + iComp + ", D: " + dComp + ", F: " + fComp + ")");
-
-        return output;
-
-    }
-
-    public void setMotionMagicMaxAcceleration(int aAccel)
-    {
-        mMotionMagicMaxAcceleration = aAccel / getMotionMagicAccelerationUnitConversion();
-    }
-
-    public void setMotionMagicMaxVelocity(int aVel)
-    {
-        mMotionMagicMaxVelocity = aVel / getMotionMagicVelocityUnitConversion();
-    }
-
-    private double calculateMotionMagicOutput(double aCurrentPosition, double aCurrentVelocity, double aControlGoal)
-    {
-        double error = aControlGoal - aCurrentPosition;
-        double dErr = error - mLastError;
-
-        double pComp = mPidConstants[mCurrentPidProfile].mP * error;
-        double iComp = mPidConstants[mCurrentPidProfile].mI * mSumError;
-        double dComp = mPidConstants[mCurrentPidProfile].mD * dErr;
-        double fComp = mPidConstants[mCurrentPidProfile].mF * mMotionMagicMaxVelocity;
-
-        double output = pComp + iComp + dComp + fComp;
-
-        output = Math.min(output, 1.0);
-        output = Math.max(output, -1.0);
-
-        mLastError = error;
-
-        if (sLOGGER.isDebugEnabled())
-        {
-            DecimalFormat df = new DecimalFormat("#.##");
-            sLOGGER.log(Level.DEBUG, "Motion Magic... "
-                    + "Goal: " + aControlGoal + ", "
-                    + "CurPos: " + df.format(aCurrentPosition) + ", "
-                    + "CurVel: " + df.format(aCurrentVelocity) + ", "
-                    + "err: " + df.format(error) + ", "
-                    + "maxa: " + df.format(mMotionMagicMaxAcceleration) + ", " + "maxv: " + df.format(mMotionMagicMaxVelocity));
-        }
-
-        return output;
-    }
-
-    private double calculateMotionProfileOutput(double aCurrentPosition, double aCurrentVelocity, int aModeType)
+    protected double calculateMotionProfileOutput(double aCurrentPosition, double aCurrentVelocity, int aModeType)
     {
         if (aModeType != 1)
         {
@@ -376,11 +148,6 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
         return null;
     }
 
-    public void addFollower(CtreTalonSrxSpeedControllerSim aWrapper)
-    {
-        mFollowers.add(aWrapper);
-    }
-
     public void setLimitSwitchOverride(boolean aOverrideFwdLimitSwitch, boolean aOverrideRevLimitSwitch)
     {
         if (aOverrideFwdLimitSwitch && !mLoggedCantOverrideFwdLimitSwitch)
@@ -401,69 +168,9 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
         mCurrentPidProfile = aProfileSelect;
     }
 
-    public void setCanFeedbackDevice(byte aFeedbackDevice)
-    {
-        FeedbackDevice newDevice = null;
-        switch (aFeedbackDevice)
-        {
-        // Default feedback sensor, handle with care
-        case 0:
-            newDevice = FeedbackDevice.Encoder;
-            break;
-        case 2:
-            newDevice = FeedbackDevice.Analog;
-            break;
-        // The Absolute and Relative encoders behave the same
-        case 8:
-            newDevice = FeedbackDevice.Encoder;
-            break;
-        default:
-            sLOGGER.log(Level.WARN, "Unsupported feedback device " + aFeedbackDevice);
-            break;
-        }
 
-        if (newDevice != mFeedbackDevice)
-        {
-            if (mFeedbackDevice == null)
-            {
-                mFeedbackDevice = newDevice;
-                registerFeedbackSensor();
-                sLOGGER.log(Level.DEBUG, "Setting feedback device to " + newDevice);
-            }
-            else
-            {
-                sLOGGER.log(Level.ERROR, "The simulator does not like you changing the feedback device attached to talon " + mCanHandle + " from "
-                        + mFeedbackDevice + " to " + newDevice);
-            }
-            // if (mFeedbackDevice != null && mFeedbackDevice !=
-            // FeedbackDevice.QuadEncoder)
-            // {
-            // sLOGGER.log(Level.ERROR, "The simulator does not like you
-            // changing the feedback device attached to talon " + mCanHandle + "
-            // from "
-            // + mFeedbackDevice + " to " + newDevice);
-            // }
-            // else if (newDevice != FeedbackDevice.QuadEncoder)
-            // {
-            // if(mFeedbackDevice == FeedbackDevice.QuadEncoder)
-            // {
-            // System.out.println("UH OHHHHHH");
-            // }
-            //
-            // mFeedbackDevice = newDevice;
-            // registerFeedbackSensor();
-            // sLOGGER.log(Level.DEBUG, "Setting feedback device to " +
-            // newDevice);
-            // }
-            // else if (newDevice == FeedbackDevice.QuadEncoder)
-            // {
-            // mFeedbackDevice = newDevice;
-            // registerFeedbackSensor();
-            // }
-        }
-    }
-
-    private void registerFeedbackSensor()
+    @Override
+    protected void registerFeedbackSensor()
     {
         switch (mFeedbackDevice)
         {
@@ -490,22 +197,25 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
         }
     }
 
-    private double getPositionUnitConversion()
+    @Override
+    protected double getPositionUnitConversion()
     {
         return 4096;
     }
 
-    private double getVelocityUnitConversion()
+    protected double getVelocityUnitConversion()
     {
         return 600;
     }
 
-    private double getMotionMagicAccelerationUnitConversion()
+    @Override
+    protected double getMotionMagicAccelerationUnitConversion()
     {
         return 600;
     }
 
-    private double getMotionMagicVelocityUnitConversion()
+    @Override
+    protected double getMotionMagicVelocityUnitConversion()
     {
         return 600;
     }
@@ -525,7 +235,7 @@ public class CtreTalonSrxSpeedControllerSim extends BasePwmWrapper
 
         public CtreEncoder(int aPort)
         {
-            super("CAN Encoder (" + (aPort - sCTRE_OFFSET) + ")");
+            super("CAN Encoder (" + (aPort - sCAN_SC_OFFSET) + ")");
         }
     }
 

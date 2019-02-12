@@ -62,7 +62,7 @@ public class TestCtreCanTalon extends BaseSimulatorJavaTest
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
 
         Assertions.assertEquals("CTRE SC " + aCanHandle,
-                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(aCanHandle + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET));
+                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(aCanHandle + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET));
 
         talon.config_kP(0, 0, 0);
 //        //////////////////

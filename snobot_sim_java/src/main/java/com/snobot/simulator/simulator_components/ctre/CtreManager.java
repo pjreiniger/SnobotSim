@@ -48,14 +48,14 @@ public class CtreManager
         if ("Create".equals(aCallback))
         {
             if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList()
-                    .contains(aCanPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET))
+                    .contains(aCanPort + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET))
             {
                 sLOGGER.log(Level.WARN, "CTRE Motor Controller is being created dynamically instead of in the config file for port " + aCanPort);
                 
-                DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(aCanPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET,
+                DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(aCanPort + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET,
                         CtreTalonSrxSpeedControllerSim.class.getName());
             }
-            SensorActuatorRegistry.get().getSpeedControllers().get(aCanPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET).setInitialized(true);
+            SensorActuatorRegistry.get().getSpeedControllers().get(aCanPort + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET).setInitialized(true);
         }
         else if ("SetDemand".equals(aCallback))
         {
@@ -180,6 +180,15 @@ public class CtreManager
 
             wrapper.setFGain(slot, value);
         }
+        else if ("Config_IntegralZone".equals(aCallback))
+        {
+            CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
+
+            int slot = aData.getInt();
+            double value = aData.getDouble();
+
+            wrapper.setIZone(slot, value);
+        }
         else if ("ConfigMotionCruiseVelocity".equals(aCallback))
         {
             CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
@@ -298,6 +307,14 @@ public class CtreManager
 
             int speed = wrapper.getBinnedVelocity();
             aData.putInt(0, speed);
+        }
+        else if ("SetInverted_2".equals(aCallback))
+        {
+            CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
+
+            int inverted = aData.getInt();
+            sLOGGER.log(Level.DEBUG, "SetInverted_2 " + inverted);
+            wrapper.setInverted(inverted != 0);
         }
         else
         {

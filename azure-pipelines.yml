@@ -3,6 +3,11 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
+resources:
+  containers:
+  - container: wpilib2019
+    image: wpilib/roborio-cross-ubuntu:2019-18.04
+
 jobs:
 # - job: Styleguide
 #   pool:
@@ -25,23 +30,32 @@ jobs:
 #        displayName: 'Check WPIFormat Output'
 #        failOnStderr: true
 #
-# - job: Linux
-#   pool:
-#     vmImage: 'Ubuntu 16.04'
-#
-#   steps:
-#   - task: Gradle@2
-#     inputs:
-#       workingDirectory: ''
-#       gradleWrapperFile: 'gradlew'
-#       gradleOptions: '-Xmx3072m'
-#       javaHomeOption: 'JDKVersion'
-#       jdkVersionOption: '1.11'
-#       jdkArchitectureOption: 'x64'
-#       publishJUnitResults: true
-#       testResultsFiles: '**/TEST-*.xml'
-#       tasks: 'build'
-#       options: '-PciBuild'
+
+ - job: Linux
+   pool:
+     vmImage: 'Ubuntu 16.04'
+
+   container: wpilib2019
+
+   steps:
+   - task: Gradle@2
+     inputs:
+       workingDirectory: ''
+       gradleWrapperFile: 'gradlew'
+       gradleOptions: '-Xmx3072m'
+       publishJUnitResults: true
+       testResultsFiles: '**/TEST-*.xml'
+       tasks: 'build publish'
+       options: '-PciBuild'
+       # checkStyleRunAnalysis: true
+       # pmdRunAnalysis: true
+
+   - task: PublishBuildArtifacts@1
+     displayName: 'Publish Artifact: maven repo'
+     inputs:
+       PathtoPublish: 'build/maven_repo'
+       ArtifactName: 'LinuxMaven'
+       
  - job: Windows_64_Bit
    pool:
      vmImage: 'vs2017-win2016'
@@ -139,6 +153,12 @@ jobs:
    steps:
 
     - task: DownloadBuildArtifacts@0
+      displayName: 'Download Linux Artifacts'
+      inputs:
+        artifactName: 'LinuxMaven'
+        downloadPath: $(System.DefaultWorkingDirectory)/linux
+
+    - task: DownloadBuildArtifacts@0
       displayName: 'Download Windows 32 Artifacts'
       inputs:
         artifactName: 'Win32Maven'
@@ -160,6 +180,7 @@ jobs:
         Copy-Item $(System.DefaultWorkingDirectory)/win32/Win32Maven/com $(System.DefaultWorkingDirectory)/output/com -recurse -force -verbose
         Copy-Item $(System.DefaultWorkingDirectory)/win64/Win64Maven/*   $(System.DefaultWorkingDirectory)/output     -recurse -force -verbose
         Copy-Item $(System.DefaultWorkingDirectory)/mac/OSXMaven/*       $(System.DefaultWorkingDirectory)/output     -recurse -force -verbose
+        Copy-Item $(System.DefaultWorkingDirectory)/linux/LinuxMaven/*   $(System.DefaultWorkingDirectory)/output     -recurse -force -verbose
 
     #- task: PythonScript@0
     #  displayName: 'Create Combined Native Jar'
@@ -171,7 +192,7 @@ jobs:
       displayName: 'Publish Combined Artifacts'
       inputs:
         PathtoPublish: $(System.DefaultWorkingDirectory)/output
-        ArtifactName: 'Full Maven'
+        ArtifactName: 'SnobotSim Full Maven'
 
-   dependsOn: [ Windows_64_Bit, Windows_32_Bit, Mac ]
+   dependsOn: [ Windows_64_Bit, Windows_32_Bit, Mac, Linux ]
    condition: succeeded()

@@ -32,7 +32,7 @@ public class TestRevSparksMax extends BaseSimulatorJavaTest
     @MethodSource("getData")
     public void testSimpleSetters(int aCanHandle)
     {
-        int rawHandle = aCanHandle + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET;
+        int rawHandle = aCanHandle + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
 
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
 

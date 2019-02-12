@@ -1,14 +1,48 @@
 package com.snobot.simulator.simulator_components.rev;
 
-import com.snobot.simulator.module_wrapper.BasePwmWrapper;
-import com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class RevSpeedControllerSimWrapper extends BasePwmWrapper
+import com.snobot.simulator.simulator_components.smart_sc.BaseCanSmartSpeedController;
+
+public class RevSpeedControllerSimWrapper extends BaseCanSmartSpeedController
 {
+    private static final Logger sLOGGER = LogManager.getLogger(RevSpeedControllerSimWrapper.class);
 
     public RevSpeedControllerSimWrapper(int aCanHandle)
     {
-        super(aCanHandle, "Rev SC " + (aCanHandle - CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET));
+        super(aCanHandle, "Rev", 1);
+    }
+
+    @Override
+    protected void registerFeedbackSensor()
+    {
+        sLOGGER.log(Level.ERROR, "Unsupported");
+    }
+
+    @Override
+    protected double getPositionUnitConversion()
+    {
+        return 1;
+    }
+
+    @Override
+    protected double getMotionMagicAccelerationUnitConversion()
+    {
+        return 1;
+    }
+
+    @Override
+    protected double getMotionMagicVelocityUnitConversion()
+    {
+        return 1;
+    }
+
+    @Override
+    protected double calculateMotionProfileOutput(double aCurrentPosition, double aCurrentVelocity, int aModeType)
+    {
+        throw new IllegalStateException("Not supported");
     }
 
 }

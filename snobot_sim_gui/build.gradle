@@ -59,6 +59,7 @@ dependencies {
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
     runtime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':all'
+    runtime 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion() + ':all'
 }
 
 apply from: "${rootDir}/common/extract_native_libraries.gradle"

@@ -17,14 +17,14 @@ public class RevManager extends BaseRevDeviceManager
     protected void createSim(int aCanPort)
     {
         if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList()
-                .contains(aCanPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET))
+                .contains(aCanPort + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET))
         {
             sLOGGER.log(Level.WARN, "REV Motor Controller is being created dynamically instead of in the config file for port " + aCanPort);
 
-            DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(aCanPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET,
+            DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(aCanPort + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET,
                     RevSpeedControllerSimWrapper.class.getName());
         }
-        SensorActuatorRegistry.get().getSpeedControllers().get(aCanPort + CtreTalonSrxSpeedControllerSim.sCTRE_OFFSET).setInitialized(true);
+        SensorActuatorRegistry.get().getSpeedControllers().get(aCanPort + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET).setInitialized(true);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class RevManager extends BaseRevDeviceManager
 
     public void reset()
     {
-        sLOGGER.log(Level.WARN, "UNSUPPORTED");
+
     }
 
     private RevSpeedControllerSimWrapper getMotorControllerWrapper(int aCanPort)
