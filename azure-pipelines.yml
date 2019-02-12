@@ -45,7 +45,7 @@ jobs:
        gradleOptions: '-Xmx3072m'
        publishJUnitResults: true
        testResultsFiles: '**/TEST-*.xml'
-       tasks: 'build publish'
+       tasks: 'build publish -x :snobot_sim_gui:test -x :snobot_sim_jni:test'
        options: '-PciBuild'
        # checkStyleRunAnalysis: true
        # pmdRunAnalysis: true
