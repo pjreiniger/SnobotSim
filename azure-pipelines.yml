@@ -55,7 +55,7 @@ jobs:
      inputs:
        PathtoPublish: 'build/maven_repo'
        ArtifactName: 'LinuxMaven'
-       
+
  - job: Windows_64_Bit
    pool:
      vmImage: 'vs2017-win2016'
