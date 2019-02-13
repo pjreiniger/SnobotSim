@@ -68,7 +68,7 @@ public class RevManager extends BaseRevDeviceManager
             BaseCanSmartSpeedController leadWrapper = getMotorControllerWrapper(leadId);
             RevSpeedControllerSimWrapper follower = getMotorControllerWrapper(aDeviceId);
 
-            sLOGGER.log(Level.ERROR, "Setting " + aDeviceId + " to follow " + leadId + " --- " + "FID: " + followerID);
+            sLOGGER.log(Level.TRACE, "Setting SparkMax " + aDeviceId + " to follow " + leadId);
 
             leadWrapper.addFollower(follower);
 
