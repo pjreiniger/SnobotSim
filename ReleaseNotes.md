@@ -1,6 +1,20 @@
 
 # Current Release
 
+## [2019-1.0.0](https://github.com/pjreiniger/SnobotSim/releases/tag/2019-1.0.0)
+### Added simulation for REV CANSparkMax
+* Added super quick and dirty simulator for the Spark Max. Basically just does voltage percentage simulation, but they will now show up on the GUI. Also supports follow mode, and following a TalonSRX
+* Requires [2019-2.0.0 Plugin](https://github.com/pjreiniger/SnobotSimPlugin/releases/tag/2019-2.0.0) to use downstream
+
+### Known Issues
+* C++ simulations with a gui broke during GradleRIO alpha testing. C++ teams, I know I've said it for a year, but you should be able to use this before seasons end
+* CTRE simulation is hot off the presses. Unit tests work, but new features and functions are probably not supported.
+* No smart features of the REV speed controller are supported.
+
+
+
+# Old releases
+
 ## [2019-0.0.1](https://github.com/pjreiniger/SnobotSim/releases/tag/v2019-0.0.1)
 ### First release of the 2019 build season
 * Updated to work with wpilib 2019.1.1
@@ -11,10 +25,6 @@
 ### Known Issues
 * C++ simulations with a gui broke during GradleRIO alpha testing. C++ teams, I know I've said it for a year, but you should be able to use this before seasons end
 * CTRE simulation is hot off the presses. Unit tests work, but new features and functions are probably not supported.
-
-
-
-# Old releases
 
 ## [2019-0.0.0](https://github.com/pjreiniger/SnobotSim/releases/tag/2019-0.0.0)
 ### 2019 Beta Version
