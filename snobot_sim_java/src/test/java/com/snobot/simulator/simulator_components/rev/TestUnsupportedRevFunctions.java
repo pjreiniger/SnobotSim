@@ -1,9 +1,9 @@
 package com.snobot.simulator.simulator_components.rev;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANDigitalInput;
 import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANEncoder;
@@ -61,7 +61,6 @@ public class TestUnsupportedRevFunctions extends BaseSimulatorJavaTest
         aSc.getMotorTemperature();
         aSc.getOutputCurrent();
         aSc.getPIDController();
-        aSc.getRampRate();
         for (FaultID faultId : FaultID.values())
         {
             aSc.getStickyFault(faultId); // TODO investigate
@@ -95,7 +94,6 @@ public class TestUnsupportedRevFunctions extends BaseSimulatorJavaTest
         }
         aSc.setInverted(true);
         aSc.setInverted(false);
-        aSc.setRampRate(.5);
         aSc.setSecondaryCurrentLimit(.6);
         aSc.setSecondaryCurrentLimit(.8, 10);
         aSc.setSmartCurrentLimit(3);
@@ -103,7 +101,6 @@ public class TestUnsupportedRevFunctions extends BaseSimulatorJavaTest
         aSc.setSmartCurrentLimit(6, 7, 12);
         aSc.stopMotor();
 
-        aSc.getControlFramePeriod();
         aSc.getDeviceId();
         aSc.getFirmwareString();
         aSc.getFirmwareVersion();
@@ -132,7 +129,6 @@ public class TestUnsupportedRevFunctions extends BaseSimulatorJavaTest
             aSc.setPeriodicFramePeriod(frame, 5);
         }
         aSc.getSerialNumber();
-        aSc.setControlFramePeriod(32);
 
         for (MotorType motorType : MotorType.values())
         {

@@ -34,7 +34,7 @@ ext.build_simulator_java = true
 // Specify WPI Versions
 
 ext.allwpilibVersion = {
-    return '2019.1.1'
+    return '2019.3.1'
 }
 
 ext.getWpiUtilVersion = {
@@ -57,7 +57,7 @@ ext.getCtreSimVersion = {
     return getCtreVersion() + "_V0_RC"
 }
 ext.getRevRoboticsVersion = {
-    return '1.0.28'
+    return '1.1.8'
 }
 ext.getRevRoboticsSimVersion = {
     return getRevRoboticsVersion() + "_V0"
@@ -108,7 +108,7 @@ if(hasProperty('maven_repo'))
     throw new GradleException("This isn't supported anymore")
 }
 
-ext.maven_version = "2019-1.0.0"
+ext.maven_version = "2019-1.1.0"
 if(hasProperty('maven_version'))
 {
     ext.maven_version = maven_version

@@ -14,7 +14,7 @@ public class BaseSnobotJni
         JniLibraryResourceLoader.loadLibrary("navx_simulator");
         JniLibraryResourceLoader.loadLibrary("adx_family");
         JniLibraryResourceLoader.loadLibrary("CTRE_PhoenixCCI");
-        JniLibraryResourceLoader.loadLibrary("RevSimulation");
+        JniLibraryResourceLoader.loadLibrary("SparkMaxDriver");
 
         HAL.initialize(500, 0);
     }
