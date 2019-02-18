@@ -1,5 +1,7 @@
 import subprocess
 import time
+import os
+import re
 
 def modifyScript(scriptFile):
     scriptRead = open(scriptFile,"r")
@@ -55,19 +57,23 @@ def executeGradle():
     subprocess.call(["./gradlew","runJavaSnobotSim"])
 
 def robotPath():
-    path = input("What is the name of your robot class? (e.g. org.usfirst.frc.project.Robot)")
-    configFile = open("simulator_config/simulator_config.properties","r+")
+    path = input("What is the name of your robot class? (e.g. org.usfirst.frc.project.Robot) ")
+    configFile = open("simulator_config/simulator_config.properties","r")
+    configWrite = open("simulator_config/s","w")
     configList = configFile.readlines()
+    print(configList)
     for i in configList:
         if "robot_class" in i:
             configList[configList.index(i)]="robot_class="+path
-    configFile.write(''.join(configList))
+    configWrite.write(''.join(configList))
+    subprocess.call(["rm","simulator_config/simulator_config.properties"])
+    subprocess.call(["mv","simulator_config/s","simulator_config/simulator_config.properties"])
     print("Robot class updated successfully")
 
-modifyScript("build.gradle")
-executeGradle()
-time.sleep(1)
+# modifyScript("build.gradle")
+# executeGradle()
+# time.sleep(1)
 robotPath()
 print("Success!")
-
+print("Run ./gradlew runJavaSnobotSim to run the simulator.")
 
