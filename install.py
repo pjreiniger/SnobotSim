@@ -1,4 +1,5 @@
 import subprocess
+import time
 
 def modifyScript(scriptFile):
     scriptRead = open(scriptFile,"r")
@@ -65,6 +66,7 @@ def robotPath():
 
 modifyScript("build.gradle")
 executeGradle()
+time.sleep(1)
 robotPath()
 print("Success!")
 
