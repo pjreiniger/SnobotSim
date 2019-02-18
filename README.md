@@ -27,3 +27,6 @@ If you find a bug you can fix, don't like how I did something, or want to add an
 
 ## Documentation
 Check out the [wiki](https://github.com/pjreiniger/SnobotSim/wiki) for how to set up and use the simulator, or these [examples](https://github.com/pjreiniger/SnobotSimExamples) for how you might want to set things up.
+
+## Automatic installation
+Mac/Linux: Navigate to the root of your robot project, then run "curl https://raw.githubusercontent.com/pjreiniger/SnobotSim/master/install.py | python3 ".
