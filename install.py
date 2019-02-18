@@ -6,6 +6,11 @@ def modifyScript(scriptFile):
     scriptList = scriptRead.readlines()
     # print(scriptList)
     
+    if scriptList[0]=="//Configured for Snobot Sim\n":
+        print("Script already modified")
+        return None
+    
+    scriptList.insert(0,"//Configured for Snobot Sim\n")
     #Add to plugins block
     for i in scriptList:
         if i=="plugins {\n":
@@ -58,8 +63,8 @@ def robotPath():
     configFile.write(''.join(configList))
     print("Robot class updated successfully")
 
-# modifyScript("build.gradle")
-# executeGradle()
+modifyScript("build.gradle")
+executeGradle()
 robotPath()
 print("Success!")
 
