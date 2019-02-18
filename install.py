@@ -68,9 +68,9 @@ def robotPath():
     subprocess.call(["mv","simulator_config/s","simulator_config/simulator_config.properties"])
     print("Robot class updated successfully")
 
-# modifyScript("build.gradle")
-# executeGradle()
-# time.sleep(1)
+modifyScript("build.gradle")
+executeGradle()
+time.sleep(1)
 robotPath()
 print("Success!")
 print("Run ./gradlew runJavaSnobotSim to run the simulator.")
