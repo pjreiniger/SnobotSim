@@ -1,7 +1,3 @@
-#Add plugin to script
-#Run simulator
-#Modify robot path
-
 import subprocess
 
 def modifyScript(scriptFile):
@@ -62,8 +58,8 @@ def robotPath():
     configFile.write(''.join(configList))
     print("Robot class updated successfully")
 
-modifyScript("build.gradle")
-executeGradle()
+# modifyScript("build.gradle")
+# executeGradle()
 robotPath()
 print("Success!")
 
