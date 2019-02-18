@@ -1,7 +1,5 @@
 import subprocess
 import time
-import os
-import re
 
 def modifyScript(scriptFile):
     scriptRead = open(scriptFile,"r")
