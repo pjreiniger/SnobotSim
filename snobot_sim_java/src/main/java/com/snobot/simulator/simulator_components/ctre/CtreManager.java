@@ -109,7 +109,7 @@ public class CtreManager
             switch (mode)
             {
             case 0:
-                wrapper.set(demand0);
+                wrapper.setRawGoal(demand0);
                 break;
             case 1:
                 wrapper.setPositionGoal(demand0);

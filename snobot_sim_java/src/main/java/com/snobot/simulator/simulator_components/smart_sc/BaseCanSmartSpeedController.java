@@ -138,6 +138,12 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
         mControlGoal = aSpeed;
     }
 
+    public void setRawGoal(double aRawOutput)
+    {
+        mControlType = ControlType.Raw;
+        set(aRawOutput);
+    }
+
     public void setMotionMagicGoal(double aDemand)
     {
         if (mInverted)

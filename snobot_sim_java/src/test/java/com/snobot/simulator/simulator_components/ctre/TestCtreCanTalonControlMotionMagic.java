@@ -64,6 +64,14 @@ public class TestCtreCanTalonControlMotionMagic extends BaseSimulatorJavaTest
         });
 
         Assertions.assertEquals(0, talon.getClosedLoopError(0), 2 * 4096);
+
+        // Make sure it swaps back to normal mode
+        simulateForTime(1, () ->
+        {
+            talon.set(ControlMode.PercentOutput, .75);
+            Assertions.assertEquals(ControlMode.PercentOutput, talon.getControlMode());
+            Assertions.assertEquals(.75, talon.getMotorOutputPercent());
+        });
     }
 
 }

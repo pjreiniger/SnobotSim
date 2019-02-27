@@ -34,7 +34,7 @@ ext.build_simulator_java = true
 // Specify WPI Versions
 
 ext.allwpilibVersion = {
-    return '2019.3.1'
+    return '2019.4.1'
 }
 
 ext.getWpiUtilVersion = {
@@ -57,13 +57,13 @@ ext.getCtreSimVersion = {
     return getCtreVersion() + "_V0_RC"
 }
 ext.getRevRoboticsVersion = {
-    return '1.1.8'
+    return '1.1.9'
 }
 ext.getRevRoboticsSimVersion = {
     return getRevRoboticsVersion() + "_V0"
 }
 ext.getNavxVersion = {
-    return '3.1.340'
+    return '3.1.366'
 }
 ext.getWpiRepo = {
     return "http://first.wpi.edu/FRC/roborio/maven/release/"

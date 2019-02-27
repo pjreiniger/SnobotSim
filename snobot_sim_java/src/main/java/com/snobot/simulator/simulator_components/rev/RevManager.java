@@ -19,6 +19,8 @@ public class RevManager extends BaseRevDeviceManager
     @SuppressWarnings("PMD")
     protected int handleSend(int aDeviceId, int aApiId, ByteBuffer aData)
     {
+        aData.order(ByteOrder.LITTLE_ENDIAN);
+
         int output = 0;
 
         String arbAsString = mArbIdLookup.get(aApiId);
@@ -42,7 +44,6 @@ public class RevManager extends BaseRevDeviceManager
                 return output;
             }
 
-            aData.order(ByteOrder.LITTLE_ENDIAN);
             float setpoint = aData.getFloat();
             short auxSetpoint = aData.getShort();
             byte pidSlot = aData.get();
@@ -60,8 +61,6 @@ public class RevManager extends BaseRevDeviceManager
         }
         case "follow":
         {
-            aData.order(ByteOrder.LITTLE_ENDIAN);
-
             int followerID = aData.getInt();
             int leadId = followerID & 0x3F;
 
@@ -72,6 +71,17 @@ public class RevManager extends BaseRevDeviceManager
 
             leadWrapper.addFollower(follower);
 
+            break;
+        }
+        case "SetDriverSet4":
+        {
+            int deviceID = aData.getInt();
+            float value = aData.getFloat();
+            aData.getInt();
+            byte pidSlot = aData.get();
+            aData.getShort();
+
+            set(deviceID, value, (short) 0, pidSlot, (byte) 0);
             break;
         }
         default:

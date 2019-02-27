@@ -4,7 +4,7 @@
 /* Created in support of Team 2465 (Kauaibots).  Go Purple Wave!              */
 /*                                                                            */
 /* Open Source Software - may be modified and shared by FRC teams. Any        */
-/* modifications to this code must be accompanied by the \License.txt file    */
+/* modifications to this code must be accompanied by the \License.txt file    */ 
 /* in the root directory of the project.                                      */
 /*----------------------------------------------------------------------------*/
 
@@ -19,47 +19,46 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.SendableBase;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
-import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  * The AHRS class provides an interface to AHRS capabilities
  * of the KauaiLabs navX Robotics Navigation Sensor via SPI, I2C and
  * Serial (TTL UART and USB) communications interfaces on the RoboRIO.
- *
- * The AHRS class enables access to basic connectivity and state information,
- * as well as key 6-axis and 9-axis orientation information (yaw, pitch, roll,
+ * 
+ * The AHRS class enables access to basic connectivity and state information, 
+ * as well as key 6-axis and 9-axis orientation information (yaw, pitch, roll, 
  * compass heading, fused (9-axis) heading and magnetic disturbance detection.
- *
+ * 
  * Additionally, the ARHS class also provides access to extended information
- * including linear acceleration, motion detection, rotation detection and sensor
+ * including linear acceleration, motion detection, rotation detection and sensor 
  * temperature.
- *
- * If used with the navX Aero, the AHRS class also provides access to
+ * 
+ * If used with the navX Aero, the AHRS class also provides access to 
  * altitude, barometric pressure and pressure sensor temperature data
  * @author Scott
  */
 
-public class AHRS extends SendableBase implements PIDSource
-{
+public class AHRS extends SendableBase implements PIDSource, Sendable {
 
     /**
      * Identifies one of the three sensing axes on the navX sensor board.  Note that these axes are
-     * board-relative ("Board Frame"), and are not necessarily the same as the logical axes of the
+     * board-relative ("Board Frame"), and are not necessarily the same as the logical axes of the 
      * chassis on which the sensor is mounted.
-     *
+     * 
      * For more information on sensor orientation, please see the navX sensor <a href=http://navx-mxp.kauailabs.com/installation/orientation-2/>Orientation</a> page.
      */
     public enum BoardAxis {
         kBoardAxisX(0),
         kBoardAxisY(1),
         kBoardAxisZ(2);
-
+        
         private int value;
-
+        
         private BoardAxis(int value) {
             this.value = value;
         }
@@ -70,7 +69,7 @@ public class AHRS extends SendableBase implements PIDSource
 
     /**
      * Indicates which sensor board axis is used as the "yaw" (gravity) axis.
-     *
+     * 
      * This selection may be modified via the <a href=http://navx-mxp.kauailabs.com/installation/omnimount/>Omnimount</a> feature.
      *
      */
@@ -80,7 +79,7 @@ public class AHRS extends SendableBase implements PIDSource
         public boolean up;
     };
 
-    /**
+    /** 
      * For use with serial communications, the SerialDataType specifies the
      * type of data to be streamed from the sensor.  Due to limitations in the
      * streaming bandwidth on some serial interfaces, only a subset of all
@@ -94,18 +93,18 @@ public class AHRS extends SendableBase implements PIDSource
         /**
          * (default):  6 and 9-axis processed data
          */
-        kProcessedData(0),
+        kProcessedData(0), 
         /**
          * unprocessed data from each individual sensor
          */
         kRawData(1);
-
+        
         private int value;
-
+        
         private SerialDataType(int value){
             this.value = value;
         }
-
+        
         public int getValue(){
             return this.value;
         }
@@ -116,9 +115,9 @@ public class AHRS extends SendableBase implements PIDSource
     static final short  DEFAULT_ACCEL_FSR_G                 = 2;
     static final short  DEFAULT_GYRO_FSR_DPS                = 2000;
     static final float  QUATERNION_HISTORY_SECONDS			= 5.0f;
-
+   
     /* Processed Data */
-
+    
     volatile float      yaw;
     volatile float      pitch;
     volatile float      roll;
@@ -139,13 +138,13 @@ public class AHRS extends SendableBase implements PIDSource
     volatile float      quaternionW;
     volatile float      quaternionX;
     volatile float      quaternionY;
-    volatile float      quaternionZ;
-
+    volatile float      quaternionZ;       
+    
     /* Integrated Data */
     float velocity[] = new float[3];
     float displacement[] = new float[3];
-
-
+    
+    
     /* Raw Data */
     volatile short      raw_gyro_x;
     volatile short      raw_gyro_y;
@@ -156,28 +155,26 @@ public class AHRS extends SendableBase implements PIDSource
     volatile short      cal_mag_x;
     volatile short      cal_mag_y;
     volatile short      cal_mag_z;
-
+    
     /* Configuration/Status */
     volatile byte       update_rate_hz;
     volatile short      accel_fsr_g = DEFAULT_ACCEL_FSR_G;
     volatile short      gyro_fsr_dps = DEFAULT_GYRO_FSR_DPS;
-    volatile short      capability_flags;
+    volatile short      capability_flags;    
     volatile byte       op_status;
     volatile short      sensor_status;
     volatile byte       cal_status;
     volatile byte       selftest_status;
-
+    
     /* Board ID */
     volatile byte       board_type;
     volatile byte       hw_rev;
     volatile byte       fw_ver_major;
     volatile byte       fw_ver_minor;
-
+    
     long                last_sensor_timestamp;
     double              last_update_time;
-
-    ITable              m_table;
-
+    
     InertialDataIntegrator  integrator;
     ContinuousAngleTracker  yaw_angle_tracker;
     OffsetTracker           yaw_offset_tracker;
@@ -186,33 +183,42 @@ public class AHRS extends SendableBase implements PIDSource
     BoardCapabilities       board_capabilities;
     IOCompleteNotification  io_complete_sink;
     IOThread                io_thread;
-
+    
     PIDSourceType			pid_source_type = PIDSourceType.kDisplacement;
-
+    
     private ITimestampedDataSubscriber callbacks[];
     private Object callback_contexts[];
     private final int MAX_NUM_CALLBACKS = 3;
+	
+	private boolean enable_boardlevel_yawreset;
+    private double last_yawreset_request_timestamp;
+    private double last_yawreset_while_calibrating_request_timestamp;
+    private int successive_suppressed_yawreset_request_count;
+    private boolean disconnect_startupcalibration_recovery_pending;
+    private boolean logging_enabled;
 
     /***********************************************************/
     /* Public Interface Implementation                         */
     /***********************************************************/
-
+    
     @Override
-    public void free()
+    public void close()
     {
+        super.close();
+
         io_thread.stop();
         io.stop();
         io_thread = null;
     }
-
+    
     /**
-     * Constructs the AHRS class using SPI communication, overriding the
-     * default update rate with a custom rate which may be from 4 to 200,
-     * representing the number of updates per second sent by the sensor.
+     * Constructs the AHRS class using SPI communication, overriding the 
+     * default update rate with a custom rate which may be from 4 to 200, 
+     * representing the number of updates per second sent by the sensor.  
      *<p>
      * This constructor should be used if communicating via SPI.
      *<p>
-     * Note that increasing the update rate may increase the
+     * Note that increasing the update rate may increase the 
      * CPU utilization.
      *<p>
      * @param spi_port_id SPI Port to use
@@ -248,42 +254,44 @@ public class AHRS extends SendableBase implements PIDSource
      */
 
     public AHRS(SPI.Port spi_port_id, int spi_bitrate, byte update_rate_hz) {
+        System.out.printf("Instantiating navX-Sensor on SPI Port %s.\n", spi_port_id.toString());        
         commonInit(update_rate_hz);
         io = new RegisterIO(new RegisterIO_SPI(new SPI(spi_port_id), spi_bitrate), update_rate_hz, io_complete_sink, board_capabilities);
         io_thread.start();
     }/**
-     * Constructs the AHRS class using I2C communication, overriding the
-     * default update rate with a custom rate which may be from 4 to 200,
-     * representing the number of updates per second sent by the sensor.
+     * Constructs the AHRS class using I2C communication, overriding the 
+     * default update rate with a custom rate which may be from 4 to 200, 
+     * representing the number of updates per second sent by the sensor.  
      *<p>
      * This constructor should be used if communicating via I2C.
      *<p>
-     * Note that increasing the update rate may increase the
+     * Note that increasing the update rate may increase the 
      * CPU utilization.
      *<p>
      * @param i2c_port_id I2C Port to use
      * @param update_rate_hz Custom Update Rate (Hz)
      */
     public AHRS(I2C.Port i2c_port_id, byte update_rate_hz) {
+        System.out.printf("Instantiating navX-Sensor on I2C Port %s.\n", i2c_port_id.toString());              
         commonInit(update_rate_hz);
         io = new RegisterIO(new RegisterIO_I2C(new I2C(i2c_port_id, 0x32)), update_rate_hz, io_complete_sink, board_capabilities);
         io_thread.start();
     }
 
     /**
-     * Constructs the AHRS class using serial communication, overriding the
-     * default update rate with a custom rate which may be from 4 to 200,
-     * representing the number of updates per second sent by the sensor.
+     * Constructs the AHRS class using serial communication, overriding the 
+     * default update rate with a custom rate which may be from 4 to 200, 
+     * representing the number of updates per second sent by the sensor.  
      *<p>
-     * This constructor should be used if communicating via either
+     * This constructor should be used if communicating via either 
      * TTL UART or USB Serial interface.
      *<p>
-     * Note that the serial interfaces can communicate either
+     * Note that the serial interfaces can communicate either 
      * processed data, or raw data, but not both simultaneously.
      * If simultaneous processed and raw data are needed, use
      * one of the register-based interfaces (SPI or I2C).
      *<p>
-     * Note that increasing the update rate may increase the
+     * Note that increasing the update rate may increase the 
      * CPU utilization.
      *<p>
      * @param serial_port_id SerialPort to use
@@ -291,6 +299,7 @@ public class AHRS extends SendableBase implements PIDSource
      * @param update_rate_hz Custom Update Rate (Hz)
      */
     public AHRS(SerialPort.Port serial_port_id, SerialDataType data_type, byte update_rate_hz) {
+        System.out.printf("Instantiating navX-Sensor on Serial Port %s.\n", serial_port_id.toString());        
         commonInit(update_rate_hz);
         boolean processed_data = (data_type == SerialDataType.kProcessedData);
         io = new SerialIO(serial_port_id, update_rate_hz, processed_data, io_complete_sink, board_capabilities);
@@ -298,7 +307,7 @@ public class AHRS extends SendableBase implements PIDSource
     }
 
     /**
-     * Constructs the AHRS class using SPI communication and the default update rate.
+     * Constructs the AHRS class using SPI communication and the default update rate.  
      *<p>
      * This constructor should be used if communicating via SPI.
      *<p>
@@ -307,10 +316,10 @@ public class AHRS extends SendableBase implements PIDSource
     public AHRS(SPI.Port spi_port_id) {
         this(spi_port_id, NAVX_DEFAULT_UPDATE_RATE_HZ);
     }
-
+    
 
     /**
-     * Constructs the AHRS class using I2C communication and the default update rate.
+     * Constructs the AHRS class using I2C communication and the default update rate.  
      *<p>
      * This constructor should be used if communicating via I2C.
      *<p>
@@ -319,13 +328,13 @@ public class AHRS extends SendableBase implements PIDSource
     public AHRS(I2C.Port i2c_port_id) {
         this(i2c_port_id, NAVX_DEFAULT_UPDATE_RATE_HZ);
     }
-
+    
 
     /**
-     * Constructs the AHRS class using serial communication and the default update rate,
-     * and returning processed (rather than raw) data.
+     * Constructs the AHRS class using serial communication and the default update rate, 
+     * and returning processed (rather than raw) data.  
      *<p>
-     * This constructor should be used if communicating via either
+     * This constructor should be used if communicating via either 
      * TTL UART or USB Serial interface.
      *<p>
      * @param serial_port_id SerialPort to use
@@ -333,7 +342,7 @@ public class AHRS extends SendableBase implements PIDSource
     public AHRS(SerialPort.Port serial_port_id) {
         this(serial_port_id, SerialDataType.kProcessedData, NAVX_DEFAULT_UPDATE_RATE_HZ);
     }
-
+    
     /**
      * Returns the current pitch value (in degrees, from -180 to 180)
      * reported by the sensor.  Pitch is a measure of rotation around
@@ -360,12 +369,12 @@ public class AHRS extends SendableBase implements PIDSource
      * the Z Axis (which is perpendicular to the earth).
      *<p>
      * Note that the returned yaw value will be offset by a user-specified
-     * offset value; this user-specified offset value is set by
+     * offset value; this user-specified offset value is set by 
      * invoking the zeroYaw() method.
      * @return The current yaw value in degrees (-180 to 180).
      */
     public float getYaw() {
-        if ( board_capabilities.isBoardYawResetSupported() ) {
+        if ( enable_boardlevel_yawreset && board_capabilities.isBoardYawResetSupported() ) {
             return this.yaw;
         } else {
             return (float) yaw_offset_tracker.applyOffset(this.yaw);
@@ -373,7 +382,7 @@ public class AHRS extends SendableBase implements PIDSource
     }
 
     /**
-     * Returns the current tilt-compensated compass heading
+     * Returns the current tilt-compensated compass heading 
      * value (in degrees, from 0 to 360) reported by the sensor.
      *<p>
      * Note that this value is sensed by a magnetometer,
@@ -390,6 +399,9 @@ public class AHRS extends SendableBase implements PIDSource
         return compass_heading;
     }
 
+    static final int NUM_SUPPRESSED_SUCCESSIVE_YAWRESET_MESSAGES = 5;
+    static final double SUPPRESSED_SUCESSIVE_YAWRESET_PERIOD_SECONDS = 0.2;
+
     /**
      * Sets the user-specified yaw offset to the current
      * yaw value reported by the sensor.
@@ -397,11 +409,41 @@ public class AHRS extends SendableBase implements PIDSource
      * This user-specified yaw offset is automatically
      * subtracted from subsequent yaw values reported by
      * the getYaw() method.
+     * 
+     * NOTE:  This method has no effect if the sensor is 
+     * currently calibrating, since resetting the yaw will
+     * interfere with the calibration process.
      */
     public void zeroYaw() {
-        if ( board_capabilities.isBoardYawResetSupported() ) {
+        double curr_timestamp = Timer.getFPGATimestamp();
+        double delta_time_since_last_yawreset_request = curr_timestamp - last_yawreset_request_timestamp;
+        if (delta_time_since_last_yawreset_request < SUPPRESSED_SUCESSIVE_YAWRESET_PERIOD_SECONDS) {
+            successive_suppressed_yawreset_request_count++;
+            if ((successive_suppressed_yawreset_request_count % NUM_SUPPRESSED_SUCCESSIVE_YAWRESET_MESSAGES) == 1) {
+                if (logging_enabled) System.out.printf("navX-Sensor rapidly-repeated Yaw Reset ignored%s\n",
+                ((successive_suppressed_yawreset_request_count < NUM_SUPPRESSED_SUCCESSIVE_YAWRESET_MESSAGES) 
+                    ? "." : (" (repeated messages suppressed).")));
+            }
+            return;
+        }
+    
+        if (isCalibrating()) {
+            double delta_time_since_last_yawreset_while_calibrating_request =
+                curr_timestamp - last_yawreset_while_calibrating_request_timestamp;
+            if ((delta_time_since_last_yawreset_while_calibrating_request > SUPPRESSED_SUCESSIVE_YAWRESET_PERIOD_SECONDS)) {
+                System.out.printf("navX-Sensor Yaw Reset request ignored - startup calibration is currently in progress.\n");
+            }
+            last_yawreset_while_calibrating_request_timestamp = curr_timestamp;
+            return;
+        }
+    
+        successive_suppressed_yawreset_request_count = 0;
+
+        last_yawreset_request_timestamp = curr_timestamp; 
+        if ( enable_boardlevel_yawreset && board_capabilities.isBoardYawResetSupported() ) {
             io.zeroYaw();
-            /* Notification is deferred until action is complete. */
+            System.out.printf("navX-Sensor Board-level Yaw Reset requested.\n");                    
+            /* Note:  Notification is deferred until action is complete. */            
         } else {
             yaw_offset_tracker.setOffset();
             /* Notification occurs immediately. */
@@ -412,18 +454,18 @@ public class AHRS extends SendableBase implements PIDSource
 
     /**
      * Returns true if the sensor is currently performing automatic
-     * gyro/accelerometer calibration.  Automatic calibration occurs
-     * when the sensor is initially powered on, during which time the
-     * sensor should be held still, with the Z-axis pointing up
+     * gyro/accelerometer calibration.  Automatic calibration occurs 
+     * when the sensor is initially powered on, during which time the 
+     * sensor should be held still, with the Z-axis pointing up 
      * (perpendicular to the earth).
      *<p>
      * NOTE:  During this automatic calibration, the yaw, pitch and roll
      * values returned may not be accurate.
      *<p>
-     * Once calibration is complete, the sensor will automatically remove
+     * Once calibration is complete, the sensor will automatically remove 
      * an internal yaw offset value from all reported values.
      *<p>
-     * @return Returns true if the sensor is currently automatically
+     * @return Returns true if the sensor is currently automatically 
      * calibrating the gyro and accelerometer sensors.
      */
     public boolean isCalibrating() {
@@ -446,7 +488,7 @@ public class AHRS extends SendableBase implements PIDSource
 
     /**
      * Returns the count in bytes of data received from the
-     * sensor.  This could can be useful for diagnosing
+     * sensor.  This could can be useful for diagnosing 
      * connectivity issues.
      *<p>
      * If the byte count is increasing, but the update count
@@ -478,33 +520,33 @@ public class AHRS extends SendableBase implements PIDSource
     public int getActualUpdateRate() {
         byte actual_update_rate = getActualUpdateRateInternal((byte)getRequestedUpdateRate());
         return (int)(actual_update_rate & 0xFF);
-    }
-
+    }    
+    
     private byte getActualUpdateRateInternal(byte update_rate) {
         final int NAVX_MOTION_PROCESSOR_UPDATE_RATE_HZ = 200;
         int integer_update_rate = (int)(update_rate & 0xFF);
         int realized_update_rate = NAVX_MOTION_PROCESSOR_UPDATE_RATE_HZ /
                 (NAVX_MOTION_PROCESSOR_UPDATE_RATE_HZ / integer_update_rate);
-        return (byte)realized_update_rate;
+        return (byte)realized_update_rate;    	
     }
-
+    
 	/**
 	 * Returns the currently requested update rate.
 	 * rate.  Note that not every update rate can actually be realized,
 	 * since the actual update rate must be a value evenly divisible by
 	 * the navX-Model device's internal motion processor sample clock (200Hz).
-	 *
+	 * 
 	 * To determine the actual update rate, use the
 	 * {@link #getActualUpdateRate()} method.
-	 *
+	 * 
 	 * @return Returns the requested update rate in Hz
 	 * (cycles per second).
 	 */
 
     public int getRequestedUpdateRate() {
         return (int)(this.update_rate_hz & 0xFF);
-    }
-
+    }    
+    
     /**
      * Returns the count of valid updates which have
      * been received from the sensor.  This count should increase
@@ -514,7 +556,7 @@ public class AHRS extends SendableBase implements PIDSource
     public double getUpdateCount() {
         return io.getUpdateCount();
     }
-
+    
     /**
      * Returns the sensor timestamp corresponding to the
      * last sample retrieved from the sensor.  Note that this
@@ -527,7 +569,7 @@ public class AHRS extends SendableBase implements PIDSource
     public long getLastSensorTimestamp() {
     	return this.last_sensor_timestamp;
     }
-
+    
     /**
      * Returns the current linear acceleration in the X-axis (in G).
      *<p>
@@ -591,7 +633,7 @@ public class AHRS extends SendableBase implements PIDSource
 
     /**
      * Indicates if the sensor is currently detecting yaw rotation,
-     * based upon whether the change in yaw over the last second
+     * based upon whether the change in yaw over the last second 
      * exceeds the "Rotation Threshold."
      *<p>
      * Yaw Rotation can occur either when the sensor is rotating, or
@@ -624,10 +666,10 @@ public class AHRS extends SendableBase implements PIDSource
      * sea-level barometric pressure [navX Aero only].  This value is in units of meters.
      *<p>
      * NOTE:  This value is only valid sensors including a pressure
-     * sensor.  To determine whether this value is valid, see
+     * sensor.  To determine whether this value is valid, see 
      * isAltitudeValid().
      *<p>
-     * @return Returns current altitude in meters (as long as the sensor includes
+     * @return Returns current altitude in meters (as long as the sensor includes 
      * an installed on-board pressure sensor).
      */
     public float getAltitude()
@@ -636,11 +678,11 @@ public class AHRS extends SendableBase implements PIDSource
     }
 
     /**
-     * Indicates whether the current altitude (and barometric pressure) data is
+     * Indicates whether the current altitude (and barometric pressure) data is 
      * valid. This value will only be true for a sensor with an onboard
      * pressure sensor installed.
      *<p>
-     * If this value is false for a board with an installed pressure sensor,
+     * If this value is false for a board with an installed pressure sensor, 
      * this indicates a malfunction of the onboard pressure sensor.
      *<p>
      * @return Returns true if a working pressure sensor is installed.
@@ -655,13 +697,13 @@ public class AHRS extends SendableBase implements PIDSource
      *<p>
      * The 9-axis heading is the fusion of the yaw angle, the tilt-corrected
      * compass heading, and magnetic disturbance detection.  Note that the
-     * magnetometer calibration procedure is required in order to
+     * magnetometer calibration procedure is required in order to 
      * achieve valid 9-axis headings.
      *<p>
-     * The 9-axis Heading represents the sensor's best estimate of current heading,
-     * based upon the last known valid Compass Angle, and updated by the change in the
-     * Yaw Angle since the last known valid Compass Angle.  The last known valid Compass
-     * Angle is updated whenever a Calibrated Compass Angle is read and the sensor
+     * The 9-axis Heading represents the sensor's best estimate of current heading, 
+     * based upon the last known valid Compass Angle, and updated by the change in the 
+     * Yaw Angle since the last known valid Compass Angle.  The last known valid Compass 
+     * Angle is updated whenever a Calibrated Compass Angle is read and the sensor 
      * has recently rotated less than the Compass Noise Bandwidth (~2 degrees).
      * @return Fused Heading in Degrees (range 0-360)
      */
@@ -669,9 +711,9 @@ public class AHRS extends SendableBase implements PIDSource
     {
     	return fused_heading;
     }
-
+    
     /**
-     * Indicates whether the current magnetic field strength diverges from the
+     * Indicates whether the current magnetic field strength diverges from the 
      * calibrated value for the earth's magnetic field by more than the currently-
      * configured Magnetic Disturbance Ratio.
      *<p>
@@ -683,9 +725,9 @@ public class AHRS extends SendableBase implements PIDSource
     {
     	return magnetic_disturbance;
     }
-
+    
     /**
-     * Indicates whether the magnetometer has been calibrated.
+     * Indicates whether the magnetometer has been calibrated.  
      *<p>
      * Magnetometer Calibration must be performed by the user.
      *<p>
@@ -694,18 +736,18 @@ public class AHRS extends SendableBase implements PIDSource
      * to yield valid compass headings.
      *<p>
      * @return Returns true if magnetometer calibration has been performed.
-     */
+     */   
     public boolean isMagnetometerCalibrated()
     {
     	return is_magnetometer_calibrated;
     }
-
+    
     /* Unit Quaternions */
-
+    
     /**
-     * Returns the imaginary portion (W) of the Orientation Quaternion which
-     * fully describes the current sensor orientation with respect to the
-     * reference angle defined as the angle at which the yaw was last "zeroed".
+     * Returns the imaginary portion (W) of the Orientation Quaternion which 
+     * fully describes the current sensor orientation with respect to the 
+     * reference angle defined as the angle at which the yaw was last "zeroed".  
      *<p>
      * Each quaternion value (W,X,Y,Z) is expressed as a value ranging from -2
      * to 2.  This total range (4) can be associated with a unit circle, since
@@ -713,62 +755,62 @@ public class AHRS extends SendableBase implements PIDSource
      * <p>
      * For more information on Quaternions and their use, please see this <a href=https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation>definition</a>.
      * @return Returns the imaginary portion (W) of the quaternion.
-     */
+     */   
     public float getQuaternionW() {
         return quaternionW;
     }
     /**
-     * Returns the real portion (X axis) of the Orientation Quaternion which
-     * fully describes the current sensor orientation with respect to the
-     * reference angle defined as the angle at which the yaw was last "zeroed".
+     * Returns the real portion (X axis) of the Orientation Quaternion which 
+     * fully describes the current sensor orientation with respect to the 
+     * reference angle defined as the angle at which the yaw was last "zeroed".  
      * <p>
      * Each quaternion value (W,X,Y,Z) is expressed as a value ranging from -2
      * to 2.  This total range (4) can be associated with a unit circle, since
      * each circle is comprised of 4 PI Radians.
      * <p>
-     * For more information on Quaternions and their use, please see this <a href=https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation>description</a>.
+     * For more information on Quaternions and their use, please see this <a href=https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation>description</a>. 
      * @return Returns the real portion (X) of the quaternion.
-     */
+     */   
     public float getQuaternionX() {
         return quaternionX;
     }
     /**
-     * Returns the real portion (X axis) of the Orientation Quaternion which
-     * fully describes the current sensor orientation with respect to the
-     * reference angle defined as the angle at which the yaw was last "zeroed".
-     *
+     * Returns the real portion (X axis) of the Orientation Quaternion which 
+     * fully describes the current sensor orientation with respect to the 
+     * reference angle defined as the angle at which the yaw was last "zeroed".  
+     * 
      * Each quaternion value (W,X,Y,Z) is expressed as a value ranging from -2
      * to 2.  This total range (4) can be associated with a unit circle, since
      * each circle is comprised of 4 PI Radians.
-     *
+     * 
      * For more information on Quaternions and their use, please see:
-     *
+     * 
      *   https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation
-     *
+     * 
      * @return Returns the real portion (X) of the quaternion.
-     */
+     */   
     public float getQuaternionY() {
         return quaternionY;
     }
     /**
-     * Returns the real portion (X axis) of the Orientation Quaternion which
-     * fully describes the current sensor orientation with respect to the
-     * reference angle defined as the angle at which the yaw was last "zeroed".
-     *
+     * Returns the real portion (X axis) of the Orientation Quaternion which 
+     * fully describes the current sensor orientation with respect to the 
+     * reference angle defined as the angle at which the yaw was last "zeroed".  
+     * 
      * Each quaternion value (W,X,Y,Z) is expressed as a value ranging from -2
      * to 2.  This total range (4) can be associated with a unit circle, since
      * each circle is comprised of 4 PI Radians.
-     *
+     * 
      * For more information on Quaternions and their use, please see:
-     *
+     * 
      *   https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation
-     *
+     * 
      * @return Returns the real portion (X) of the quaternion.
-     */
+     */   
     public float getQuaternionZ() {
         return quaternionZ;
     }
-
+    
     /**
      * Zeros the displacement integration variables.   Invoke this at the moment when
      * integration begins.
@@ -781,7 +823,7 @@ public class AHRS extends SendableBase implements PIDSource
     	    integrator.resetDisplacement();
     	}
     }
-
+    
     /**
      * Each time new linear acceleration samples are received, this function should be invoked.
      * This function transforms acceleration in G to meters/sec^2, then converts this value to
@@ -789,12 +831,12 @@ public class AHRS extends SendableBase implements PIDSource
      * is converted to displacement in meters, and integrated.
      * @return none.
      */
-
-    private void updateDisplacement( float accel_x_g, float accel_y_g,
+    
+    private void updateDisplacement( float accel_x_g, float accel_y_g, 
     									int update_rate_hz, boolean is_moving ) {
         integrator.updateDisplacement(accel_x_g, accel_y_g, update_rate_hz, is_moving);
     }
-
+    
     /**
      * Returns the velocity (in meters/sec) of the X axis [Experimental].
      *
@@ -806,7 +848,7 @@ public class AHRS extends SendableBase implements PIDSource
     public float getVelocityX() {
     	return (board_capabilities.isDisplacementSupported() ? velocity[0] : integrator.getVelocityX());
     }
-
+    
     /**
      * Returns the velocity (in meters/sec) of the Y axis [Experimental].
      *
@@ -818,7 +860,7 @@ public class AHRS extends SendableBase implements PIDSource
     public float getVelocityY() {
         return (board_capabilities.isDisplacementSupported() ? velocity[1] : integrator.getVelocityY());
     }
-
+    
     /**
      * Returns the velocity (in meters/sec) of the Z axis [Experimental].
      *
@@ -834,45 +876,45 @@ public class AHRS extends SendableBase implements PIDSource
     /**
      * Returns the displacement (in meters) of the X axis since resetDisplacement()
      * was last invoked [Experimental].
-     *
+     * 
      * NOTE:  This feature is experimental.  Displacement measures rely on double-integration
      * of acceleration values from MEMS accelerometers which yield "noisy" values.  The
-     * resulting displacement are not known to be very accurate, and the amount of error
+     * resulting displacement are not known to be very accurate, and the amount of error 
      * increases quickly as time progresses.
      * @return Displacement since last reset (in meters).
      */
     public float getDisplacementX() {
         return (board_capabilities.isDisplacementSupported() ? displacement[0] : integrator.getDisplacementX());
     }
-
+    
     /**
      * Returns the displacement (in meters) of the Y axis since resetDisplacement()
      * was last invoked [Experimental].
-     *
+     * 
      * NOTE:  This feature is experimental.  Displacement measures rely on double-integration
      * of acceleration values from MEMS accelerometers which yield "noisy" values.  The
-     * resulting displacement are not known to be very accurate, and the amount of error
+     * resulting displacement are not known to be very accurate, and the amount of error 
      * increases quickly as time progresses.
      * @return Displacement since last reset (in meters).
      */
     public float getDisplacementY() {
         return (board_capabilities.isDisplacementSupported() ? displacement[1] : integrator.getDisplacementY());
     }
-
+    
     /**
      * Returns the displacement (in meters) of the Z axis since resetDisplacement()
      * was last invoked [Experimental].
-     *
+     * 
      * NOTE:  This feature is experimental.  Displacement measures rely on double-integration
      * of acceleration values from MEMS accelerometers which yield "noisy" values.  The
-     * resulting displacement are not known to be very accurate, and the amount of error
+     * resulting displacement are not known to be very accurate, and the amount of error 
      * increases quickly as time progresses.
      * @return Displacement since last reset (in meters).
      */
     public float getDisplacementZ() {
         return (board_capabilities.isDisplacementSupported() ? displacement[2] : 0.f);
     }
-
+    
     /**
      * Registers a callback interface.  This interface
      * will be called back when new data is available,
@@ -881,6 +923,10 @@ public class AHRS extends SendableBase implements PIDSource
      * Note that this callback will occur within the context of the
      * device IO thread, which is not the same thread context the
      * caller typically executes in.
+     * @param callback The callback object to be invoked when callbacks occur
+     * @param callback_context The callback context object to be passed as a parameter
+     * to the callback object.
+     * @return returns true if callback was successfully registered.
      */
     public boolean registerCallback( ITimestampedDataSubscriber callback, Object callback_context) {
         boolean registered = false;
@@ -893,7 +939,7 @@ public class AHRS extends SendableBase implements PIDSource
             }
         }
         return registered;
-    }
+    }    
 
 
     /**
@@ -903,6 +949,8 @@ public class AHRS extends SendableBase implements PIDSource
      * previously registered, to ensure that the object
      * implementing the callback interface does not continue
      * to be accessed when no longer necessary.
+     * @param callback The previously-registered callback object to be deregistered.
+     * @return returns true if callback was successfully deregistered.
      */
     public boolean deregisterCallback( ITimestampedDataSubscriber callback ) {
         boolean deregistered = false;
@@ -914,8 +962,8 @@ public class AHRS extends SendableBase implements PIDSource
             }
         }
         return deregistered;
-    }
-
+    }    
+    
     /***********************************************************/
     /* Internal Implementation                                  */
     /***********************************************************/
@@ -930,23 +978,29 @@ public class AHRS extends SendableBase implements PIDSource
         yaw_angle_tracker = new ContinuousAngleTracker();
         this.callbacks = new ITimestampedDataSubscriber[MAX_NUM_CALLBACKS];
         this.callback_contexts = new Object[MAX_NUM_CALLBACKS];
+        this.enable_boardlevel_yawreset = false;
+        this.last_yawreset_request_timestamp = 0;
+        this.last_yawreset_while_calibrating_request_timestamp = 0;
+        this.successive_suppressed_yawreset_request_count = 0;        
+        this.disconnect_startupcalibration_recovery_pending = false;
+        this.logging_enabled = false;
     }
 
     /***********************************************************/
     /* PIDSource Interface Implementation                      */
     /***********************************************************/
-
+    
     public PIDSourceType getPIDSourceType() {
     	return pid_source_type;
     }
-
+    
     public void setPIDSourceType(PIDSourceType type) {
     	pid_source_type = type;
     }
-
+    
     /**
      * Returns the current yaw value reported by the sensor.  This
-     * yaw value is useful for implementing features including "auto rotate
+     * yaw value is useful for implementing features including "auto rotate 
      * to a known angle".
      * @return The current yaw angle in degrees (-180 to 180).
      */
@@ -963,15 +1017,15 @@ public class AHRS extends SendableBase implements PIDSource
      * reported by the sensor.
      *<p>
      * NOTE: The angle is continuous, meaning it's range is beyond 360 degrees.
-     * This ensures that algorithms that wouldn't want to see a discontinuity
+     * This ensures that algorithms that wouldn't want to see a discontinuity 
      * in the gyro output as it sweeps past 0 on the second time around.
      *<p>
      * Note that the returned yaw value will be offset by a user-specified
-     * offset value; this user-specified offset value is set by
+     * offset value; this user-specified offset value is set by 
      * invoking the zeroYaw() method.
      *<p>
-     * @return The current total accumulated yaw angle (Z axis) of the robot
-     * in degrees. This heading is based on integration of the returned rate
+     * @return The current total accumulated yaw angle (Z axis) of the robot 
+     * in degrees. This heading is based on integration of the returned rate 
      * from the Z-axis (yaw) gyro.
      */
 
@@ -996,7 +1050,7 @@ public class AHRS extends SendableBase implements PIDSource
      * angle from the getAngle() method.  This allows users of the getAngle() method
      * to logically rotate the sensor by a given amount of degrees.
      * <p>
-     * NOTE 1:  The adjustment angle is <b>only</b> applied to the value returned
+     * NOTE 1:  The adjustment angle is <b>only</b> applied to the value returned 
      * from getAngle() - it does not adjust the value returned from getYaw(), nor
      * any of the quaternion values.
      * <p>
@@ -1009,24 +1063,24 @@ public class AHRS extends SendableBase implements PIDSource
     public void setAngleAdjustment(double adjustment) {
     	yaw_angle_tracker.setAngleAdjustment(adjustment);
     }
-
+    
     /**
-     * Returns the currently configured adjustment angle.  See
+     * Returns the currently configured adjustment angle.  See 
      * setAngleAdjustment() for more details.
-     *
+     * 
      * If this method returns 0 degrees, no adjustment to the value returned
      * via getAngle() will occur.
      * @return adjustment, in degrees (range:  -360 to 360)
      */
     public double getAngleAdjustment() {
     	return yaw_angle_tracker.getAngleAdjustment();
-    }
-
+    }        
+    
     /**
      * Reset the Yaw gyro.
      *<p>
-     * Resets the Gyro Z (Yaw) axis to a heading of zero. This can be used if
-     * there is significant drift in the gyro and it needs to be recalibrated
+     * Resets the Gyro Z (Yaw) axis to a heading of zero. This can be used if 
+     * there is significant drift in the gyro and it needs to be recalibrated 
      * after it has been running.
      */
     public void reset() {
@@ -1034,12 +1088,12 @@ public class AHRS extends SendableBase implements PIDSource
     }
 
     private final float DEV_UNITS_MAX = 32768.0f;
-
+    
     /**
      * Returns the current raw (unprocessed) X-axis gyro rotation rate (in degrees/sec).  NOTE:  this
      * value is un-processed, and should only be accessed by advanced users.
      * Typically, rotation about the X Axis is referred to as "Pitch".  Calibrated
-     * and Integrated Pitch data is accessible via the {@link #getPitch()} method.
+     * and Integrated Pitch data is accessible via the {@link #getPitch()} method.  
      *<p>
      * @return Returns the current rotation rate (in degrees/sec).
      */
@@ -1051,7 +1105,7 @@ public class AHRS extends SendableBase implements PIDSource
      * Returns the current raw (unprocessed) Y-axis gyro rotation rate (in degrees/sec).  NOTE:  this
      * value is un-processed, and should only be accessed by advanced users.
      * Typically, rotation about the T Axis is referred to as "Roll".  Calibrated
-     * and Integrated Pitch data is accessible via the {@link #getRoll()} method.
+     * and Integrated Pitch data is accessible via the {@link #getRoll()} method.  
      *<p>
      * @return Returns the current rotation rate (in degrees/sec).
      */
@@ -1063,19 +1117,19 @@ public class AHRS extends SendableBase implements PIDSource
      * Returns the current raw (unprocessed) Z-axis gyro rotation rate (in degrees/sec).  NOTE:  this
      * value is un-processed, and should only be accessed by advanced users.
      * Typically, rotation about the T Axis is referred to as "Yaw".  Calibrated
-     * and Integrated Pitch data is accessible via the {@link #getYaw()} method.
+     * and Integrated Pitch data is accessible via the {@link #getYaw()} method.  
      *<p>
      * @return Returns the current rotation rate (in degrees/sec).
      */
     public float getRawGyroZ() {
         return this.raw_gyro_z / (DEV_UNITS_MAX / (float)gyro_fsr_dps);
     }
-
+    
     /**
      * Returns the current raw (unprocessed) X-axis acceleration rate (in G).  NOTE:  this
      * value is unprocessed, and should only be accessed by advanced users.  This raw value
      * has not had acceleration due to gravity removed from it, and has not been rotated to
-     * the world reference frame.  Gravity-corrected, world reference frame-corrected
+     * the world reference frame.  Gravity-corrected, world reference frame-corrected 
      * X axis acceleration data is accessible via the {@link #getWorldLinearAccelX()} method.
      *<p>
      * @return Returns the current acceleration rate (in G).
@@ -1088,7 +1142,7 @@ public class AHRS extends SendableBase implements PIDSource
      * Returns the current raw (unprocessed) Y-axis acceleration rate (in G).  NOTE:  this
      * value is unprocessed, and should only be accessed by advanced users.  This raw value
      * has not had acceleration due to gravity removed from it, and has not been rotated to
-     * the world reference frame.  Gravity-corrected, world reference frame-corrected
+     * the world reference frame.  Gravity-corrected, world reference frame-corrected 
      * Y axis acceleration data is accessible via the {@link #getWorldLinearAccelY()} method.
      *<p>
      * @return Returns the current acceleration rate (in G).
@@ -1101,7 +1155,7 @@ public class AHRS extends SendableBase implements PIDSource
      * Returns the current raw (unprocessed) Z-axis acceleration rate (in G).  NOTE:  this
      * value is unprocessed, and should only be accessed by advanced users.  This raw value
      * has not had acceleration due to gravity removed from it, and has not been rotated to
-     * the world reference frame.  Gravity-corrected, world reference frame-corrected
+     * the world reference frame.  Gravity-corrected, world reference frame-corrected 
      * Z axis acceleration data is accessible via the {@link #getWorldLinearAccelZ()} method.
      *<p>
      * @return Returns the current acceleration rate (in G).
@@ -1111,12 +1165,12 @@ public class AHRS extends SendableBase implements PIDSource
     }
 
     private final float UTESLA_PER_DEV_UNIT = 0.15f;
-
+    
     /**
      * Returns the current raw (unprocessed) X-axis magnetometer reading (in uTesla).  NOTE:
      * this value is unprocessed, and should only be accessed by advanced users.  This raw value
      * has not been tilt-corrected, and has not been combined with the other magnetometer axis
-     * data to yield a compass heading.  Tilt-corrected compass heading data is accessible
+     * data to yield a compass heading.  Tilt-corrected compass heading data is accessible 
      * via the {@link #getCompassHeading()} method.
      *<p>
      * @return Returns the mag field strength (in uTesla).
@@ -1129,7 +1183,7 @@ public class AHRS extends SendableBase implements PIDSource
      * Returns the current raw (unprocessed) Y-axis magnetometer reading (in uTesla).  NOTE:
      * this value is unprocessed, and should only be accessed by advanced users.  This raw value
      * has not been tilt-corrected, and has not been combined with the other magnetometer axis
-     * data to yield a compass heading.  Tilt-corrected compass heading data is accessible
+     * data to yield a compass heading.  Tilt-corrected compass heading data is accessible 
      * via the {@link #getCompassHeading()} method.
      *<p>
      * @return Returns the mag field strength (in uTesla).
@@ -1142,7 +1196,7 @@ public class AHRS extends SendableBase implements PIDSource
      * Returns the current raw (unprocessed) Z-axis magnetometer reading (in uTesla).  NOTE:
      * this value is unprocessed, and should only be accessed by advanced users.  This raw value
      * has not been tilt-corrected, and has not been combined with the other magnetometer axis
-     * data to yield a compass heading.  Tilt-corrected compass heading data is accessible
+     * data to yield a compass heading.  Tilt-corrected compass heading data is accessible 
      * via the {@link #getCompassHeading()} method.
      *<p>
      * @return Returns the mag field strength (in uTesla).
@@ -1162,7 +1216,7 @@ public class AHRS extends SendableBase implements PIDSource
         // TODO implement for navX-Aero.
         return 0;
     }
-
+    
 
     /**
      * Returns the current temperature (in degrees centigrade) reported by
@@ -1177,11 +1231,11 @@ public class AHRS extends SendableBase implements PIDSource
     {
         return this.mpu_temp_c;
     }
-
+    
     /**
      * Returns information regarding which sensor board axis (X,Y or Z) and
-     * direction (up/down) is currently configured to report Yaw (Z) angle
-     * values.   NOTE:  If the board firmware supports Omnimount, the board yaw
+     * direction (up/down) is currently configured to report Yaw (Z) angle 
+     * values.   NOTE:  If the board firmware supports Omnimount, the board yaw 
      * axis/direction are configurable.
      *<p>
      * For more information on Omnimount, please see:
@@ -1215,7 +1269,7 @@ public class AHRS extends SendableBase implements PIDSource
         }
         return yaw_axis;
     }
-
+    
     /**
      * Returns the version number of the firmware currently executing
      * on the sensor.
@@ -1232,62 +1286,110 @@ public class AHRS extends SendableBase implements PIDSource
         String fw_version = Double.toString(version_number);
         return fw_version;
     }
-
+    
     /**
      * Enables or disables logging (via Console I/O) of AHRS library internal
      * behaviors, including events such as transient communication errors.
-     * @param enable
+     * @param enable true to enable logging; false to disable logging
      */
     public void enableLogging(boolean enable) {
     	if ( this.io != null) {
     		io.enableLogging(enable);
-    	}
+        }
+        this.logging_enabled = enable;
     }
 
+    /**
+     * Enables or disables board-level yaw zero (reset) requests.  Board-level
+     * yaw resets are processed by the sensor board and the resulting yaw
+     * angle may not be available to the client software until at least 
+     * 2 update cycles have occurred.  Board-level yaw resets however do
+     * maintain synchronization between the yaw angle and the sensor-generated
+     * Quaternion and Fused Heading values.  
+     * 
+     * Conversely, Software-based yaw resets occur instantaneously; however, Software-
+     * based yaw resets do not update the yaw angle component of the sensor-generated
+     * Quaternion values or the Fused Heading values.
+     * @param enable true to enable board-level yaw resets; false to enable software-based
+     * yaw resets.
+     */    
+    public void enableBoardlevelYawReset(boolean enable) {
+		enable_boardlevel_yawreset = enable;
+	}
+	
+    /**
+     * Returns true if Board-level yaw resets are enabled.  Conversely, returns false
+     * if Software-based yaw resets are active.
+     *
+     * @return true if Board-level yaw resets are enabled; false if software-based 
+     * yaw resets are active.
+     */
+    public boolean isBoardlevelYawResetEnabled() {
+		return enable_boardlevel_yawreset;
+	}
+    
+    /**
+     * Returns the sensor full scale range (in degrees per second)
+     * of the X, Y and X-axis gyroscopes.
+     *
+     * @return gyroscope full scale range in degrees/second.
+     */    
+    public short getGyroFullScaleRangeDPS() { return this.gyro_fsr_dps; }
+    
+    /**
+     * Returns the sensor full scale range (in G)
+     * of the X, Y and X-axis accelerometers.
+     *
+     * @return accelerometer full scale range in G.
+     */    
+    public short getAccelFullScaleRangeG() { return this.accel_fsr_g; }
+    
     /***********************************************************/
     /* Runnable Interface Implementation                       */
     /***********************************************************/
-
+    
     class IOThread implements Runnable {
+    
         Thread              m_thread;
         boolean             stop;
-
+        
         public void start() {
         	m_thread = new Thread(null, this, "navXIOThread");
             m_thread.start();
         }
-
+        
         public void run() {
             io.run();
         }
-
+   
         public void stop() {
         }
     }
-
+    
     /***********************************************************/
     /* IBoardCapabilities Interface Implementation             */
     /***********************************************************/
-
+    
     class BoardCapabilities implements IBoardCapabilities {
+    
         @Override
         public boolean isOmniMountSupported()
         {
            return (((capability_flags & AHRSProtocol.NAVX_CAPABILITY_FLAG_OMNIMOUNT) !=0) ? true : false);
         }
-
+    
         @Override
         public boolean isBoardYawResetSupported()
         {
             return (((capability_flags & AHRSProtocol.NAVX_CAPABILITY_FLAG_YAW_RESET) != 0) ? true : false);
         }
-
+    
         @Override
         public boolean isDisplacementSupported()
         {
             return (((capability_flags & AHRSProtocol.NAVX_CAPABILITY_FLAG_VEL_AND_DISP) != 0) ? true : false);
         }
-
+        
         @Override
         public boolean isAHRSPosTimestampSupported()
         {
@@ -1297,8 +1399,9 @@ public class AHRS extends SendableBase implements PIDSource
     /***********************************************************/
     /* IIOCompleteNotification Interface Implementation        */
     /***********************************************************/
-
+    
     class IOCompleteNotification implements IIOCompleteNotification {
+        
         @Override
         public void setYawPitchRoll(YPRUpdate ypr_update, long sensor_timestamp) {
             AHRS.this.yaw = ypr_update.yaw;
@@ -1307,12 +1410,12 @@ public class AHRS extends SendableBase implements PIDSource
             AHRS.this.compass_heading = ypr_update.compass_heading;
             AHRS.this.last_sensor_timestamp = sensor_timestamp;
         }
-
+    
         @Override
         public void setAHRSPosData(AHRSPosUpdate ahrs_update, long sensor_timestamp) {
-
+    
             /* Update base IMU class variables */
-
+            
             AHRS.this.yaw                    = ahrs_update.yaw;
             AHRS.this.pitch                  = ahrs_update.pitch;
             AHRS.this.roll                   = ahrs_update.roll;
@@ -1320,7 +1423,7 @@ public class AHRS extends SendableBase implements PIDSource
             yaw_offset_tracker.updateHistory(ahrs_update.yaw);
 
             /* Update AHRS class variables */
-
+            
             // 9-axis data
             AHRS.this.fused_heading          = ahrs_update.fused_heading;
 
@@ -1328,52 +1431,58 @@ public class AHRS extends SendableBase implements PIDSource
             AHRS.this.world_linear_accel_x   = ahrs_update.linear_accel_x;
             AHRS.this.world_linear_accel_y   = ahrs_update.linear_accel_y;
             AHRS.this.world_linear_accel_z   = ahrs_update.linear_accel_z;
-
+            
             // Gyro/Accelerometer Die Temperature
             AHRS.this.mpu_temp_c             = ahrs_update.mpu_temp;
-
+            
             // Barometric Pressure/Altitude
             AHRS.this.altitude               = ahrs_update.altitude;
             AHRS.this.baro_pressure          = ahrs_update.barometric_pressure;
-
+            
             // Status/Motion Detection
-            AHRS.this.is_moving              =
-                    (((ahrs_update.sensor_status &
-                            AHRSProtocol.NAVX_SENSOR_STATUS_MOVING) != 0)
+            AHRS.this.is_moving              = 
+                    (((ahrs_update.sensor_status & 
+                            AHRSProtocol.NAVX_SENSOR_STATUS_MOVING) != 0) 
                             ? true : false);
-            AHRS.this.is_rotating                =
-                    (((ahrs_update.sensor_status &
-                            AHRSProtocol.NAVX_SENSOR_STATUS_YAW_STABLE) != 0)
+            AHRS.this.is_rotating                = 
+                    (((ahrs_update.sensor_status & 
+                            AHRSProtocol.NAVX_SENSOR_STATUS_YAW_STABLE) != 0) 
                             ? false : true);
-            AHRS.this.altitude_valid             =
-                    (((ahrs_update.sensor_status &
-                            AHRSProtocol.NAVX_SENSOR_STATUS_ALTITUDE_VALID) != 0)
+            AHRS.this.altitude_valid             = 
+                    (((ahrs_update.sensor_status & 
+                            AHRSProtocol.NAVX_SENSOR_STATUS_ALTITUDE_VALID) != 0) 
                             ? true : false);
             AHRS.this.is_magnetometer_calibrated =
-                    (((ahrs_update.cal_status &
-                            AHRSProtocol.NAVX_CAL_STATUS_MAG_CAL_COMPLETE) != 0)
+                    (((ahrs_update.cal_status & 
+                            AHRSProtocol.NAVX_CAL_STATUS_MAG_CAL_COMPLETE) != 0) 
                             ? true : false);
             AHRS.this.magnetic_disturbance       =
-                    (((ahrs_update.sensor_status &
-                            AHRSProtocol.NAVX_SENSOR_STATUS_MAG_DISTURBANCE) != 0)
-                            ? true : false);
+                    (((ahrs_update.sensor_status & 
+                            AHRSProtocol.NAVX_SENSOR_STATUS_MAG_DISTURBANCE) != 0) 
+                            ? true : false);                        
 
             AHRS.this.quaternionW                = ahrs_update.quat_w;
             AHRS.this.quaternionX                = ahrs_update.quat_x;
             AHRS.this.quaternionY                = ahrs_update.quat_y;
             AHRS.this.quaternionZ                = ahrs_update.quat_z;
-
+            
             AHRS.this.last_sensor_timestamp      = sensor_timestamp;
-
+            
             velocity[0]     = ahrs_update.vel_x;
             velocity[1]     = ahrs_update.vel_y;
             velocity[2]     = ahrs_update.vel_z;
             displacement[0] = ahrs_update.disp_x;
             displacement[1] = ahrs_update.disp_y;
             displacement[2] = ahrs_update.disp_z;
-
+            
+            updateBoardStatus( 
+                ahrs_update.op_status,
+                ahrs_update.sensor_status, 
+                ahrs_update.cal_status, 
+                ahrs_update.selftest_status );
+            
             yaw_angle_tracker.nextAngle(getYaw());
-
+            
             /* Notify external data arrival subscribers, if any. */
             for (int i = 0; i < callbacks.length; i++) {
                 ITimestampedDataSubscriber callback = callbacks[i];
@@ -1384,9 +1493,9 @@ public class AHRS extends SendableBase implements PIDSource
                     		ahrs_update,
                     		callback_contexts[i]);
                 }
-            }
+            }            
         }
-
+            
         @Override
         public void setRawData(AHRSProtocol.GyroUpdate raw_data_update, long sensor_timestamp) {
             AHRS.this.raw_gyro_x     = raw_data_update.gyro_x;
@@ -1399,15 +1508,15 @@ public class AHRS extends SendableBase implements PIDSource
             AHRS.this.cal_mag_y      = raw_data_update.mag_y;
             AHRS.this.cal_mag_z      = raw_data_update.mag_z;
             AHRS.this.mpu_temp_c     = raw_data_update.temp_c;
-
-            AHRS.this.last_sensor_timestamp      = sensor_timestamp;
+            
+            AHRS.this.last_sensor_timestamp      = sensor_timestamp;            
         }
-
+        
         @Override
         public void setAHRSData(AHRSProtocol.AHRSUpdate ahrs_update, long sensor_timestamp) {
-
+    
             /* Update base IMU class variables */
-
+            
             AHRS.this.yaw                    = ahrs_update.yaw;
             AHRS.this.pitch                  = ahrs_update.pitch;
             AHRS.this.roll                   = ahrs_update.roll;
@@ -1415,7 +1524,7 @@ public class AHRS extends SendableBase implements PIDSource
             yaw_offset_tracker.updateHistory(ahrs_update.yaw);
 
             /* Update AHRS class variables */
-
+            
             // 9-axis data
             AHRS.this.fused_heading          = ahrs_update.fused_heading;
 
@@ -1423,55 +1532,61 @@ public class AHRS extends SendableBase implements PIDSource
             AHRS.this.world_linear_accel_x   = ahrs_update.linear_accel_x;
             AHRS.this.world_linear_accel_y   = ahrs_update.linear_accel_y;
             AHRS.this.world_linear_accel_z   = ahrs_update.linear_accel_z;
-
+            
             // Gyro/Accelerometer Die Temperature
             AHRS.this.mpu_temp_c             = ahrs_update.mpu_temp;
-
+            
             // Barometric Pressure/Altitude
             AHRS.this.altitude               = ahrs_update.altitude;
             AHRS.this.baro_pressure          = ahrs_update.barometric_pressure;
-
+            
             // Magnetometer Data
             AHRS.this.cal_mag_x              = ahrs_update.cal_mag_x;
             AHRS.this.cal_mag_y              = ahrs_update.cal_mag_y;
             AHRS.this.cal_mag_z              = ahrs_update.cal_mag_z;
-
+            
             // Status/Motion Detection
-            AHRS.this.is_moving              =
-                    (((ahrs_update.sensor_status &
-                            AHRSProtocol.NAVX_SENSOR_STATUS_MOVING) != 0)
+            AHRS.this.is_moving              = 
+                    (((ahrs_update.sensor_status & 
+                            AHRSProtocol.NAVX_SENSOR_STATUS_MOVING) != 0) 
                             ? true : false);
-            AHRS.this.is_rotating                =
-                    (((ahrs_update.sensor_status &
-                            AHRSProtocol.NAVX_SENSOR_STATUS_YAW_STABLE) != 0)
+            AHRS.this.is_rotating                = 
+                    (((ahrs_update.sensor_status & 
+                            AHRSProtocol.NAVX_SENSOR_STATUS_YAW_STABLE) != 0) 
                             ? false : true);
-            AHRS.this.altitude_valid             =
-                    (((ahrs_update.sensor_status &
-                            AHRSProtocol.NAVX_SENSOR_STATUS_ALTITUDE_VALID) != 0)
+            AHRS.this.altitude_valid             = 
+                    (((ahrs_update.sensor_status & 
+                            AHRSProtocol.NAVX_SENSOR_STATUS_ALTITUDE_VALID) != 0) 
                             ? true : false);
             AHRS.this.is_magnetometer_calibrated =
-                    (((ahrs_update.cal_status &
-                            AHRSProtocol.NAVX_CAL_STATUS_MAG_CAL_COMPLETE) != 0)
+                    (((ahrs_update.cal_status & 
+                            AHRSProtocol.NAVX_CAL_STATUS_MAG_CAL_COMPLETE) != 0) 
                             ? true : false);
             AHRS.this.magnetic_disturbance       =
-                    (((ahrs_update.sensor_status &
-                            AHRSProtocol.NAVX_SENSOR_STATUS_MAG_DISTURBANCE) != 0)
-                            ? true : false);
+                    (((ahrs_update.sensor_status & 
+                            AHRSProtocol.NAVX_SENSOR_STATUS_MAG_DISTURBANCE) != 0) 
+                            ? true : false);                        
 
             AHRS.this.quaternionW                = ahrs_update.quat_w;
             AHRS.this.quaternionX                = ahrs_update.quat_x;
             AHRS.this.quaternionY                = ahrs_update.quat_y;
             AHRS.this.quaternionZ                = ahrs_update.quat_z;
+            
+            AHRS.this.last_sensor_timestamp      = sensor_timestamp;           
+            
+            updateBoardStatus( 
+                ahrs_update.op_status,
+                ahrs_update.sensor_status, 
+                ahrs_update.cal_status, 
+                ahrs_update.selftest_status );    
 
-            AHRS.this.last_sensor_timestamp      = sensor_timestamp;
-
-            updateDisplacement( AHRS.this.world_linear_accel_x,
-                    AHRS.this.world_linear_accel_y,
+            updateDisplacement( AHRS.this.world_linear_accel_x, 
+                    AHRS.this.world_linear_accel_y, 
                     update_rate_hz,
                     AHRS.this.is_moving);
-
+            
             yaw_angle_tracker.nextAngle(getYaw());
-
+            
             /* Notify external data arrival subscribers, if any. */
             for (int i = 0; i < callbacks.length; i++) {
                 ITimestampedDataSubscriber callback = callbacks[i];
@@ -1482,9 +1597,9 @@ public class AHRS extends SendableBase implements PIDSource
                     		ahrs_update,
                     		callback_contexts[i]);
                 }
-            }
+            }            
         }
-
+    
         @Override
         public void setBoardID(BoardID board_id) {
             board_type = board_id.type;
@@ -1492,58 +1607,97 @@ public class AHRS extends SendableBase implements PIDSource
             fw_ver_major = board_id.fw_ver_major;
             fw_ver_minor = board_id.fw_ver_minor;
         }
-
+    
         @Override
-        public void setBoardState(BoardState board_state) {
+        public void setBoardState(BoardState board_state, boolean update_board_status) {
             update_rate_hz = board_state.update_rate_hz;
             accel_fsr_g = board_state.accel_fsr_g;
             gyro_fsr_dps = board_state.gyro_fsr_dps;
             capability_flags = board_state.capability_flags;
-            op_status = board_state.op_status;
-            sensor_status = board_state.sensor_status;
-            cal_status = board_state.cal_status;
-            selftest_status = board_state.selftest_status;
+            if (update_board_status) {
+                updateBoardStatus( board_state.op_status, board_state.sensor_status, 
+                    board_state.cal_status, board_state.selftest_status );
+            }
+        }
+
+        void updateBoardStatus( byte op_status, short sensor_status, byte cal_status, byte selftest_status) {
+            /* Detect/Report Board operational status transitions */
+            boolean poweron_init_completed = false;            
+            if (AHRS.this.op_status == AHRSProtocol.NAVX_OP_STATUS_NORMAL) {
+                if (op_status != AHRSProtocol.NAVX_OP_STATUS_NORMAL) {
+                    /* Board reset detected */
+                    System.out.printf("navX-Sensor Reset Detected.\n");
+                }
+            } else {
+                if (op_status == AHRSProtocol.NAVX_OP_STATUS_NORMAL) {
+                    poweron_init_completed = true;
+                    if ((cal_status & AHRSProtocol.NAVX_CAL_STATUS_IMU_CAL_STATE_MASK) != AHRSProtocol.NAVX_CAL_STATUS_IMU_CAL_COMPLETE) {
+                        System.out.printf("navX-Sensor startup initialization underway; startup calibration in progress.\n");
+                    } else {
+                        System.out.printf("navX-Sensor startup initialization and startup calibration complete.\n");
+                    }
+                }
+            }
+
+            /* Detect/report reset of yaw angle tracker upon transition to startup calibration complete state. */
+            if (((AHRS.this.cal_status & AHRSProtocol.NAVX_CAL_STATUS_IMU_CAL_STATE_MASK) != AHRSProtocol.NAVX_CAL_STATUS_IMU_CAL_COMPLETE) &&
+                ((cal_status & AHRSProtocol.NAVX_CAL_STATUS_IMU_CAL_STATE_MASK) == AHRSProtocol.NAVX_CAL_STATUS_IMU_CAL_COMPLETE)) {
+                System.out.printf("navX-Sensor onboard startup calibration complete.\n");
+                /* Carefully, only reset the software yaw reset offset if calibration completion upon */
+                /* initial poweron or after board reset occurs. */
+                if (poweron_init_completed || AHRS.this.disconnect_startupcalibration_recovery_pending) {
+                    AHRS.this.disconnect_startupcalibration_recovery_pending = false;
+                    AHRS.this.yaw_angle_tracker.init();                        
+                    System.out.printf("navX-Sensor Yaw angle auto-reset to 0.0 due to startup calibration.\n");
+                }
+            }
+    
+            AHRS.this.op_status = op_status;
+            AHRS.this.sensor_status = sensor_status;
+            AHRS.this.cal_status = cal_status;
+            AHRS.this.selftest_status = selftest_status;
         }
 
 		@Override
 		public void yawResetComplete() {
-			AHRS.this.yaw_angle_tracker.reset();
-		}
-    };
-
-    /***********************************************************/
-    /* LiveWindowSendable Interface Implementation             */
-    /***********************************************************/
-
-    public void updateTable() {
-        if (m_table != null) {
-            m_table.putNumber("Value", getYaw());
+            AHRS.this.yaw_angle_tracker.reset();
+            if (AHRS.this.enable_boardlevel_yawreset) {
+                System.out.printf("navX-Sensor Board-level Yaw Reset completed.\n");               
+            } else {
+                System.out.printf("navX-Sensor Software Yaw Reset completed.\n");            
+            }            
         }
-    }
+        
+        @Override
+        public void disconnectDetected() {
+            /* Board disconnect may be caused by intermittent communication loss, or by board reset. */
+            /* Default status to error */
+            AHRS.this.op_status = AHRSProtocol.NAVX_OP_STATUS_ERROR;    
+            AHRS.this.sensor_status = 0; /* Clear all sensor status flags */    
+            /* Flag the need to watch for a startup calibration completion event upon later reconnect. */
+            AHRS.this.disconnect_startupcalibration_recovery_pending = true;
+            System.out.printf("navX-Sensor DISCONNECTED!!!.\n");        
+        }
+    
+        @Override
+        public void connectDetected() {
+            System.out.printf("navX-Sensor Connected.\n");   
+        }
+    
+    };
+    
+    /***********************************************************/
+    /* Sendable Interface Implementation             */
+    /***********************************************************/
 
-    public void startLiveWindowMode() {
-    }
-
-    public void stopLiveWindowMode() {
-    }
-
-    public void initTable(ITable itable) {
-        m_table = itable;
-        updateTable();
-    }
-
-    public ITable getTable() {
-        return m_table;
-    }
-
-    public String getSmartDashboardType() {
-        return "Gyro";
-    }
-
-    @Override
-    public void initSendable(SendableBuilder builder)
-    {
-        // TODO Auto-generated method stub
-
-    }
+    /**
+     * Initializes smart dashboard communication.
+     *
+     * @param builder The SendableBuilder which will be registered with.
+     */     
+	@Override
+	public void initSendable(SendableBuilder builder) {
+		builder.setSmartDashboardType("Gyro");
+		builder.addDoubleProperty("Value", this::getYaw, null);
+	}
 }
