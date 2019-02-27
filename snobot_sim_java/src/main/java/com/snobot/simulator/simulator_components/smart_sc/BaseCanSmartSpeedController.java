@@ -211,10 +211,16 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
         double error = aControlGoal - aCurrentPosition;
         double dErr = error - mLastError;
 
+        double velocity = Math.copySign(mMotionMagicMaxVelocity, error);
+        if (Math.abs(error) < Math.abs(velocity))
+        {
+            velocity = error;
+        }
+
         double pComp = mPidConstants[mCurrentPidProfile].mP * error;
         double iComp = mPidConstants[mCurrentPidProfile].mI * mSumError;
         double dComp = mPidConstants[mCurrentPidProfile].mD * dErr;
-        double fComp = mPidConstants[mCurrentPidProfile].mF * mMotionMagicMaxVelocity;
+        double fComp = mPidConstants[mCurrentPidProfile].mF * velocity;
 
         double output = pComp + iComp + dComp + fComp;
 
@@ -226,10 +232,11 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
         if (sLOGGER.isDebugEnabled())
         {
             DecimalFormat df = new DecimalFormat("#.##");
-            sLOGGER.log(Level.DEBUG,
+            sLOGGER.log(Level.INFO,
                     "Motion Magic... " + "Goal: " + aControlGoal + ", " + "CurPos: " + df.format(aCurrentPosition) + ", " + "CurVel: "
                             + df.format(aCurrentVelocity) + ", " + "err: " + df.format(error) + ", " + "maxa: "
-                            + df.format(mMotionMagicMaxAcceleration) + ", " + "maxv: " + df.format(mMotionMagicMaxVelocity));
+                            + df.format(mMotionMagicMaxAcceleration) + ", " + "maxv: " + df.format(mMotionMagicMaxVelocity) + " -- Output: "
+                            + output);
         }
 
         return output;
