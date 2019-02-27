@@ -29,18 +29,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
  * The AHRS class provides an interface to AHRS capabilities of the KauaiLabs
  * navX Robotics Navigation Sensor via SPI, I2C and Serial (TTL UART and USB)
  * communications interfaces on the RoboRIO.
- * 
+ *
  * The AHRS class enables access to basic connectivity and state information, as
  * well as key 6-axis and 9-axis orientation information (yaw, pitch, roll,
  * compass heading, fused (9-axis) heading and magnetic disturbance detection.
- * 
+ *
  * Additionally, the ARHS class also provides access to extended information
  * including linear acceleration, motion detection, rotation detection and
  * sensor temperature.
- * 
+ *
  * If used with the navX Aero, the AHRS class also provides access to altitude,
  * barometric pressure and pressure sensor temperature data
- * 
+ *
  * @author Scott
  */
 
@@ -52,7 +52,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * that these axes are board-relative ("Board Frame"), and are not
      * necessarily the same as the logical axes of the chassis on which the
      * sensor is mounted.
-     * 
+     *
      * For more information on sensor orientation, please see the navX sensor <a
      * href=http://navx-mxp.kauailabs.com/installation/orientation-2/>Orientation</a>
      * page.
@@ -74,7 +74,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
 
     /**
      * Indicates which sensor board axis is used as the "yaw" (gravity) axis.
-     * 
+     *
      * This selection may be modified via the <a
      * href=http://navx-mxp.kauailabs.com/installation/omnimount/>Omnimount</a>
      * feature.
@@ -226,7 +226,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * <p>
      * Note that increasing the update rate may increase the CPU utilization.
      * <p>
-     * 
+     *
      * @param spi_port_id
      *            SPI Port to use
      * @param update_rate_hz
@@ -277,7 +277,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * <p>
      * Note that increasing the update rate may increase the CPU utilization.
      * <p>
-     * 
+     *
      * @param i2c_port_id
      *            I2C Port to use
      * @param update_rate_hz
@@ -304,7 +304,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * <p>
      * Note that increasing the update rate may increase the CPU utilization.
      * <p>
-     * 
+     *
      * @param serial_port_id
      *            SerialPort to use
      * @param data_type
@@ -326,7 +326,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * <p>
      * This constructor should be used if communicating via SPI.
      * <p>
-     * 
+     *
      * @param spi_port_id
      *            SPI port to use.
      */
@@ -341,7 +341,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * <p>
      * This constructor should be used if communicating via I2C.
      * <p>
-     * 
+     *
      * @param i2c_port_id
      *            I2C port to use
      */
@@ -357,7 +357,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * This constructor should be used if communicating via either TTL UART or
      * USB Serial interface.
      * <p>
-     * 
+     *
      * @param serial_port_id
      *            SerialPort to use
      */
@@ -393,7 +393,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * Note that the returned yaw value will be offset by a user-specified
      * offset value; this user-specified offset value is set by invoking the
      * zeroYaw() method.
-     * 
+     *
      * @return The current yaw value in degrees (-180 to 180).
      */
     public float getYaw() {
@@ -416,7 +416,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * Before using this value, ensure that (a) the magnetometer has been
      * calibrated and (b) that a magnetic disturbance is not taking place at the
      * instant when the compass heading was generated.
-     * 
+     *
      * @return The current tilt-compensated compass heading, in degrees (0-360).
      */
     public float getCompassHeading() {
@@ -432,7 +432,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * <p>
      * This user-specified yaw offset is automatically subtracted from
      * subsequent yaw values reported by the getYaw() method.
-     * 
+     *
      * NOTE: This method has no effect if the sensor is currently calibrating,
      * since resetting the yaw will interfere with the calibration process.
      */
@@ -491,7 +491,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * Once calibration is complete, the sensor will automatically remove an
      * internal yaw offset value from all reported values.
      * <p>
-     * 
+     *
      * @return Returns true if the sensor is currently automatically calibrating
      *         the gyro and accelerometer sensors.
      */
@@ -519,7 +519,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * <p>
      * If the byte count is increasing, but the update count (see
      * getUpdateCount()) is not, this indicates a software misconfiguration.
-     * 
+     *
      * @return The number of bytes received from the sensor.
      */
     public double getByteCount() {
@@ -561,10 +561,10 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * update rate can actually be realized, since the actual update rate must
      * be a value evenly divisible by the navX-Model device's internal motion
      * processor sample clock (200Hz).
-     * 
+     *
      * To determine the actual update rate, use the
      * {@link #getActualUpdateRate()} method.
-     * 
+     *
      * @return Returns the requested update rate in Hz (cycles per second).
      */
 
@@ -665,7 +665,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * sensor is not rotating AND the current gyro calibration is insufficiently
      * calibrated to yield the standard yaw drift rate.
      * <p>
-     * 
+     *
      * @return Returns true if the sensor is currently detecting motion.
      */
     public boolean isRotating()
@@ -694,7 +694,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * NOTE: This value is only valid sensors including a pressure sensor. To
      * determine whether this value is valid, see isAltitudeValid().
      * <p>
-     * 
+     *
      * @return Returns current altitude in meters (as long as the sensor
      *         includes an installed on-board pressure sensor).
      */
@@ -711,7 +711,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * If this value is false for a board with an installed pressure sensor,
      * this indicates a malfunction of the onboard pressure sensor.
      * <p>
-     * 
+     *
      * @return Returns true if a working pressure sensor is installed.
      */
     public boolean isAltitudeValid()
@@ -733,7 +733,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * last known valid Compass Angle is updated whenever a Calibrated Compass
      * Angle is read and the sensor has recently rotated less than the Compass
      * Noise Bandwidth (~2 degrees).
-     * 
+     *
      * @return Fused Heading in Degrees (range 0-360)
      */
     public float getFusedHeading()
@@ -748,7 +748,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * <p>
      * This function will always return false if the sensor's magnetometer has
      * not yet been calibrated; see isMagnetometerCalibrated().
-     * 
+     *
      * @return true if a magnetic disturbance is detected (or the magnetometer
      *         is uncalibrated).
      */
@@ -766,7 +766,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * this does not necessarily mean that the calibration quality is sufficient
      * to yield valid compass headings.
      * <p>
-     * 
+     *
      * @return Returns true if magnetometer calibration has been performed.
      */
     public boolean isMagnetometerCalibrated()
@@ -787,13 +787,13 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * <p>
      * For more information on Quaternions and their use, please see this <a
      * href=https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation>definition</a>.
-     * 
+     *
      * @return Returns the imaginary portion (W) of the quaternion.
      */
     public float getQuaternionW() {
         return quaternionW;
     }
-    
+
     /**
      * Returns the real portion (X axis) of the Orientation Quaternion which
      * fully describes the current sensor orientation with respect to the
@@ -805,45 +805,45 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * <p>
      * For more information on Quaternions and their use, please see this <a
      * href=https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation>description</a>.
-     * 
+     *
      * @return Returns the real portion (X) of the quaternion.
      */
     public float getQuaternionX() {
         return quaternionX;
     }
-    
+
     /**
      * Returns the real portion (X axis) of the Orientation Quaternion which
      * fully describes the current sensor orientation with respect to the
      * reference angle defined as the angle at which the yaw was last "zeroed".
-     * 
+     *
      * Each quaternion value (W,X,Y,Z) is expressed as a value ranging from -2
      * to 2. This total range (4) can be associated with a unit circle, since
      * each circle is comprised of 4 PI Radians.
-     * 
+     *
      * For more information on Quaternions and their use, please see:
-     * 
+     *
      * https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation
-     * 
+     *
      * @return Returns the real portion (X) of the quaternion.
      */
     public float getQuaternionY() {
         return quaternionY;
     }
-    
+
     /**
      * Returns the real portion (X axis) of the Orientation Quaternion which
      * fully describes the current sensor orientation with respect to the
      * reference angle defined as the angle at which the yaw was last "zeroed".
-     * 
+     *
      * Each quaternion value (W,X,Y,Z) is expressed as a value ranging from -2
      * to 2. This total range (4) can be associated with a unit circle, since
      * each circle is comprised of 4 PI Radians.
-     * 
+     *
      * For more information on Quaternions and their use, please see:
-     * 
+     *
      * https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation
-     * 
+     *
      * @return Returns the real portion (X) of the quaternion.
      */
     public float getQuaternionZ() {
@@ -915,12 +915,12 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
     /**
      * Returns the displacement (in meters) of the X axis since
      * resetDisplacement() was last invoked [Experimental].
-     * 
+     *
      * NOTE: This feature is experimental. Displacement measures rely on
      * double-integration of acceleration values from MEMS accelerometers which
      * yield "noisy" values. The resulting displacement are not known to be very
      * accurate, and the amount of error increases quickly as time progresses.
-     * 
+     *
      * @return Displacement since last reset (in meters).
      */
     public float getDisplacementX() {
@@ -930,12 +930,12 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
     /**
      * Returns the displacement (in meters) of the Y axis since
      * resetDisplacement() was last invoked [Experimental].
-     * 
+     *
      * NOTE: This feature is experimental. Displacement measures rely on
      * double-integration of acceleration values from MEMS accelerometers which
      * yield "noisy" values. The resulting displacement are not known to be very
      * accurate, and the amount of error increases quickly as time progresses.
-     * 
+     *
      * @return Displacement since last reset (in meters).
      */
     public float getDisplacementY() {
@@ -945,12 +945,12 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
     /**
      * Returns the displacement (in meters) of the Z axis since
      * resetDisplacement() was last invoked [Experimental].
-     * 
+     *
      * NOTE: This feature is experimental. Displacement measures rely on
      * double-integration of acceleration values from MEMS accelerometers which
      * yield "noisy" values. The resulting displacement are not known to be very
      * accurate, and the amount of error increases quickly as time progresses.
-     * 
+     *
      * @return Displacement since last reset (in meters).
      */
     public float getDisplacementZ() {
@@ -964,7 +964,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * Note that this callback will occur within the context of the device IO
      * thread, which is not the same thread context the caller typically
      * executes in.
-     * 
+     *
      * @param callback
      *            The callback object to be invoked when callbacks occur
      * @param callback_context
@@ -992,7 +992,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * Be sure to deregister any callback which have been previously registered,
      * to ensure that the object implementing the callback interface does not
      * continue to be accessed when no longer necessary.
-     * 
+     *
      * @param callback
      *            The previously-registered callback object to be deregistered.
      * @return returns true if callback was successfully deregistered.
@@ -1047,7 +1047,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * Returns the current yaw value reported by the sensor. This yaw value is
      * useful for implementing features including "auto rotate to a known
      * angle".
-     * 
+     *
      * @return The current yaw angle in degrees (-180 to 180).
      */
     public double pidGet() {
@@ -1070,7 +1070,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * offset value; this user-specified offset value is set by invoking the
      * zeroYaw() method.
      * <p>
-     * 
+     *
      * @return The current total accumulated yaw angle (Z axis) of the robot in
      *         degrees. This heading is based on integration of the returned
      *         rate from the Z-axis (yaw) gyro.
@@ -1105,7 +1105,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * the sensor yaw angle is reset.
      * <p>
      * If not set, the default adjustment angle is 0 degrees (no adjustment).
-     * 
+     *
      * @param adjustment,
      *            in degrees (range: -360 to 360)
      */
@@ -1116,10 +1116,10 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
     /**
      * Returns the currently configured adjustment angle. See
      * setAngleAdjustment() for more details.
-     * 
+     *
      * If this method returns 0 degrees, no adjustment to the value returned via
      * getAngle() will occur.
-     * 
+     *
      * @return adjustment, in degrees (range: -360 to 360)
      */
     public double getAngleAdjustment() {
@@ -1146,7 +1146,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * referred to as "Pitch". Calibrated and Integrated Pitch data is
      * accessible via the {@link #getPitch()} method.
      * <p>
-     * 
+     *
      * @return Returns the current rotation rate (in degrees/sec).
      */
     public float getRawGyroX() {
@@ -1160,7 +1160,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * referred to as "Roll". Calibrated and Integrated Pitch data is accessible
      * via the {@link #getRoll()} method.
      * <p>
-     * 
+     *
      * @return Returns the current rotation rate (in degrees/sec).
      */
     public float getRawGyroY() {
@@ -1174,7 +1174,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * referred to as "Yaw". Calibrated and Integrated Pitch data is accessible
      * via the {@link #getYaw()} method.
      * <p>
-     * 
+     *
      * @return Returns the current rotation rate (in degrees/sec).
      */
     public float getRawGyroZ() {
@@ -1189,7 +1189,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * Gravity-corrected, world reference frame-corrected X axis acceleration
      * data is accessible via the {@link #getWorldLinearAccelX()} method.
      * <p>
-     * 
+     *
      * @return Returns the current acceleration rate (in G).
      */
     public float getRawAccelX() {
@@ -1204,7 +1204,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * Gravity-corrected, world reference frame-corrected Y axis acceleration
      * data is accessible via the {@link #getWorldLinearAccelY()} method.
      * <p>
-     * 
+     *
      * @return Returns the current acceleration rate (in G).
      */
     public float getRawAccelY() {
@@ -1219,7 +1219,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * Gravity-corrected, world reference frame-corrected Z axis acceleration
      * data is accessible via the {@link #getWorldLinearAccelZ()} method.
      * <p>
-     * 
+     *
      * @return Returns the current acceleration rate (in G).
      */
     public float getRawAccelZ() {
@@ -1236,7 +1236,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * heading. Tilt-corrected compass heading data is accessible via the
      * {@link #getCompassHeading()} method.
      * <p>
-     * 
+     *
      * @return Returns the mag field strength (in uTesla).
      */
     public float getRawMagX() {
@@ -1251,7 +1251,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * heading. Tilt-corrected compass heading data is accessible via the
      * {@link #getCompassHeading()} method.
      * <p>
-     * 
+     *
      * @return Returns the mag field strength (in uTesla).
      */
     public float getRawMagY() {
@@ -1266,7 +1266,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * heading. Tilt-corrected compass heading data is accessible via the
      * {@link #getCompassHeading()} method.
      * <p>
-     * 
+     *
      * @return Returns the mag field strength (in uTesla).
      */
     public float getRawMagZ() {
@@ -1310,7 +1310,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * <p>
      * http://navx-mxp.kauailabs.com/navx-mxp/installation/omnimount/
      * <p>
-     * 
+     *
      * @return The currently-configured board yaw axis/direction.
      */
     public BoardYawAxis getBoardYawAxis() {
@@ -1359,7 +1359,7 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
     /**
      * Enables or disables logging (via Console I/O) of AHRS library internal
      * behaviors, including events such as transient communication errors.
-     * 
+     *
      * @param enable
      *            true to enable logging; false to disable logging
      */
@@ -1377,11 +1377,11 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
      * cycles have occurred. Board-level yaw resets however do maintain
      * synchronization between the yaw angle and the sensor-generated Quaternion
      * and Fused Heading values.
-     * 
+     *
      * Conversely, Software-based yaw resets occur instantaneously; however,
      * Software- based yaw resets do not update the yaw angle component of the
      * sensor-generated Quaternion values or the Fused Heading values.
-     * 
+     *
      * @param enable
      *            true to enable board-level yaw resets; false to enable
      *            software-based yaw resets.
@@ -1430,7 +1430,6 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
     /***********************************************************/
 
     class IOThread implements Runnable {
-
         Thread              m_thread;
         boolean             stop;
 
@@ -1452,7 +1451,6 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
     /***********************************************************/
 
     class BoardCapabilities implements IBoardCapabilities {
-
         @Override
         public boolean isOmniMountSupported()
         {
@@ -1482,7 +1480,6 @@ public class AHRS extends SendableBase implements PIDSource, Sendable
     /***********************************************************/
 
     class IOCompleteNotification implements IIOCompleteNotification {
-
         @Override
         public void setYawPitchRoll(YPRUpdate ypr_update, long sensor_timestamp) {
             AHRS.this.yaw = ypr_update.yaw;
