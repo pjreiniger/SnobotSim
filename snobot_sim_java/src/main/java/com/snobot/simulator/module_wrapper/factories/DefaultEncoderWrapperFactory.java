@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.wpi.WpiEncoderWrapper;
-import com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim;
+import com.snobot.simulator.simulator_components.smart_sc.SmartScEncoder;
 
 public class DefaultEncoderWrapperFactory extends BaseWrapperFactory
 {
@@ -21,10 +21,10 @@ public class DefaultEncoderWrapperFactory extends BaseWrapperFactory
         {
             SensorActuatorRegistry.get().register(new WpiEncoderWrapper(aPort), aPort);
         }
-        else if (CtreTalonSrxSpeedControllerSim.CtreEncoder.class.getName().equals(aType))
+        else if (SmartScEncoder.class.getName().equals(aType))
         {
-            SensorActuatorRegistry.get().register(new CtreTalonSrxSpeedControllerSim.CtreEncoder(aPort), aPort);
-            sLOGGER.log(Level.INFO, "Created CAN Encoder for port " + aPort);
+            SensorActuatorRegistry.get().register(new SmartScEncoder(aPort), aPort);
+            sLOGGER.log(Level.DEBUG, "Created CAN Encoder for port " + aPort);
         }
         else
         {

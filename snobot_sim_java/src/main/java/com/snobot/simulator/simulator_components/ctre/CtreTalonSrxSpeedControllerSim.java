@@ -8,10 +8,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
-import com.snobot.simulator.module_wrapper.ASensorWrapper;
-import com.snobot.simulator.module_wrapper.BaseEncoderWrapper;
-import com.snobot.simulator.module_wrapper.interfaces.IAnalogInWrapper;
 import com.snobot.simulator.simulator_components.smart_sc.BaseCanSmartSpeedController;
+import com.snobot.simulator.simulator_components.smart_sc.SmartScEncoder;
+import com.snobot.simulator.simulator_components.smart_sc.SmartScAnalogIn;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 public class CtreTalonSrxSpeedControllerSim extends BaseCanSmartSpeedController
@@ -177,16 +176,16 @@ public class CtreTalonSrxSpeedControllerSim extends BaseCanSmartSpeedController
         case Encoder:
             if (!DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(mHandle))
             {
-                DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mHandle, CtreEncoder.class.getName());
+                DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mHandle, SmartScEncoder.class.getName());
                 DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(getHandle(), getHandle());
                 sLOGGER.log(Level.WARN, "CTRE Encoder on port " + mCanHandle + " was not registerd before starting the robot");
             }
             SensorActuatorRegistry.get().getEncoders().get(getHandle()).setInitialized(true);
             break;
         case Analog:
-            if (!DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(mCanHandle))
+            if (!DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(mHandle))
             {
-                DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mCanHandle, CtreAnalogIn.class.getName());
+                DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mHandle, SmartScAnalogIn.class.getName());
                 sLOGGER.log(Level.WARN, "CTRE Analog on port " + mCanHandle + " was not registerd before starting the robot");
             }
             SensorActuatorRegistry.get().getAnalogIn().get(getHandle()).setInitialized(true);
@@ -228,36 +227,5 @@ public class CtreTalonSrxSpeedControllerSim extends BaseCanSmartSpeedController
     public int getBinnedVelocity()
     {
         return (int) (getVelocity() * this.getVelocityUnitConversion());
-    }
-
-    public static class CtreEncoder extends BaseEncoderWrapper
-    {
-
-        public CtreEncoder(int aPort)
-        {
-            super("CAN Encoder (" + (aPort - sCAN_SC_OFFSET) + ")");
-        }
-    }
-
-    public static class CtreAnalogIn extends ASensorWrapper implements IAnalogInWrapper
-    {
-
-        public CtreAnalogIn(int aPort)
-        {
-            super("CAN Analog (" + aPort + ")");
-        }
-
-        @Override
-        public void setVoltage(double aVoltage)
-        {
-            // Nothing to do
-        }
-
-        @Override
-        public double getVoltage()
-        {
-            return 0;
-        }
-
     }
 }

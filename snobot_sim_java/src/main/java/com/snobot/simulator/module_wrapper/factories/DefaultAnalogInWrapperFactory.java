@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper;
-import com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim;
+import com.snobot.simulator.simulator_components.smart_sc.SmartScAnalogIn;
 
 public class DefaultAnalogInWrapperFactory extends BaseWrapperFactory
 {
@@ -21,11 +21,10 @@ public class DefaultAnalogInWrapperFactory extends BaseWrapperFactory
         {
             SensorActuatorRegistry.get().register(new WpiAnalogInWrapper(aPort), aPort);
         }
-        else if (CtreTalonSrxSpeedControllerSim.CtreAnalogIn.class.getName().equals(aType))
+        else if (SmartScAnalogIn.class.getName().equals(aType))
         {
-            SensorActuatorRegistry.get().register(new CtreTalonSrxSpeedControllerSim.CtreAnalogIn(aPort),
-                    aPort + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET);
-            sLOGGER.log(Level.INFO, "Created CAN Encoder for port " + aPort);
+            SensorActuatorRegistry.get().register(new SmartScAnalogIn(aPort), aPort);
+            sLOGGER.log(Level.DEBUG, "Created CAN Analog In for port " + aPort);
         }
         else
         {

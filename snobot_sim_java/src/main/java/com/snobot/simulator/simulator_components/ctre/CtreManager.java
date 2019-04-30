@@ -316,6 +316,22 @@ public class CtreManager
             sLOGGER.log(Level.DEBUG, "SetInverted_2 " + inverted);
             wrapper.setInverted(inverted != 0);
         }
+
+        ///////////////////////////////////
+        // Unsupported, but not important
+        ///////////////////////////////////
+        else if ("SetStatusFramePeriod".equals(aCallback))
+        {
+            sLOGGER.log(Level.DEBUG, "SetStatusFramePeriod not supported");
+        }
+        else if ("ConfigVelocityMeasurementPeriod".equals(aCallback))
+        {
+            sLOGGER.log(Level.DEBUG, "ConfigVelocityMeasurementPeriod not supported");
+        }
+        else if ("ConfigVelocityMeasurementWindow".equals(aCallback))
+        {
+            sLOGGER.log(Level.DEBUG, "ConfigVelocityMeasurementWindow not supported");
+        }
         else
         {
             sLOGGER.log(Level.ERROR, "Unknown motor callback: " + aCallback);

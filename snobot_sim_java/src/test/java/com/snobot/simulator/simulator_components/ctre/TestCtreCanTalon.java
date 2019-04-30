@@ -11,7 +11,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim.CtreEncoder;
+import com.snobot.simulator.simulator_components.smart_sc.SmartScAnalogIn;
+import com.snobot.simulator.simulator_components.smart_sc.SmartScEncoder;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
@@ -44,7 +45,7 @@ public class TestCtreCanTalon extends BaseSimulatorJavaTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().isInitialized(101));
 
         DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(102, CtreTalonSrxSpeedControllerSim.class.getName());
-        DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(102, CtreEncoder.class.getName());
+        DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(102, SmartScEncoder.class.getName());
         Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(102));
         TalonSRX talon2 = new TalonSRX(2);
         talon2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
@@ -102,5 +103,37 @@ public class TestCtreCanTalon extends BaseSimulatorJavaTest
 //
 //        Assertions.assertEquals(30, talon.getTemperature(), DOUBLE_EPSILON);
 //        Assertions.assertEquals(12, talon.getBusVoltage(), DOUBLE_EPSILON);
+    }
+
+    @Test
+    public void testEncoderSensorSetup()
+    {
+        int canId = 6;
+        int simId = canId + 100;
+        TalonSRX talon = new TalonSRX(canId);
+
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(simId, SmartScEncoder.class.getName()));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().isInitialized(simId));
+
+        talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().isInitialized(simId));
+    }
+
+    @Test
+    public void testAnalogSensorSetup()
+    {
+        int canId = 6;
+        int simId = canId + 100;
+        TalonSRX talon = new TalonSRX(canId);
+
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(simId, SmartScAnalogIn.class.getName()));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().isInitialized(simId));
+
+        talon.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().isInitialized(simId));
     }
 }

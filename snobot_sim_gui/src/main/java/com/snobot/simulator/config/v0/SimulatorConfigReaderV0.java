@@ -25,7 +25,7 @@ import com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper;
 import com.snobot.simulator.module_wrapper.wpi.WpiRelayWrapper;
 import com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper;
 import com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim;
-import com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim.CtreEncoder;
+import com.snobot.simulator.simulator_components.smart_sc.SmartScEncoder;
 
 /**
  * Class to read the configuration file and set up the simulator components
@@ -228,7 +228,7 @@ public class SimulatorConfigReaderV0
             }
             else if (handle >= 100 && handle <= 164)
             {
-                config.setmType(CtreEncoder.class.getName());
+                config.setmType(SmartScEncoder.class.getName());
             }
             else
             {
