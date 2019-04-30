@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SnobotSimGui" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.snobot.simulator.Main" />
+    <module name="snobot_sim_gui_main" />
+    <option name="VM_PARAMETERS" value="-Djava.library.path=snobot_sim_gui\build\extracted_native;snobot_sim_gui/build/native_libs" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="extract_wpilib" externalProjectPath="$PROJECT_DIR$/snobot_sim_gui" vmOptions="" scriptParameters="" />
+    </method>
+  </configuration>
+</component>

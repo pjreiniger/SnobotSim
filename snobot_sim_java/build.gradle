@@ -12,8 +12,9 @@ ext {
 
 apply from: "${rootDir}/common/base_java_script.gradle"
 
-apply from: "../create_version_file.gradle"
-createJavaVersion("src/main/java/com/snobot/simulator/wrapper_accessors/java", "JaveSimulatorVersion", "com.snobot.simulator.wrapper_accessors.java", getVersionName())
+sourceSets.main.java.srcDir "${buildDir}/generated/java/"
+apply from: "${rootDir}/common/create_version_file.gradle"
+createJavaVersion("com/snobot/simulator/wrapper_accessors/java", "JaveSimulatorVersion", "com.snobot.simulator.wrapper_accessors.java", getVersionName())
 
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {

@@ -48,7 +48,9 @@ public final class ${className} {
 }
     """.trim()
 
-    def versionFile = file(new File(destinationDir, className + ".java"))
+    def generated_dir = new File("$buildDir/generated/java", destinationDir)
+    generated_dir.mkdirs()
+    def versionFile = file(new File(generated_dir, className + ".java"))
 
 
     if (versionFile.exists()) {
@@ -72,7 +74,9 @@ const char* ${namespace}::GetSnobotSimVersion()
 }
 """.trim()
 
-    def versionFile = file(new File(destinationDir, className + ".cpp"))
+    def generated_dir = new File("$buildDir/generated/cpp", destinationDir)
+    generated_dir.mkdirs()
+    def versionFile = file(new File(generated_dir, className + ".cpp"))
 
 
     if (versionFile.exists()) {
