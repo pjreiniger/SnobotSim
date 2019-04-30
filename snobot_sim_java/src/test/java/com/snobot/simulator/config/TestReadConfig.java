@@ -1,30 +1,18 @@
 package com.snobot.simulator.config;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.snobot.simulator.DefaultDataAccessorFactory;
 import com.snobot.simulator.config.v1.SimulatorConfigReaderV1;
 import com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
-import com.snobot.test.utilities.BaseSimulatorTest;
-
-import edu.wpi.first.networktables.NetworkTableInstance;
+import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
 
-public class TestReadConfig extends BaseSimulatorTest
+public class TestReadConfig extends BaseSimulatorJavaTest
 {
     public static final int sTEST_PARAMETER = 5;
-
-    @Override
-    @BeforeEach
-    public void setup() // NOPMD
-    {
-        DefaultDataAccessorFactory.initalize();
-    }
 
     @Test
     public void testReadEmptyFile()
@@ -51,13 +39,6 @@ public class TestReadConfig extends BaseSimulatorTest
         SimulatorConfigReaderV1 reader = new SimulatorConfigReaderV1();
         Assertions.assertFalse(reader.loadConfig(file));
         Assertions.assertNull(reader.getConfig());
-    }
-
-    @Override
-    @AfterEach
-    public void cleanup()
-    {
-        NetworkTableInstance.getDefault().stopServer();
     }
 
     @Test

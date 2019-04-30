@@ -40,6 +40,7 @@ dependencies {
     
     // Internal
     compile project(":snobot_sim_utilities")
+    compile project(":snobot_sim_joysticks")
     
     if(build_simulator_cpp)
     {

@@ -105,4 +105,18 @@ public class JniSimulatorDataAccessor implements SimulatorDataAccessor
 
     }
 
+    @Override
+    public boolean loadConfigFile(String aConfigFile)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean saveConfigFile(String aConfigFile)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.snobot.simulator.gui.joysticks.sub_panels;
+package com.snobot.simulator.joysticks.joystick_specializations;
 
 /**
  * Button Map for Xbox controller. When calling buttons or axis on an Xbox, use

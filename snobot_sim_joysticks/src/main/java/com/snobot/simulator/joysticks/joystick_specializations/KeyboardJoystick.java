@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.snobot.simulator.gui.joysticks.sub_panels.XboxButtonMap;
 import com.snobot.simulator.joysticks.BaseJoystick;
 
 import net.java.games.input.Component.Identifier;

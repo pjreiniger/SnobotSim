@@ -16,7 +16,9 @@ if(build_simulator_java)
 include 'sim_adx_family'
 include 'snobot_sim_utilities'
 include 'snobot_sim_gui'
+include 'snobot_sim_joysticks'
 include 'sim_extension_navx'
+include 'snobot_sim_example_robot'
 
 
 rootProject.name = 'CppSimulator'

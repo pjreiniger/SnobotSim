@@ -1,0 +1,16 @@
+import edu.wpi.first.nativeutils.NativeUtils
+import org.gradle.api.file.FileCollection
+
+ext {
+    baseId = "snobot_sim_example_robot"
+}
+
+apply from: "${rootDir}/common/base_java_script.gradle"
+
+dependencies {
+    compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
+    compile 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
+    compile 'edu.wpi.first.cameraserver:cameraserver-java:' + allwpilibVersion()
+    compile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
+    compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
+}
