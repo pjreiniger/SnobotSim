@@ -16,8 +16,10 @@ configurations {
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
     // WPILib
+    compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
     compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     compile 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
+    compile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
     
     // 3rd Party
     native3rdPartyDeps 'net.java.jinput:jinput:2.0.7'
@@ -29,6 +31,7 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
+    testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
 }
 
 apply from: "${rootDir}/common/extract_native_libraries.gradle"
