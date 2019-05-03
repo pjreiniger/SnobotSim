@@ -139,7 +139,7 @@ jobs:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         tasks: 'build publish'
-        options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
+        options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000 --continue'
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: maven repo'
