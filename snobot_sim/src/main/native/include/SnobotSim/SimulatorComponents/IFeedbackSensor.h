@@ -17,6 +17,7 @@ public:
 class NullFeedbackSensor : public IFeedbackSensor
 {
 public:
+    ~NullFeedbackSensor() = default;
 
     void SetPosition(double aPosition) override
     {
