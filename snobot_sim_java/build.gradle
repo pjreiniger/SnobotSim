@@ -12,8 +12,9 @@ ext {
 
 apply from: "${rootDir}/common/base_java_script.gradle"
 
-apply from: "../create_version_file.gradle"
-createJavaVersion("src/main/java/com/snobot/simulator/wrapper_accessors/java", "JaveSimulatorVersion", "com.snobot.simulator.wrapper_accessors.java", getVersionName())
+sourceSets.main.java.srcDir "${buildDir}/generated/java/"
+apply from: "${rootDir}/common/create_version_file.gradle"
+createJavaVersion("com/snobot/simulator/wrapper_accessors/java", "JaveSimulatorVersion", "com.snobot.simulator.wrapper_accessors.java", getVersionName())
 
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
@@ -24,6 +25,7 @@ dependencies {
     compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     compile 'org.apache.logging.log4j:log4j-api:2.11.0'
     compile 'org.apache.logging.log4j:log4j-core:2.11.0'
+    compile 'org.yaml:snakeyaml:1.18'
     compile project(":snobot_sim_utilities")
     compile project(':sim_adx_family')
     compile project(':sim_extension_navx')

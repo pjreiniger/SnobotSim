@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -81,7 +82,8 @@ public class SimulatorConfigReaderV0
 
     private File createTempFile(File aTempFile, File aInputFile)
     {
-        try (BufferedReader br = new BufferedReader(new FileReader(aInputFile)); BufferedWriter bw = new BufferedWriter(new FileWriter(aTempFile)))
+        try (BufferedReader br = new BufferedReader(new FileReader(aInputFile, Charset.defaultCharset()));
+                BufferedWriter bw = new BufferedWriter(new FileWriter(aTempFile, Charset.defaultCharset())))
         {
             String line;
 

@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.gui.Util;
 import com.snobot.simulator.joysticks.IMockJoystick;
+import com.snobot.simulator.joysticks.joystick_specializations.XboxButtonMap;
 
 public class XboxPanel extends JPanel
 {

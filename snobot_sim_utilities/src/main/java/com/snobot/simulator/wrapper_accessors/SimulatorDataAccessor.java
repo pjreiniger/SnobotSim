@@ -65,4 +65,8 @@ public interface SimulatorDataAccessor
     void updateSimulatorComponents(double aUpdatePeriod);
 
     void removeSimulatorComponent(Object aComp);
+
+    boolean loadConfigFile(String aConfigFile);
+
+    boolean saveConfigFile(String aConfigFile);
 }

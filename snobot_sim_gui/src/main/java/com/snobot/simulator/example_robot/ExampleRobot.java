@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
@@ -23,19 +23,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author PJ
  *
  */
-public class ExampleRobot extends IterativeRobot
+public class ExampleRobot extends TimedRobot
 {
-    public Joystick mJoystick;
-    public Solenoid mSolenoid;
-    public SpeedController mLeftDrive;
-    public SpeedController mRightDrive;
-    public Encoder mLeftDriveEncoder;
-    public Encoder mRightDriveEncoder;
-    public Gyro mAnalogGyro;
-    public Gyro mSpiGyro;
-    public ADXL345_I2C mAdxAccelerometer;
+    private Joystick mJoystick;
+    private Solenoid mSolenoid;
+    private SpeedController mLeftDrive;
+    private SpeedController mRightDrive;
+    private Encoder mLeftDriveEncoder;
+    private Encoder mRightDriveEncoder;
+    private Gyro mAnalogGyro;
+    private Gyro mSpiGyro;
+    private ADXL345_I2C mAdxAccelerometer;
 
-    public Timer mAutoTimer;
+    private Timer mAutoTimer;
 
     @Override
     public void robotInit()
@@ -103,7 +103,9 @@ public class ExampleRobot extends IterativeRobot
 
         SmartDashboard.putNumber("Left Enc", mLeftDriveEncoder.getDistance());
         SmartDashboard.putNumber("Right Enc", mRightDriveEncoder.getDistance());
-        SmartDashboard.putNumber("Gyro", mAnalogGyro.getAngle());
+        SmartDashboard.putNumber("Analog Gyro", mAnalogGyro.getAngle());
+        SmartDashboard.putNumber("SPI Gyro", mSpiGyro.getAngle());
+        SmartDashboard.putNumber("I2C Accelerometer", mAdxAccelerometer.getX());
     }
 
     @Override

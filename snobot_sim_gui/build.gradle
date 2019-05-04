@@ -25,6 +25,7 @@ dependencies {
     runtime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
     compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
     runtime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
+    runtime 'edu.wpi.first.hal:hal-jni:' + allwpilibVersion() + ':all'
     compile 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
     runtime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
     
@@ -40,6 +41,7 @@ dependencies {
     
     // Internal
     compile project(":snobot_sim_utilities")
+    compile project(":snobot_sim_joysticks")
     
     if(build_simulator_cpp)
     {
@@ -84,11 +86,11 @@ task unzipNativeLibraries(type: Copy) {
 }
 
 eclipse.classpath.file {
-    withXml {
-        provider ->
-        provider.asNode().findAll { it.@path.contains("jinput") && !it.@path.contains("natives") }.each {
-                def container = it
-                container.appendNode('attributes').appendNode('attribute', [name: 'org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY', value:"snobot_sim_gui/build/native_libs"])
+    whenMerged { classpath ->
+        classpath.entries.each {
+            if(it.path.contains("jinput") && !it.path.contains("natives")) {
+                it.setNativeLibraryLocation("snobot_sim_gui/build/native_libs")
+            }
         }
     }
 }
@@ -104,9 +106,10 @@ if(build_simulator_java)
     compileJava.dependsOn(":snobot_sim_java:build")
 }
 
+sourceSets.main.java.srcDir "${buildDir}/generated/java/"
 compileJava {
-    apply from: "../create_version_file.gradle"
-    createJavaVersion("src/main/java/com/snobot/simulator", "SnobotSimGuiVersion", "com.snobot.simulator", getVersionName())
+    apply from: "${rootDir}/common/create_version_file.gradle"
+    createJavaVersion("com/snobot/simulator", "SnobotSimGuiVersion", "com.snobot.simulator", getVersionName())
 }
     
 clean {

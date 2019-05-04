@@ -64,13 +64,13 @@ model {
         snobotSimCpp(NativeLibrarySpec) {
             baseName = 'snobot_sim'
             
-            apply from: "../create_version_file.gradle"
-            createCppVersion("src/main/native/cpp/SnobotSim", "SnobotSim", "SnobotSimHalVersion", getVersionName())
+            apply from: "${rootDir}/common/create_version_file.gradle"
+            createCppVersion("SnobotSim", "SnobotSim", "SnobotSimHalVersion", getVersionName())
             
             sources {
                 cpp {
                     source {
-                        srcDirs = ['src/main/native/cpp']
+                        srcDirs = ['src/main/native/cpp', "$buildDir/generated/cpp"]
                         includes = ['**/*.cpp']
                     }
                     exportedHeaders {

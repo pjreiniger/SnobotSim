@@ -9,10 +9,10 @@ import com.snobot.simulator.motor_sim.RotationalLoadMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
-import com.snobot.test.utilities.BaseSimulatorTest;
+import com.snobot.test.utilities.BaseSimulatorJavaTest;
 import com.snobot.test.utilities.MockRobot;
 
-public class TestWriteConfig extends BaseSimulatorTest
+public class TestWriteConfig extends BaseSimulatorJavaTest
 {
     @Test
     public void testWriteConfig()
@@ -25,7 +25,7 @@ public class TestWriteConfig extends BaseSimulatorTest
         DataAccessorFactory.getInstance().getI2CAccessor().createI2CSimulator(0, "ADXL345");
 
         // Used to create some components
-        new MockRobot();
+        MockRobot robot = new MockRobot();
 
         DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(0, 1);
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().setSpeedControllerModel_Simple(0, new SimpleMotorSimulationConfig(12));
@@ -52,6 +52,8 @@ public class TestWriteConfig extends BaseSimulatorTest
 
         SimulatorConfigWriter writer = new SimulatorConfigWriter();
         Assertions.assertTrue(writer.writeConfig(dumpFile));
+
+        robot.close();
     }
 
     @Test

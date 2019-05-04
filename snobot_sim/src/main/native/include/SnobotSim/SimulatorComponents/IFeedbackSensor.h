@@ -9,6 +9,8 @@
 class IFeedbackSensor
 {
 public:
+    virtual ~IFeedbackSensor() = default;
+
     virtual void SetPosition(double aPosition) = 0;
     virtual void SetVelocity(double aVelocity) = 0;
     virtual double GetPosition() = 0;
@@ -16,6 +18,9 @@ public:
 
 class NullFeedbackSensor : public IFeedbackSensor
 {
+public:
+    virtual ~NullFeedbackSensor() = default;
+
     void SetPosition(double aPosition) override
     {
     }
