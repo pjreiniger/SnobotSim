@@ -26,6 +26,12 @@ model {
 
         def snobotSimTaskList = createComponentZipTasks($.components, 'snobotSimCpp', zipBaseName, Zip, project, includeStandardZipFormat)
 
+         repositories {
+           maven {
+               url maven_publishing_path
+           }
+        }
+
         publications {
             snobot_sim(MavenPublication) {
                 groupId 'com.snobot.simulator'
