@@ -63,10 +63,10 @@ model {
     components {
         snobotSimCpp(NativeLibrarySpec) {
             baseName = 'snobot_sim'
-            
+
             apply from: "${rootDir}/common/create_version_file.gradle"
             createCppVersion("SnobotSim", "SnobotSim", "SnobotSimHalVersion", getVersionName())
-            
+
             sources {
                 cpp {
                     source {

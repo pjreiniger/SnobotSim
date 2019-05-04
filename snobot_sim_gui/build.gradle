@@ -17,7 +17,7 @@ configurations {
 
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
-    
+
     // WPILib
     compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     compile 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
@@ -28,7 +28,7 @@ dependencies {
     runtime 'edu.wpi.first.hal:hal-jni:' + allwpilibVersion() + ':all'
     compile 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
     runtime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
-    
+
     // 3rd Party
     native3rdPartyDeps  'net.java.jinput:jinput:2.0.7'
     compile 'jfree:jcommon:1.0.16'
@@ -38,24 +38,24 @@ dependencies {
     compile 'org.yaml:snakeyaml:1.18'
     compile 'com.miglayout:miglayout-swing:4.2'
     //compile 'org.python:jython:2.7.1b3'
-    
+
     // Internal
     compile project(":snobot_sim_utilities")
     compile project(":snobot_sim_joysticks")
-    
+
     if(build_simulator_cpp)
     {
         compile project(":snobot_sim_jni")
         wpilibNativeDeps project(':snobot_sim_jni').packageNativeFiles.outputs.files
     }
-    
+
     if(build_simulator_java)
     {
         compile project(":snobot_sim_java")
         wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
         wpilibNativeDeps project(':sim_adx_family').packageNativeFiles.outputs.files
     }
-    
+
     // Test
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
@@ -80,9 +80,9 @@ task unzipNativeLibraries(type: Copy) {
         include "**/*.a"
         include "**/*.dylib*"
     }
-    
+
     includeEmptyDirs = false
-        
+
 }
 
 eclipse.classpath.file {
@@ -111,7 +111,7 @@ compileJava {
     apply from: "${rootDir}/common/create_version_file.gradle"
     createJavaVersion("com/snobot/simulator", "SnobotSimGuiVersion", "com.snobot.simulator", getVersionName())
 }
-    
+
 clean {
     delete "src/main/java/com/snobot/simulator/SnobotSimGuiVersion.java"
 }

@@ -7,11 +7,11 @@ ext
     libraryName = "navx_simulator_jni"
     getNativeVersion = { binary -> NativeUtils.getPlatformPath(binary) }
     jniClasses = ['com.snobot.simulator.navx.I2CNavxSimulatorJni', 'com.snobot.simulator.navx.SpiNavxSimulatorJni']
-    
+
     libraryBaseName = 'navx_simulator'
     librarySrcDirs = [ 'src/main/native']
     libraryHeaderDirs = [ "src/main/native/include", ]
-    
+
     baseId = "navx_simulator"
     baseArtifactId = 'navx_simulator'
     artifactGroupId = 'com.snobot.simulator'
@@ -59,17 +59,17 @@ model {
 
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
-    
+
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
     testCompile "com.kauailabs.navx.frc:navx-java:" + getNavxVersion()
-    
+
     testCompile project(":snobot_sim_utilities")
     wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
-    
-    
+
+
     testCompile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
     testCompile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     testRuntime 'edu.wpi.first.cameraserver:cameraserver-java:' + allwpilibVersion()
@@ -80,7 +80,7 @@ dependencies {
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
     testRuntime 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
     testRuntime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
-    
+
 }
 
 apply from: "${rootDir}/common/extract_native_libraries.gradle"

@@ -62,10 +62,9 @@ def debug(start_dir):
 
 def main():
     parser = argparse.ArgumentParser(description='Create combined library')
-    parser.add_argument(
-        '--start_dir',
-        help='an integer for the accumulator',
-        default=os.path.abspath("../build/"))
+    parser.add_argument('--start_dir',
+                        help='an integer for the accumulator',
+                        default=os.path.abspath("../build/"))
     args = parser.parse_args()
 
     start_dir = args.start_dir + "/"
