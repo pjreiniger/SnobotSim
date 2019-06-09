@@ -194,7 +194,7 @@ stages:
         displayName: 'Publish Combined Artifacts'
         inputs:
           PathtoPublish: $(System.DefaultWorkingDirectory)/output
-          ArtifactName: 'SnobotSim Full Maven'
+          ArtifactName: 'SnobotSimFullMaven'
 
      dependsOn: [ Windows_64_Bit, Windows_32_Bit, Mac, Linux ]
      condition: succeeded()
@@ -212,17 +212,17 @@ stages:
         - task: DownloadBuildArtifacts@0
           displayName: 'Download Build Artifacts'
           inputs:
-            artifactName: 'SnobotSim Full Maven'
+            artifactName: 'SnobotSimFullMaven'
             downloadPath: $(System.DefaultWorkingDirectory)
         - script: |
-            echo "Hello World"; ls;
+            echo "Hello World";
+            ls;
+            ls SnobotSimFullMaven;
           displayName: 'Test1'
         - task: GitHubRelease@0
           displayName: 'GitHub release (create)'
           inputs:
             gitHubConnection: 'SnobotSimConnection'
-            tagSource: manual
-            tag: '$(myTagName)'
             repositoryName: snobotsim/SnobotSim
-            assets: '$(System.DefaultWorkingDirectory)/*'
+            assets: '$(System.DefaultWorkingDirectory)/SnobotSimFullMaven/*'
           #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
