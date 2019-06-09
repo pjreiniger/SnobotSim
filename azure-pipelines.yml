@@ -208,3 +208,21 @@ stages:
      steps:
         - script: |
             echo "Hello World"
+          displayName: 'Test1'
+        - task: DownloadBuildArtifacts@0
+          displayName: 'Download Build Artifacts'
+          inputs:
+            artifactName: 'SnobotSim Full Maven'
+            downloadPath: $(System.DefaultWorkingDirectory)
+        - script: |
+            echo "Hello World"; ls;
+          displayName: 'Test1'
+        - task: GitHubRelease@0
+          displayName: 'GitHub release (create)'
+          inputs:
+            gitHubConnection: 'SnobotSimConnection'
+            tagSource: manual
+            tag: '$(myTagName)'
+            repositoryName: snobotsim/SnobotSim
+            assets: '$(System.DefaultWorkingDirectory)/*'
+          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
