@@ -22,7 +22,7 @@ dependencies {
     compile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
 
     // 3rd Party
-    native3rdPartyDeps 'net.java.jinput:jinput:2.0.7'
+    native3rdPartyDeps 'net.java.jinput:jinput:2.0.9'
 
     // Internal
     compile project(":snobot_sim_utilities")

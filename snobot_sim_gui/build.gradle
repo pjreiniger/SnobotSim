@@ -30,7 +30,7 @@ dependencies {
     runtime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
 
     // 3rd Party
-    native3rdPartyDeps  'net.java.jinput:jinput:2.0.7'
+    native3rdPartyDeps  'net.java.jinput:jinput:2.0.9'
     compile 'jfree:jcommon:1.0.16'
     compile 'jfree:jfreechart:1.0.13'
     compile 'org.apache.logging.log4j:log4j-api:2.11.0'
