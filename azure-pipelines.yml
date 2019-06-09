@@ -206,19 +206,11 @@ stages:
        vmImage: 'Ubuntu 16.04'
 
      steps:
-        - script: |
-            echo "Hello World"
-          displayName: 'Test1'
         - task: DownloadBuildArtifacts@0
           displayName: 'Download Build Artifacts'
           inputs:
             artifactName: 'SnobotSimFullMaven'
             downloadPath: $(System.DefaultWorkingDirectory)
-        - script: |
-            echo "Hello World";
-            ls;
-            ls SnobotSimFullMaven;
-          displayName: 'Test2'
         - task: ArchiveFiles@2
           inputs:
             rootFolderOrFile: '$(System.DefaultWorkingDirectory)/SnobotSimFullMaven/'
@@ -226,17 +218,9 @@ stages:
             archiveType: 'zip'
             archiveFile: '$(System.DefaultWorkingDirectory)/FullMaven.zip'
             replaceExistingArchive: true*
-        - script: |
-            echo "Hello World";
-            ls;
-            ls SnobotSimFullMaven;
-          displayName: 'Test3'
         - task: GitHubRelease@0
-          displayName: 'GitHub release (create)'
+          displayName: 'Create Release'
           inputs:
             gitHubConnection: 'SnobotSimConnection'
-            tagSource: manual
-            tag: 'TryWithZip'
             repositoryName: snobotsim/SnobotSim
             assets: '$(System.DefaultWorkingDirectory)/FullMaven.zip'
-          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
