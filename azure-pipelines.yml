@@ -218,11 +218,25 @@ stages:
             echo "Hello World";
             ls;
             ls SnobotSimFullMaven;
-          displayName: 'Test1'
+          displayName: 'Test2'
+        - task: ArchiveFiles@2
+          inputs:
+            rootFolderOrFile: '$(System.DefaultWorkingDirectory)/SnobotSimFullMaven/'
+            includeRootFolder: false
+            archiveType: 'zip'
+            archiveFile: '$(System.DefaultWorkingDirectory)/FullMaven.zip'
+            replaceExistingArchive: true*
+        - script: |
+            echo "Hello World";
+            ls;
+            ls SnobotSimFullMaven;
+          displayName: 'Test3'
         - task: GitHubRelease@0
           displayName: 'GitHub release (create)'
           inputs:
             gitHubConnection: 'SnobotSimConnection'
+            tagSource: manual
+            tag: 'TryWithZip'
             repositoryName: snobotsim/SnobotSim
-            assets: '$(System.DefaultWorkingDirectory)/SnobotSimFullMaven/*'
+            assets: '$(System.DefaultWorkingDirectory)/FullMaven.zip'
           #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
