@@ -24,7 +24,7 @@ stages:
             git checkout -b master
           displayName: 'Install Dependencies'
         - script: |
-            wpiformat -y 2018 -clang 5.0
+            wpiformat -clang 6.0
           displayName: 'Run WPIFormat'
           failOnStderr: true
         - script: |
