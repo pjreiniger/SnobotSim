@@ -45,6 +45,7 @@ public class TestEncoderJni extends BaseSimulatorJniTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().isInitialized(0));
     }
 
+    @Test
     public void testReusePort()
     {
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());

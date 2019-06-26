@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -17,6 +16,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.jar.Manifest;
 
+import javax.management.ReflectionException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -209,9 +209,20 @@ public class Simulator
         return robotName;
     }
 
+    /**
+     * Creates the robot class
+     * 
+     * @param aRobotType
+     *            The type of robot
+     * @param aRobotClassName
+     *            The fully qualified java class name for the robot
+     * @throws ReflectionException
+     *             Throws if the robot cannot be created
+     * @throws ReflectiveOperationException
+     *             Throws if the robot cannot be created
+     */
     private void createRobot(String aRobotType, String aRobotClassName)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException,
-            SecurityException, IllegalArgumentException, InvocationTargetException
+            throws ReflectionException, ReflectiveOperationException
     {
         sLOGGER.log(Level.INFO, "Starting Robot Code");
 
@@ -268,26 +279,15 @@ public class Simulator
     }
 
     /**
-     * Starts the simulation by starting the robot and the GUI
-     *
-     * @throws InstantiationException
-     *             Thrown the robot class could not be started with reflection
-     * @throws IllegalAccessException
-     *             Thrown the robot class could not be started with reflection
-     * @throws ClassNotFoundException
-     *             Thrown the robot class could not be started with reflection
-     * @throws NoSuchMethodException
-     *             Thrown the robot class could not be started with reflection
+     * Starts the simulation
+     * 
      * @throws SecurityException
-     *             Thrown the robot class could not be started with reflection
      * @throws IllegalArgumentException
-     *             Thrown the robot class could not be started with reflection
-     * @throws InvocationTargetException
-     *             Thrown the robot class could not be started with reflection
+     * @throws ReflectionException
+     * @throws ReflectiveOperationException
      */
     public void startSimulation()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException,
-            IllegalArgumentException, InvocationTargetException
+            throws ReflectionException, ReflectiveOperationException
     {
         loadConfig(mPropertiesFile);
 

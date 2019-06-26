@@ -1,5 +1,7 @@
 package com.snobot.simulator.robot_container;
 
+import javax.management.ReflectionException;
+
 import edu.wpi.first.wpilibj.RobotBase;
 
 /**
@@ -19,9 +21,9 @@ public class JavaRobotContainer implements IRobotClassContainer
     }
 
     @Override
-    public void constructRobot() throws InstantiationException, IllegalAccessException, ClassNotFoundException
+    public void constructRobot() throws ReflectionException, ReflectiveOperationException
     {
-        mRobot = (RobotBase) Class.forName(mRobotClassName).newInstance();
+        mRobot = (RobotBase) Class.forName(mRobotClassName).getDeclaredConstructor().newInstance();
     }
 
     @Override

@@ -40,6 +40,7 @@ public class TestRelayJni extends BaseSimulatorJniTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getRelayAccessor().isInitialized(3));
     }
 
+    @Test
     public void testReusePort()
     {
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getRelayAccessor().getPortList().size());

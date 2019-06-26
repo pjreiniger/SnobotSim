@@ -2,6 +2,8 @@ package com.snobot.simulator.robot_container;
 
 import java.lang.reflect.InvocationTargetException;
 
+import javax.management.ReflectionException;
+
 /**
  * Interface that provides a wrapper around a robot class
  *
@@ -10,10 +12,22 @@ import java.lang.reflect.InvocationTargetException;
  */
 public interface IRobotClassContainer
 {
+    /**
+     * 
+     * @throws ReflectionException
+     * @throws ReflectiveOperationException
+     */
     public void constructRobot()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException,
-            IllegalArgumentException, InvocationTargetException;
+            throws ReflectionException, ReflectiveOperationException;
 
+    /**
+     * 
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     */
     public void startCompetition()
-            throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+            throws ReflectionException, ReflectiveOperationException;
 }

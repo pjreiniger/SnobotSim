@@ -1,7 +1,8 @@
 package com.snobot.simulator.robot_container;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import javax.management.ReflectionException;
 
 import com.snobot.simulator.JniLibraryResourceLoader;
 
@@ -23,8 +24,7 @@ public class CppRobotContainer implements IRobotClassContainer
 
     @Override
     public void constructRobot()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException,
-            IllegalArgumentException, InvocationTargetException
+            throws ReflectionException, ReflectiveOperationException
     {
         mJniClass = Class.forName(mRobotClassName);
 
@@ -49,7 +49,7 @@ public class CppRobotContainer implements IRobotClassContainer
 
     @Override
     public void startCompetition()
-            throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
+            throws ReflectionException, ReflectiveOperationException
     {
         Method method = mJniClass.getMethod("startCompetition");
         method.invoke(null);
