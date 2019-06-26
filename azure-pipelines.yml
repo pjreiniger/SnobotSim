@@ -18,7 +18,7 @@ stages:
      steps:
         - script: |
             sudo apt-get update -y
-            sudo apt-get install clang-format-5.0 python3-setuptools -y
+            sudo apt-get install clang-format-6.0 python3-setuptools -y
             sudo pip3 install --upgrade pip
             sudo pip3 install wpiformat
             git checkout -b master
