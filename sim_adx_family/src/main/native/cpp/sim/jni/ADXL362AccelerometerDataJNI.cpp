@@ -4,7 +4,6 @@
 #include "edu_wpi_first_hal_sim_mockdata_ADXL362AccelerometerDataJNI.h"
 
 extern "C" {
-
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_ADXL362AccelerometerDataJNI
  * Method:    createAccelerometer
@@ -108,5 +107,4 @@ Java_edu_wpi_first_hal_sim_mockdata_ADXL362AccelerometerDataJNI_setZ
     hal::ADXL362_SpiAccelerometer* accel = (hal::ADXL362_SpiAccelerometer*)pointerAddress;
     accel->SetZ(z);
 }
-
 } // extern "C"
