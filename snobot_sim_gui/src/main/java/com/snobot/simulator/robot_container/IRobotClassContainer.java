@@ -10,7 +10,7 @@ public interface IRobotClassContainer
 {
     /**
      * Constructs the robot class.
-     * 
+     *
      * @throws ReflectiveOperationException
      *             Thrown if the robot cannot be constructed reflectively
      */
@@ -19,7 +19,7 @@ public interface IRobotClassContainer
 
     /**
      * Starts the robot competition loop.
-     * 
+     *
      * @throws ReflectiveOperationException
      *             Thrown if the robot cannot be constructed reflectively
      */
