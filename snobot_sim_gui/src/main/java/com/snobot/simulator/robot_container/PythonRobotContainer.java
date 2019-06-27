@@ -31,14 +31,14 @@ public class PythonRobotContainer implements IRobotClassContainer
     }
 
     @Override
-    public void constructRobot() throws ReflectionException, ReflectiveOperationException
+    public void constructRobot() throws ReflectiveOperationException
     {
         // mRobot = (PyInstance) mInterpreter.eval("SimRobot()");
     }
 
     @Override
     public void startCompetition()
-            throws ReflectionException, ReflectiveOperationException
+            throws ReflectiveOperationException
     {
         // mRobot.invoke("startCompetition");
     }

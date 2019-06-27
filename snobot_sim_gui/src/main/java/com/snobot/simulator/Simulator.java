@@ -16,7 +16,6 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.jar.Manifest;
 
-import javax.management.ReflectionException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -216,13 +215,11 @@ public class Simulator
      *            The type of robot
      * @param aRobotClassName
      *            The fully qualified java class name for the robot
-     * @throws ReflectionException
-     *             Throws if the robot cannot be created
      * @throws ReflectiveOperationException
      *             Throws if the robot cannot be created
      */
     private void createRobot(String aRobotType, String aRobotClassName)
-            throws ReflectionException, ReflectiveOperationException
+            throws ReflectiveOperationException
     {
         sLOGGER.log(Level.INFO, "Starting Robot Code");
 
@@ -279,15 +276,13 @@ public class Simulator
     }
 
     /**
-     * Starts the simulation
+     * Starts the simulation by starting the robot and the GUI
      *
-     * @throws SecurityException
-     * @throws IllegalArgumentException
-     * @throws ReflectionException
      * @throws ReflectiveOperationException
+     *             Thrown the robot class could not be started with reflection
      */
     public void startSimulation()
-            throws ReflectionException, ReflectiveOperationException
+            throws ReflectiveOperationException
     {
         loadConfig(mPropertiesFile);
 

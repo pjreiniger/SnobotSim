@@ -2,8 +2,6 @@ package com.snobot.simulator.robot_container;
 
 import java.lang.reflect.Method;
 
-import javax.management.ReflectionException;
-
 import com.snobot.simulator.JniLibraryResourceLoader;
 
 /**
@@ -24,7 +22,7 @@ public class CppRobotContainer implements IRobotClassContainer
 
     @Override
     public void constructRobot()
-            throws ReflectionException, ReflectiveOperationException
+            throws ReflectiveOperationException
     {
         mJniClass = Class.forName(mRobotClassName);
 
@@ -49,7 +47,7 @@ public class CppRobotContainer implements IRobotClassContainer
 
     @Override
     public void startCompetition()
-            throws ReflectionException, ReflectiveOperationException
+            throws ReflectiveOperationException
     {
         Method method = mJniClass.getMethod("startCompetition");
         method.invoke(null);
