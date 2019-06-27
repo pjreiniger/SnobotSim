@@ -13,7 +13,7 @@ import javax.management.ReflectionException;
 public interface IRobotClassContainer
 {
     /**
-     * 
+     *
      * @throws ReflectionException
      * @throws ReflectiveOperationException
      */
@@ -21,7 +21,7 @@ public interface IRobotClassContainer
             throws ReflectionException, ReflectiveOperationException;
 
     /**
-     * 
+     *
      * @throws NoSuchMethodException
      * @throws SecurityException
      * @throws IllegalAccessException

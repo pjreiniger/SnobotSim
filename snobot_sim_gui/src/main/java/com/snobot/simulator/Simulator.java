@@ -211,7 +211,7 @@ public class Simulator
 
     /**
      * Creates the robot class
-     * 
+     *
      * @param aRobotType
      *            The type of robot
      * @param aRobotClassName
@@ -280,7 +280,7 @@ public class Simulator
 
     /**
      * Starts the simulation
-     * 
+     *
      * @throws SecurityException
      * @throws IllegalArgumentException
      * @throws ReflectionException
