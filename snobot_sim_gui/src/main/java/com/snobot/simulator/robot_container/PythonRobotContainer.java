@@ -1,7 +1,5 @@
 package com.snobot.simulator.robot_container;
 
-import javax.management.ReflectionException;
-
 /**
  * Wrapper around a python robot.
  *
@@ -43,7 +41,7 @@ public class PythonRobotContainer implements IRobotClassContainer
         // mRobot.invoke("startCompetition");
     }
 
-    public static void main(String[] aArgs) throws ReflectionException, ReflectiveOperationException
+    public static void main(String[] aArgs) throws ReflectiveOperationException
     {
         PythonRobotContainer container = new PythonRobotContainer("C:/Users/PJ/workspace/first_2017/PythonRobot--PjsTestRobot");
         container.constructRobot();
