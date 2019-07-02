@@ -44,7 +44,7 @@ cache:
 script:
   - |
         if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-           python3.5 -m wpiformat -y 2018 -clang 5.0;
+           python3.5 -m wpiformat -clang 6.0;
            git --no-pager diff --exit-code HEAD  # Ensure formatter made no changes
         fi;
   - |

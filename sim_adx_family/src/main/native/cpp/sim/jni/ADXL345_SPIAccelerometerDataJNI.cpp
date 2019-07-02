@@ -3,7 +3,8 @@
 #include "ADXL345_SpiAccelerometerData.h"
 #include "edu_wpi_first_hal_sim_mockdata_ADXL345_SPIAccelerometerDataJNI.h"
 
-extern "C" {
+extern "C"
+{
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_ADXL345_1SPIAccelerometerDataJNI

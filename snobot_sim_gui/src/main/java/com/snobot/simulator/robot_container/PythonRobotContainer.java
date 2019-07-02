@@ -1,7 +1,5 @@
 package com.snobot.simulator.robot_container;
 
-import java.lang.reflect.InvocationTargetException;
-
 /**
  * Wrapper around a python robot.
  *
@@ -31,21 +29,19 @@ public class PythonRobotContainer implements IRobotClassContainer
     }
 
     @Override
-    public void constructRobot() throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException,
-            SecurityException, IllegalArgumentException, InvocationTargetException
+    public void constructRobot() throws ReflectiveOperationException
     {
         // mRobot = (PyInstance) mInterpreter.eval("SimRobot()");
     }
 
     @Override
     public void startCompetition()
-            throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
+            throws ReflectiveOperationException
     {
         // mRobot.invoke("startCompetition");
     }
 
-    public static void main(String[] aArgs) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException,
-            SecurityException, IllegalArgumentException, InvocationTargetException
+    public static void main(String[] aArgs) throws ReflectiveOperationException
     {
         PythonRobotContainer container = new PythonRobotContainer("C:/Users/PJ/workspace/first_2017/PythonRobot--PjsTestRobot");
         container.constructRobot();

@@ -3,7 +3,8 @@
 #include "ADXL345_I2CAccelerometerData.h"
 #include "edu_wpi_first_hal_sim_mockdata_ADXL345_I2CAccelerometerDataJNI.h"
 
-extern "C" {
+extern "C"
+{
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_ADXL345_1I2CAccelerometerDataJNI

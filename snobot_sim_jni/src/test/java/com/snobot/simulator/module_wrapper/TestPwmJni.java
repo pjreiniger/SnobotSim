@@ -40,6 +40,7 @@ public class TestPwmJni extends BaseSimulatorJniTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(3));
     }
 
+    @Test
     public void testReusePort()
     {
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());

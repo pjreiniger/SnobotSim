@@ -19,9 +19,9 @@ public class JavaRobotContainer implements IRobotClassContainer
     }
 
     @Override
-    public void constructRobot() throws InstantiationException, IllegalAccessException, ClassNotFoundException
+    public void constructRobot() throws ReflectiveOperationException
     {
-        mRobot = (RobotBase) Class.forName(mRobotClassName).newInstance();
+        mRobot = (RobotBase) Class.forName(mRobotClassName).getDeclaredConstructor().newInstance();
     }
 
     @Override

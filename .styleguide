@@ -20,6 +20,7 @@ modifiableFileExclude {
   \jni_md.h$
   snobot_sim_java.*$
   snobot_sim_jni.*$
+  sim_adx_family.*$
   ctre_override/temp/.*$
   temp_hal_sim/.*$
   snobot_sim_java/java/unit_tests/com/kauailabs/navx/frc

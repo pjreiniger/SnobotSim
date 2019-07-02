@@ -3,7 +3,8 @@
 #include "ADXRS450_SpiGyroWrapperData.h"
 #include "edu_wpi_first_hal_sim_mockdata_ADXRS450_GyroDataJNI.h"
 
-extern "C" {
+extern "C"
+{
 
 /*
  * Class:     edu_wpi_first_hal_sim_mockdata_ADXRS450_1GyroDataJNI

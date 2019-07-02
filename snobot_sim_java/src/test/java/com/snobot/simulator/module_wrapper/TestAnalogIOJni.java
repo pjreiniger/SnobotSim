@@ -69,6 +69,7 @@ public class TestAnalogIOJni extends BaseSimulatorJavaTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogOutAccessor().isInitialized(1));
     }
 
+    @Test
     public void testReuseInPort()
     {
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
@@ -82,6 +83,7 @@ public class TestAnalogIOJni extends BaseSimulatorJavaTest
         });
     }
 
+    @Test
     public void testReuseOutPort()
     {
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());

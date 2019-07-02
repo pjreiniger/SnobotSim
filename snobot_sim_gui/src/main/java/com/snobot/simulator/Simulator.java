@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -209,9 +208,18 @@ public class Simulator
         return robotName;
     }
 
+    /**
+     * Creates the robot class
+     *
+     * @param aRobotType
+     *            The type of robot
+     * @param aRobotClassName
+     *            The fully qualified java class name for the robot
+     * @throws ReflectiveOperationException
+     *             Throws if the robot cannot be created
+     */
     private void createRobot(String aRobotType, String aRobotClassName)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException,
-            SecurityException, IllegalArgumentException, InvocationTargetException
+            throws ReflectiveOperationException
     {
         sLOGGER.log(Level.INFO, "Starting Robot Code");
 
@@ -270,24 +278,11 @@ public class Simulator
     /**
      * Starts the simulation by starting the robot and the GUI
      *
-     * @throws InstantiationException
-     *             Thrown the robot class could not be started with reflection
-     * @throws IllegalAccessException
-     *             Thrown the robot class could not be started with reflection
-     * @throws ClassNotFoundException
-     *             Thrown the robot class could not be started with reflection
-     * @throws NoSuchMethodException
-     *             Thrown the robot class could not be started with reflection
-     * @throws SecurityException
-     *             Thrown the robot class could not be started with reflection
-     * @throws IllegalArgumentException
-     *             Thrown the robot class could not be started with reflection
-     * @throws InvocationTargetException
+     * @throws ReflectiveOperationException
      *             Thrown the robot class could not be started with reflection
      */
     public void startSimulation()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException,
-            IllegalArgumentException, InvocationTargetException
+            throws ReflectiveOperationException
     {
         loadConfig(mPropertiesFile);
 

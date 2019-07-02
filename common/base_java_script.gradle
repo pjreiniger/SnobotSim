@@ -20,7 +20,7 @@ repositories {
 }
 
 jacoco {
-    toolVersion = "0.8.2"
+    toolVersion = "0.8.4"
 }
 jacocoTestReport {
     reports {
@@ -47,13 +47,13 @@ compileJava {
 /////////////////////////////////////////////////////////////////////////////////
 // Style/Formatting stuff
 checkstyle {
-    toolVersion = "8.12"
+    toolVersion = "8.21"
     configDir = file("${project.rootDir}/styleguide")
     config = resources.text.fromFile(new File(configDir, "checkstyle.xml"))
 }
 
 pmd {
-    toolVersion = '6.7.0'
+    toolVersion = '6.15.0'
     consoleOutput  = true
     reportsDir = file("${project.buildDir}/reports/pmd")
     ruleSetFiles = files(file("$rootDir/styleguide/pmd-ruleset.xml"))

@@ -46,6 +46,7 @@ public class TestSolenoidJni extends BaseSimulatorJniTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getSolenoidAccessor().isInitialized(3));
     }
 
+    @Test
     public void testReusePort()
     {
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
