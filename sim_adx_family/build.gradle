@@ -82,7 +82,7 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.0'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.5.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.5.0'
-    testRuntime 'org.junit.platform:junit-platform-launcher:1.5.0'
+    testRuntime 'org.junit.platform:junit-platform-launcher:1.5.1'
 
     testCompile project(":snobot_sim_utilities")
     wpilibNativeDeps project(':sim_adx_family').packageNativeFiles.outputs.files
