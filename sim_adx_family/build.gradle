@@ -79,7 +79,7 @@ apply from: "${rootDir}/common/base_jni_script.gradle"
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
 
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.1'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.5.1'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.5.1'
