@@ -19,9 +19,9 @@ buildscript {
 plugins {
     id 'net.ltgt.errorprone' version '1.1.1' apply false
     id 'edu.wpi.first.NativeUtils' version '2.1.2'
-    id 'edu.wpi.first.GradleJni' version '0.10.1' apply false
-    id "com.diffplug.gradle.spotless" version "3.24.2"
-    id 'com.gradle.build-scan' version '3.1'
+    id 'edu.wpi.first.GradleJni' version '0.9.0' apply false
+    id "com.diffplug.gradle.spotless" version "3.26.1"
+    id 'com.gradle.build-scan' version '2.4.1'
     id "com.github.spotbugs" version "2.0.0"
 }
 apply plugin: 'nebula-aggregate-javadocs'
