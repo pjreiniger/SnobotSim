@@ -12,7 +12,13 @@ public final class CppJniWrapper
         return "CppTest";
     }
 
-    public static native void createRobot();
+    public static void createRobot()
+    {
+        throw new RuntimeException("Not Supported");
+    }
 
-    public static native void startCompetition();
+    public static void startCompetition()
+    {
+        throw new RuntimeException("Not Supported");
+    }
 }

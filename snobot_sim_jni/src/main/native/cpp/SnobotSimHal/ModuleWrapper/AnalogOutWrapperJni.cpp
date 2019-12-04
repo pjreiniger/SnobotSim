@@ -91,7 +91,7 @@ JNIEXPORT void JNICALL Java_com_snobot_simulator_jni_module_1wrapper_AnalogOutWr
  * Method:    getVoltage
  * Signature: (I)D
  */
-JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_AnalogOutWrapperJni_getVoltagee(
+JNIEXPORT jdouble JNICALL Java_com_snobot_simulator_jni_module_1wrapper_AnalogOutWrapperJni_getVoltage(
         JNIEnv * env, jclass, jint portHandle)
 {
     return SensorActuatorRegistry::Get().GetIAnalogOutWrapper(portHandle)->GetVoltage();
