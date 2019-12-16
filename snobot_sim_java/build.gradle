@@ -23,7 +23,7 @@ dependencies {
     compile 'edu.wpi.first.cameraserver:cameraserver-java:' + allwpilibVersion()
     compile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
     compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
-    compile 'org.apache.logging.log4j:log4j-api:2.12.0'
+    compile 'org.apache.logging.log4j:log4j-api:2.13.0'
     compile 'org.apache.logging.log4j:log4j-core:2.12.0'
     compile 'org.yaml:snakeyaml:1.25'
     compile project(":snobot_sim_utilities")
