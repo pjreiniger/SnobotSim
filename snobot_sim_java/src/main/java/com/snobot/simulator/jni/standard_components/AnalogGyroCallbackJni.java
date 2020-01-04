@@ -8,8 +8,8 @@ import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.wpi.WpiAnalogGyroWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
+import edu.wpi.first.hal.HALValue;
 import edu.wpi.first.hal.sim.mockdata.AnalogGyroDataJNI;
-import edu.wpi.first.hal.sim.SimValue;
 
 public final class AnalogGyroCallbackJni
 {
@@ -28,7 +28,7 @@ public final class AnalogGyroCallbackJni
         }
 
         @Override
-        public void callback(String aCallbackType, SimValue aHalValue)
+        public void callback(String aCallbackType, HALValue aHalValue)
         {
             if ("Initialized".equals(aCallbackType))
             {
@@ -49,6 +49,7 @@ public final class AnalogGyroCallbackJni
 
     public static void reset()
     {
+//        SimDeviceDataJNI.registerSimDeviceCreatedCallback("", )
         for (int i = 0; i < 2; ++i)
         {
             AnalogGyroDataJNI.resetData(i);

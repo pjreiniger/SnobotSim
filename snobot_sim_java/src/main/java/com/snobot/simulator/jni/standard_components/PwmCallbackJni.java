@@ -8,9 +8,9 @@ import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
+import edu.wpi.first.hal.HALValue;
 import edu.wpi.first.hal.sim.mockdata.PWMDataJNI;
 import edu.wpi.first.wpilibj.SensorUtil;
-import edu.wpi.first.hal.sim.SimValue;
 
 public final class PwmCallbackJni
 {
@@ -29,7 +29,7 @@ public final class PwmCallbackJni
         }
 
         @Override
-        public void callback(String aCallbackType, SimValue aHalValue)
+        public void callback(String aCallbackType, HALValue aHalValue)
         {
             if ("Initialized".equals(aCallbackType))
             {

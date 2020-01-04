@@ -6,9 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 
+import edu.wpi.first.hal.HALValue;
 import edu.wpi.first.hal.sim.AnalogGyroSim;
 import edu.wpi.first.hal.sim.NotifyCallback;
-import edu.wpi.first.hal.sim.SimValue;
 
 public class WpiAnalogGyroWrapper extends ASensorWrapper implements IGyroWrapper, NotifyCallback
 {
@@ -21,7 +21,7 @@ public class WpiAnalogGyroWrapper extends ASensorWrapper implements IGyroWrapper
     }
 
     @Override
-    public void callback(String aCallbackType, SimValue aHalValue)
+    public void callback(String aCallbackType, HALValue aHalValue)
     {
         LogManager.getLogger(WpiAnalogGyroWrapper.class).log(Level.WARN, "Callback " + aCallbackType + " not supported");
     }

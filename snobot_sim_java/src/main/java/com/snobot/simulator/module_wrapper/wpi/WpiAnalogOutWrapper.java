@@ -6,9 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IAnalogOutWrapper;
 
+import edu.wpi.first.hal.HALValue;
 import edu.wpi.first.hal.sim.AnalogOutSim;
 import edu.wpi.first.hal.sim.NotifyCallback;
-import edu.wpi.first.hal.sim.SimValue;
 
 public class WpiAnalogOutWrapper extends ASensorWrapper implements IAnalogOutWrapper, NotifyCallback
 {
@@ -23,7 +23,7 @@ public class WpiAnalogOutWrapper extends ASensorWrapper implements IAnalogOutWra
     }
 
     @Override
-    public void callback(String aCallbackType, SimValue aHalValue)
+    public void callback(String aCallbackType, HALValue aHalValue)
     {
         LogManager.getLogger(WpiAnalogOutWrapper.class).log(Level.WARN, "Callback " + aCallbackType + " not supported");
     }

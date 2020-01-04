@@ -1,6 +1,5 @@
 
 evaluationDependsOn(':snobot_sim_utilities')
-evaluationDependsOn(':sim_adx_family')
 evaluationDependsOn(':sim_extension_navx')
 
 ext
@@ -26,8 +25,9 @@ dependencies {
     compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
     runtime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
     runtime 'edu.wpi.first.hal:hal-jni:' + allwpilibVersion() + ':all'
-    compile 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
-    runtime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
+    compile 'edu.wpi.first.thirdparty.frc2020.opencv:opencv-java:' + getWpilibOpencvVersion()
+    runtime 'edu.wpi.first.thirdparty.frc2020.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':' + getCurrentWHATEVER()
+
 
     // 3rd Party
     native3rdPartyDeps  'net.java.jinput:jinput:2.0.9'
@@ -53,7 +53,6 @@ dependencies {
     {
         compile project(":snobot_sim_java")
         wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
-        wpilibNativeDeps project(':sim_adx_family').packageNativeFiles.outputs.files
     }
 
     // Test

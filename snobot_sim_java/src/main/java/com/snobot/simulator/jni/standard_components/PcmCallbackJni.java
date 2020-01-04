@@ -8,10 +8,10 @@ import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
+import edu.wpi.first.hal.HALValue;
+import edu.wpi.first.hal.sim.NotifyCallback;
 import edu.wpi.first.hal.sim.mockdata.PCMDataJNI;
 import edu.wpi.first.wpilibj.SensorUtil;
-import edu.wpi.first.hal.sim.NotifyCallback;
-import edu.wpi.first.hal.sim.SimValue;
 
 public final class PcmCallbackJni
 {
@@ -34,7 +34,7 @@ public final class PcmCallbackJni
         }
 
         @Override
-        public void callback(String aCallbackType, SimValue aHalValue)
+        public void callback(String aCallbackType, HALValue aHalValue)
         {
             int fullChannel = mIndex * SensorUtil.kSolenoidChannels + mChannel;
             if ("SolenoidInitialized".equals(aCallbackType))

@@ -6,9 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IRelayWrapper;
 
+import edu.wpi.first.hal.HALValue;
 import edu.wpi.first.hal.sim.NotifyCallback;
 import edu.wpi.first.hal.sim.RelaySim;
-import edu.wpi.first.hal.sim.SimValue;
 
 public class WpiRelayWrapper extends ASensorWrapper implements IRelayWrapper, NotifyCallback
 {
@@ -22,7 +22,7 @@ public class WpiRelayWrapper extends ASensorWrapper implements IRelayWrapper, No
     }
 
     @Override
-    public void callback(String aCallbackType, SimValue aHalValue)
+    public void callback(String aCallbackType, HALValue aHalValue)
     {
         LogManager.getLogger(WpiAnalogGyroWrapper.class).log(Level.WARN, "Callback " + aCallbackType + " not supported");
     }

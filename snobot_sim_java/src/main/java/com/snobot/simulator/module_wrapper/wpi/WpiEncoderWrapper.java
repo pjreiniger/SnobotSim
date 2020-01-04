@@ -5,9 +5,9 @@ import org.apache.logging.log4j.LogManager;
 
 import com.snobot.simulator.module_wrapper.BaseEncoderWrapper;
 
+import edu.wpi.first.hal.HALValue;
 import edu.wpi.first.hal.sim.EncoderSim;
 import edu.wpi.first.hal.sim.NotifyCallback;
-import edu.wpi.first.hal.sim.SimValue;
 
 public class WpiEncoderWrapper extends BaseEncoderWrapper implements NotifyCallback
 {
@@ -36,7 +36,7 @@ public class WpiEncoderWrapper extends BaseEncoderWrapper implements NotifyCallb
     }
 
     @Override
-    public void callback(String aCallbackType, SimValue aHalValue)
+    public void callback(String aCallbackType, HALValue aHalValue)
     {
         LogManager.getLogger(WpiEncoderWrapper.class).log(Level.WARN, "Callback " + aCallbackType + " not supported");
     }
