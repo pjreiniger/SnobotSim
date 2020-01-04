@@ -4,6 +4,8 @@ import java.nio.ByteBuffer;
 
 import com.snobot.simulator.ctre.CtreCallback;
 import com.snobot.simulator.ctre.CtreJni;
+import com.snobot.simulator.rev.RevCallback;
+import com.snobot.simulator.rev.RevSimJni;
 import com.snobot.simulator.simulator_components.ctre.CtreManager;
 import com.snobot.simulator.simulator_components.rev.RevManager;
 
@@ -53,6 +55,15 @@ public final class CanCallbackJni
         }
     }
 
+    private static class RevContollerCallback implements RevCallback
+    {
+        @Override
+        public void callback(String aName, int aDeviceId, ByteBuffer aBuffer, int aCount)
+        {
+            sREV_MANAGER.handleMessage(aName, aDeviceId, aBuffer);
+        }
+    }
+
     public static void reset()
     {
         sCTRE_MANAGER.reset();
@@ -62,6 +73,7 @@ public final class CanCallbackJni
         CtreJni.registerCanBuffTrajPointStreamCallback(new CtreBuffTrajPointStreamCallback());
 
         sREV_MANAGER.reset();
+        RevSimJni.registerRevCallback(new RevContollerCallback());
     }
 
 }

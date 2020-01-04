@@ -9,9 +9,9 @@ import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
 public class ADXRS450GyroWrapper extends BaseGyroWrapper implements ISpiWrapper
 {
 
-    public ADXRS450GyroWrapper(int aPort)
+    public ADXRS450GyroWrapper(String deviceName, int aPort)
     {
-        super("ADXRS450 Gyro", new LazySimDoubleWrapper("", "")::get, new LazySimDoubleWrapper("", "")::set);
+        super("ADXRS450 Gyro", new LazySimDoubleWrapper(deviceName, "Angle")::get, new LazySimDoubleWrapper(deviceName, "Angle")::set);
 
         SensorActuatorRegistry.get().register((IGyroWrapper) this, 100 + aPort);
     }

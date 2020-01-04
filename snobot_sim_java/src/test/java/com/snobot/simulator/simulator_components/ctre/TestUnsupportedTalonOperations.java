@@ -438,8 +438,8 @@ public class TestUnsupportedTalonOperations extends BaseSimulatorJavaTest
         talon.configContinuousCurrentLimit(0, 0);
         talon.configContinuousCurrentLimit(0);
         talon.enableCurrentLimit(false);
-        talon.configurePID(new TalonSRXPIDSetConfiguration(), 0, 0, false);
-        talon.configurePID(new TalonSRXPIDSetConfiguration());
+        // talon.configurePID(new TalonSRXPIDSetConfiguration(), 0, 0, false);
+        // talon.configurePID(new TalonSRXPIDSetConfiguration());
         talon.getPIDConfigs(new TalonSRXPIDSetConfiguration(), 0, 0);
         talon.getPIDConfigs(new TalonSRXPIDSetConfiguration());
         talon.configAllSettings(new TalonSRXConfiguration(), 0);

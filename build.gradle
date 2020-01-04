@@ -38,7 +38,7 @@ ext.build_simulator_java = true
 // Specify WPI Versions
 
 ext.allwpilibVersion = {
-    return '2020.1.1-beta-4-8-g31b588d'
+    return '2020.1.2'
 }
 
 ext.getWpiUtilVersion = {
@@ -55,13 +55,13 @@ ext.getWpilibOpencvVersion = {
     return '3.4.7-2'
 }
 ext.getCtreVersion = {
-    return '5.14.0'
+    return '5.17.2'
 }
 ext.getCtreSimVersion = {
     return getCtreVersion() + "_V0_RC"
 }
 ext.getRevRoboticsVersion = {
-    return '1.1.9'
+    return '1.5.0'
 }
 ext.getRevRoboticsSimVersion = {
     return getRevRoboticsVersion() + "_V0"

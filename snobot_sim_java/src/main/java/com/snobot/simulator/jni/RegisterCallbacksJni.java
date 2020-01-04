@@ -13,6 +13,7 @@ import com.snobot.simulator.jni.standard_components.PwmCallbackJni;
 import com.snobot.simulator.jni.standard_components.RelayCallbackJni;
 import com.snobot.simulator.jni.standard_components.SpiCallbackJni;
 
+import edu.wpi.first.hal.sim.SimDeviceSim;
 import edu.wpi.first.hal.sim.mockdata.SimulatorJNI;
 
 public final class RegisterCallbacksJni extends BaseSnobotJni
@@ -30,6 +31,7 @@ public final class RegisterCallbacksJni extends BaseSnobotJni
     public static void reset()
     {
         SimulatorJNI.resetHandles();
+        SimDeviceSim.resetData();
 
         AnalogInCallbackJni.reset();
         AnalogOutCallbackJni.reset();

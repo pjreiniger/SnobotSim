@@ -11,9 +11,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ExternalFollower;
 import com.revrobotics.CANSparkMax.FaultID;
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.CANSparkMaxLowLevel.ParameterType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
@@ -105,22 +103,6 @@ public class TestUnsupportedRevFunctions extends BaseSimulatorJavaTest
         aSc.getFirmwareString();
         aSc.getFirmwareVersion();
         // sc.getMotorType();
-
-        for (ConfigParameter parameter : ConfigParameter.values())
-        {
-            aSc.getParameterBoolean(parameter);
-            aSc.getParameterDouble(parameter);
-            aSc.getParameterInt(parameter);
-            aSc.setParameter(parameter, false);
-            aSc.setParameter(parameter, 1.0);
-            aSc.setParameter(parameter, 1);
-
-            for (ParameterType type : ParameterType.values())
-            {
-                aSc.getParameterCore(parameter, type);
-                aSc.setParameterCore(parameter, type, 1);
-            }
-        }
 
         // sc.getParameterType(ConfigParameter.kI_0);
 

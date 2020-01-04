@@ -76,7 +76,7 @@ public class DefaultI2CSimulatorFactory extends BaseWrapperFactory implements II
         }
         else if (sADXL345_TYPE.equals(aType))
         {
-            simulator = new ADXL345I2CWrapper(fullType, aPort);
+            simulator = new ADXL345I2CWrapper(fullType, "ADXL345_I2C[" + aPort + "," + 0x1D + "]", aPort);
         }
 
         if (simulator == null)

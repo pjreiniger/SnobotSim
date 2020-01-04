@@ -87,17 +87,17 @@ public class DefaultSpiSimulatorFactory extends BaseWrapperFactory implements IS
         {
             simulator = new SpiNavxSimulatorWrapper(fullType, aPort);
         }
-        else if (sADXRS450_TYPE.equals(aType))
+        else */if (sADXRS450_TYPE.equals(aType))
         {
-            simulator = new ADXRS450GyroWrapper(new ADXRS450_GyroSim(aPort), aPort);
+            simulator = new ADXRS450GyroWrapper("ADXRS450_Gyro[" + aPort + "]", aPort);
         }
         else if (sADXL345_TYPE.equals(aType))
         {
-            simulator = new ADXL345SpiWrapper(fullType, aPort);
+            simulator = new ADXL345SpiWrapper(fullType, "ADXL345_SPI[" + aPort + "]", aPort);
         }
         else if (sADXL362_TYPE.equals(aType))
         {
-            simulator = new ADXL362SpiWrapper(fullType, aPort);
+            simulator = new ADXL362SpiWrapper(fullType, "ADXL362[" + aPort + "]", aPort);
         }
 
         if (simulator == null)

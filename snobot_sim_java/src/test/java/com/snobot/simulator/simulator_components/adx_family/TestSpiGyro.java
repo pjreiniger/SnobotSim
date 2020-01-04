@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import com.snobot.simulator.SimDeviceDumpHelper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
@@ -17,9 +18,9 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
 
 @Tag("AdxFamily")
-public class TestSpiGyro extends BaseSimulatorJavaTest
+public class TestSpiGyro extends BaseSimulatorJavaTest 
 {
-    public static Collection<SPI.Port> getData()
+    public static Collection<SPI.Port> getData() 
     {
         Collection<SPI.Port> output = new ArrayList<>();
 
@@ -34,6 +35,7 @@ public class TestSpiGyro extends BaseSimulatorJavaTest
     {
         DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(aPort.value, "ADXRS450");
         ADXRS450_Gyro gyro = new ADXRS450_Gyro(aPort);
+        SimDeviceDumpHelper.dumpSimDevices();
 
         int gyroHandle = 100 + aPort.value;
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(gyroHandle));

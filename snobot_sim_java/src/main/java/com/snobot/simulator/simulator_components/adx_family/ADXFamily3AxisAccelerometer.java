@@ -17,9 +17,9 @@ public abstract class ADXFamily3AxisAccelerometer extends ASensorWrapper impleme
     {
         super("NotUsed");
 
-        LazySimDoubleWrapper xWrapper = new LazySimDoubleWrapper(aDeviceName, "X");
-        LazySimDoubleWrapper yWrapper = new LazySimDoubleWrapper(aDeviceName, "Y");
-        LazySimDoubleWrapper zWrapper = new LazySimDoubleWrapper(aDeviceName, "Z");
+        LazySimDoubleWrapper xWrapper = new LazySimDoubleWrapper(aDeviceName, "X Accel");
+        LazySimDoubleWrapper yWrapper = new LazySimDoubleWrapper(aDeviceName, "Y Accel");
+        LazySimDoubleWrapper zWrapper = new LazySimDoubleWrapper(aDeviceName, "Z Accel");
 
         mXWrapper = new BaseAccelerometerWrapper(aBaseName + " X Accel", xWrapper::get, xWrapper::set);
         mYWrapper = new BaseAccelerometerWrapper(aBaseName + " Y Accel", yWrapper::get, yWrapper::set);
