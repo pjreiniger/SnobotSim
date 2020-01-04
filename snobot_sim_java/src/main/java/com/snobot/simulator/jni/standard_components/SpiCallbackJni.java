@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import com.snobot.simulator.SensorActuatorRegistry;
 
 import edu.wpi.first.hal.sim.mockdata.SPIDataJNI;
-import edu.wpi.first.hal.sim.SimValue;
+import edu.wpi.first.hal.HALValue;
 
 public final class SpiCallbackJni
 {
@@ -36,7 +36,7 @@ public final class SpiCallbackJni
         }
 
         @Override
-        public void callback(String aCallbackType, SimValue aHalValue)
+        public void callback(String aCallbackType, HALValue aHalValue)
         {
             if ("Initialized".equals(aCallbackType))
             {

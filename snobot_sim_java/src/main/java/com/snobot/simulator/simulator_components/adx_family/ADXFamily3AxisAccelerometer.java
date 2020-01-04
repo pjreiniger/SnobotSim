@@ -6,23 +6,24 @@ import com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IAccelerometerWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.II2CWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
-import edu.wpi.first.wpilibj.sim.IThreeAxisAccelerometer;
 
 public abstract class ADXFamily3AxisAccelerometer extends ASensorWrapper implements II2CWrapper, ISpiWrapper
 {
     protected final IAccelerometerWrapper mXWrapper;
     protected final IAccelerometerWrapper mYWrapper;
     protected final IAccelerometerWrapper mZWrapper;
-    protected final IThreeAxisAccelerometer mWpiAccel;
 
-    public ADXFamily3AxisAccelerometer(String aBaseName, IThreeAxisAccelerometer aWpiAccel, int aBasePort)
+    public ADXFamily3AxisAccelerometer(String aBaseName, String aDeviceName, int aBasePort)
     {
         super("NotUsed");
 
-        mWpiAccel = aWpiAccel;
-        mXWrapper = new BaseAccelerometerWrapper(aBaseName + " X Accel", aWpiAccel::getX, aWpiAccel::setX);
-        mYWrapper = new BaseAccelerometerWrapper(aBaseName + " Y Accel", aWpiAccel::getY, aWpiAccel::setY);
-        mZWrapper = new BaseAccelerometerWrapper(aBaseName + " Z Accel", aWpiAccel::getZ, aWpiAccel::setZ);
+        LazySimDoubleWrapper xWrapper = new LazySimDoubleWrapper(aDeviceName, "X");
+        LazySimDoubleWrapper yWrapper = new LazySimDoubleWrapper(aDeviceName, "Y");
+        LazySimDoubleWrapper zWrapper = new LazySimDoubleWrapper(aDeviceName, "Z");
+
+        mXWrapper = new BaseAccelerometerWrapper(aBaseName + " X Accel", xWrapper::get, xWrapper::set);
+        mYWrapper = new BaseAccelerometerWrapper(aBaseName + " Y Accel", yWrapper::get, yWrapper::set);
+        mZWrapper = new BaseAccelerometerWrapper(aBaseName + " Z Accel", zWrapper::get, zWrapper::set);
 
         SensorActuatorRegistry.get().register(mXWrapper, aBasePort + 0);
         SensorActuatorRegistry.get().register(mYWrapper, aBasePort + 1);
@@ -37,12 +38,5 @@ public abstract class ADXFamily3AxisAccelerometer extends ASensorWrapper impleme
         mXWrapper.setInitialized(aInitialized);
         mYWrapper.setInitialized(aInitialized);
         mZWrapper.setInitialized(aInitialized);
-    }
-
-    @Override
-    public void close() throws Exception
-    {
-        super.close();
-        mWpiAccel.close();
     }
 }
