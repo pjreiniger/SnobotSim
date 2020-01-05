@@ -2,13 +2,12 @@ package com.snobot.simulator;
 
 import java.lang.reflect.Field;
 
-import edu.wpi.first.hal.sim.SimDeviceSim;
-import edu.wpi.first.hal.sim.mockdata.SimDeviceDataJNI.SimDeviceInfo;
-
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import edu.wpi.first.hal.sim.SimDeviceSim;
+import edu.wpi.first.hal.sim.mockdata.SimDeviceDataJNI.SimDeviceInfo;
 
 public final class SimDeviceDumpHelper
 {
@@ -19,13 +18,14 @@ public final class SimDeviceDumpHelper
         // Nothing to do
     }
 
+    @SuppressWarnings("PMD.ConsecutiveLiteralAppends")
     public static void dumpSimDevices()
     {
         StringBuilder builder = new StringBuilder(200);
         builder.append("***************************************************\nDumping devices:\n");
         for (SimDeviceInfo x : SimDeviceSim.enumerateDevices(""))
         {
-            builder.append("Got a device: ").append(x).append("\n");
+            builder.append("Got a device: \n");
             Field privateStringField;
             try 
             {
@@ -33,7 +33,7 @@ public final class SimDeviceDumpHelper
             
                 privateStringField.setAccessible(true);
                 
-                builder.append("  ").append(privateStringField.get(x)).append("\n");
+                builder.append("  ").append(privateStringField.get(x)).append('\n');
             } 
             catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) 
             {

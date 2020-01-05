@@ -1,6 +1,5 @@
 
 evaluationDependsOn(':snobot_sim_utilities')
-evaluationDependsOn(':sim_extension_navx')
 
 ext
 {
@@ -21,10 +20,10 @@ dependencies {
     compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     compile 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
     compile 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
-    runtime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
+    runtime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':' + getCurrentWHATEVER()
     compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
-    runtime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
-    runtime 'edu.wpi.first.hal:hal-jni:' + allwpilibVersion() + ':all'
+    runtime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':' + getCurrentWHATEVER()
+    runtime 'edu.wpi.first.hal:hal-jni:' + allwpilibVersion() + ':' + getCurrentWHATEVER()
     compile 'edu.wpi.first.thirdparty.frc2020.opencv:opencv-java:' + getWpilibOpencvVersion()
     runtime 'edu.wpi.first.thirdparty.frc2020.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':' + getCurrentWHATEVER()
 
@@ -52,7 +51,6 @@ dependencies {
     if(build_simulator_java)
     {
         compile project(":snobot_sim_java")
-        wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
     }
 
     // Test

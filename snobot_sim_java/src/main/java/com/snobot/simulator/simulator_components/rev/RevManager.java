@@ -19,7 +19,7 @@ public class RevManager
     {
         aData.order(ByteOrder.LITTLE_ENDIAN);
 
-        switch(aCallback)
+        switch (aCallback)
         {
         case "Create":
             createSim(aCanPort);
@@ -38,11 +38,8 @@ public class RevManager
         }
         case "SetFollow":
         {
-             int followerID = aData.getInt();
-             int leadId = followerID & 0x3F;
-            System.out.println(followerID + ", " + leadId + " - " + aData.getInt());
-            
-
+            int followerID = aData.getInt();
+            int leadId = followerID & 0x3F;
 
             BaseCanSmartSpeedController leadWrapper = getMotorControllerWrapper(leadId);
             RevSpeedControllerSimWrapper follower = getMotorControllerWrapper(aCanPort);
@@ -63,11 +60,12 @@ public class RevManager
 
             float speed = (float) wrapper.get();
             aData.putFloat(0, speed);
+            break;
 
         }
         default:
             sLOGGER.log(Level.WARN, "Unsupported option " + aCallback + "(" + aData.limit() + " bytes)");
-                break;
+            break;
         }
     }
 

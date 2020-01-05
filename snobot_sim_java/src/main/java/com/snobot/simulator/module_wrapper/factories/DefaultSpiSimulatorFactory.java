@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import edu.wpi.first.wpilibj.sim.ADXRS450_GyroSim;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -87,7 +86,7 @@ public class DefaultSpiSimulatorFactory extends BaseWrapperFactory implements IS
         {
             simulator = new SpiNavxSimulatorWrapper(fullType, aPort);
         }
-        else */if (sADXRS450_TYPE.equals(aType))
+        else if (sADXRS450_TYPE.equals(aType))
         {
             simulator = new ADXRS450GyroWrapper("ADXRS450_Gyro[" + aPort + "]", aPort);
         }

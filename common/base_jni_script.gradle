@@ -36,7 +36,6 @@ task packageNativeFiles(type: Jar) {
                 {
                     dependsOn binary.buildTask
                     from(binary.sharedLibraryFile) {
-                        into project.getNativeVersion(binary)
                     }
                 }
                 if(project.hasProperty("extra_libraries"))
@@ -68,7 +67,9 @@ model {
             }
             enableCheckTask true
             javaCompileTasks << compileJava
-            jniCrossCompileOptions << JniCrossCompileOptions('athena')
+            jniCrossCompileOptions << JniCrossCompileOptions(nativeUtils.wpi.platforms.roborio)
+            jniCrossCompileOptions << JniCrossCompileOptions(nativeUtils.wpi.platforms.raspbian)
+            jniCrossCompileOptions << JniCrossCompileOptions(nativeUtils.wpi.platforms.aarch64bionic)
             sources {
                 cpp {
                     source {
