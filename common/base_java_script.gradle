@@ -16,7 +16,7 @@ repositories {
     maven { url getNavxRepo() }
     maven { url getCtreRepo() }
     maven { url getRevRepo() }
-    maven { url getCtreOverrideRepo() }
+    maven { url getSnobotSimRepo() }
 }
 
 jacoco {

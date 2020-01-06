@@ -1,6 +1,11 @@
 import edu.wpi.first.toolchain.*
 
+
 buildscript {
+    ext.snobot_sim_repo = {
+        return "http://raw.githubusercontent.com/snobotsim/maven_repo/2020dev/development/"
+//        return "http://raw.githubusercontent.com/snobotsim/maven_repo/master/development/"
+    }
     repositories {
         mavenLocal()
         jcenter()
@@ -8,7 +13,7 @@ buildscript {
             url "https://plugins.gradle.org/m2/"
         }
         maven {
-            url "http://raw.githubusercontent.com/pjreiniger/maven_repo/master/"
+            url snobot_sim_repo()
         }
     }
     dependencies {
@@ -89,8 +94,8 @@ ext.getRevRepo = {
     return 'http://www.revrobotics.com/content/sw/max/sdk/maven/'
 }
 
-ext.getCtreOverrideRepo = {
-    return "http://raw.githubusercontent.com/pjreiniger/maven_repo/master/"
+ext.getSnobotSimRepo = {
+    return snobot_sim_repo()
 }
 
 ext.getCurrentArch = {
@@ -109,7 +114,7 @@ repositories {
     maven { url getWpiRepo() }
     maven { url getNavxRepo() }
     maven { url getCtreRepo() }
-    maven { url getCtreOverrideRepo() }
+    maven { url getSnobotSimRepo() }
 }
 
 /////////////////////////////////////////
