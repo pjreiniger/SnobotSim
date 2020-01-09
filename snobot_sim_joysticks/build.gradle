@@ -31,7 +31,7 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.5.1'
-    testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':' + getCurrentWHATEVER()
+    testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':' + getCurrentOsArch()
 }
 
 apply from: "${rootDir}/common/extract_native_libraries.gradle"
