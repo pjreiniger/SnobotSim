@@ -55,7 +55,7 @@ stages:
          publishJUnitResults: true
          testResultsFiles: '**/TEST-*.xml'
          tasks: 'build publish -x :snobot_sim_gui:test'
-         options: '-PciBuild'
+         options: '-PciBuild --info'
          # checkStyleRunAnalysis: true
          # pmdRunAnalysis: true
 
