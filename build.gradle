@@ -3,8 +3,8 @@ import edu.wpi.first.toolchain.*
 
 buildscript {
     ext.snobot_sim_repo = {
-        return "http://raw.githubusercontent.com/snobotsim/maven_repo/2020dev/development/"
-//        return "http://raw.githubusercontent.com/snobotsim/maven_repo/master/development/"
+//        return "http://raw.githubusercontent.com/snobotsim/maven_repo/2020dev/development/"
+        return "http://raw.githubusercontent.com/snobotsim/maven_repo/master/development/"
     }
     repositories {
         mavenLocal()
