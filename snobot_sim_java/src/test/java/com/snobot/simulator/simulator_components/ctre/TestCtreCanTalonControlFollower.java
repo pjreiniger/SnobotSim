@@ -43,9 +43,8 @@ public class TestCtreCanTalonControlFollower extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
         TalonSRX leadTalon = new TalonSRX(leadTalonId);
         TalonSRX talon = new TalonSRX(aCanHandle);
+        talon.follow(leadTalon);
         Assertions.assertEquals(2, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
-
-        talon.set(ControlMode.Follower, leadTalonId);
 
         leadTalon.set(ControlMode.PercentOutput, .5);
 

@@ -1,4 +1,4 @@
-package com.snobot.simulator.simulator_components.ctre;
+package com.snobot.simulator.simulator_components.ctre.unsupported;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import com.ctre.phoenix.sensors.PigeonIMU_StickyFaults;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
 @Tag("CTRE")
-public class TestUnsupportedPigeonImuOperations extends BaseSimulatorJavaTest
+public class TestPigeonIMUFunctions extends BaseSimulatorJavaTest
 {
     @Test
     public void testAllFunctions()

@@ -1,4 +1,4 @@
-package com.snobot.simulator.simulator_components.ctre;
+package com.snobot.simulator.simulator_components.ctre.unsupported;
 
 import java.nio.ByteBuffer;
 
@@ -20,7 +20,7 @@ import com.snobot.simulator.ctre.CtreCallback;
 import com.snobot.simulator.ctre.CtreJni;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
-public class TestUnsupportedCanifierFunctions extends BaseSimulatorJavaTest
+public class TestCanifierFunctions extends BaseSimulatorJavaTest
 {
 
     private final CtreCallback mTestCallback = new CtreCallback()
