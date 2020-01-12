@@ -167,7 +167,6 @@ public class CtreTalonSrxSpeedControllerSim extends BaseCanSmartSpeedController
         mCurrentPidProfile = aProfileSelect;
     }
 
-
     @Override
     protected void registerFeedbackSensor()
     {
@@ -227,5 +226,29 @@ public class CtreTalonSrxSpeedControllerSim extends BaseCanSmartSpeedController
     public int getBinnedVelocity()
     {
         return (int) (getVelocity() * this.getVelocityUnitConversion());
+    }
+
+    public void setCanFeedbackDevice(byte aFeedbackDevice)
+    {
+        FeedbackDevice newDevice = null;
+        switch (aFeedbackDevice)
+        {
+        // Default feedback sensor, handle with care
+        case 0:
+            newDevice = FeedbackDevice.Encoder;
+            break;
+        case 2:
+            newDevice = FeedbackDevice.Analog;
+            break;
+        // The Absolute and Relative encoders behave the same
+        case 8:
+            newDevice = FeedbackDevice.Encoder;
+            break;
+        default:
+            sLOGGER.log(Level.WARN, "Unsupported feedback device " + aFeedbackDevice);
+            break;
+        }
+
+        setCanFeedbackDevice(newDevice);
     }
 }

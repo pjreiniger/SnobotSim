@@ -232,7 +232,7 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
         if (sLOGGER.isDebugEnabled())
         {
             DecimalFormat df = new DecimalFormat("#.##");
-            sLOGGER.log(Level.INFO,
+            sLOGGER.log(Level.DEBUG,
                     "Motion Magic... " + "Goal: " + aControlGoal + ", " + "CurPos: " + df.format(aCurrentPosition) + ", " + "CurVel: "
                             + df.format(aCurrentVelocity) + ", " + "err: " + df.format(error) + ", " + "maxa: "
                             + df.format(mMotionMagicMaxAcceleration) + ", " + "maxv: " + df.format(mMotionMagicMaxVelocity) + " -- Output: "
@@ -294,39 +294,20 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
         mFollowers.add(aWrapper);
     }
 
-    public void setCanFeedbackDevice(byte aFeedbackDevice)
+    protected void setCanFeedbackDevice(FeedbackDevice aNewDevice)
     {
-        FeedbackDevice newDevice = null;
-        switch (aFeedbackDevice)
-        {
-        // Default feedback sensor, handle with care
-        case 0:
-            newDevice = FeedbackDevice.Encoder;
-            break;
-        case 2:
-            newDevice = FeedbackDevice.Analog;
-            break;
-        // The Absolute and Relative encoders behave the same
-        case 8:
-            newDevice = FeedbackDevice.Encoder;
-            break;
-        default:
-            sLOGGER.log(Level.WARN, "Unsupported feedback device " + aFeedbackDevice);
-            break;
-        }
-
-        if (newDevice != mFeedbackDevice)
+        if (aNewDevice != mFeedbackDevice)
         {
             if (mFeedbackDevice == null)
             {
-                mFeedbackDevice = newDevice;
+                mFeedbackDevice = aNewDevice;
                 registerFeedbackSensor();
-                sLOGGER.log(Level.DEBUG, "Setting feedback device to " + newDevice);
+                sLOGGER.log(Level.DEBUG, "Setting feedback device to " + aNewDevice);
             }
             else
             {
                 sLOGGER.log(Level.ERROR, "The simulator does not like you changing the feedback device attached to talon " + mCanHandle + " from "
-                        + mFeedbackDevice + " to " + newDevice);
+                        + mFeedbackDevice + " to " + aNewDevice);
             }
         }
     }
@@ -346,5 +327,5 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
     {
         return "BaseCanSmartSpeedController [mCanHandle=" + mCanHandle + "]";
     }
-    
+
 }

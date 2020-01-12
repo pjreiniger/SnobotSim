@@ -72,7 +72,15 @@
         <Bug pattern="URF_UNREAD_FIELD" />
     </Match>
     <Match>
-        <Class name="com.snobot.simulator.simulator_components.rev.TestUnsupportedRevFunctions"/>
+        <Package name="com.snobot.simulator.simulator_components.rev.unsupported"/>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" />
+    </Match>
+    <Match>
+        <Package name="com.snobot.simulator.simulator_components.ctre.unsupported"/>
+        <Bug pattern="UC_USELESS_OBJECT" />
+    </Match>
+    <Match>
+        <Package name="com.snobot.simulator.simulator_components.ctre.unsupported"/>
         <Bug pattern="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" />
     </Match>
 </FindBugsFilter>

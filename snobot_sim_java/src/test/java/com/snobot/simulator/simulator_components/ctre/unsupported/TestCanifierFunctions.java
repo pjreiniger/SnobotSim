@@ -1,7 +1,6 @@
 package com.snobot.simulator.simulator_components.ctre.unsupported;
 
-import java.nio.ByteBuffer;
-
+import com.snobot.test.utilities.BaseSimulatorJavaTest;
 import org.junit.jupiter.api.Test;
 
 import com.ctre.phoenix.CANifier;
@@ -16,28 +15,13 @@ import com.ctre.phoenix.CANifierStatusFrame;
 import com.ctre.phoenix.CANifierStickyFaults;
 import com.ctre.phoenix.ParamEnum;
 import com.ctre.phoenix.VelocityPeriod;
-import com.snobot.simulator.ctre.CtreCallback;
-import com.snobot.simulator.ctre.CtreJni;
-import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
 public class TestCanifierFunctions extends BaseSimulatorJavaTest
 {
-
-    private final CtreCallback mTestCallback = new CtreCallback()
-    {
-
-        @Override
-        public void callback(String aName, int aDeviceId, ByteBuffer aBuffer, int aCount)
-        {
-            System.out.println("Getting callback " + aName);
-        }
-    };
-
     @Test
     public void testAllFunctions()
     {
         CANifier canifier = new CANifier(0);
-        CtreJni.registerCanCanifierCallback(mTestCallback);
 
         for (LEDChannel ledChannel : LEDChannel.values())
         {
@@ -127,7 +111,7 @@ public class TestCanifierFunctions extends BaseSimulatorJavaTest
         canifier.getStickyFaults(new CANifierStickyFaults());
         canifier.clearStickyFaults(0);
         canifier.getBusVoltage();
-        // canifier.getDeviceID();
+        canifier.getDeviceID();
         canifier.configAllSettings(new CANifierConfiguration(), 0);
         canifier.configAllSettings(new CANifierConfiguration());
         canifier.getAllConfigs(new CANifierConfiguration(), 0);
@@ -137,5 +121,4 @@ public class TestCanifierFunctions extends BaseSimulatorJavaTest
 
         canifier.DestroyObject();
     }
-
 }

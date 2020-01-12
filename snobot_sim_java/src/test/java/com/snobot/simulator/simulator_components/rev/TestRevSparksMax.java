@@ -31,7 +31,7 @@ public class TestRevSparksMax extends BaseSimulatorJavaTest
 
     @ParameterizedTest
     @MethodSource("getData")
-    public void testSimpleSetters(int aCanHandle)
+    public void testAppliedThrottle(int aCanHandle)
     {
         int rawHandle = aCanHandle + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
 

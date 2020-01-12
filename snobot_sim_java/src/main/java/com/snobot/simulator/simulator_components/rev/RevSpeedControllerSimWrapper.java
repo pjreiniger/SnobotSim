@@ -45,4 +45,18 @@ public class RevSpeedControllerSimWrapper extends BaseCanSmartSpeedController
         throw new IllegalStateException("Not supported");
     }
 
+    public void setCanFeedbackDevice(int aFeedbackDevice)
+    {
+        FeedbackDevice newDevice = null;
+        if (aFeedbackDevice == 1)
+        {
+            newDevice = FeedbackDevice.Encoder;
+        }
+        else
+        {
+            sLOGGER.log(Level.WARN, "Unsupported feedback device " + aFeedbackDevice);
+        }
+
+        setCanFeedbackDevice(newDevice);
+    }
 }

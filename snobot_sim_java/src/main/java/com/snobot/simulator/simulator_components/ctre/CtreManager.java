@@ -3,7 +3,9 @@ package com.snobot.simulator.simulator_components.ctre;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -44,6 +46,9 @@ public class CtreManager
         aData.order(ByteOrder.LITTLE_ENDIAN);
 
         sLOGGER.log(Level.TRACE, "Handling motor controller message " + aCallback + ", " + aCanPort);
+
+
+        Set<String> unsupportedFunctions = new HashSet<>();
 
         if ("Create".equals(aCallback))
         {
@@ -135,6 +140,10 @@ public class CtreManager
                 sLOGGER.log(Level.ERROR, String.format("Unknown demand mode %d", mode));
                 break;
             }
+        }
+        else if ("GetBaseID".equals(aCallback))
+        {
+            aData.putInt(aCanPort);
         }
         else if ("ConfigSelectedFeedbackSensor".equals(aCallback))
         {
@@ -320,17 +329,9 @@ public class CtreManager
         ///////////////////////////////////
         // Unsupported, but not important
         ///////////////////////////////////
-        else if ("SetStatusFramePeriod".equals(aCallback))
+        else if (unsupportedFunctions.contains(aCallback))
         {
-            sLOGGER.log(Level.DEBUG, "SetStatusFramePeriod not supported");
-        }
-        else if ("ConfigVelocityMeasurementPeriod".equals(aCallback))
-        {
-            sLOGGER.log(Level.DEBUG, "ConfigVelocityMeasurementPeriod not supported");
-        }
-        else if ("ConfigVelocityMeasurementWindow".equals(aCallback))
-        {
-            sLOGGER.log(Level.DEBUG, "ConfigVelocityMeasurementWindow not supported");
+            sLOGGER.log(Level.DEBUG, aCallback + " not supported");
         }
         else
         {

@@ -1,5 +1,6 @@
 package com.snobot.simulator.simulator_components.ctre.unsupported;
 
+import com.snobot.test.utilities.BaseSimulatorJavaTest;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,6 @@ import com.ctre.phoenix.sensors.PigeonIMU_ControlFrame;
 import com.ctre.phoenix.sensors.PigeonIMU_Faults;
 import com.ctre.phoenix.sensors.PigeonIMU_StatusFrame;
 import com.ctre.phoenix.sensors.PigeonIMU_StickyFaults;
-import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
 @Tag("CTRE")
 public class TestPigeonIMUFunctions extends BaseSimulatorJavaTest
@@ -96,34 +96,34 @@ public class TestPigeonIMUFunctions extends BaseSimulatorJavaTest
         }
         imu.configGetParameter(0, 0, 0);
         imu.configGetParameter(0, 0);
-        for (PigeonIMU_StatusFrame pigeonIMUStatusFrame : PigeonIMU_StatusFrame.values())
+        for (PigeonIMU_StatusFrame statusFrame : PigeonIMU_StatusFrame.values())
         {
-            imu.setStatusFramePeriod(pigeonIMUStatusFrame, 0, 0);
+            imu.setStatusFramePeriod(statusFrame, 0, 0);
         }
-        for (PigeonIMU_StatusFrame pigeonIMUStatusFrame : PigeonIMU_StatusFrame.values())
+        for (PigeonIMU_StatusFrame statusFrame : PigeonIMU_StatusFrame.values())
         {
-            imu.setStatusFramePeriod(pigeonIMUStatusFrame, 0);
+            imu.setStatusFramePeriod(statusFrame, 0);
         }
         imu.setStatusFramePeriod(0, 0, 0);
         imu.setStatusFramePeriod(0, 0);
-        for (PigeonIMU_StatusFrame pigeonIMUStatusFrame : PigeonIMU_StatusFrame.values())
+        for (PigeonIMU_StatusFrame statusFrame : PigeonIMU_StatusFrame.values())
         {
-            imu.getStatusFramePeriod(pigeonIMUStatusFrame, 0);
+            imu.getStatusFramePeriod(statusFrame, 0);
         }
-        for (PigeonIMU_StatusFrame pigeonIMUStatusFrame : PigeonIMU_StatusFrame.values())
+        for (PigeonIMU_StatusFrame statusFrame : PigeonIMU_StatusFrame.values())
         {
-            imu.getStatusFramePeriod(pigeonIMUStatusFrame);
+            imu.getStatusFramePeriod(statusFrame);
         }
-        for (PigeonIMU_ControlFrame pigeonIMUControlFrame : PigeonIMU_ControlFrame.values())
+        for (PigeonIMU_ControlFrame statusFrame : PigeonIMU_ControlFrame.values())
         {
-            imu.setControlFramePeriod(pigeonIMUControlFrame, 0);
+            imu.setControlFramePeriod(statusFrame, 0);
         }
         imu.setControlFramePeriod(0, 0);
         imu.getFaults(new PigeonIMU_Faults());
         imu.getStickyFaults(new PigeonIMU_StickyFaults());
         imu.clearStickyFaults(0);
         imu.clearStickyFaults();
-        // imu.getDeviceID();
+        imu.getDeviceID();
         imu.configAllSettings(new PigeonIMUConfiguration(), 0);
         imu.configAllSettings(new PigeonIMUConfiguration());
         imu.getAllConfigs(new PigeonIMUConfiguration(), 0);

@@ -1,6 +1,6 @@
 package com.snobot.simulator.simulator_components.ctre.unsupported;
 
-import org.junit.jupiter.api.Tag;
+import com.snobot.test.utilities.BaseSimulatorJavaTest;
 import org.junit.jupiter.api.Test;
 
 import com.ctre.phoenix.ParamEnum;
@@ -28,11 +28,7 @@ import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.FilterConfiguration;
 import com.ctre.phoenix.motorcontrol.can.SlotConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonSRXPIDSetConfiguration;
-import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
-@Tag("CTRE")
 public class TestBaseMotorControllerFunctions extends BaseSimulatorJavaTest
 {
     @Test
@@ -130,28 +126,28 @@ public class TestBaseMotorControllerFunctions extends BaseSimulatorJavaTest
         {
             for (FeedbackDevice feedbackDevice : FeedbackDevice.values())
             {
-                talon.configSensorTerm(sensorTerm, feedbackDevice);
+                talon.configSensorTerm(sensorTerm, feedbackDevice, 0);
             }
         }
         for (SensorTerm sensorTerm : SensorTerm.values())
         {
             for (FeedbackDevice feedbackDevice : FeedbackDevice.values())
             {
-                talon.configSensorTerm(sensorTerm, feedbackDevice, 0);
-            }
-        }
-        for (SensorTerm sensorTerm : SensorTerm.values())
-        {
-            for (RemoteFeedbackDevice feedbackDevice : RemoteFeedbackDevice.values())
-            {
-                talon.configSensorTerm(sensorTerm, feedbackDevice, 0);
-            }
-        }
-        for (SensorTerm sensorTerm : SensorTerm.values())
-        {
-            for (RemoteFeedbackDevice feedbackDevice : RemoteFeedbackDevice.values())
-            {
                 talon.configSensorTerm(sensorTerm, feedbackDevice);
+            }
+        }
+        for (SensorTerm sensorTerm : SensorTerm.values())
+        {
+            for (RemoteFeedbackDevice remoteFeedbackDevice : RemoteFeedbackDevice.values())
+            {
+                talon.configSensorTerm(sensorTerm, remoteFeedbackDevice, 0);
+            }
+        }
+        for (SensorTerm sensorTerm : SensorTerm.values())
+        {
+            for (RemoteFeedbackDevice remoteFeedbackDevice : RemoteFeedbackDevice.values())
+            {
+                talon.configSensorTerm(sensorTerm, remoteFeedbackDevice);
             }
         }
         talon.getSelectedSensorPosition(0);
@@ -366,88 +362,14 @@ public class TestBaseMotorControllerFunctions extends BaseSimulatorJavaTest
         talon.follow(followTalon);
         talon.valueUpdated();
         talon.configureSlot(new SlotConfiguration());
+        talon.configureSlot(new SlotConfiguration(), 0, 0);
         talon.getSlotConfigs(new SlotConfiguration(), 0, 0);
         talon.getSlotConfigs(new SlotConfiguration());
         talon.configureFilter(new FilterConfiguration(), 0, 0, false);
+        talon.configureFilter(new FilterConfiguration(), 0, 0);
         talon.configureFilter(new FilterConfiguration());
         talon.getFilterConfigs(new FilterConfiguration(), 0, 0);
         talon.getFilterConfigs(new FilterConfiguration());
-
-        //////////////////////////////////////////////
-
-        // talon.getSensorCollection();
-        for (StatusFrameEnhanced statusFrameEnhanced : StatusFrameEnhanced.values())
-        {
-            talon.setStatusFramePeriod(statusFrameEnhanced, 0, 0);
-        }
-        for (StatusFrameEnhanced statusFrameEnhanced : StatusFrameEnhanced.values())
-        {
-            talon.setStatusFramePeriod(statusFrameEnhanced, 0);
-        }
-        for (StatusFrameEnhanced statusFrameEnhanced : StatusFrameEnhanced.values())
-        {
-            talon.getStatusFramePeriod(statusFrameEnhanced, 0);
-        }
-        for (StatusFrameEnhanced statusFrameEnhanced : StatusFrameEnhanced.values())
-        {
-            talon.getStatusFramePeriod(statusFrameEnhanced);
-        }
-        talon.getOutputCurrent();
-        for (VelocityMeasPeriod velocityMeasPeriod : VelocityMeasPeriod.values())
-        {
-            talon.configVelocityMeasurementPeriod(velocityMeasPeriod, 0);
-        }
-        for (VelocityMeasPeriod velocityMeasPeriod : VelocityMeasPeriod.values())
-        {
-            talon.configVelocityMeasurementPeriod(velocityMeasPeriod);
-        }
-        talon.configVelocityMeasurementWindow(0, 0);
-        talon.configVelocityMeasurementWindow(0);
-        for (LimitSwitchSource limitSwitchSource : LimitSwitchSource.values())
-        {
-            for (LimitSwitchNormal limitSwitchNormal : LimitSwitchNormal.values())
-            {
-                talon.configForwardLimitSwitchSource(limitSwitchSource, limitSwitchNormal, 0);
-            }
-        }
-        for (LimitSwitchSource limitSwitchSource : LimitSwitchSource.values())
-        {
-            for (LimitSwitchNormal limitSwitchNormal : LimitSwitchNormal.values())
-            {
-                talon.configForwardLimitSwitchSource(limitSwitchSource, limitSwitchNormal);
-            }
-        }
-        for (LimitSwitchSource limitSwitchSource : LimitSwitchSource.values())
-        {
-            for (LimitSwitchNormal limitSwitchNormal : LimitSwitchNormal.values())
-            {
-                talon.configReverseLimitSwitchSource(limitSwitchSource, limitSwitchNormal, 0);
-            }
-        }
-        for (LimitSwitchSource limitSwitchSource : LimitSwitchSource.values())
-        {
-            for (LimitSwitchNormal limitSwitchNormal : LimitSwitchNormal.values())
-            {
-                talon.configReverseLimitSwitchSource(limitSwitchSource, limitSwitchNormal);
-            }
-        }
-        talon.configPeakCurrentLimit(0, 0);
-        talon.configPeakCurrentLimit(0);
-        talon.configPeakCurrentDuration(0, 0);
-        talon.configPeakCurrentDuration(0);
-        talon.configContinuousCurrentLimit(0, 0);
-        talon.configContinuousCurrentLimit(0);
-        talon.enableCurrentLimit(false);
-        // talon.configurePID(new TalonSRXPIDSetConfiguration(), 0, 0, false);
-        // talon.configurePID(new TalonSRXPIDSetConfiguration());
-        talon.getPIDConfigs(new TalonSRXPIDSetConfiguration(), 0, 0);
-        talon.getPIDConfigs(new TalonSRXPIDSetConfiguration());
-        talon.configAllSettings(new TalonSRXConfiguration(), 0);
-        talon.configAllSettings(new TalonSRXConfiguration());
-        talon.getAllConfigs(new TalonSRXConfiguration(), 0);
-        talon.getAllConfigs(new TalonSRXConfiguration());
-
-        ///////////////////////////////////////
 
         talon.DestroyObject();
     }
