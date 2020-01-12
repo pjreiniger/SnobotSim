@@ -2,6 +2,8 @@ package com.snobot.simulator.simulator_components.rev;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +20,9 @@ public class RevManager
     public void handleMessage(String aCallback, int aCanPort, ByteBuffer aData)
     {
         aData.order(ByteOrder.LITTLE_ENDIAN);
+
+        Set<String> unsupportedFunctions = new HashSet<>();
+        unsupportedFunctions.add("GetFault");
 
         switch (aCallback)
         {
@@ -157,7 +162,14 @@ public class RevManager
             break;
         }
         default:
-            sLOGGER.log(Level.WARN, "Unsupported option " + aCallback + "(" + aData.limit() + " bytes)");
+            if (unsupportedFunctions.contains(aCallback))
+            {
+                sLOGGER.log(Level.DEBUG, "Unsupported option " + aCallback + "(" + aData.limit() + " bytes)");
+            }
+            else
+            {
+                sLOGGER.log(Level.WARN, "Unsupported option " + aCallback + "(" + aData.limit() + " bytes)");
+            }
             break;
         }
     }

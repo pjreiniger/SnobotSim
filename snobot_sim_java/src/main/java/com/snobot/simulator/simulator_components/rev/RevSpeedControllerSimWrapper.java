@@ -1,5 +1,9 @@
 package com.snobot.simulator.simulator_components.rev;
 
+import com.snobot.simulator.SensorActuatorRegistry;
+import com.snobot.simulator.simulator_components.smart_sc.SmartScAnalogIn;
+import com.snobot.simulator.simulator_components.smart_sc.SmartScEncoder;
+import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +22,29 @@ public class RevSpeedControllerSimWrapper extends BaseCanSmartSpeedController
     @Override
     protected void registerFeedbackSensor()
     {
-        sLOGGER.log(Level.ERROR, "Unsupported");
+        switch (mFeedbackDevice)
+        {
+        case Encoder:
+            if (!DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(mHandle))
+            {
+                DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mHandle, SmartScEncoder.class.getName());
+                DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(getHandle(), getHandle());
+                sLOGGER.log(Level.WARN, "REV Encoder on port " + mCanHandle + " was not registerd before starting the robot");
+            }
+            SensorActuatorRegistry.get().getEncoders().get(getHandle()).setInitialized(true);
+            break;
+        case Analog:
+            if (!DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(mHandle))
+            {
+                DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mHandle, SmartScAnalogIn.class.getName());
+                sLOGGER.log(Level.WARN, "REV Analog on port " + mCanHandle + " was not registerd before starting the robot");
+            }
+            SensorActuatorRegistry.get().getAnalogIn().get(getHandle()).setInitialized(true);
+            break;
+        default:
+            sLOGGER.log(Level.ERROR, "Unsupported feedback device " + mFeedbackDevice);
+            break;
+        }
     }
 
     @Override

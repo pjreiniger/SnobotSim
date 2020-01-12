@@ -33,7 +33,7 @@ public class CtreManager
 
     private CtreTalonSrxSpeedControllerSim getMotorControllerWrapper(int aCanPort)
     {
-        return (CtreTalonSrxSpeedControllerSim) SensorActuatorRegistry.get().getSpeedControllers().get(aCanPort + 100);
+        return (CtreTalonSrxSpeedControllerSim) SensorActuatorRegistry.get().getSpeedControllers().get(aCanPort + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET);
     }
 
     private CtrePigeonImuSim getPigeonWrapper(int aCanPort)
