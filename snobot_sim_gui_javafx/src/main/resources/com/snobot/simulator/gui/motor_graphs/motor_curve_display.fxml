@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.snobot.simulator.gui.motor_graphs.MotorCurveDisplayController">
+  <center>
+    <LineChart fx:id="mChart" disable="true">
+      <xAxis>
+        <NumberAxis side="BOTTOM" />
+      </xAxis>
+      <yAxis>
+        <NumberAxis side="LEFT" />
+      </yAxis>
+    </LineChart>
+  </center>
+</BorderPane>

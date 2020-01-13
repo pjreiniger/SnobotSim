@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400" minWidth="200" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.snobot.simulator.gui.SimulatorFrameController">
+    <top>
+        <VBox>
+           <children>
+              <fx:include fx:id="mEnablePanel" source="enable_panel.fxml" />
+              <fx:include fx:id="mGameData" source="game_data/generic_game_data.fxml" />
+           </children>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true">
+            <content>
+                <fx:include fx:id="mConfigurationPanel" source="configuration_panel.fxml" />
+            </content>
+        </ScrollPane>
+    </center>
+   <bottom>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+                <fx:include fx:id="mAdvancedSettingsWidget" source="widgets/advanced_settings_widget.fxml" />
+                <Button fx:id="mJoystickSettingsButton" text="Joystick Settings" onAction="#handleJoystickSettingsButton" />
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>

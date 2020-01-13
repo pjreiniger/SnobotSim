@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+ 
+ 
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+          fx:controller="com.snobot.simulator.gui.joysticks.sub_panels.RawPanelController"
+          fx:id="mGridPane">
+          
+  <GridPane fx:id="mAnalogPane"  GridPane.rowIndex="0" GridPane.columnIndex="0" />
+  <GridPane fx:id="mDigitalPane" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+</GridPane>

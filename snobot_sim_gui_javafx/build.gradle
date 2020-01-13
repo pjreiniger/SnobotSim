@@ -1,9 +1,11 @@
 
 evaluationDependsOn(':snobot_sim_utilities')
+evaluationDependsOn(':sim_adx_family')
+evaluationDependsOn(':sim_extension_navx')
 
 ext
 {
-    baseId = "snobot_sim_gui"
+    baseId = "snobot_sim_gui_javafx"
 }
 
 apply from: "${rootDir}/common/base_java_script.gradle"
@@ -16,27 +18,31 @@ configurations {
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
 
+    compile "org.openjfx:javafx-base:11:win"
+    compile "org.openjfx:javafx-graphics:11:win"
+    compile "org.openjfx:javafx-controls:11:win"
+    compile "org.openjfx:javafx-fxml:11:win"
+
     // WPILib
     compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     compile 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
     compile 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
-    runtime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':' + getCurrentOsArch()
+    runtime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':all'
     compile 'edu.wpi.first.ntcore:ntcore-java:' + getNtCoreVersion()
-    runtime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':' + getCurrentOsArch()
-    runtime 'edu.wpi.first.hal:hal-jni:' + allwpilibVersion() + ':' + getCurrentOsArch()
-    compile 'edu.wpi.first.thirdparty.frc2020.opencv:opencv-java:' + getWpilibOpencvVersion()
-    runtime 'edu.wpi.first.thirdparty.frc2020.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':' + getCurrentOsArch()
-
+    runtime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':all'
+    runtime 'edu.wpi.first.hal:hal-jni:' + allwpilibVersion() + ':all'
+    compile 'org.opencv:opencv-java:' + getWpilibOpencvVersion()
+    runtime 'org.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':all'
 
     // 3rd Party
     compile  'net.java.jinput:jinput:2.0.9'
     wpilibNativeDeps  'net.java.jinput:jinput:2.0.9:natives-all'
     compile 'jfree:jcommon:1.0.16'
     compile 'jfree:jfreechart:1.0.13'
-    compile 'org.apache.logging.log4j:log4j-api:2.12.0'
-    compile 'org.apache.logging.log4j:log4j-core:2.12.0'
-    compile 'org.yaml:snakeyaml:1.25'
-    compile 'com.miglayout:miglayout-swing:5.2'
+    compile 'org.apache.logging.log4j:log4j-api:2.11.0'
+    compile 'org.apache.logging.log4j:log4j-core:2.11.0'
+    compile 'org.yaml:snakeyaml:1.18'
+    compile 'com.miglayout:miglayout-swing:4.2'
     //compile 'org.python:jython:2.7.1b3'
 
     // Internal
@@ -52,14 +58,16 @@ dependencies {
     if(build_simulator_java)
     {
         compile project(":snobot_sim_java")
+        wpilibNativeDeps project(':sim_extension_navx').packageNativeFiles.outputs.files
+        wpilibNativeDeps project(':sim_adx_family').packageNativeFiles.outputs.files
     }
 
     // Test
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
-    testRuntime 'org.junit.platform:junit-platform-launcher:1.5.1'
-    runtime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':' + getCurrentOsArch()
-    runtime 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion() + ':' + getCurrentOsArch()
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    testRuntime 'org.junit.platform:junit-platform-launcher:1.2.0'
+    runtime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':all'
+    runtime 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion() + ':all'
 }
 
 apply from: "${rootDir}/common/extract_native_libraries.gradle"
@@ -87,7 +95,7 @@ eclipse.classpath.file {
     whenMerged { classpath ->
         classpath.entries.each {
             if(it.path.contains("jinput") && !it.path.contains("natives")) {
-                it.setNativeLibraryLocation("snobot_sim_gui/build/native_libs")
+                it.setNativeLibraryLocation("snobot_sim_gui_javafx/build/native_libs")
             }
         }
     }

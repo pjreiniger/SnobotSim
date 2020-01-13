@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.snobot.simulator.gui.widgets.settings.motor_sim.DcMotorModelParamsController">
+   <children>
+      <TitledPane collapsible="false" text="Transmission" GridPane.columnIndex="0" GridPane.rowIndex="0">
+         <content>
+            <GridPane>
+               <children>
+                  <Label text="Motor Type" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                  <ComboBox fx:id="mMotorType" onAction="#handleMotorType" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                       <items>
+                         <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="CIM" />
+                           <String fx:value="Mini CIM" />
+                           <String fx:value="Bag" />
+                           <String fx:value="775 Pro" />
+                           <String fx:value="Andymark RS 775-125" />
+                           <String fx:value="Banebots RS 775" />
+                           <String fx:value="Andymark 9015" />
+                           <String fx:value="Banebots RS 550" />
+                         </FXCollections>
+                       </items>
+                   </ComboBox>
+
+                  <Label text="Num Motors" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <Spinner fx:id="mNumMotors" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <valueFactory>
+                       <SpinnerValueFactory.IntegerSpinnerValueFactory max="10" min="1" />
+                     </valueFactory>
+                   </Spinner>
+
+                  <Label text="Gear Ratio" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  <TextField fx:id="mGearRatio" text="1.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                  <Label text="Efficiency" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                  <TextField fx:id="mEfficiency" text="1.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+            </GridPane>
+         </content>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </TitledPane>
+
+      <TitledPane collapsible="false" text="Motor Parameters" GridPane.columnIndex="0" GridPane.rowIndex="1">
+   <content>
+            <GridPane>
+               <children>
+                  <Label text="Inverted" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                  <CheckBox fx:id="mInverted" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                  <Label text="Brake" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <CheckBox fx:id="mBrake" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                  <Label text="Nominal Voltage" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  <TextField fx:id="mNominalVoltage" disable="true" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                  <Label text="Free Speed RPM" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                  <TextField fx:id="mFreeSpeedRpm" disable="true" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                  <Label text="Free Current" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                  <TextField fx:id="mNominalCurrent" disable="true" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                  <Label text="Stall Torque" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                  <TextField fx:id="mStallTorque" disable="true" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                  <Label text="Stall Current" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                  <TextField fx:id="mStallCurrent" disable="true" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+            </GridPane>
+   </content>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </TitledPane>
+      <fx:include fx:id="mMotorChart" source="../../../motor_graphs/motor_curve_display.fxml" GridPane.columnIndex="1" GridPane.rowSpan="3" />
+   </children>
+   <columnConstraints>
+      <ColumnConstraints percentWidth="50.0" />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

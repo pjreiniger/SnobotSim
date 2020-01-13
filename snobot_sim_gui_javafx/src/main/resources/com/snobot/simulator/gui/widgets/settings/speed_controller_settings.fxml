@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.snobot.simulator.gui.widgets.settings.SpeedControllerSettingsDialog">
+   <children>
+      <Label text="Display Name" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
+         <padding>
+            <Insets right="5.0" />
+         </padding></Label>
+      <TextField fx:id="mNameField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+      <Label text="Simulation Type" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+         <padding>
+            <Insets right="5.0" />
+         </padding></Label>
+      <ComboBox fx:id="mSelectionBox" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSimType" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+      <StackPane fx:id="mLayoutManager" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+          <children>
+            <fx:include fx:id="mSimpleConfigPanel" source="motor_sim/simple_motor_sim.fxml" />
+            <fx:include fx:id="mStaticLoadConfigPanel" source="motor_sim/static_load_sim.fxml" />
+            <fx:include fx:id="mRotationalLoadConfigPanel" source="motor_sim/rotational_load_sim.fxml" />
+            <fx:include fx:id="mGravitationalLoadConfigPanel" source="motor_sim/gravitational_load_sim.fxml" />
+          </children>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </StackPane>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints maxWidth="300.0" minWidth="90.0" percentWidth="50.0" prefWidth="300.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="510.0" minWidth="300.0" percentWidth="50.0" prefWidth="300.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

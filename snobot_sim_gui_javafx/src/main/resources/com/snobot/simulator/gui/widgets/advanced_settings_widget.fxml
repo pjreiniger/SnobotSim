@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TitledPane fx:controller="com.snobot.simulator.gui.widgets.AdvancedSettingsController" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Advanced Settings" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+  <content>
+      <HBox spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleSpiI2cButton" text="SPI/I2C Settings" textAlignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#handleTankDriveButton" text="Tank Drive Settings" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </HBox>
+  </content>
+</TitledPane>

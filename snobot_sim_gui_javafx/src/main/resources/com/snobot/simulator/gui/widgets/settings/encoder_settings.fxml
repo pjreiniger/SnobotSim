@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.snobot.simulator.gui.widgets.settings.EncoderSettingsDialog">
+   <children>
+      <TextField fx:id="mNameField" GridPane.columnIndex="1" />
+      <Label text="Display Name" />
+      <Label text="Connected Controller" GridPane.rowIndex="1" />
+      <ComboBox fx:id="mSpeedControllerComboBox" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+   </children>
+</GridPane>

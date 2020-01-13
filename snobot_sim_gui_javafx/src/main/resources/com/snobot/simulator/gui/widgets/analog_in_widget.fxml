@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.layout.*?>
+
+<GridPane hgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.snobot.simulator.gui.widgets.AnalogInWidgetController">
+   <children>
+
+       <Button onAction="#openSettings" GridPane.columnIndex="0" GridPane.rowIndex="0">
+         <graphic>
+           <ImageView pickOnBounds="true" preserveRatio="true">
+             <image>
+               <Image url="/com/snobot/simulator/gui/widgets/gear.png" />
+             </image>
+           </ImageView>
+         </graphic>
+       </Button>
+
+       <Label fx:id="mLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+       <Circle fx:id="mValueIcon" fill="DODGERBLUE" radius="15" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+
+       <TextField fx:id="mValueField" onAction="#handleAction" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints percentWidth="40.0" />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+
+</GridPane>

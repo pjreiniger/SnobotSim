@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+
+
+<GridPane hgap="10" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.snobot.simulator.gui.widgets.AccelerometerWidgetController">
+
+    <Button onAction="#openSettings" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <graphic>
+        <ImageView  pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="/com/snobot/simulator/gui/widgets/gear.png" />
+          </image>
+        </ImageView>
+      </graphic>
+    </Button>
+
+    <Label fx:id="mLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+    <Pane GridPane.columnIndex="2" GridPane.rowIndex="0">
+        <!-- Background box -->
+        <Rectangle fx:id="mPole"
+                fill="WHITE"
+                width="80"
+                height="15"
+                stroke="BLACK"
+                strokeType="INSIDE" />
+
+        <Rectangle fx:id="mAccelerationBar"
+                fill="DODGERBLUE"
+                x="40" y="0"
+                width="0"
+                height="15"/>
+    </Pane>
+       <TextField fx:id="mAccelerationText" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints percentWidth="40.0" />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+
+</GridPane>

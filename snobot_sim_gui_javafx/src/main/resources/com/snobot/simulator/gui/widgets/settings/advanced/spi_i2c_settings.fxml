@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox fx:controller="com.snobot.simulator.gui.widgets.settings.advanced.SpiI2cSettingsController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TitledPane text="SPI">
+         <GridPane fx:id="mSpiPane" />
+      </TitledPane>
+      <TitledPane text="I2C">
+         <GridPane fx:id="mI2CPane" />
+      </TitledPane>
+   </children>
+</VBox>

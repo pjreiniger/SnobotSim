@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.snobot.simulator.gui.joysticks.ConnectedInputConfigPanelController">
+   <top>
+      <GridPane>
+        <Label text="Wrapper Type:"  GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="mInterpretAsComboBox" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+      </GridPane>
+   </top>
+   <center>
+      <TabPane tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Raw">
+              <fx:include fx:id="mRawPanel" source="sub_panels/raw_controller.fxml" />
+            </Tab>
+            <Tab text="Wrapped">
+              <fx:include fx:id="mWrappedPanel" source="sub_panels/wrapped_controller.fxml" />
+            </Tab>
+            <Tab text="As XBOX">
+                <fx:include fx:id="mXboxPanel" source="sub_panels/xbox_display.fxml" />
+            </Tab>
+         </tabs>
+      </TabPane>
+   </center>
+</BorderPane>

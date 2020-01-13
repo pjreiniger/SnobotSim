@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.snobot.simulator.SimulatorPreloaderController"
+            fx:id="root"
+            prefWidth="480.0" prefHeight="240.0">
+    <Pane fx:id="mBackgroundContainer"/>
+    <center>
+        <StackPane>
+            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity">
+                <Label text="SnobotSim"/>
+                <Label fx:id="mVersionLabel"/>
+            </VBox>
+        </StackPane>
+    </center>
+    <bottom>
+        <VBox>
+            <Label fx:id="mStateLabel" alignment="CENTER" maxWidth="Infinity" textAlignment="CENTER"/>
+            <ProgressBar fx:id="mProgressBar" maxWidth="Infinity" progress="0"/>
+        </VBox>
+    </bottom>
+</BorderPane>

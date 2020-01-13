@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:controller="com.snobot.simulator.gui.EnablePanelController" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <CheckBox fx:id="mEnableButton" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Enable" />
+      <CheckBox fx:id="mAutonButton" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Autonomous" />
+      <Label text="Time:" />
+      <Label fx:id="mMatchTime" text="MATCH_TIME" />
+   </children>
+</HBox>

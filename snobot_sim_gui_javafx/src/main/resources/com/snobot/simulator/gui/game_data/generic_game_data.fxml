@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+
+<TitledPane text="Game Data" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.snobot.simulator.gui.game_data.GenericGameDataController">
+   <GridPane>
+      <children>
+         <Label text="Game Data" />
+         <Label text="Match Number" GridPane.rowIndex="1" />
+         <Label text="Match Type" GridPane.rowIndex="2" />
+         <Label text="Event Name" GridPane.rowIndex="3" />
+         <ComboBox fx:id="mMatchType" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2"  onAction="#handleUpdate" />
+         <TextField fx:id="mMatchNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" text="1" />
+         <TextField fx:id="mEventName" GridPane.columnIndex="1" GridPane.rowIndex="3" text="Testing Event"/>
+         <TextField fx:id="mGameData" GridPane.columnIndex="1" text="Hello World" />
+      </children>
+   </GridPane>
+</TitledPane>

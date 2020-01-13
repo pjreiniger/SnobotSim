@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="com.snobot.simulator.gui.widgets.settings.motor_sim.SimpleMotorSimController">
+  <children>
+    <Label text="Max Speed"        GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <TextField fx:id="mMaxSpeed"   GridPane.columnIndex="1" GridPane.rowIndex="0" text="1.0" />
+  </children>
+</GridPane>

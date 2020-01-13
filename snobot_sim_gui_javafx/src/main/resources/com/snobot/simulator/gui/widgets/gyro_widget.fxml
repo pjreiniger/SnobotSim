@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.*?>
+
+<GridPane hgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.snobot.simulator.gui.widgets.GyroWidgetController">
+   <children>
+
+       <Button onAction="#openSettings" GridPane.columnIndex="0" GridPane.rowIndex="0">
+         <graphic>
+           <ImageView pickOnBounds="true" preserveRatio="true">
+             <image>
+               <Image url="/com/snobot/simulator/gui/widgets/gear.png" />
+             </image>
+           </ImageView>
+         </graphic>
+       </Button>
+
+       <Label fx:id="mLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+       <Pane maxHeight="15.0" maxWidth="15.0" minHeight="15" minWidth="15" prefHeight="15.0" prefWidth="15.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <children>
+             <Circle fx:id="mAngleIndicator" fill="WHITE" radius="15" stroke="BLACK" strokeType="INSIDE" />
+             <Line fx:id="mAngleArm" endX="0.0" endY="-15.0" stroke="BLACK" strokeDashOffset="1.0" />
+      </children>
+       </Pane>
+
+       <TextField fx:id="mAngleText" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints percentWidth="40.0" />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+
+</GridPane>

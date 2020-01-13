@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+
+<Pane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.snobot.simulator.gui.joysticks.sub_panels.XboxDisplayController">
+   <children>
+      <Group >
+         <ImageView pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@xbox_controller.png" />
+            </image>
+         </ImageView>
+         <Circle fx:id="mXButton"     radius="30" centerX="520" centerY="248" />
+         <Circle fx:id="mYButton"     radius="30" centerX="580" centerY="200" />
+         <Circle fx:id="mBButton"     radius="30" centerX="632" centerY="245" />
+         <Circle fx:id="mAButton"     radius="30" centerX="570" centerY="290" />
+         <Circle fx:id="mBackButton"  radius="30" centerX="295" centerY="250" />
+         <Circle fx:id="mStartButton" radius="30" centerX="445" centerY="250" />
+         <Circle fx:id="mXboxButton"  radius="30" centerX="370" centerY="247" />
+         
+         <Rectangle fx:id="mLeftBumper"  x="95"  y="95" width="140" height="55" />
+         <Rectangle fx:id="mRightBumper" x="510" y="95" width="140" height="55" />
+         
+         <Rectangle fx:id="mL3" x="115" y="228" width="98" height="80" />
+         <Rectangle fx:id="mR3" x="420" y="330" width="98" height="80" />
+         
+         <Circle fx:id="mLeftJoystickCircle"  centerX="162" centerY="270" radius="5" />
+         <Line   fx:id="mLeftJoystickLine"    startX ="162" startY ="270" endX="150" endY="244" />
+         <Circle fx:id="mRightJoystickCircle" centerX="468" centerY="372" radius="5" />
+         <Line   fx:id="mRightJoystickLine"   startX ="468" startY ="372" endX="530" endY="560"/>
+      </Group>
+   </children>
+</Pane>
