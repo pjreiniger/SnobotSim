@@ -1,0 +1,26 @@
+apply plugin: "cpp"
+apply plugin: 'visual-studio'
+apply plugin: 'edu.wpi.first.NativeUtils'
+
+apply from: "${rootDir}/common/config.gradle"
+
+
+model {
+    components {
+        yamlcpp(NativeLibrarySpec) {
+            sources {
+                cpp {
+                    source {
+                        srcDirs = ['yaml-cpp/src']
+                        includes = ['**/*.cpp']
+                    }
+                    exportedHeaders {
+                        srcDirs = ["yaml-cpp/include"]
+                    }
+                }
+            }
+        }
+
+    }
+
+}

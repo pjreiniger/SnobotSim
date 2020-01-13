@@ -1,7 +1,7 @@
 package com.snobot.simulator;
 
-import com.snobot.simulator.config.v1.SimulatorConfigReaderV1;
 import com.snobot.simulator.robot_container.IRobotClassContainer;
+import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 /**
  * Base class for a custom simulator.
@@ -11,18 +11,17 @@ import com.snobot.simulator.robot_container.IRobotClassContainer;
  */
 public class ASimulator implements ISimulatorUpdater
 {
-    private final SimulatorConfigReaderV1 mConfigReader;
     private String mConfigFile;
 
     protected ASimulator()
     {
-        mConfigReader = new SimulatorConfigReaderV1();
+
     }
 
     public boolean loadConfig(String aConfigFile)
     {
         mConfigFile = aConfigFile;
-        return mConfigReader.loadConfig(mConfigFile);
+        return DataAccessorFactory.getInstance().getSimulatorDataAccessor().loadConfigFile(mConfigFile);
     }
 
 

@@ -16,8 +16,8 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.snobot.simulator.config.SimulatorConfigWriter;
 import com.snobot.simulator.gui.joysticks.JoystickManagerDialog;
+import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 /**
  * Top level frame that displays all of the simulation displays
@@ -123,8 +123,6 @@ public class SimulatorFrame extends JFrame
 
     private void saveSettings()
     {
-        SimulatorConfigWriter writer = new SimulatorConfigWriter();
-
         String dumpFile = null;
 
         if (mSimulatorConfigFile == null)
@@ -156,7 +154,7 @@ public class SimulatorFrame extends JFrame
                 mSimulatorConfigFile = dumpFile;
             }
 
-            writer.writeConfig(dumpFile);
+            DataAccessorFactory.getInstance().getSimulatorDataAccessor().saveConfigFile(dumpFile);
         }
 
         showSettingsOptions(false);

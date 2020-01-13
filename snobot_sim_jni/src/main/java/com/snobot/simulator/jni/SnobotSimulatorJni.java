@@ -17,4 +17,8 @@ public final class SnobotSimulatorJni extends BaseSimulatorJni
     public static native String getVersion();
 
     public static native void initializeLogging(int aLogLevel);
+
+    public static native boolean loadConfigFile(String aConfigFile);
+
+    public static native boolean saveConfigFile(String aConfigFile);
 }
