@@ -385,6 +385,12 @@ public class CtreManager
 
             pigeon.setInitialized(true);
         }
+//        else if("SetYaw".equals(aName))
+//        {
+//            int inverted = aData.getInt();
+//            CtrePigeonImuSim wrapper = getPigeonWrapper(aPort);
+//            ((CtrePigeonImuSim.PigeonGyroWrapper) wrapper.getYawWrapper()).setAngleOffset();
+//        }
 
         //////////////////////////
         //
