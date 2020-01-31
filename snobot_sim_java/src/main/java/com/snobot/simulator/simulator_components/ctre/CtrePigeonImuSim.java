@@ -92,9 +92,9 @@ public class CtrePigeonImuSim extends ASensorWrapper
             super(aName);
         }
 
-        public void setAngleOffset(double aOffset)
+        public void setDesiredYaw(double aOffset)
         {
-            mAngleOffset = aOffset;
+            mAngleOffset = aOffset - mAngle;
         }
 
         @Override

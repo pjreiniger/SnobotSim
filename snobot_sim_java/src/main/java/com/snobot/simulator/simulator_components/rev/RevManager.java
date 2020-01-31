@@ -132,6 +132,13 @@ public class RevManager
             wrapper.setMotionMagicMaxAcceleration((int) value);
             break;
         }
+        case "SetEncoderPosition":
+        {
+            int position = aData.getInt();
+            RevSpeedControllerSimWrapper wrapper = getMotorControllerWrapper(aCanPort);
+            wrapper.reset(position, wrapper.getVelocity(), wrapper.getCurrent());
+            break;
+        }
 
         ////////////////////////
         // Getters

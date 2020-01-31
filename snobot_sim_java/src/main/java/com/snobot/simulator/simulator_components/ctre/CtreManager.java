@@ -385,12 +385,12 @@ public class CtreManager
 
             pigeon.setInitialized(true);
         }
-//        else if("SetYaw".equals(aName))
-//        {
-//            int inverted = aData.getInt();
-//            CtrePigeonImuSim wrapper = getPigeonWrapper(aPort);
-//            ((CtrePigeonImuSim.PigeonGyroWrapper) wrapper.getYawWrapper()).setAngleOffset();
-//        }
+        else if ("SetYaw".equals(aName))
+        {
+            double desiredYaw = aData.getDouble();
+            CtrePigeonImuSim wrapper = getPigeonWrapper(aPort);
+            ((CtrePigeonImuSim.PigeonGyroWrapper) wrapper.getYawWrapper()).setDesiredYaw(desiredYaw);
+        }
 
         //////////////////////////
         //
@@ -419,7 +419,7 @@ public class CtreManager
         }
         else
         {
-            sLOGGER.log(Level.ERROR, "Unknown pigeon callback: " + aName);
+            sLOGGER.log(Level.ERROR, "Unsupported option " + aName + "(" + aData.limit() + " bytes)");
         }
     }
 
