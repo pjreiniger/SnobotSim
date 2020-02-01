@@ -34,7 +34,7 @@ dependencies {
     
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.5.2'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.5.2'
     testRuntime 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
     testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':' + getCurrentOsArch()
