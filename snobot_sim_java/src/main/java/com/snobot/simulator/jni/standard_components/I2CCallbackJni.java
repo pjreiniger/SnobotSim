@@ -18,6 +18,7 @@ public final class I2CCallbackJni
 
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public static void reset()
     {
         for (int i = 0; i < 2; ++i)

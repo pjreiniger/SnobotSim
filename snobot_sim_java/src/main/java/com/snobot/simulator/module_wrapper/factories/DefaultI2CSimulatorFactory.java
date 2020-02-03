@@ -72,7 +72,7 @@ public class DefaultI2CSimulatorFactory extends BaseWrapperFactory implements II
 
         if (sNAVX_TYPE.equals(aType))
         {
-            simulator = new I2CNavxSimulatorWrapper(fullType, aPort);
+            simulator = new I2CNavxSimulatorWrapper(fullType, "navX-Sensor[0]", aPort);
         }
         else if (sADXL345_TYPE.equals(aType))
         {

@@ -41,6 +41,7 @@ public class JavaAccelerometerWrapperAccessor extends BaseWrapperAccessor<IAccel
         return false;
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public void removeSimulator(int aPort)
     {

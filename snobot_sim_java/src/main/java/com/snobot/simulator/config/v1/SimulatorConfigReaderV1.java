@@ -42,11 +42,6 @@ public class SimulatorConfigReaderV1
 
     private SimulatorConfigV1 mConfig;
 
-    public SimulatorConfigReaderV1()
-    {
-        mConfig = null;
-    }
-
     /**
      * Loads the given config file. Calling this will save off the config, but
      * not actually make any of the {@code setName()} or

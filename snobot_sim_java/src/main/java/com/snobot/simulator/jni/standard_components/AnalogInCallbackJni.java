@@ -47,6 +47,7 @@ public final class AnalogInCallbackJni
         }
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public static void reset()
     {
         for (int i = 0; i < SensorUtil.kAnalogInputChannels; ++i)

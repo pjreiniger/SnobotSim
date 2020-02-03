@@ -28,6 +28,7 @@ import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor.Mot
  * @author PJ
  *
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class SimulatorConfigWriter
 {
     private static final Logger sLOGGER = LogManager.getLogger(SimulatorConfigWriter.class);
@@ -94,6 +95,7 @@ public class SimulatorConfigWriter
         return output;
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     protected void dumpBasicConfig(IBasicSensorActuatorWrapperAccessor aAccessor, List<BasicModuleConfig> aOutputList)
     {
         for (int portHandle : aAccessor.getPortList())
@@ -103,6 +105,7 @@ public class SimulatorConfigWriter
         }
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     protected void dumpEncoderConfig(EncoderWrapperAccessor aAccessor, List<EncoderConfig> aOutputList)
     {
         for (int portHandle : aAccessor.getPortList())
@@ -113,6 +116,7 @@ public class SimulatorConfigWriter
         }
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     protected void dumpPwmConfig(SpeedControllerWrapperAccessor aAccessor, List<PwmConfig> aOutputList)
     {
         for (int portHandle : aAccessor.getPortList())
@@ -130,6 +134,7 @@ public class SimulatorConfigWriter
         return motorConfig == null ? null : motorConfig.mFactoryParams;
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     protected void dumpSimulatorComponents(SimulatorDataAccessor aAccessor, List<Object> aOutputList)
     {
         for (Object config : aAccessor.getSimulatorComponentConfigs())

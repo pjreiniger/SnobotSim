@@ -1,10 +1,10 @@
 package com.snobot.simulator.simulator_components.navx;
 
+import com.kauailabs.navx.frc.AHRS;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import com.kauailabs.navx.frc.AHRS;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
@@ -13,11 +13,10 @@ import edu.wpi.first.wpilibj.I2C;
 @Tag("NavX")
 public class TestI2CNavx extends BaseSimulatorJavaTest
 {
-    private static final long SHUTDOWN_TIME = 50;
     private static final String sNAVX_TYPE = "NavX";
 
     @Test
-    public void testConstruction() throws InterruptedException
+    public void testConstruction()
     {
         // Port = 0
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
@@ -29,8 +28,6 @@ public class TestI2CNavx extends BaseSimulatorJavaTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(250));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(251));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(252));
-        navxOnboard.free();
-        Thread.sleep(SHUTDOWN_TIME);
 
         // Port = 1
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
@@ -42,8 +39,6 @@ public class TestI2CNavx extends BaseSimulatorJavaTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(253));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(254));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(255));
-        navxMxp.free();
-        Thread.sleep(SHUTDOWN_TIME);
     }
 
     @Test
@@ -89,10 +84,7 @@ public class TestI2CNavx extends BaseSimulatorJavaTest
         Assertions.assertEquals(700, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(pitchHandle), DOUBLE_EPSILON);
         Assertions.assertEquals(-470, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(rollHandle), DOUBLE_EPSILON);
         Assertions.assertEquals(179, navx.getYaw(), 2); // TODO fix mac builds
-        Assertions.assertEquals(-20, navx.getPitch(), DOUBLE_EPSILON);
-        Assertions.assertEquals(-110, navx.getRoll(), DOUBLE_EPSILON);
-
-        navx.free();
-        Thread.sleep(SHUTDOWN_TIME);
+        Assertions.assertEquals(700, navx.getPitch(), DOUBLE_EPSILON);
+        Assertions.assertEquals(-470, navx.getRoll(), DOUBLE_EPSILON);
     }
 }

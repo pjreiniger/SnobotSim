@@ -47,6 +47,7 @@ public final class AnalogGyroCallbackJni
         }
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public static void reset()
     {
 //        SimDeviceDataJNI.registerSimDeviceCreatedCallback("", )

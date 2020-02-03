@@ -47,6 +47,7 @@ public final class RelayCallbackJni
         }
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public static void reset()
     {
         for (int i = 0; i < SensorUtil.kRelayChannels; ++i)

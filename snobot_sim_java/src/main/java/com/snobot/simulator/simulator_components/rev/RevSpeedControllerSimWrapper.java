@@ -71,6 +71,7 @@ public class RevSpeedControllerSimWrapper extends BaseCanSmartSpeedController
         throw new IllegalStateException("Not supported");
     }
 
+    @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
     public void setCanFeedbackDevice(int aFeedbackDevice)
     {
         FeedbackDevice newDevice = null;

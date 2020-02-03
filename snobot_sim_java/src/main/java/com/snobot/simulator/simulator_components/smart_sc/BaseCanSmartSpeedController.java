@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.module_wrapper.BasePwmWrapper;
 
+@SuppressWarnings("PMD.AvoidReassigningParameters")
 public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
 {
     private static final Logger sLOGGER = LogManager.getLogger(BaseCanSmartSpeedController.class);
@@ -63,6 +64,7 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
 
     protected List<BaseCanSmartSpeedController> mFollowers;
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public BaseCanSmartSpeedController(int aCanHandle, String aBaseName, int aPidSlots)
     {
         super(aCanHandle, aBaseName + " SC " + (aCanHandle - sCAN_SC_OFFSET));

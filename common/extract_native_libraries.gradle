@@ -18,7 +18,6 @@ dependencies {
     //wpilibNativeDeps 'edu.wpi.first.wpilibj:wpilibj-jniShared:' + allwpilibVersion() + ":${nativeclassifier}"
     wpilibNativeDeps 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ":${nativeclassifier}"
     wpilibNativeDeps 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion() + ":${nativeclassifier}"
-    wpilibNativeDeps 'com.snobot.simulator:navx_simulator:' + getNavxSimVersion() + ":${nativeclassifier}"
 }
 
 task extract_wpilib {

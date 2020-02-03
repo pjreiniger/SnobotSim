@@ -16,11 +16,6 @@ public class WpiEncoderWrapper extends BaseEncoderWrapper implements NotifyCallb
 
     public WpiEncoderWrapper(int aPort)
     {
-        this(aPort, "Encoder " + aPort);
-    }
-
-    public WpiEncoderWrapper(int aPort, String aName)
-    {
         super("Encoder " + aPort);
 
         mDistancePerPulse = 1;

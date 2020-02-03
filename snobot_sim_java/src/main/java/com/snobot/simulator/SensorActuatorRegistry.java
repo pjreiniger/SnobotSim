@@ -22,6 +22,7 @@ import com.snobot.simulator.module_wrapper.interfaces.ISimulatorUpdater;
 import com.snobot.simulator.module_wrapper.interfaces.ISolenoidWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
 
+@SuppressWarnings("PMD.TooManyMethods")
 public final class SensorActuatorRegistry
 {
     private static final Logger sLOGGER = LogManager.getLogger(SensorActuatorRegistry.class);

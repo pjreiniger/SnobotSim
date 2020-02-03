@@ -31,6 +31,7 @@ public class JavaDigitalSourceWrapperAccessor extends BaseWrapperAccessor<IDigit
         return mFactory.create(aPort, aType);
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public void removeSimulator(int aPort)
     {

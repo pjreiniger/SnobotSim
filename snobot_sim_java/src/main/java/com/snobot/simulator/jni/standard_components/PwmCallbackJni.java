@@ -55,6 +55,7 @@ public final class PwmCallbackJni
         }
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public static void reset()
     {
         for (int i = 0; i < SensorUtil.kPwmChannels; ++i)

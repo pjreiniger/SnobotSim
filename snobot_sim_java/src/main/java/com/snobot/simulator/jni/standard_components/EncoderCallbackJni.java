@@ -66,6 +66,7 @@ public final class EncoderCallbackJni
         }
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public static void reset()
     {
         for (int i = 0; i < 8; ++i)

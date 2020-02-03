@@ -45,6 +45,7 @@ public class JavaDriverStationWrapperAccessor implements DriverStationDataAccess
         return 0;
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public void waitForNextUpdateLoop(double aUpdatePeriod)
     {

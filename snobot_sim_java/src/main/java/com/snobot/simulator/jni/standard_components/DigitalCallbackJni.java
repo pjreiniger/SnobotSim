@@ -47,6 +47,7 @@ public final class DigitalCallbackJni
         }
     }
 
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     public static void reset()
     {
         for (int i = 0; i < SensorUtil.kDigitalChannels; ++i)

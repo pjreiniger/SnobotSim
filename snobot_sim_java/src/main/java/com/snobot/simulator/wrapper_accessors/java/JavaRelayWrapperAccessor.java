@@ -31,6 +31,7 @@ public class JavaRelayWrapperAccessor extends BaseWrapperAccessor<IRelayWrapper>
         return mFactory.create(aPort, aType);
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public void removeSimulator(int aPort)
     {

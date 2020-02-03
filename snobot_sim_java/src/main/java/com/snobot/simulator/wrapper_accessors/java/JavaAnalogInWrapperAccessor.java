@@ -32,6 +32,7 @@ public class JavaAnalogInWrapperAccessor extends BaseWrapperAccessor<IAnalogInWr
         return mFactory.create(aPort, aType);
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public void removeSimulator(int aPort)
     {

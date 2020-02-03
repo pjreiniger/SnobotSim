@@ -4,9 +4,16 @@ package com.snobot.simulator.simulator_components;
 import edu.wpi.first.hal.SimDouble;
 import edu.wpi.first.hal.sim.SimDeviceSim;
 import edu.wpi.first.hal.sim.mockdata.SimDeviceDataJNI.SimDeviceInfo;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class LazySimDoubleWrapper
 {
+    private static final Logger sLOGGER = LogManager.getLogger(LazySimDoubleWrapper.class);
+
+//    private String mDeviceNamfdsfe;
     private final String mDeviceName;
     private final String mValueName;
     private SimDeviceSim mDeviceSim;
@@ -23,14 +30,12 @@ public class LazySimDoubleWrapper
         SimDouble sim = getSimValue();
         if (sim == null)
         {
-            System.out.println(
+            sLOGGER.log(Level.ERROR,
                     "Could not get sim value for device '" + mDeviceName + "' (" + mDeviceSim + "), value '" + mValueName + "' (" + mSimDouble + ")");
             return 0;
         }
         else
         {
-            System.out.println("Getting " + sim.get() + " for handle " + sim.getNativeHandle());
-
             return sim.get();
         }
     }
@@ -40,12 +45,11 @@ public class LazySimDoubleWrapper
         SimDouble sim = getSimValue();
         if (sim == null)
         {
-            System.out.println(
+            sLOGGER.log(Level.ERROR,
                     "Could not get sim value for device '" + mDeviceName + "' (" + mDeviceSim + "), value '" + mValueName + "' (" + mSimDouble + ")");
         }
         else
         {
-            System.out.println("Setting " + aValue + " for handle " + sim.getNativeHandle());
             sim.set(aValue);
         }
     }
@@ -74,7 +78,7 @@ public class LazySimDoubleWrapper
         }
 
         SimDeviceInfo[] devices = SimDeviceSim.enumerateDevices(mDeviceName);
-        if (devices.length == 1)
+        if (devices.length == 1) // NOPMD
         {
             mDeviceSim = new SimDeviceSim(mDeviceName);
         }

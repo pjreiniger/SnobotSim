@@ -1,7 +1,5 @@
 package com.snobot.simulator.simulator_components.navx;
 
-import java.io.IOException;
-
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.ASensorWrapper;
 import com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper;
@@ -10,11 +8,10 @@ import com.snobot.simulator.module_wrapper.interfaces.IAccelerometerWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.II2CWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.ISpiWrapper;
-import com.snobot.simulator.navx.INavxSimulator;
+import com.snobot.simulator.simulator_components.LazySimDoubleWrapper;
 
 public abstract class BaseNavxSimulatorWrapper extends ASensorWrapper implements ISpiWrapper, II2CWrapper
 {
-    protected final INavxSimulator mNavxWrapper;
     protected final IAccelerometerWrapper mXWrapper;
     protected final IAccelerometerWrapper mYWrapper;
     protected final IAccelerometerWrapper mZWrapper;
@@ -22,18 +19,25 @@ public abstract class BaseNavxSimulatorWrapper extends ASensorWrapper implements
     protected final IGyroWrapper mPitchWrapper;
     protected final IGyroWrapper mRollWrapper;
 
-    public BaseNavxSimulatorWrapper(String aBaseName, INavxSimulator aNavxWrapper, int aBasePort)
+    public BaseNavxSimulatorWrapper(String aBaseName, String aDeviceName, int aBasePort)
     {
         super("NotUsed");
 
-        mNavxWrapper = aNavxWrapper;
 
-        mXWrapper = new BaseAccelerometerWrapper(aBaseName + " X Accel", aNavxWrapper::getXAccel, aNavxWrapper::setXAccel);
-        mYWrapper = new BaseAccelerometerWrapper(aBaseName + " Y Accel", aNavxWrapper::getYAccel, aNavxWrapper::setYAccel);
-        mZWrapper = new BaseAccelerometerWrapper(aBaseName + " Z Accel", aNavxWrapper::getZAccel, aNavxWrapper::setZAccel);
-        mYawWrapper = new BaseGyroWrapper(aBaseName + " Yaw", aNavxWrapper::getYaw, aNavxWrapper::setYaw);
-        mPitchWrapper = new BaseGyroWrapper(aBaseName + " Pitch", aNavxWrapper::getPitch, aNavxWrapper::setPitch);
-        mRollWrapper = new BaseGyroWrapper(aBaseName + " Roll", aNavxWrapper::getRoll, aNavxWrapper::setRoll);
+        LazySimDoubleWrapper xWrapper = new LazySimDoubleWrapper(aDeviceName, "X Accel");
+        LazySimDoubleWrapper yWrapper = new LazySimDoubleWrapper(aDeviceName, "Y Accel");
+        LazySimDoubleWrapper zWrapper = new LazySimDoubleWrapper(aDeviceName, "Z Accel");
+
+        LazySimDoubleWrapper yawWrapper = new LazySimDoubleWrapper(aDeviceName, "Yaw");
+        LazySimDoubleWrapper pitchWrapper = new LazySimDoubleWrapper(aDeviceName, "Pitch");
+        LazySimDoubleWrapper rollWrapper = new LazySimDoubleWrapper(aDeviceName, "Roll");
+
+        mXWrapper = new BaseAccelerometerWrapper(aBaseName + " X Accel", xWrapper::get, xWrapper::set);
+        mYWrapper = new BaseAccelerometerWrapper(aBaseName + " Y Accel", yWrapper::get, yWrapper::set);
+        mZWrapper = new BaseAccelerometerWrapper(aBaseName + " Z Accel", zWrapper::get, zWrapper::set);
+        mYawWrapper = new BaseGyroWrapper(aBaseName + " Yaw", yawWrapper::get, yawWrapper::set);
+        mPitchWrapper = new BaseGyroWrapper(aBaseName + " Pitch", pitchWrapper::get, pitchWrapper::set);
+        mRollWrapper = new BaseGyroWrapper(aBaseName + " Roll", rollWrapper::get, rollWrapper::set);
 
         SensorActuatorRegistry.get().register(mXWrapper, aBasePort + 0);
         SensorActuatorRegistry.get().register(mYWrapper, aBasePort + 1);
@@ -56,11 +60,5 @@ public abstract class BaseNavxSimulatorWrapper extends ASensorWrapper implements
         mYawWrapper.setInitialized(aInitialized);
         mPitchWrapper.setInitialized(aInitialized);
         mRollWrapper.setInitialized(aInitialized);
-    }
-
-    @Override
-    public void close() throws IOException
-    {
-        mNavxWrapper.close();
     }
 }

@@ -1,11 +1,9 @@
 package com.snobot.simulator.simulator_components.navx;
 
-import com.snobot.simulator.navx.SpiNavxSimulator;
-
 public class SpiNavxSimulatorWrapper extends BaseNavxSimulatorWrapper
 {
-    public SpiNavxSimulatorWrapper(String aBaseName, int aPort)
+    public SpiNavxSimulatorWrapper(String aBaseName, String aDeviceName, int aPort)
     {
-        super(aBaseName, new SpiNavxSimulator(aPort), 200 + aPort * 3);
+        super(aBaseName, aDeviceName, 200 + aPort * 3);
     }
 }

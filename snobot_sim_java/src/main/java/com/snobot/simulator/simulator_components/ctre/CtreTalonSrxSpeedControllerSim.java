@@ -60,6 +60,7 @@ public class CtreTalonSrxSpeedControllerSim extends BaseCanSmartSpeedController
         mControlGoal = aDemand;
     }
 
+    @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
     @Override
     protected double calculateMotionProfileOutput(double aCurrentPosition, double aCurrentVelocity, int aModeType)
     {
@@ -79,6 +80,7 @@ public class CtreTalonSrxSpeedControllerSim extends BaseCanSmartSpeedController
         return calculateMotionProfileOutput(aCurrentPosition, aCurrentVelocity, currentPoint.mPosition, currentPoint.mVelocity);
     }
 
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     private double calculateMotionProfileOutput(double aCurrentPosition, double aCurrentVelocity, double aGoalPosition, double aGoalVelocity)
     {
         double error = aGoalPosition - aCurrentPosition;

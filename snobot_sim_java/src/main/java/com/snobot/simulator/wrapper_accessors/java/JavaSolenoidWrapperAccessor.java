@@ -31,6 +31,7 @@ public class JavaSolenoidWrapperAccessor extends BaseWrapperAccessor<ISolenoidWr
         return mFactory.create(aPort, aType);
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public void removeSimulator(int aPort)
     {

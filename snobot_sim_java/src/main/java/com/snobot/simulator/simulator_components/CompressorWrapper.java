@@ -4,6 +4,8 @@ import com.snobot.simulator.module_wrapper.ASensorWrapper;
 
 public class CompressorWrapper extends ASensorWrapper
 {
+    private static final double MAX_PRESSURE = 120;
+
     protected double mAirPressure;
     protected double mChargeRate; // psi charge per control loop
 
@@ -31,9 +33,9 @@ public class CompressorWrapper extends ASensorWrapper
     public void update()
     {
         mAirPressure += mChargeRate;
-        if (mAirPressure > 120)
+        if (mAirPressure > MAX_PRESSURE)
         {
-            mAirPressure = 120;
+            mAirPressure = MAX_PRESSURE;
         }
     }
 

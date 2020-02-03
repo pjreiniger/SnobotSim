@@ -84,7 +84,7 @@ public class DefaultSpiSimulatorFactory extends BaseWrapperFactory implements IS
 
         if (sNAVX_TYPE.equals(aType))
         {
-            simulator = new SpiNavxSimulatorWrapper(fullType, aPort);
+            simulator = new SpiNavxSimulatorWrapper(fullType, "navX-Sensor[0]", aPort);
         }
         else if (sADXRS450_TYPE.equals(aType))
         {

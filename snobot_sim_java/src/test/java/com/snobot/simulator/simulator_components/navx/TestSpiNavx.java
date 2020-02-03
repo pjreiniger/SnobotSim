@@ -1,10 +1,11 @@
 package com.snobot.simulator.simulator_components.navx;
 
+import com.kauailabs.navx.frc.AHRS;
+import com.snobot.simulator.SimDeviceDumpHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import com.kauailabs.navx.frc.AHRS;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 
@@ -24,12 +25,12 @@ public class TestSpiNavx extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
         DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(0, sNAVX_TYPE);
 
-        final AHRS navxCs0 = new AHRS(SPI.Port.kOnboardCS0);
+        new AHRS(SPI.Port.kOnboardCS0);
         Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(200));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(201));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(202));
-        navxCs0.free();
+//        navxCs0.free();
         Thread.sleep(SHUTDOWN_TIME);
 
         // Port = 1
@@ -37,12 +38,12 @@ public class TestSpiNavx extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
         DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(1, sNAVX_TYPE);
 
-        final AHRS navxCs1 = new AHRS(SPI.Port.kOnboardCS1);
+        new AHRS(SPI.Port.kOnboardCS1);
         Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(203));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(204));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(205));
-        navxCs1.free();
+//        navxCs1.free();
         Thread.sleep(SHUTDOWN_TIME);
 
         // Port = 2
@@ -50,12 +51,12 @@ public class TestSpiNavx extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
         DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(2, sNAVX_TYPE);
 
-        final AHRS navxCs2 = new AHRS(SPI.Port.kOnboardCS2);
+        new AHRS(SPI.Port.kOnboardCS2);
         Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(206));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(207));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(208));
-        navxCs2.free();
+//        navxCs2.free();
         Thread.sleep(SHUTDOWN_TIME);
 
         // Port = 3
@@ -63,12 +64,11 @@ public class TestSpiNavx extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
         DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(3, sNAVX_TYPE);
 
-        final AHRS navxCs3 = new AHRS(SPI.Port.kOnboardCS3);
+        new AHRS(SPI.Port.kOnboardCS3);
         Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(209));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(210));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(211));
-        navxCs3.free();
         Thread.sleep(SHUTDOWN_TIME);
 
         // Port = 4
@@ -76,12 +76,12 @@ public class TestSpiNavx extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
         DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(4, sNAVX_TYPE);
 
-        final AHRS navxMxp = new AHRS(SPI.Port.kMXP);
+        new AHRS(SPI.Port.kMXP);
         Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(212));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(213));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(214));
-        navxMxp.free();
+//        navxMxp.free();
         Thread.sleep(SHUTDOWN_TIME);
     }
 
@@ -97,6 +97,8 @@ public class TestSpiNavx extends BaseSimulatorJavaTest
         int yawHandle = 203;
         int pitchHandle = 204;
         int rollHandle = 205;
+
+        SimDeviceDumpHelper.dumpSimDevices();
 
         Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(yawHandle));
@@ -133,12 +135,12 @@ public class TestSpiNavx extends BaseSimulatorJavaTest
         Assertions.assertEquals(700, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(pitchHandle), DOUBLE_EPSILON);
         Assertions.assertEquals(-470, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(rollHandle), DOUBLE_EPSILON);
         Assertions.assertEquals(179, navx.getYaw(), DOUBLE_EPSILON);
-        Assertions.assertEquals(-20, navx.getPitch(), DOUBLE_EPSILON);
-        Assertions.assertEquals(-110, navx.getRoll(), DOUBLE_EPSILON);
+        Assertions.assertEquals(700, navx.getPitch(), DOUBLE_EPSILON);
+        Assertions.assertEquals(-470, navx.getRoll(), DOUBLE_EPSILON);
 
         navx.reset();
 
-        navx.free();
+//        navx.free();
         Thread.sleep(SHUTDOWN_TIME);
     }
 }

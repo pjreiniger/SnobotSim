@@ -35,6 +35,7 @@ public class JavaEncoderWrapperAccessor extends BaseWrapperAccessor<IEncoderWrap
         return mFactory.create(aPort, aType);
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public void removeSimulator(int aPort)
     {

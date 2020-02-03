@@ -13,6 +13,7 @@ import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.simulator_components.smart_sc.BaseCanSmartSpeedController;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
+@SuppressWarnings({"PMD.ExcessiveMethodLength", "PMD.NcssCount", "PMD.CyclomaticComplexity"})
 public class RevManager
 {
     private static final Logger sLOGGER = LogManager.getLogger(RevManager.class);

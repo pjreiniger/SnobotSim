@@ -72,10 +72,7 @@ ext.getRevRoboticsSimVersion = {
     return getRevRoboticsVersion() + "_V0"
 }
 ext.getNavxVersion = {
-    return '3.1.400'
-}
-ext.getNavxSimVersion = {
-    return getNavxVersion() + "_V0_RC"
+    return '3.1.403'
 }
 ext.getWpiRepo = {
     return "https://frcmaven.wpi.edu/artifactory/development/"
@@ -128,7 +125,7 @@ if(hasProperty('maven_repo'))
     throw new GradleException("This isn't supported anymore")
 }
 
-ext.maven_version = "2020-0.0.2"
+ext.maven_version = "2020-0.0.3"
 if(hasProperty('maven_version'))
 {
     ext.maven_version = maven_version

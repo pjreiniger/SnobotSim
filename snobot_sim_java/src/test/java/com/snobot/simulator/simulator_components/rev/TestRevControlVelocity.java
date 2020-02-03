@@ -57,7 +57,6 @@ public class TestRevControlVelocity extends BaseSimulatorJavaTest
 
         simulateForTime(1, () ->
         {
-            System.out.println(encoder.getVelocity());
             pid.setReference(40, ControlType.kVelocity);
         });
 

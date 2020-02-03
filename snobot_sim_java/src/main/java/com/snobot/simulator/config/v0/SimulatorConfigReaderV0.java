@@ -80,6 +80,7 @@ public class SimulatorConfigReaderV0
         return null;
     }
 
+    @SuppressWarnings("PMD.AssignmentInOperand")
     private File createTempFile(File aTempFile, File aInputFile)
     {
         try (BufferedReader br = new BufferedReader(new FileReader(aInputFile, Charset.defaultCharset()));
@@ -156,6 +157,7 @@ public class SimulatorConfigReaderV0
         aOutput.setmDigitalIO(aSimulatorConfig.getmDigitalIO());
     }
 
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     private void convertAnalogIO(SimulatorConfigV0 aSimulatorConfig, SimulatorConfigV1 aOutput)
     {
         if (!aSimulatorConfig.getmAnalogIO().isEmpty())

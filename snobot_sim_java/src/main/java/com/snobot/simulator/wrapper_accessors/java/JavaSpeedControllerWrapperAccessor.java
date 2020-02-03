@@ -47,6 +47,7 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
         return mFactory.create(aPort, aType);
     }
 
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     @Override
     public void removeSimulator(int aPort)
     {
