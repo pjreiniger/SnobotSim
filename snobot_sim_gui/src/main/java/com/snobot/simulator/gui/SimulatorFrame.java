@@ -154,7 +154,8 @@ public class SimulatorFrame extends JFrame
                 String message = "<html>This does not update the simulator file, you must add this line to the simulator config file:<br><br><br>"
                         + "simulator_config: " + dumpFile + "<html>";
 
-                SwingUtilities.invokeLater(() -> {
+                SwingUtilities.invokeLater(() ->
+                {
                     JOptionPane.showMessageDialog(null, message, "Warning", JOptionPane.INFORMATION_MESSAGE);
                 });
                 mSimulatorConfigFile = dumpFile;

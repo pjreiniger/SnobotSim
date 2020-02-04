@@ -336,7 +336,8 @@ public class Simulator
             JLabel label = new JLabel(message);
             label.setFont(new Font("serif", Font.PLAIN, 14));
 
-            SwingUtilities.invokeLater(() -> {
+            SwingUtilities.invokeLater(() ->
+            {
                 JOptionPane.showMessageDialog(null,
                     label,
                     "Config file mismatch", JOptionPane.ERROR_MESSAGE);

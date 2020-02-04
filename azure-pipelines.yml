@@ -206,28 +206,28 @@ stages:
      dependsOn: [ Windows_64_Bit, Windows_32_Bit, Mac, Linux ]
      condition: succeeded()
 
-- stage: Release
-  jobs:
-   - job: Test
-     pool:
-       vmImage: 'Ubuntu 16.04'
-
-     steps:
-        - task: DownloadBuildArtifacts@0
-          displayName: 'Download Build Artifacts'
-          inputs:
-            artifactName: 'SnobotSimFullMaven'
-            downloadPath: $(System.DefaultWorkingDirectory)
-        - task: ArchiveFiles@2
-          inputs:
-            rootFolderOrFile: '$(System.DefaultWorkingDirectory)/SnobotSimFullMaven/'
-            includeRootFolder: false
-            archiveType: 'zip'
-            archiveFile: '$(System.DefaultWorkingDirectory)/FullMaven.zip'
-            replaceExistingArchive: true*
-        - task: GitHubRelease@0
-          displayName: 'Create Release'
-          inputs:
-            gitHubConnection: 'SnobotSimConnection'
-            repositoryName: snobotsim/SnobotSim
-            assets: '$(System.DefaultWorkingDirectory)/FullMaven.zip'
+#- stage: Release
+#  jobs:
+#   - job: Test
+#     pool:
+#       vmImage: 'Ubuntu 16.04'
+#
+#     steps:
+#        - task: DownloadBuildArtifacts@0
+#          displayName: 'Download Build Artifacts'
+#          inputs:
+#            artifactName: 'SnobotSimFullMaven'
+#            downloadPath: $(System.DefaultWorkingDirectory)
+#        - task: ArchiveFiles@2
+#          inputs:
+#            rootFolderOrFile: '$(System.DefaultWorkingDirectory)/SnobotSimFullMaven/'
+#            includeRootFolder: false
+#            archiveType: 'zip'
+#            archiveFile: '$(System.DefaultWorkingDirectory)/FullMaven.zip'
+#            replaceExistingArchive: true*
+#        - task: GitHubRelease@0
+#          displayName: 'Create Release'
+#          inputs:
+#            gitHubConnection: 'SnobotSimConnection'
+#            repositoryName: snobotsim/SnobotSim
+#            assets: '$(System.DefaultWorkingDirectory)/FullMaven.zip'
