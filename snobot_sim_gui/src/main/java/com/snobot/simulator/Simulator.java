@@ -19,6 +19,7 @@ import java.util.jar.Manifest;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -335,9 +336,11 @@ public class Simulator
             JLabel label = new JLabel(message);
             label.setFont(new Font("serif", Font.PLAIN, 14));
 
-            JOptionPane.showMessageDialog(null,
+            SwingUtilities.invokeLater(() -> {
+                JOptionPane.showMessageDialog(null,
                     label,
                     "Config file mismatch", JOptionPane.ERROR_MESSAGE);
+            });
         }
     }
 

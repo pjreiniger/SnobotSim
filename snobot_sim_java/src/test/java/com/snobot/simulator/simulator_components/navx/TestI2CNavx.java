@@ -15,6 +15,7 @@ public class TestI2CNavx extends BaseSimulatorJavaTest
 {
     private static final String sNAVX_TYPE = "NavX";
 
+    @SuppressWarnings("PMD.UnusedLocalVariable")
     @Test
     public void testConstruction()
     {
@@ -28,6 +29,7 @@ public class TestI2CNavx extends BaseSimulatorJavaTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(250));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(251));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(252));
+        navxOnboard.close();
 
         // Port = 1
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
@@ -39,6 +41,7 @@ public class TestI2CNavx extends BaseSimulatorJavaTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(253));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(254));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(255));
+        navxMxp.close();
     }
 
     @Test

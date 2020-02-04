@@ -15,6 +15,7 @@ import com.ctre.phoenix.sensors.PigeonIMU_Faults;
 import com.ctre.phoenix.sensors.PigeonIMU_StatusFrame;
 import com.ctre.phoenix.sensors.PigeonIMU_StickyFaults;
 
+@SuppressWarnings({"PMD.NcssCount", "PMD.ExcessiveMethodLength", "PMD.CyclomaticComplexity", "PMD.NPathComplexity"})
 @Tag("CTRE")
 public class TestPigeonIMUFunctions extends BaseSimulatorJavaTest
 {

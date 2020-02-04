@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Talon;
 
 public class TestRegisterJavaCallback extends BaseSimulatorJavaTest
 {
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     private void checkSizes(int aAnalogInSize, int aDigitalSize, int aEncoderSize, int aPcmSize, int aPdpSize, int aNumPwm)
     {
         Assertions.assertEquals(aAnalogInSize, SensorActuatorRegistry.get().getAnalogIn().size());
@@ -24,6 +25,7 @@ public class TestRegisterJavaCallback extends BaseSimulatorJavaTest
         Assertions.assertEquals(aNumPwm, SensorActuatorRegistry.get().getSpeedControllers().size());
     }
 
+    @SuppressWarnings("PMD.UnusedLocalVariable")
     @Test
     public void testCallback()
     {

@@ -54,16 +54,16 @@ public class TestCtreCanTalonControlMotionProfile extends BaseSimulatorJavaTest
         printMotionProfileStatus(talon, status);
 
         List<TrajectoryPoint> points = generatePoints(1, 3, 4, 12, 12, 35, .02);
-        for (int i = 0; i < points.size(); ++i)
+        for (TrajectoryPoint point : points)
         {
-            Assertions.assertEquals(ErrorCode.OK, talon.pushMotionProfileTrajectory(points.get(i)));
+            Assertions.assertEquals(ErrorCode.OK, talon.pushMotionProfileTrajectory(point));
             talon.getMotionProfileStatus(status);
             // printMotionProfileStatus(talon, status);
             // Assertions.assertEquals(0, status.btmBufferCnt, 0);
             // Assertions.assertEquals(i + 1, status.topBufferCnt);
             // Assertions.assertEquals(2048 - i - 1, status.topBufferRem);
         }
-        for (int i = 0; i < points.size(); ++i)
+        for (int i = 0; i < points.size(); ++i) // NOPMD
         {
             talon.processMotionProfileBuffer();
         }

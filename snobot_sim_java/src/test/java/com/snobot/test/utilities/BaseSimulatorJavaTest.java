@@ -67,11 +67,13 @@ public class BaseSimulatorJavaTest
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
     }
 
+    @SuppressWarnings("PMD.DoNotUseThreads")
     protected void simulateForTime(double aSeconds, Runnable aTask)
     {
         simulateForTime(aSeconds, .02, aTask);
     }
 
+    @SuppressWarnings("PMD.DoNotUseThreads")
     protected void simulateForTime(double aSeconds, double aUpdatePeriod, Runnable aTask)
     {
         double updateFrequency = 1 / aUpdatePeriod;

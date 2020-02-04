@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
+@SuppressWarnings({"PMD.ExcessiveMethodLength", "PMD.NcssCount", "PMD.DoNotUseThreads"})
 public class TestControllerLoop extends BaseSimulatorJavaTest
 {
     private static class TestRobot extends IterativeRobot
@@ -85,7 +86,7 @@ public class TestControllerLoop extends BaseSimulatorJavaTest
                 {
                     robot.startCompetition();
                 }
-                catch (Exception e)
+                catch (Exception e) // NOPMD
                 {
                     e.printStackTrace(); // NOPMD
                 }

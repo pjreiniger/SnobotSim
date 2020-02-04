@@ -29,6 +29,7 @@ import com.ctre.phoenix.motorcontrol.can.FilterConfiguration;
 import com.ctre.phoenix.motorcontrol.can.SlotConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+@SuppressWarnings({"PMD.NcssCount", "PMD.ExcessiveMethodLength", "PMD.CyclomaticComplexity", "PMD.NPathComplexity"})
 public class TestBaseMotorControllerFunctions extends BaseSimulatorJavaTest
 {
     @Test

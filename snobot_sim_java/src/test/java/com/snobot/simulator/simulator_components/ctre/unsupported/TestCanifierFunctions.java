@@ -16,6 +16,7 @@ import com.ctre.phoenix.CANifierStickyFaults;
 import com.ctre.phoenix.ParamEnum;
 import com.ctre.phoenix.VelocityPeriod;
 
+@SuppressWarnings({"PMD.NcssCount", "PMD.ExcessiveMethodLength", "PMD.CyclomaticComplexity", "PMD.NPathComplexity"})
 public class TestCanifierFunctions extends BaseSimulatorJavaTest
 {
     @Test
