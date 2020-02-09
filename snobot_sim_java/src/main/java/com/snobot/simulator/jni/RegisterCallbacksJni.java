@@ -1,6 +1,7 @@
 package com.snobot.simulator.jni;
 
 import com.snobot.simulator.jni.can.CanCallbackJni;
+import com.snobot.simulator.jni.standard_components.AddressableLedCallbackJni;
 import com.snobot.simulator.jni.standard_components.AnalogGyroCallbackJni;
 import com.snobot.simulator.jni.standard_components.AnalogInCallbackJni;
 import com.snobot.simulator.jni.standard_components.AnalogOutCallbackJni;
@@ -33,6 +34,7 @@ public final class RegisterCallbacksJni extends BaseSnobotJni
         SimulatorJNI.resetHandles();
         SimDeviceSim.resetData();
 
+        AddressableLedCallbackJni.reset();
         AnalogInCallbackJni.reset();
         AnalogOutCallbackJni.reset();
         AnalogGyroCallbackJni.reset();

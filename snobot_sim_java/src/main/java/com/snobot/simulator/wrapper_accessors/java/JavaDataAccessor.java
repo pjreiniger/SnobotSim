@@ -10,6 +10,7 @@ import com.snobot.simulator.wrapper_accessors.DriverStationDataAccessor;
 import com.snobot.simulator.wrapper_accessors.EncoderWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.GyroWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.I2CWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.AddressableLedWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.IBasicSensorActuatorWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.IDataAccessor;
 import com.snobot.simulator.wrapper_accessors.RelayWrapperAccessor;
@@ -29,6 +30,7 @@ public class JavaDataAccessor implements IDataAccessor
     private final RelayWrapperAccessor mRelay;
     private final SolenoidWrapperAccessor mSolenoid;
     private final SpeedControllerWrapperAccessor mPwm;
+    private final AddressableLedWrapperAccessor mLed;
     private final I2CWrapperAccessor mI2C;
     private final SpiWrapperAccessor mSpi;
     private final DriverStationDataAccessor mDriverStation;
@@ -48,6 +50,7 @@ public class JavaDataAccessor implements IDataAccessor
         mRelay = new JavaRelayWrapperAccessor();
         mSolenoid = new JavaSolenoidWrapperAccessor();
         mPwm = new JavaSpeedControllerWrapperAccessor();
+        mLed = new JavaAddressableWrapperAccessor();
         mSpi = new JavaSpiWrapperAccessor();
         mI2C = new JavaI2CWrapperAccessor();
         mDriverStation = new JavaDriverStationWrapperAccessor();
@@ -106,6 +109,12 @@ public class JavaDataAccessor implements IDataAccessor
     public SolenoidWrapperAccessor getSolenoidAccessor()
     {
         return mSolenoid;
+    }
+
+    @Override
+    public AddressableLedWrapperAccessor getAddressableLedAccessor()
+    {
+        return mLed;
     }
 
     @Override

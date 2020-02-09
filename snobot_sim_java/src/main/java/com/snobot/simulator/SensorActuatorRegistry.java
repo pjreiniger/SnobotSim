@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.snobot.simulator.module_wrapper.interfaces.IAddressableLedWrapper;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,6 +37,7 @@ public final class SensorActuatorRegistry
     private final Map<Integer, IAnalogOutWrapper> mAnalogOutWrapperMap = new TreeMap<>();
     private final Map<Integer, ISolenoidWrapper> mSolenoidWrapperMap = new TreeMap<>();
     private final Map<Integer, IEncoderWrapper> mEncoderWrapperMap = new TreeMap<>();
+    private final Map<Integer, IAddressableLedWrapper> mAddressableLedMap = new TreeMap<>();
 
     private final Map<Integer, IGyroWrapper> mGyroWrapperMap = new TreeMap<>();
     private final Map<Integer, IAccelerometerWrapper> mAccelerometerWrapperMap = new TreeMap<>();
@@ -119,6 +121,11 @@ public final class SensorActuatorRegistry
         return registerItem(aSensor, aPort, mSpiWrapperMap, "SPI");
     }
 
+    public boolean register(IAddressableLedWrapper aSensor, int aPort)
+    {
+        return registerItem(aSensor, aPort, mAddressableLedMap, "LED");
+    }
+
     public boolean register(ISimulatorUpdater aUpdater)
     {
         mSimulatorComponents.add(aUpdater);
@@ -160,6 +167,11 @@ public final class SensorActuatorRegistry
         return mEncoderWrapperMap;
     }
 
+    public Map<Integer, IAddressableLedWrapper> getLeds()
+    {
+        return mAddressableLedMap;
+    }
+
     public Map<Integer, IAccelerometerWrapper> getAccelerometers()
     {
         return mAccelerometerWrapperMap;
@@ -194,6 +206,7 @@ public final class SensorActuatorRegistry
         mAnalogOutWrapperMap.clear();
         mSolenoidWrapperMap.clear();
         mEncoderWrapperMap.clear();
+        mAddressableLedMap.clear();
 
         mGyroWrapperMap.clear();
         mAccelerometerWrapperMap.clear();

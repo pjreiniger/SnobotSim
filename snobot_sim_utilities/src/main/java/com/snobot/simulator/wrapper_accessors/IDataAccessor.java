@@ -20,6 +20,8 @@ public interface IDataAccessor
 
     SolenoidWrapperAccessor getSolenoidAccessor();
 
+    AddressableLedWrapperAccessor getAddressableLedAccessor();
+
     SpiWrapperAccessor getSpiAccessor();
 
     I2CWrapperAccessor getI2CAccessor();
