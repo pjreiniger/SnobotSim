@@ -284,7 +284,7 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
 
         mLastError = error;
 
-        sLOGGER.log(Level.INFO, "Updating CAN PID: Error: " + error + ", Output: " + output + " (Cur: " + aCurrent + ", Goal: " + aGoal + ") "
+        sLOGGER.log(Level.DEBUG, "Updating CAN PID: Error: " + error + ", Output: " + output + " (Cur: " + aCurrent + ", Goal: " + aGoal + ") "
                 + " (P: " + pComp + ", I: " + iComp + ", D: " + dComp + ", F: " + fComp + ")");
 
         return output;

@@ -21,7 +21,7 @@ public class DefaultAddressableWrapperFactory extends BaseWrapperFactory
         }
         else
         {
-            sLOGGER.log(Level.ERROR, "Could not create analog source of type " + aType);
+            sLOGGER.log(Level.ERROR, "Could not create addressable LED of type " + aType);
             success = false;
         }
 

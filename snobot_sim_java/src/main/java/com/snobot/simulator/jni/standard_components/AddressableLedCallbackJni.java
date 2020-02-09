@@ -35,13 +35,13 @@ public class AddressableLedCallbackJni
                 if (!DataAccessorFactory.getInstance().getAddressableLedAccessor().getPortList().contains(mPort))
                 {
                     DataAccessorFactory.getInstance().getAddressableLedAccessor().createSimulator(mPort, WpiAddressableLedWrapper.class.getName());
-                    sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");
+                    sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registered before starting the robot");
                 }
                 SensorActuatorRegistry.get().getLeds().get(mPort).setWantsHidden(true);
             }
             else
             {
-                sLOGGER.log(Level.ERROR, "Unknown AnalogGyro callback " + aCallbackType + " - " + aHalValue);
+                sLOGGER.log(Level.ERROR, "Unknown AddressableLed callback " + aCallbackType + " - " + aHalValue);
             }
         }
     }
@@ -51,7 +51,6 @@ public class AddressableLedCallbackJni
     {
         for (int i = 0; i < 1; ++i)
         {
-            System.out.println("ABout to do " + i);
             AddressableLEDDataJNI.resetData(i);
 
             AddressableLEDDataJNI.registerInitializedCallback(i, new AddressableLedCallback(i), false);

@@ -104,7 +104,7 @@ public class CtreManager
             double demand0 = aData.getDouble();
             double demand1 = aData.getDouble();
             int demand1Type = aData.getInt();
-            sLOGGER.log(Level.INFO, "Setting_4 " + mode + ", " + demand0 + ", " + demand1 + ", " + demand1Type);
+            sLOGGER.log(Level.DEBUG, "Setting_4 " + mode + ", " + demand0 + ", " + demand1 + ", " + demand1Type);
 
             switch (mode)
             {
