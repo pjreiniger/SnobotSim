@@ -19,48 +19,48 @@ public class TestKeyboardJoystick
         short[] povValues = joystick.getPovValues();
         Assertions.assertEquals(-1, povValues[0]);
 
-        testAxis(joystick, 0, 0, 1, 1, 0, 0);
+        testAxis(joystick, 0, 0, 0, 0, 0, 0);
 
         // Test Axis
         reset(controller);
         controller.setValueForComponent(Identifier.Key.W, 1);
-        testAxis(joystick, 0, -1, 1, 1, 0, 0);
+        testAxis(joystick, 0, -1, 0, 0, 0, 0);
 
         reset(controller);
         controller.setValueForComponent(Identifier.Key.S, 1);
-        testAxis(joystick, 0, 1, 1, 1, 0, 0);
+        testAxis(joystick, 0, 1, 0, 0, 0, 0);
 
         reset(controller);
         controller.setValueForComponent(Identifier.Key.A, 1);
-        testAxis(joystick, -1, 0, 1, 1, 0, 0);
+        testAxis(joystick, -1, 0, 0, 0, 0, 0);
 
         reset(controller);
         controller.setValueForComponent(Identifier.Key.D, 1);
-        testAxis(joystick, 1, 0, 1, 1, 0, 0);
+        testAxis(joystick, 1, 0, 0, 0, 0, 0);
 
         reset(controller);
         controller.setValueForComponent(Identifier.Key.I, 1);
-        testAxis(joystick, 0, 0, 1, 1, 0, -1);
+        testAxis(joystick, 0, 0, 0, 0, 0, -1);
 
         reset(controller);
         controller.setValueForComponent(Identifier.Key.K, 1);
-        testAxis(joystick, 0, 0, 1, 1, 0, 1);
+        testAxis(joystick, 0, 0, 0, 0, 0, 1);
 
         reset(controller);
         controller.setValueForComponent(Identifier.Key.J, 1);
-        testAxis(joystick, 0, 0, 1, 1, -1, 0);
+        testAxis(joystick, 0, 0, 0, 0, -1, 0);
 
         reset(controller);
         controller.setValueForComponent(Identifier.Key.L, 1);
-        testAxis(joystick, 0, 0, 1, 1, 1, 0);
+        testAxis(joystick, 0, 0, 0, 0, 1, 0);
 
         reset(controller);
         controller.setValueForComponent(Identifier.Key.C, 1);
-        testAxis(joystick, 0, 0, -1, 1, 0, 0);
+        testAxis(joystick, 0, 0, 1, 0, 0, 0);
 
         reset(controller);
         controller.setValueForComponent(Identifier.Key.N, 1);
-        testAxis(joystick, 0, 0, 1, -1, 0, 0);
+        testAxis(joystick, 0, 0, 0, 1, 0, 0);
 
         // Set POV
         reset(controller);

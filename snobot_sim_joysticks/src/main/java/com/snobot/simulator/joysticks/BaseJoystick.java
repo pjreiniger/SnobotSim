@@ -164,7 +164,7 @@ public class BaseJoystick implements IMockJoystick
     @Override
     public double getRawAxis(int aIndex)
     {
-        if(aIndex >= mAxisValues.length)
+        if (aIndex >= mAxisValues.length)
         {
             sLOGGER.log(Level.ERROR, "Trying to get non-existent axis: " + aIndex);
             return 0;

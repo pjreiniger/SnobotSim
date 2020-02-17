@@ -9,34 +9,33 @@ import java.util.Arrays;
 public class LogitechDualAction extends BaseJoystick
 {
     private static final Component.Identifier[] sAXIS = new Component.Identifier[]
-        {
-            Component.Identifier.Axis.X, // Left x
-            Component.Identifier.Axis.Y, // Left Y
-            Component.Identifier.Axis.RX_ACCELERATION, // Left Trigger
-            Component.Identifier.Axis.RX_ACCELERATION, // Right Trigger
-            Component.Identifier.Axis.Z, // Right x
-            Component.Identifier.Axis.RZ, // Right y
-        };
+    {
+        Component.Identifier.Axis.X, // Left x
+        Component.Identifier.Axis.Y, // Left Y
+        Component.Identifier.Axis.RX_ACCELERATION, // Left Trigger
+        Component.Identifier.Axis.RX_ACCELERATION, // Right Trigger
+        Component.Identifier.Axis.Z, // Right x
+        Component.Identifier.Axis.RZ, // Right y
+    };
 
     private static final Component.Identifier[] sBUTTONS = new Component.Identifier[]
-        {
-            Component.Identifier.Button._1, // A
-            Component.Identifier.Button._2, // B
-            Component.Identifier.Button._0, // X
-            Component.Identifier.Button._3, // Y
-            Component.Identifier.Button._4, // LB
-            Component.Identifier.Button._5, // RB
-            Component.Identifier.Button._8, // back
-            Component.Identifier.Button._9, // start
-            Component.Identifier.Button._10, // L3
-            Component.Identifier.Button._11, // R3
-        };
+    {
+        Component.Identifier.Button._1, // A
+        Component.Identifier.Button._2, // B
+        Component.Identifier.Button._0, // X
+        Component.Identifier.Button._3, // Y
+        Component.Identifier.Button._4, // LB
+        Component.Identifier.Button._5, // RB
+        Component.Identifier.Button._8, // back
+        Component.Identifier.Button._9, // start
+        Component.Identifier.Button._10, // L3
+        Component.Identifier.Button._11, // R3
+    };
 
     private static final Component.Identifier[] sPOV = new Component.Identifier[]
-        {
-            Component.Identifier.Axis.POV
-        };
-
+    {
+        Component.Identifier.Axis.POV
+    };
 
     public LogitechDualAction(Controller aController)
     {
