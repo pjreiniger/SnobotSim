@@ -50,8 +50,6 @@ public class TestRevControlVelocity extends BaseSimulatorJavaTest
         CANEncoder encoder = sparksMax.getEncoder();
         pid.setFeedbackDevice(encoder);
 
-//        kDutyCycle(0), kVelocity(1), kVoltage(2), kPosition(3), kSmartMotion(4), kCurrent(5), kSmartVelocity(6);
-
         pid.setP(.04);
         pid.setFF(.019);
 

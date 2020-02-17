@@ -75,7 +75,7 @@ public class RevSpeedControllerSimWrapper extends BaseCanSmartSpeedController
     public void setCanFeedbackDevice(int aFeedbackDevice)
     {
         FeedbackDevice newDevice = null;
-        if (aFeedbackDevice == 1)
+        if (aFeedbackDevice == 1 || aFeedbackDevice == 2)
         {
             newDevice = FeedbackDevice.Encoder;
         }

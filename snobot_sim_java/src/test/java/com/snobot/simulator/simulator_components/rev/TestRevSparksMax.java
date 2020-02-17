@@ -3,8 +3,15 @@ package com.snobot.simulator.simulator_components.rev;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
+import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.ControlType;
+import com.snobot.simulator.motor_sim.DcMotorModelConfig;
+import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -81,12 +88,53 @@ public class TestRevSparksMax extends BaseSimulatorJavaTest
         Assertions.assertEquals(-0.5, sparksMax.getAppliedOutput(), sDOUBLE_EPSILON);
 
         Assertions.assertEquals(-0.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(followerRawHandle), sDOUBLE_EPSILON);
-//        Assertions.assertEquals(0.5, follower.get(), sDOUBLE_EPSILON); // Doesn't work, vendor issue
+//        Assertions.assertEquals(0.5, follower.get(), sDOUBLE_EPSILON); // TODO: Doesn't work, vendor issue
         Assertions.assertEquals(-0.5, sparksMax.getAppliedOutput(), sDOUBLE_EPSILON);
 
         sparksMax.close();
         follower.close();
 
+    }
+
+    @Test
+    public void testSwitchControlModes()
+    {
+        int canHandle = 8;
+        int simHandle = canHandle + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
+
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+
+        CANSparkMax sparksMax = new CANSparkMax(canHandle, CANSparkMaxLowLevel.MotorType.kBrushless);
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals("Rev SC " + canHandle,
+            DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(simHandle));
+
+        // Simulate CIM drivetrain
+        DcMotorModelConfig motorConfig = DataAccessorFactory.getInstance().getSimulatorDataAccessor().createMotor("CIM", 1, 10, 1);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSimulatorDataAccessor().setSpeedControllerModel_Static(simHandle, motorConfig,
+            new StaticLoadMotorSimulationConfig(.2)));
+
+        CANPIDController pid = sparksMax.getPIDController();
+        CANEncoder encoder = sparksMax.getEncoder();
+        pid.setFeedbackDevice(encoder);
+
+        pid.setP(.04);
+        pid.setFF(.019);
+        simulateForTime(1, () ->
+        {
+            pid.setReference(40, ControlType.kVelocity);
+        });
+
+        Assertions.assertEquals(40, encoder.getVelocity(), 1);
+        Assertions.assertEquals(40, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVelocity(simHandle), 1);
+        Assertions.assertEquals(0.7342491156153788, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(simHandle), .0001);
+
+        sparksMax.set(.5);
+        simulateForTime(1, () ->
+        {
+        });
+        Assertions.assertEquals(.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(simHandle), .0001);
+        Assertions.assertEquals(.5, sparksMax.get());
     }
 
 }

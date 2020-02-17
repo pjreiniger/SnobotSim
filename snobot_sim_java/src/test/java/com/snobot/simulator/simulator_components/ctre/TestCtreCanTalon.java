@@ -3,6 +3,9 @@ package com.snobot.simulator.simulator_components.ctre;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.snobot.simulator.motor_sim.DcMotorModelConfig;
+import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -135,5 +138,41 @@ public class TestCtreCanTalon extends BaseSimulatorJavaTest
         talon.configSelectedFeedbackSensor(FeedbackDevice.Analog);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
         Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().isInitialized(simId));
+    }
+
+    @Test
+    public void testSwitchControlModes()
+    {
+        int canId = 6;
+        int simId = canId + 100;
+        TalonSRX talon = new TalonSRX(canId);
+
+        // Simulate CIM drivetrain
+        DcMotorModelConfig motorConfig = DataAccessorFactory.getInstance().getSimulatorDataAccessor().createMotor("CIM", 1, 10, 1);
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSimulatorDataAccessor().setSpeedControllerModel_Static(simId, motorConfig,
+            new StaticLoadMotorSimulationConfig(.2)));
+
+        talon.config_kP(0, .045, 5);
+        talon.config_kF(0, .018, 5);
+        talon.config_IntegralZone(0, 1, 5);
+
+        talon.set(ControlMode.Velocity, 40);
+
+        simulateForTime(1, () ->
+        {
+        });
+
+        Assertions.assertEquals(40, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVelocity(simId), 1);
+        Assertions.assertEquals(40, talon.getSelectedSensorVelocity(0) / 600.0, 1);
+        Assertions.assertEquals(0.720454097, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(simId), .0001);
+        Assertions.assertEquals(0.720454097, talon.getMotorOutputPercent(), .0001);
+
+        talon.set(ControlMode.PercentOutput, .5);
+        simulateForTime(1, () ->
+        {
+        });
+        Assertions.assertEquals(.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(simId), .0001);
+        Assertions.assertEquals(.5, talon.getMotorOutputPercent(), .0001);
+
     }
 }

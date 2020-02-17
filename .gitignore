@@ -246,6 +246,9 @@ gradle-app.setting
 
 # End of https://www.gitignore.io/api/c++,java,gradle,eclipse,intellij,visualstudiocode
 
+venv
+.idea/
+
 # SnobotSim things
 **/logs/snobot_sim
 */test_output

@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,7 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ExampleRobot extends TimedRobot
 {
-    private Joystick mJoystick;
+    private XboxController mJoystick;
     private Solenoid mSolenoid;
     private SpeedController mLeftDrive;
     private SpeedController mRightDrive;
@@ -40,7 +42,7 @@ public class ExampleRobot extends TimedRobot
     @Override
     public void robotInit()
     {
-        mJoystick = new Joystick(0);
+        mJoystick = new XboxController(0);
 
         mSolenoid = new Solenoid(0);
         mLeftDrive = new VictorSP(0);
@@ -96,8 +98,8 @@ public class ExampleRobot extends TimedRobot
     @Override
     public void teleopPeriodic()
     {
-        mLeftDrive.set(mJoystick.getRawAxis(0));
-        mRightDrive.set(-mJoystick.getRawAxis(0));
+        mLeftDrive.set(mJoystick.getY(GenericHID.Hand.kLeft));
+        mRightDrive.set(-mJoystick.getY(GenericHID.Hand.kRight));
 
         mSolenoid.set(mJoystick.getRawButton(1));
 

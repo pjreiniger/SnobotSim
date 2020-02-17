@@ -127,21 +127,21 @@ public class KeyboardJoystick extends BaseJoystick
             // Left Trigger
             if (mController.getComponent(Identifier.Key.C).getPollData() != 0) // NOPMD
             {
-                mAxisValues[XboxButtonMap.LEFT_TRIGGER] = sPOSITIVE_VALUE;
+                mAxisValues[XboxButtonMap.LEFT_TRIGGER] = sNEGATIVE_VALUE;
             }
             else
             {
-                mAxisValues[XboxButtonMap.LEFT_TRIGGER] = sNEGATIVE_VALUE;
+                mAxisValues[XboxButtonMap.LEFT_TRIGGER] = 0;
             }
 
             // Right Trigger
             if (mController.getComponent(Identifier.Key.N).getPollData() != 0) // NOPMD
             {
-                mAxisValues[XboxButtonMap.RIGHT_TRIGGER] = sPOSITIVE_VALUE;
+                mAxisValues[XboxButtonMap.RIGHT_TRIGGER] = sNEGATIVE_VALUE;
             }
             else
             {
-                mAxisValues[XboxButtonMap.RIGHT_TRIGGER] = sNEGATIVE_VALUE;
+                mAxisValues[XboxButtonMap.RIGHT_TRIGGER] = 0;
             }
         }
 

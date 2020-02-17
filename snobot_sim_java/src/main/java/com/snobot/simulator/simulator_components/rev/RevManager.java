@@ -36,6 +36,8 @@ public class RevManager
 
             float value = aData.getFloat();
             int ctrl = aData.getInt();
+            sLOGGER.log(Level.DEBUG, "SetpointCommand " + value + ", " + ctrl);
+
             /*
             int pidSlot = aData.getInt();
             float arbFeedforward = aData.getFloat();
@@ -45,7 +47,7 @@ public class RevManager
             {
             // Throttle
             case 0:
-                wrapper.set(value);
+                wrapper.setRawGoal(value);
                 break;
             // Velocity
             case 1:

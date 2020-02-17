@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.snobot.simulator.joysticks.joystick_specializations.GenericGamepadJoystick;
 import com.snobot.simulator.joysticks.joystick_specializations.KeyboardJoystick;
+import com.snobot.simulator.joysticks.joystick_specializations.LogitechDualAction;
 import com.snobot.simulator.joysticks.joystick_specializations.Ps4Joystick;
 import com.snobot.simulator.joysticks.joystick_specializations.XboxJoystick;
 
@@ -37,6 +38,7 @@ public final class JoystickDiscoverer
         sAVAILABLE_SPECIALIZATIONS.put(GenericGamepadJoystick.class, "Generic Gamepad");
         sAVAILABLE_SPECIALIZATIONS.put(XboxJoystick.class, "XBOX");
         sAVAILABLE_SPECIALIZATIONS.put(KeyboardJoystick.class, "Keyboard");
+        sAVAILABLE_SPECIALIZATIONS.put(LogitechDualAction.class, "Logitech Dual Action");
     }
 
     private JoystickDiscoverer()
@@ -130,8 +132,15 @@ public final class JoystickDiscoverer
         }
         else if (type == Type.GAMEPAD)
         {
-            sLOGGER.log(Level.ERROR, "Unknown joystick name " + name);
-            output = GenericGamepadJoystick.class;
+            if ("Logitech Dual Action".equals(name))
+            {
+                output = LogitechDualAction.class;
+            }
+            else
+            {
+                sLOGGER.log(Level.ERROR, "Unknown joystick name " + name);
+                output = GenericGamepadJoystick.class;
+            }
         }
         else if (type == Type.STICK)
         {
