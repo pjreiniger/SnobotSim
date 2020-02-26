@@ -16,7 +16,7 @@ public class RevSpeedControllerSimWrapper extends BaseCanSmartSpeedController
 
     public RevSpeedControllerSimWrapper(int aCanHandle)
     {
-        super(aCanHandle, "Rev", 1);
+        super(aCanHandle, "Rev", 4);
     }
 
     @Override
