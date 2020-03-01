@@ -23,7 +23,7 @@ dependencies {
     compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
     compile 'org.apache.logging.log4j:log4j-api:2.13.0'
     compile 'org.apache.logging.log4j:log4j-core:2.13.0'
-    compile 'org.yaml:snakeyaml:1.25'
+    compile 'org.yaml:snakeyaml:1.26'
     compile project(":snobot_sim_utilities")
     compile 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion()
     compile 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion()
