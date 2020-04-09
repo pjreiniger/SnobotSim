@@ -1,6 +1,7 @@
 package com.snobot.simulator.simulator_components.navx;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,7 @@ import com.snobot.test.utilities.SimDeviceDumpHelper;
 
 import edu.wpi.first.wpilibj.I2C;
 
+@Disabled
 @Tag("NavX")
 public class TestI2CNavx extends BaseSimulatorJniTest
 {
