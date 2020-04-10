@@ -13,7 +13,7 @@ class CtrePigeonImuSim : public AModuleWrapper
 public:
     static constexpr int CTRE_OFFSET = 400;
     static const std::string TYPE;
-    const std::string& GetType() override
+    std::string GetType() override
     {
         return TYPE;
     }

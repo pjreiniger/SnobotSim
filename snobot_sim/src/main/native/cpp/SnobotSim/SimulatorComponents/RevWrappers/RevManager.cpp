@@ -4,7 +4,7 @@
 #include "SnobotSim/GetSensorActuatorHelper.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
-#include "SnobotSim/SimulatorComponents/RevWrappers/RevSpeedControllerSimwrapper.h"
+#include "SnobotSim/SimulatorComponents/RevWrappers/RevSpeedControllerSimWrapper.h"
 #include "SnobotSim/SimulatorComponents/SmartSC/CanIdOffset.h"
 
 namespace

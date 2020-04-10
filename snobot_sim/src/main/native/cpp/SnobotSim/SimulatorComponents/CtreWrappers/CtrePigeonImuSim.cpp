@@ -6,15 +6,17 @@
 namespace
 {
 
+
 class PigeonGyroWrapper : public AModuleWrapper, public IGyroWrapper
 {
 public:
     double mAngle{ 0 };
     double mAngleOffset{ 0 };
 
-    const std::string& GetType() override
+    static const std::string TYPE;
+    std::string GetType() override
     {
-        return "PigeonGyro";
+        return TYPE;
     }
 
     explicit PigeonGyroWrapper(const std::string& aName) :
@@ -57,11 +59,16 @@ public:
     {
         mAccel = aAccel;
     }
-    const std::string& GetType() override
+    static const std::string TYPE;
+    std::string GetType() override
     {
-        return "PigeonAccel";
+        return TYPE;
     }
 };
+
+const std::string PigeonGyroWrapper::TYPE = "PigeonGyro";
+const std::string PigeonAccelWrapper::TYPE = "PigeonAccel";
+
 } // namespace
 
 const std::string CtrePigeonImuSim::TYPE = "Pigeon";

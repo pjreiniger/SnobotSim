@@ -31,7 +31,7 @@ public:
 
         LazySimDoubleWrapper mSimWrapper;
 
-        const std::string& GetType() override
+        std::string GetType() override
         {
             return "baseNavxAccel";
         }
@@ -47,7 +47,7 @@ public:
 
         LazySimDoubleWrapper mSimWrapper;
 
-        const std::string& GetType() override
+        std::string GetType() override
         {
             return "baseNavxGyro";
         }

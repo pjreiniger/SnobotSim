@@ -28,7 +28,7 @@ public:
 
     double GetAngle() override;
 
-    const std::string& GetType() override
+    std::string GetType() override
     {
         return TYPE;
     }

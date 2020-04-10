@@ -9,6 +9,8 @@
 
 #include "SnobotSim/SensorActuatorRegistry.h"
 
+const std::string BaseAdxAccelWrapper::AccelerometerWrapper::TYPE = "baseAdxAccel";
+
 BaseAdxAccelWrapper::BaseAdxAccelWrapper(const std::string& aBaseName, const std::string& aDeviceName, int aBasePort) :
         mXWrapper(new AccelerometerWrapper(LazySimDoubleWrapper{ aDeviceName, "X Accel" })),
         mYWrapper(new AccelerometerWrapper(LazySimDoubleWrapper{ aDeviceName, "Y Accel" })),

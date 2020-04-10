@@ -156,7 +156,7 @@ void CtreManager::Reset()
 
 void CtreManager::handleMotorControllerMessage(const std::string& aCallback, int aCanPort, uint8_t* aBuffer, int aLength)
 {
-    SNOBOT_LOG(SnobotLogging::LOG_LEVEL_INFO, "Getting Motor Controller Message " << aCallback << " on port " << aCanPort << "(" << aLength << " bytes)");
+    SNOBOT_LOG(SnobotLogging::LOG_LEVEL_DEBUG, "Getting Motor Controller Message " << aCallback << " on port " << aCanPort << "(" << aLength << " bytes)");
 
     if ("Create" == aCallback)
     {

@@ -23,7 +23,7 @@ public:
     bool GetRelayForwards() override;
     bool GetRelayReverse() override;
 
-    const std::string& GetType() override
+    std::string GetType() override
     {
         return TYPE;
     }

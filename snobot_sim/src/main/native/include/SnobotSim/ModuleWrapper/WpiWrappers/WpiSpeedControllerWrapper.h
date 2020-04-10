@@ -20,7 +20,7 @@ public:
     explicit WpiSpeedControllerWrapper(int aPort);
     virtual ~WpiSpeedControllerWrapper();
 
-    const std::string& GetType() override
+    std::string GetType() override
     {
         return TYPE;
     }

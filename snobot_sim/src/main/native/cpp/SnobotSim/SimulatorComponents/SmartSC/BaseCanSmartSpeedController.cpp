@@ -274,7 +274,7 @@ void BaseCanSmartSpeedController::setCanFeedbackDevice(FeedbackDevice aNewDevice
         }
         else
         {
-            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "The simulator does not like you changing the feedback device attached to talon " << mCanHandle << " from " << static_cast<int>(mFeedbackDevice) + " to " << static_cast<int>(aNewDevice));
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "The simulator does not like you changing the feedback device attached to talon " << mCanHandle << " from " << static_cast<int>(mFeedbackDevice) << " to " << static_cast<int>(aNewDevice));
         }
     }
 }

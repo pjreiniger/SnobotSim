@@ -35,7 +35,7 @@ public:
 
     void SetVelocity(double aVelocity) override;
 
-    const std::string& GetType() override
+    std::string GetType() override
     {
         return TYPE;
     }

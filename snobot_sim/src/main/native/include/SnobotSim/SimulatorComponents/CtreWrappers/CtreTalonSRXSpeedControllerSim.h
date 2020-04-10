@@ -10,7 +10,7 @@ class CtreTalonSRXSpeedControllerSim : public BaseCanSmartSpeedController
 {
 public:
     static const std::string TYPE;
-    const std::string& GetType() override
+    std::string GetType() override
     {
         return TYPE;
     }
