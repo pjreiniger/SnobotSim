@@ -88,6 +88,13 @@ public class TestSpiNavx extends BaseSimulatorJavaTest
     @Test
     public void testSpiNavx() throws InterruptedException
     {
+        String osName = System.getProperty("os.name").toLowerCase(); // NOPMD
+        boolean isMacOs = osName.startsWith("mac os x");
+        if (isMacOs)
+        {
+            return;
+        }
+
         DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(1, sNAVX_TYPE);
 
         final int sleepTime = 100;

@@ -51,6 +51,13 @@ public class TestI2CNavx extends BaseSimulatorJniTest
     @Test
     public void testI2CNavx() throws InterruptedException
     {
+        String osName = System.getProperty("os.name").toLowerCase(); // NOPMD
+        boolean isMacOs = osName.startsWith("mac os x");
+        if (isMacOs)
+        {
+            return;
+        }
+
         DataAccessorFactory.getInstance().getI2CAccessor().createI2CSimulator(0, sNAVX_TYPE);
 
         final int sleepTime = 100;
