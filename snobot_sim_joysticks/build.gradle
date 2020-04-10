@@ -4,6 +4,7 @@ evaluationDependsOn(':snobot_sim_utilities')
 ext
 {
     baseId = "snobot_sim_joysticks"
+    additional_external_libraries = ["hal_shared", "wpiutil_shared"]
 }
 
 apply from: "${rootDir}/common/base_java_script.gradle"
