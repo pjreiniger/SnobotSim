@@ -7,6 +7,8 @@
 #include "SnobotSim/SimulatorComponents/RevWrappers/RevSpeedControllerSimWrapper.h"
 #include "SnobotSim/SimulatorComponents/SmartSC/CanIdOffset.h"
 
+#include <cstring>
+
 namespace
 {
 

@@ -7,6 +7,8 @@
 #include "SnobotSim/SimulatorComponents/CtreWrappers/CtreTalonSRXSpeedControllerSim.h"
 #include "SnobotSim/SimulatorComponents/SmartSC/CanIdOffset.h"
 
+#include <cstring>
+
 namespace
 {
 std::shared_ptr<CtreTalonSRXSpeedControllerSim> getMotorControllerWrapper(int aCanPort)

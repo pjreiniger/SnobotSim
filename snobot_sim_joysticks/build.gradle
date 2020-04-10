@@ -7,6 +7,7 @@ ext
 }
 
 apply from: "${rootDir}/common/base_java_script.gradle"
+apply from: "${rootDir}/common/base_java_native_script.gradle"
 
 configurations.maybeCreate("wpilibNativeDeps")
 dependencies {
