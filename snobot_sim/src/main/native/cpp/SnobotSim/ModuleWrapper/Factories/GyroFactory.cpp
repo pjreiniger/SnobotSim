@@ -23,7 +23,7 @@ bool GyroFactory::Create(int aHandle, const std::string& aType)
 {
     bool success = true;
 
-    if (aType == "com.snobot.simulator.module_wrapper.wpi.WpiAnalogGyroWrapper")
+    if (aType == WpiAnalogGyroWrapper::TYPE)
     {
         std::shared_ptr<IGyroWrapper> gyroWrapper(new WpiAnalogGyroWrapper(aHandle));
         SensorActuatorRegistry::Get().Register(aHandle, gyroWrapper);

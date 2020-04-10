@@ -10,6 +10,7 @@
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/WpiWrappers/WpiAnalogInWrapper.h"
 #include "SnobotSim/SensorActuatorRegistry.h"
+#include "SnobotSim/SimulatorComponents/SmartSC/SmartSCAnalogIn.h"
 
 AnalogInFactory::AnalogInFactory()
 {
@@ -23,10 +24,15 @@ bool AnalogInFactory::Create(int aHandle, const std::string& aType)
 {
     bool success = true;
 
-    if (aType == "com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper")
+    if (aType == WpiAnalogInWrapper::TYPE)
     {
         SensorActuatorRegistry::Get().Register(aHandle,
                 std::shared_ptr<IAnalogInWrapper>(new WpiAnalogInWrapper(aHandle)));
+    }
+    else if (aType == SmartSCAnalogIn::TYPE)
+    {
+        SensorActuatorRegistry::Get().Register(aHandle,
+                std::shared_ptr<IAnalogInWrapper>(new SmartSCAnalogIn(aHandle)));
     }
     else
     {

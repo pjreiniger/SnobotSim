@@ -2,17 +2,17 @@ apply plugin: 'maven-publish'
 
 def outputsFolder = file("$project.buildDir/outputs")
 
-def baseArtifactId = libraryName
-def artifactGroupId = "edu.wpi.first.${libraryName}"
-def zipBaseName = "_GROUP_edu_wpi_first_${libraryName}_ID_${libraryName}-cpp_CLS"
-def jniBaseName = "_GROUP_edu_wpi_first_${libraryName}_ID_${libraryName}-jni_CLS"
+def baseArtifactId = nativeName
+def artifactGroupId = "edu.wpi.first.${nativeName}"
+def zipBaseName = "_GROUP_edu_wpi_first_${nativeName}_ID_${nativeName}-cpp_CLS"
+def jniBaseName = "_GROUP_edu_wpi_first_${nativeName}_ID_${nativeName}-jni_CLS"
 
 task cppHeadersZip(type: Zip) {
     destinationDir = outputsFolder
     baseName = zipBaseName
     classifier = "headers"
 
-    from(project.libraryHeaderDirs) {
+    from('src/main/native/include') {
         into '/'
     }
 }
@@ -22,7 +22,7 @@ task cppSourcesZip(type: Zip) {
     baseName = zipBaseName
     classifier = "sources"
 
-    from(project.librarySrcDirs) {
+    from('src/main/native/cpp') {
         into '/'
     }
 }
@@ -31,14 +31,24 @@ task cppSourcesZip(type: Zip) {
 model {
     publishing {
 
-        def jniLibraryTaskList = createComponentZipTasks($.components, libraryName, zipBaseName, Zip, project, includeStandardZipFormat)
+        def taskList = createComponentZipTasks($.components, ["${nativeName}Base", "${nativeName}JNIShared"], zipBaseName, Zip, project, includeStandardZipFormat)
 
-        def createAllTask
-        if(!project.hasProperty('ciBuild')) {
-            createAllTask = createAllCombined(project.packageNativeFiles, libraryName, zipBaseName, Jar, project)
-        }
 
-         repositories {
+        def jniTaskList = createComponentZipTasks($.components, ["${nativeName}JNI"], jniBaseName, Jar, project, { task, value ->
+            value.each { binary ->
+                if (binary.buildable) {
+                    if (binary instanceof SharedLibraryBinarySpec) {
+                        task.dependsOn binary.tasks.link
+                        task.inputs.file(binary.sharedLibraryFile)
+                        task.from(binary.sharedLibraryFile) {
+                            into nativeUtils.getPlatformPath(binary)
+                        }
+                    }
+                }
+            }
+        })
+
+        repositories {
            maven {
                url maven_publishing_path
            }
@@ -46,22 +56,26 @@ model {
 
         publications {
             cpp(MavenPublication) {
-                artifactId = project.baseArtifactId
-                groupId project.artifactGroupId
-                version maven_version
-
-                jniLibraryTaskList.each {
+                taskList.each {
+                    println("CPP ART: " + it)
                     artifact it
                 }
 
                 artifact cppHeadersZip
                 artifact cppSourcesZip
-                artifact project.packageNativeFiles
 
-
-                if(!project.hasProperty('ciBuild')) {
-                    artifact createAllTask
+                artifactId = "${baseArtifactId}"
+                groupId 'com.snobot.simulator'
+                version maven_version
+            }
+            jni(MavenPublication) {
+                jniTaskList.each {
+                    artifact it
                 }
+
+                artifactId = "${baseArtifactId}-jni"
+                groupId 'com.snobot.simulator'
+                version maven_version
             }
         }
     }

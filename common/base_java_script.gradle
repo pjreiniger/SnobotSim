@@ -44,6 +44,12 @@ compileJava {
     targetCompatibility = 11
 }
 
+task run(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+
+    main = "com.snobot.simulator.Main"
+}
+
 /////////////////////////////////////////////////////////////////////////////////
 // Style/Formatting stuff
 checkstyle {

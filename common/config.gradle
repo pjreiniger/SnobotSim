@@ -90,10 +90,6 @@ ext.createComponentZipTasks = { components, names, base, type, project, func ->
             archiveBaseName = '_M_' + base
             duplicatesStrategy = 'exclude'
 
-            from(licenseFile) {
-                into '/'
-            }
-
             func(it, value)
         }
         taskList.add(task)
@@ -103,7 +99,7 @@ ext.createComponentZipTasks = { components, names, base, type, project, func ->
         project.artifacts {
             task
         }
-        addTaskToCopyAllOutputs(task)
+        //addTaskToCopyAllOutputs(task)
     }
     return taskList
 }

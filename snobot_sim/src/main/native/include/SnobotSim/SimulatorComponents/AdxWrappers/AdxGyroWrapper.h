@@ -17,12 +17,19 @@
 class AdxGyroWrapper : public AModuleWrapper, public ISpiWrapper, public IGyroWrapper
 {
 public:
+    static const std::string TYPE;
+
     explicit AdxGyroWrapper(const std::string& aBaseName, int aPort);
     virtual ~AdxGyroWrapper();
 
     void SetAngle(double aAngle) override;
 
     double GetAngle() override;
+
+    const std::string& GetType() override
+    {
+        return TYPE;
+    }
 
 protected:
     LazySimDoubleWrapper mSimWrapper;

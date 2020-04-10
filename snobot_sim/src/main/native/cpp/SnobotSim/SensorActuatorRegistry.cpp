@@ -14,6 +14,7 @@ SensorActuatorRegistry* SensorActuatorRegistry::sInstance = new SensorActuatorRe
 
 SensorActuatorRegistry& SensorActuatorRegistry::Get()
 {
+    // std::cout << "SAR: " << sInstance << std::endl;
     return *sInstance;
 }
 

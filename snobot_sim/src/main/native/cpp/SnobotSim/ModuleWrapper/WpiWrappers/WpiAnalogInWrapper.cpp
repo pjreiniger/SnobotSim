@@ -10,6 +10,8 @@
 #include "SnobotSim/PortUnwrapper.h"
 #include "mockdata/AnalogInData.h"
 
+const std::string WpiAnalogInWrapper::TYPE = "com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper";
+
 WpiAnalogInWrapper::WpiAnalogInWrapper(int aPort) :
         AModuleWrapper("Analog In " + std::to_string(UnwrapPort(aPort))),
         mHandle(aPort)

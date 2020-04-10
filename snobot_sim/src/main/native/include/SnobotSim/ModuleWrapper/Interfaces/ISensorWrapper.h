@@ -16,6 +16,8 @@ public:
 
     virtual void SetInitialized(bool aIsInitialized) = 0;
 
+    virtual const std::string& GetType() = 0;
+
     virtual const std::string& GetName() = 0;
 
     virtual void SetName(const std::string& aName) = 0;

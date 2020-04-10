@@ -1,0 +1,201 @@
+!!com.snobot.simulator.config.v1.SimulatorConfigV1
+mAccelerometers:
+- mHandle: 50
+  mName: I2C ADXL345 X Accel
+  mType: com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper
+- mHandle: 51
+  mName: I2C ADXL345 Y Accel
+  mType: com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper
+- mHandle: 52
+  mName: I2C ADXL345 Z Accel
+  mType: com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper
+- mHandle: 103
+  mName: SPI ADXL345 X Accel
+  mType: com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper
+- mHandle: 104
+  mName: SPI ADXL345 Y Accel
+  mType: com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper
+- mHandle: 105
+  mName: SPI ADXL345 Z Accel
+  mType: com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper
+- mHandle: 156
+  mName: SPI ADXL362 X Accel
+  mType: com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper
+- mHandle: 157
+  mName: SPI ADXL362 Y Accel
+  mType: com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper
+- mHandle: 158
+  mName: SPI ADXL362 Z Accel
+  mType: com.snobot.simulator.module_wrapper.BaseAccelerometerWrapper
+mAnalogIn:
+- mHandle: 0
+  mName: Analog In 0
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper
+- mHandle: 1
+  mName: Analog In 1
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper
+- mHandle: 2
+  mName: Analog In 2
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper
+mAnalogOut:
+- mHandle: 1
+  mName: Analog Out 1
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiAnalogOutWrapper
+mDefaultI2CWrappers:
+  0: ADXL345
+mDefaultSpiWrappers:
+  0: ADXRS450
+  1: ADXL345
+  2: ADXL362
+  3: ADXRS450
+mDigitalIO:
+- mHandle: 0
+  mName: Digital IO 0
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper
+- mHandle: 1
+  mName: Digital IO 1
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper
+- mHandle: 2
+  mName: Digital IO 2
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper
+- mHandle: 3
+  mName: Digital IO 3
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper
+- mHandle: 4
+  mName: Digital IO 4
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper
+- mHandle: 5
+  mName: Digital IO 5
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper
+- mHandle: 6
+  mName: Digital IO 6
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper
+- mHandle: 7
+  mName: Digital IO 7
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper
+- mHandle: 8
+  mName: Digital IO 8
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper
+- mHandle: 9
+  mName: Digital IO 9
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper
+mEncoders:
+- mConnectedSpeedControllerHandle: 1
+  mHandle: 0
+  mName: Encoder 0
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiEncoderWrapper
+- mConnectedSpeedControllerHandle: -1
+  mHandle: 1
+  mName: Encoder 1
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiEncoderWrapper
+- mConnectedSpeedControllerHandle: -1
+  mHandle: 2
+  mName: Encoder 2
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiEncoderWrapper
+mGyros:
+- mHandle: 1
+  mName: Analog Gyro
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiAnalogGyroWrapper
+- mHandle: 100
+  mName: ADXRS450 Gyro
+  mType: com.snobot.simulator.simulator_components.adx_family.ADXRS450GyroWrapper
+- mHandle: 103
+  mName: ADXRS450 Gyro
+  mType: com.snobot.simulator.simulator_components.adx_family.ADXRS450GyroWrapper
+mPwm:
+- mHandle: 0
+  mMotorModelConfig: null
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig
+    mMaxSpeed: 12.0
+  mName: Speed Controller 0
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper
+- mHandle: 1
+  mMotorModelConfig:
+    mGearReduction: 10.0
+    mGearboxEfficiency: 1.0
+    mHasBrake: false
+    mInverted: false
+    mMotorType: RS775
+    mNumMotors: 1
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig
+    mConversionFactor: 6.28
+    mLoad: 0.5
+  mName: Speed Controller 1
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper
+- mHandle: 2
+  mMotorModelConfig:
+    mGearReduction: 10.0
+    mGearboxEfficiency: 1.0
+    mHasBrake: false
+    mInverted: false
+    mMotorType: RS775
+    mNumMotors: 1
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.GravityLoadMotorSimulationConfig
+    mLoad: 0.5
+  mName: Speed Controller 2
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper
+- mHandle: 3
+  mMotorModelConfig:
+    mGearReduction: 10.0
+    mGearboxEfficiency: 1.0
+    mHasBrake: false
+    mInverted: false
+    mMotorType: RS775
+    mNumMotors: 1
+  mMotorSimConfig: !!com.snobot.simulator.motor_sim.RotationalLoadMotorSimulationConfig
+    mArmCenterOfMass: 1.0
+    mArmMass: 1.0
+    mConstantAssistTorque: 0.0
+    mOverCenterAssistTorque: 0.0
+  mName: Speed Controller 3
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper
+- mHandle: 4
+  mMotorModelConfig: null
+  mMotorSimConfig: null
+  mName: Speed Controller 4
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper
+- mHandle: 5
+  mMotorModelConfig: null
+  mMotorSimConfig: null
+  mName: Speed Controller 5
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper
+- mHandle: 7
+  mMotorModelConfig: null
+  mMotorSimConfig: null
+  mName: Speed Controller 7
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper
+- mHandle: 8
+  mMotorModelConfig: null
+  mMotorSimConfig: null
+  mName: Speed Controller 8
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper
+mRelays:
+- mHandle: 0
+  mName: Relay 0
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiRelayWrapper
+mSimulatorComponents:
+- !!com.snobot.simulator.simulator_components.config.TankDriveConfig
+  mGyroHandle: 1
+  mLeftMotorHandle: 0
+  mRightMotorHandle: 1
+  mTurnKp: 0.5
+- !!com.snobot.simulator.simulator_components.config.TankDriveConfig
+  mGyroHandle: 100
+  mLeftMotorHandle: 0
+  mRightMotorHandle: 1
+  mTurnKp: 1.0
+- !!com.snobot.simulator.simulator_components.config.TankDriveConfig
+  mGyroHandle: 103
+  mLeftMotorHandle: 0
+  mRightMotorHandle: 1
+  mTurnKp: 2.0
+mSolenoids:
+- mHandle: 0
+  mName: Solenoid 0
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper
+- mHandle: 1
+  mName: Solenoid 1
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper
+- mHandle: 3
+  mName: Solenoid 3
+  mType: com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper

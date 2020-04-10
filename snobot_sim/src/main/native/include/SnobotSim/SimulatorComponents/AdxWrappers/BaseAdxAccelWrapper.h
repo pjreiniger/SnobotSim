@@ -30,6 +30,11 @@ protected:
         double GetAcceleration() override;
 
         LazySimDoubleWrapper mSimWrapper;
+
+        const std::string& GetType() override
+        {
+            return "baseAdxAccel";
+        }
     };
 
     std::shared_ptr<AccelerometerWrapper> mXWrapper;

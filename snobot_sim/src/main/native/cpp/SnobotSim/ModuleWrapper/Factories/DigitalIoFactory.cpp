@@ -23,7 +23,7 @@ bool DigitalIoFactory::Create(int aHandle, const std::string& aType)
 {
     bool success = true;
 
-    if (aType == "com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper")
+    if (aType == WpiDigitalIoWrapper::TYPE)
     {
         SensorActuatorRegistry::Get().Register(aHandle,
                 std::shared_ptr<IDigitalIoWrapper>(new WpiDigitalIoWrapper(aHandle)));

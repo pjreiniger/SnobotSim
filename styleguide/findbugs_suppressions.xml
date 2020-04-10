@@ -61,6 +61,10 @@
         <Class name="com.snobot.simulator.config.v1.SimulatorConfigReaderV1"/>
         <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE" />
     </Match>
+    <Match>
+        <Class name="com.snobot.simulator.config.TestReadConfig"/>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
+    </Match>
 
     <!-- unit tests -->
     <Match>

@@ -3,6 +3,12 @@ package com.snobot.simulator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
 import com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
@@ -11,10 +17,36 @@ import com.snobot.test.utilities.MockRobot;
 
 public class TestASimulator extends BaseSimulatorTest
 {
+    public String extractFiles(String aFilename)
+    {
+        Path filepath = Path.of("asimultor_test/read_test", aFilename);
+        try (InputStream fileStream = getClass().getResource(aFilename).openStream())
+        {
+            if (fileStream == null || filepath.getParent() == null)
+            {
+                Assertions.fail();
+                return null;
+            }
+            if (!filepath.getParent().toFile().exists() && !filepath.getParent().toFile().mkdirs())
+            {
+                Assertions.fail();
+                return null;
+            }
+
+            Files.copy(fileStream, filepath, StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException ex)
+        {
+            Assertions.fail(ex);
+        }
+
+        return filepath.toAbsolutePath().toString();
+    }
+
     @Test
     public void testASimulator()
     {
-        String file = "test_files/ConfigTest/ReadConfig/testReadFile.yml";
+        String file = extractFiles("testReadFile.yml");
 
         ASimulator baseSimulator = new ASimulator();
         Assertions.assertTrue(baseSimulator.loadConfig(file));

@@ -10,6 +10,8 @@
 #include "SnobotSim/PortUnwrapper.h"
 #include "mockdata/PCMData.h"
 
+const std::string WpiSolenoidWrapper::TYPE = "com.snobot.simulator.module_wrapper.wpi.WpiSolenoidWrapper";
+
 WpiSolenoidWrapper::WpiSolenoidWrapper(int aPort) :
         AModuleWrapper("Solenoid " + std::to_string(UnwrapPort(aPort))),
         mModule(aPort / 8),

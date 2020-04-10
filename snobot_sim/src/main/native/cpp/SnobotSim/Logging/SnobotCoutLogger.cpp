@@ -8,8 +8,59 @@
 #include "SnobotSim/Logging/SnobotCoutLogger.h"
 
 #include <iostream>
+#include <map>
+
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 
 using namespace SnobotLogging;
+
+namespace
+{
+
+std::map<LogLevel, std::string> gLOG_LEVEL_LOOKUP = {
+    { LOG_LEVEL_DEBUG, "Debug   " },
+    { LOG_LEVEL_INFO, "Info    " },
+    { LOG_LEVEL_WARN, "Warn    " },
+    { LOG_LEVEL_CRITICAL, "Critical" },
+    { LOG_LEVEL_NONE, "" },
+};
+
+#ifdef _WIN32
+
+WORD gCurrentConsoleAttr;
+
+std::map<LogLevel, WORD> gColorLookup = {
+    { LOG_LEVEL_DEBUG, FOREGROUND_BLUE },
+    { LOG_LEVEL_INFO, FOREGROUND_GREEN },
+    { LOG_LEVEL_WARN, FOREGROUND_BLUE | FOREGROUND_GREEN },
+    { LOG_LEVEL_CRITICAL, FOREGROUND_RED },
+    { LOG_LEVEL_NONE, 0 },
+};
+
+void StartColor(std::ostream& stream, LogLevel aLogLevel)
+{
+    const HANDLE stdout_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO buffer_info;
+    if (GetConsoleScreenBufferInfo(stdout_handle, &buffer_info))
+    {
+        gCurrentConsoleAttr = buffer_info.wAttributes;
+    }
+
+    SetConsoleTextAttribute(stdout_handle, gColorLookup[aLogLevel]);
+}
+
+void EndColor(std::ostream& stream, LogLevel aLogLevel)
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), gCurrentConsoleAttr);
+}
+
+#else
+
+#endif
+
+} // namespace
 
 SnobotCoutLogger::SnobotCoutLogger()
 {
@@ -56,25 +107,7 @@ void SnobotCoutLogger::Log(
     }
 
     std::stringstream logLevelStr;
-
-    switch (aLogLevel)
-    {
-    case LOG_LEVEL_DEBUG:
-        logLevelStr << "Debug  ";
-        break;
-    case LOG_LEVEL_INFO:
-        logLevelStr << "Info   ";
-        break;
-    case LOG_LEVEL_WARN:
-        logLevelStr << "Warn   ";
-        break;
-    case LOG_LEVEL_CRITICAL:
-        logLevelStr << "Error  ";
-        break;
-    case LOG_LEVEL_NONE:
-        logLevelStr << "Invalid";
-        break;
-    }
+    logLevelStr << gLOG_LEVEL_LOOKUP[aLogLevel];
 
     std::string shortenedFileName = FixWindowsSlashes(aFileName);
 
@@ -84,12 +117,7 @@ void SnobotCoutLogger::Log(
         shortenedFileName = shortenedFileName.substr(mDirectorySubstring.size());
     }
 
-    if (aLogLevel <= LOG_LEVEL_INFO)
-    {
-        std::cout << logLevelStr.str() << " " << shortenedFileName << ":" << aLineNumber << " - " << aMessage << std::endl;
-    }
-    else
-    {
-        std::cerr << logLevelStr.str() << " " << shortenedFileName << ":" << aLineNumber << " - " << aMessage << std::endl;
-    }
+    StartColor(std::cout, aLogLevel);
+    std::cout << logLevelStr.str() << " " << shortenedFileName << ":" << aLineNumber << " - " << aMessage << std::endl;
+    EndColor(std::cout, aLogLevel);
 }

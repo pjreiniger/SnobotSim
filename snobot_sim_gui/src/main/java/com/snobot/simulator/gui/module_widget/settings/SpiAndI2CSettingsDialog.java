@@ -46,6 +46,12 @@ public class SpiAndI2CSettingsDialog extends JDialog
 
         Map<Integer, String> defaultSpiMapping = DataAccessorFactory.getInstance().getSpiAccessor().getSpiWrapperTypes();
         Map<Integer, String> defaultI2CMapping = DataAccessorFactory.getInstance().getI2CAccessor().getI2CWrapperTypes();
+
+        if (defaultI2CMapping == null || defaultSpiMapping == null)
+        {
+            return;
+        }
+
         Collection<String> availableSpiOptions = new ArrayList<>();
         Collection<String> availableI2COptions = new ArrayList<>();
 

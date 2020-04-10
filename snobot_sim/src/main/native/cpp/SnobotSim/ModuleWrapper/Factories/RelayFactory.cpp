@@ -23,7 +23,7 @@ bool RelayFactory::Create(int aHandle, const std::string& aType)
 {
     bool success = true;
 
-    if (aType == "com.snobot.simulator.module_wrapper.wpi.WpiRelayWrapper")
+    if (aType == WpiRelayWrapper::TYPE)
     {
         SensorActuatorRegistry::Get().Register(aHandle,
                 std::shared_ptr<IRelayWrapper>(new WpiRelayWrapper(aHandle)));

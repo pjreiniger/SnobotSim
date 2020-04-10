@@ -10,7 +10,7 @@
 const double GravityLoadDcMotorSim::sGRAVITY = 9.8;
 
 GravityLoadDcMotorSim::GravityLoadDcMotorSim(const DcMotorModel& aMotorModel, double aLoad) :
-        BaseDcMotorSimulator("Gravity Load", aMotorModel),
+        BaseDcMotorSimulator(GetType(), aMotorModel),
         mLoad(aLoad)
 {
 }

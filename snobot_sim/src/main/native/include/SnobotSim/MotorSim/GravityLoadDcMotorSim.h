@@ -6,11 +6,23 @@
  */
 
 #pragma once
+
+#include <string>
+
 #include "SnobotSim/MotorSim/BaseDcMotorSimulator.h"
 
 class EXPORT_ GravityLoadDcMotorSim : public BaseDcMotorSimulator
 {
 public:
+    static std::string GetType()
+    {
+        return "Gravity Load";
+    }
+    std::string GetDisplaySimulatorType() override
+    {
+        return "Gravitational Load";
+    }
+
     GravityLoadDcMotorSim(const DcMotorModel& aMotorModel, double aLoad);
     virtual ~GravityLoadDcMotorSim();
 

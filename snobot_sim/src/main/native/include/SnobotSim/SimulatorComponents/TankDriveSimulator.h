@@ -17,8 +17,8 @@ class EXPORT_ TankDriveSimulator : public ISimulatorUpdater
 {
 public:
     TankDriveSimulator(
-            const std::shared_ptr<IEncoderWrapper>& aLeftEncoder,
-            const std::shared_ptr<IEncoderWrapper>& aRightEncoder,
+            const std::shared_ptr<ISpeedControllerWrapper>& aLeftMotor,
+            const std::shared_ptr<ISpeedControllerWrapper>& aRightMotor,
             const std::shared_ptr<IGyroWrapper>& aGyroWrapper,
             double aTurnKp);
 
@@ -27,8 +27,8 @@ public:
     void Update();
 
 protected:
-    std::shared_ptr<IEncoderWrapper> mLeftEncoder;
-    std::shared_ptr<IEncoderWrapper> mRightEncoder;
+    std::shared_ptr<ISpeedControllerWrapper> mLeftMotor;
+    std::shared_ptr<ISpeedControllerWrapper> mRightMotor;
     std::shared_ptr<IGyroWrapper> mGyroWrapper;
 
     double mTurnKp;

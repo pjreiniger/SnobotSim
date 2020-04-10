@@ -10,17 +10,17 @@
 #include "SnobotSim/Logging/SnobotLogger.h"
 
 TankDriveSimulator::TankDriveSimulator(
-        const std::shared_ptr<IEncoderWrapper>& aLeftEncoder,
-        const std::shared_ptr<IEncoderWrapper>& aRightEncoder,
+        const std::shared_ptr<ISpeedControllerWrapper>& aLeftMotor,
+        const std::shared_ptr<ISpeedControllerWrapper>& aRightMotor,
         const std::shared_ptr<IGyroWrapper>& aGyroWrapper,
         double aTurnKp) :
 
-        mLeftEncoder(aLeftEncoder),
-        mRightEncoder(aRightEncoder),
+        mLeftMotor(aLeftMotor),
+        mRightMotor(aRightMotor),
         mGyroWrapper(aGyroWrapper),
         mTurnKp(aTurnKp)
 {
-    mIsSetup = mLeftEncoder && mRightEncoder && mGyroWrapper;
+    mIsSetup = mLeftMotor && mRightMotor && mGyroWrapper;
 
     if (!mIsSetup)
     {
@@ -36,8 +36,8 @@ void TankDriveSimulator::Update()
 {
     if (mIsSetup)
     {
-        double rightDist = mRightEncoder->GetDistance();
-        double leftDist = mLeftEncoder->GetDistance();
+        double rightDist = mLeftMotor->GetPosition();
+        double leftDist = mRightMotor->GetPosition();
 
         double angle = (leftDist - rightDist) / (3.14159 * mTurnKp) * (180.0);
 

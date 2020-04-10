@@ -6,9 +6,11 @@ evaluationDependsOn(':snobot_sim_utilities')
 
 ext {
     baseId = "snobot_sim_java"
+    additional_external_libraries = ["hal_shared", "wpiutil_shared", "snobot_sim_ctre_shared", "snobot_sim_rev_shared"]
 }
 
 apply from: "${rootDir}/common/base_java_script.gradle"
+apply from: "${rootDir}/common/base_java_native_script.gradle"
 
 sourceSets.main.java.srcDir "${buildDir}/generated/java/"
 apply from: "${rootDir}/common/create_version_file.gradle"
@@ -45,6 +47,3 @@ dependencies {
     testCompile "com.kauailabs.navx.frc:navx-java:" + getNavxVersion()
     testCompile "com.revrobotics.frc:SparkMax-java:" + getRevRoboticsVersion()
 }
-
-apply from: "${rootDir}/common/extract_native_libraries.gradle"
-test.dependsOn extract_wpilib

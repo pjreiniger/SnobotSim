@@ -9,6 +9,8 @@
 
 #include "mockdata/AnalogGyroData.h"
 
+const std::string WpiAnalogGyroWrapper::TYPE = "com.snobot.simulator.module_wrapper.wpi.WpiAnalogGyroWrapper";
+
 WpiAnalogGyroWrapper::WpiAnalogGyroWrapper(int aPort) :
         AModuleWrapper("Analog Gyro"),
         mHandle(aPort)

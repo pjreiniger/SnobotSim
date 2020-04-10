@@ -4,9 +4,18 @@ evaluationDependsOn(':snobot_sim_utilities')
 ext
 {
     baseId = "snobot_sim_gui"
+    additional_external_libraries = ["hal_shared", "wpiutil_shared", "snobot_sim_ctre_shared", "snobot_sim_rev_shared"]
+    additional_local_libraries = []
+
+    if (use_simulator_cpp)
+    {
+        additional_local_libraries += [[':snobot_sim', 'snobotSimCppBase', 'shared']]
+        additional_local_libraries += [[':snobot_sim', 'snobotSimCppJNIShared', 'shared']]
+    }
 }
 
 apply from: "${rootDir}/common/base_java_script.gradle"
+apply from: "${rootDir}/common/base_java_native_script.gradle"
 
 configurations {
     native3rdPartyDeps
@@ -42,13 +51,12 @@ dependencies {
     compile project(":snobot_sim_utilities")
     compile project(":snobot_sim_joysticks")
 
-    if(build_simulator_cpp)
+    if(use_simulator_cpp)
     {
-        compile project(":snobot_sim_jni")
-        wpilibNativeDeps project(':snobot_sim_jni').packageNativeFiles.outputs.files
+        compile project(":snobot_sim")
     }
 
-    if(build_simulator_java)
+    if(use_simulator_java)
     {
         compile project(":snobot_sim_java")
     }
@@ -61,27 +69,6 @@ dependencies {
     runtime 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion() + ':' + getCurrentOsArch()
 }
 
-apply from: "${rootDir}/common/extract_native_libraries.gradle"
-test.dependsOn extract_wpilib
-
-
-task unzipNativeLibraries(type: Copy) {
-
-    configurations.native3rdPartyDeps.each {
-        from zipTree(it)
-        into "build/native_libs"
-        include "**/*.dll"
-        include "**/*.lib"
-        include "**/*.pdb"
-        include "**/*.so*"
-        include "**/*.a"
-        include "**/*.dylib*"
-    }
-
-    includeEmptyDirs = false
-
-}
-
 eclipse.classpath.file {
     whenMerged { classpath ->
         classpath.entries.each {
@@ -92,13 +79,11 @@ eclipse.classpath.file {
     }
 }
 
-build.dependsOn unzipNativeLibraries
-
-if(build_simulator_cpp)
+if(use_simulator_cpp)
 {
-    compileJava.dependsOn(":snobot_sim_jni:build")
+    compileJava.dependsOn(":snobot_sim:build")
 }
-if(build_simulator_java)
+if(use_simulator_java)
 {
     compileJava.dependsOn(":snobot_sim_java:build")
 }

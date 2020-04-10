@@ -10,6 +10,8 @@
 #include "SnobotSim/PortUnwrapper.h"
 #include "mockdata/DIOData.h"
 
+const std::string WpiDigitalIoWrapper::TYPE = "com.snobot.simulator.module_wrapper.wpi.WpiDigitalIoWrapper";
+
 WpiDigitalIoWrapper::WpiDigitalIoWrapper(int aPort) :
         AModuleWrapper("Digital IO " + std::to_string(UnwrapPort(aPort))),
         mHandle(aPort)

@@ -10,6 +10,7 @@
 #include "SnobotSim/HalCallbacks/RelayCallbacks.h"
 #include "SnobotSim/HalCallbacks/SolenoidCallbacks.h"
 #include "SnobotSim/HalCallbacks/SpiCallbacks.h"
+#include "SnobotSim/HalCallbacks/ThirdPartyCanCallbacks.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "simulation/SimDeviceSim.h"
 
@@ -24,6 +25,8 @@ void SnobotSim::InitializeSnobotCallbacks()
     InitializeRelayCallbacks();
     InitializeSolenoidCallbacks();
     InitializeSpiCallbacks();
+
+    InitializeThirdPartyCanCallbacks();
 }
 
 void SnobotSim::ResetSnobotCallbacks()
@@ -38,6 +41,8 @@ void SnobotSim::ResetSnobotCallbacks()
     ResetRelayCallbacks();
     ResetSolenoidCallbacks();
     ResetSpiCallbacks();
+
+    ResetThirdPartyCanCallbacks();
 
     // Re-initialize after you are done
     InitializeSnobotCallbacks();

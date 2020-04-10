@@ -3,6 +3,12 @@ package com.snobot.simulator.config;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
 import com.snobot.simulator.config.v1.SimulatorConfigReaderV1;
 import com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
@@ -14,12 +20,37 @@ public class TestReadConfig extends BaseSimulatorJavaTest
 {
     public static final int sTEST_PARAMETER = 5;
 
+    public String extractFiles(String aFilename)
+    {       
+        Path filepath = Path.of("read_test", aFilename);
+        try (InputStream fileStream = getClass().getResource(aFilename).openStream()) 
+        {
+            if (fileStream == null || filepath.getParent() == null)
+            {
+                Assertions.fail();
+                return null;
+            }
+            if (!filepath.getParent().toFile().exists() && !filepath.getParent().toFile().mkdir())
+            {
+                Assertions.fail();
+                return null;
+            }
+
+            Files.copy(fileStream, filepath, StandardCopyOption.REPLACE_EXISTING);
+        } 
+        catch (IOException ex) 
+        {
+            Assertions.fail(ex);
+        }
+
+        return filepath.toAbsolutePath().toString();
+    }
+
     @Test
     public void testReadEmptyFile()
     {
-        String file = "test_files/ConfigTest/ReadConfig/emptyFile.yml";
         SimulatorConfigReaderV1 reader = new SimulatorConfigReaderV1();
-        Assertions.assertTrue(reader.loadConfig(file));
+        Assertions.assertTrue(reader.loadConfig(extractFiles("emptyFile.yml")));
         Assertions.assertNotNull(reader.getConfig());
     }
 
@@ -35,18 +66,16 @@ public class TestReadConfig extends BaseSimulatorJavaTest
     @Test
     public void testReadNonExistingFile()
     {
-        String file = "does_not_exist.yml";
         SimulatorConfigReaderV1 reader = new SimulatorConfigReaderV1();
-        Assertions.assertFalse(reader.loadConfig(file));
+        Assertions.assertFalse(reader.loadConfig("does_not_exist.yml"));
         Assertions.assertNull(reader.getConfig());
     }
 
     @Test
     public void testReadConfig()
     {
-        String file = "test_files/ConfigTest/ReadConfig/testReadFile.yml";
         SimulatorConfigReaderV1 reader = new SimulatorConfigReaderV1();
-        Assertions.assertTrue(reader.loadConfig(file));
+        Assertions.assertTrue(reader.loadConfig(extractFiles("testReadFile.yml")));
         Assertions.assertNotNull(reader.getConfig());
 
         Assertions.assertEquals("I2C ADXL345 X Accel", DataAccessorFactory.getInstance().getAccelerometerAccessor().getName(50));
@@ -117,9 +146,8 @@ public class TestReadConfig extends BaseSimulatorJavaTest
     @Test
     public void testReadLegacyConfigWithoutCan()
     {
-        String file = "test_files/ConfigTest/ReadConfig/testLegacyConfigFileWithoutCan.yml";
         SimulatorConfigReaderV1 reader = new SimulatorConfigReaderV1();
-        Assertions.assertTrue(reader.loadConfig(file));
+        Assertions.assertTrue(reader.loadConfig(extractFiles("testLegacyConfigFileWithoutCan.yml")));
         Assertions.assertNotNull(reader.getConfig());
 
         Assertions.assertEquals("Digital Source6", DataAccessorFactory.getInstance().getDigitalAccessor().getName(6));
@@ -144,9 +172,8 @@ public class TestReadConfig extends BaseSimulatorJavaTest
     @Test
     public void testReadLegacyConfigWithCan()
     {
-        String file = "test_files/ConfigTest/ReadConfig/testLegacyConfigFileWithCan.yml";
         SimulatorConfigReaderV1 reader = new SimulatorConfigReaderV1();
-        Assertions.assertTrue(reader.loadConfig(file));
+        Assertions.assertTrue(reader.loadConfig(extractFiles("testLegacyConfigFileWithCan.yml")));
         Assertions.assertNotNull(reader.getConfig());
 
         Assertions.assertEquals("Winch", DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(3));

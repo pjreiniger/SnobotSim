@@ -8,6 +8,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 #include "SnobotSim/ExportHelper.h"
 #include "SnobotSim/ModuleWrapper/AModuleWrapper.h"
@@ -16,6 +17,8 @@
 class WpiAnalogGyroWrapper : public AModuleWrapper, public IGyroWrapper
 {
 public:
+    static const std::string TYPE;
+
     using AModuleWrapper::GetName;
 
     explicit WpiAnalogGyroWrapper(int aPort);
@@ -24,6 +27,11 @@ public:
     void SetAngle(double aAngle) override;
 
     double GetAngle() override;
+
+    const std::string& GetType() override
+    {
+        return TYPE;
+    }
 
 protected:
     const int mHandle;

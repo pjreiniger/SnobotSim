@@ -133,4 +133,30 @@ Java_com_snobot_simulator_jni_SimulationConnectorJni_createSpiSimulator
     return true;
 }
 
+/*
+ * Class:     com_snobot_simulator_jni_SnobotSimulatorJni
+ * Method:    loadConfigFile
+ * Signature: (Ljava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL
+Java_com_snobot_simulator_jni_SnobotSimulatorJni_loadConfigFile
+  (JNIEnv* env, jclass, jstring aFilename)
+{
+    SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Loading config file '" << aFilename << "'");
+    return false;
+}
+
+/*
+ * Class:     com_snobot_simulator_jni_SnobotSimulatorJni
+ * Method:    saveConfigFile
+ * Signature: (Ljava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL
+Java_com_snobot_simulator_jni_SnobotSimulatorJni_saveConfigFile
+  (JNIEnv* env, jclass, jstring aFilename)
+{
+    SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Saving config file '" << aFilename << "'");
+    return false;
+}
+
 } // extern "C"

@@ -7,10 +7,7 @@ import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.ArrayList;
-import java.util.Collection;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
 public class TestRevControlFollower extends BaseSimulatorJavaTest
 {
@@ -18,17 +15,8 @@ public class TestRevControlFollower extends BaseSimulatorJavaTest
     private static final double sDOUBLE_EPSILON = 1.0 / 1023;
     private static final int sFOLLOWER_ID = 11;
 
-    public static Collection<Integer> getData()
-    {
-        Collection<Integer> output = new ArrayList<>();
-
-        output.add(7);
-
-        return output;
-    }
-
     @ParameterizedTest
-    @MethodSource("getData")
+    @ArgumentsSource(GetRevTestIds.class)
     public void testFollower(int aCanHandle)
     {
         if (aCanHandle == sFOLLOWER_ID)

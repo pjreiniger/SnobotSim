@@ -171,7 +171,14 @@ Java_com_snobot_simulator_jni_module_1wrapper_SpeedControllerWrapperJni_updateAl
 
     for (iter = speedControllers.begin(); iter != speedControllers.end(); ++iter)
     {
-        iter->second->Update(aUpdatePeriod);
+        if (iter->second)
+        {
+            iter->second->Update(aUpdatePeriod);
+        }
+        else
+        {
+            SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "SC is null? " << iter->first);
+        }
     }
 }
 
@@ -191,19 +198,19 @@ Java_com_snobot_simulator_jni_module_1wrapper_SpeedControllerWrapperJni_getMotor
     {
         return 0;
     }
-    else if (type == "Simple")
+    else if (type == SimpleMotorSimulator::GetType())
     {
         return 1;
     }
-    else if (type == "Static Load")
+    else if (type == StaticLoadDcMotorSim::GetType())
     {
         return 2;
     }
-    else if (type == "Rotational Load")
+    else if (type == RotationalLoadDcMotorSim::GetType())
     {
         return 3;
     }
-    else if (type == "Gravity Load")
+    else if (type == GravityLoadDcMotorSim::GetType())
     {
         return 4;
     }

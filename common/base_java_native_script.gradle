@@ -1,0 +1,95 @@
+
+apply plugin: 'cpp'
+apply plugin: 'edu.wpi.first.NativeUtils'
+
+apply from: "${rootDir}/common/config.gradle"
+
+nativeUtils {
+
+  dependencyConfigs {
+    snobot_sim_ctre {
+      groupId = "com.snobot.simulator"
+      artifactId = "ctre_sim_override"
+      headerClassifier = 'headers'
+      ext = "zip"
+      version = getCtreSimVersion()
+      sharedPlatforms << nativeUtils.wpi.platforms.windowsx64
+    }
+    snobot_sim_rev {
+      groupId = "com.snobot.simulator"
+      artifactId = "rev_simulator"
+      headerClassifier = 'headers'
+      ext = "zip"
+      version = getRevRoboticsSimVersion()
+      sharedPlatforms << nativeUtils.wpi.platforms.windowsx64
+    }
+  }
+}
+
+model {
+    components {
+        "${baseId}Dev"(NativeExecutableSpec) {
+            targetBuildTypes 'release'
+            sources {
+                cpp {
+                    source {
+                        srcDirs "${rootDir}/common/dummy_cpp"
+                        include '**/*.cpp'
+                    }
+                }
+            }
+
+            if(project.hasProperty("additional_local_libraries"))
+            {
+                binaries.all {
+                    for (List lib_tuple : additional_local_libraries)
+                    {
+                        lib project: lib_tuple[0],  library: lib_tuple[1], linkage: lib_tuple[2]
+                    }
+                }
+            }
+
+            if(project.hasProperty("additional_external_libraries"))
+            {
+                println("Adding extra natives " + additional_external_libraries)
+                nativeUtils.useRequiredLibrary(it, *additional_external_libraries)
+            }
+        }
+    }
+    tasks {
+        def c = $.components
+        project.tasks.create('runCpp', Exec) {
+            group = 'WPILib'
+            description = "Run the wpilibjDev executable"
+            def found = false
+            def systemArch = getCurrentArch()
+            c.each {
+                //println it.name
+                if (it in NativeExecutableSpec && it.name == "${baseId}Dev") {
+                    it.binaries.each {
+                        if (!found) {
+                            def arch = it.targetPlatform.name
+                            if (arch == systemArch) {
+                                dependsOn it.tasks.install
+                                commandLine it.tasks.install.runScriptFile.get().asFile.toString()
+                                def filePath = it.tasks.install.installDirectory.get().toString() + File.separatorChar + 'lib'
+                                test.dependsOn it.tasks.install
+                                test.systemProperty 'java.library.path', filePath
+                                test.environment 'LD_LIBRARY_PATH', filePath
+                                test.workingDir filePath
+                                run.dependsOn it.tasks.install
+                                run.systemProperty 'java.library.path', filePath
+                                run.environment 'LD_LIBRARY_PATH', filePath
+                                // run.environment 'HALSIM_EXTENSIONS', filePath + File.separatorChar + "wpi_gui"
+
+                                run.workingDir filePath
+
+                                found = true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

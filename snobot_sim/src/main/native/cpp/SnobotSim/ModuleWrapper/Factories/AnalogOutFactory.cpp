@@ -23,7 +23,7 @@ bool AnalogOutFactory::Create(int aHandle, const std::string& aType)
 {
     bool success = true;
 
-    if (aType == "com.snobot.simulator.module_wrapper.wpi.WpiAnalogOutWrapper")
+    if (aType == WpiAnalogOutWrapper::TYPE)
     {
         SensorActuatorRegistry::Get().Register(aHandle,
                 std::shared_ptr<IAnalogOutWrapper>(new WpiAnalogOutWrapper(aHandle)));

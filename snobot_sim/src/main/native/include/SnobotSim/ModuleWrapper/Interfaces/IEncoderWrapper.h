@@ -11,8 +11,9 @@
 
 #include "SnobotSim/ModuleWrapper/Interfaces/ISensorWrapper.h"
 #include "SnobotSim/ModuleWrapper/Interfaces/ISpeedControllerWrapper.h"
+#include "SnobotSim/SimulatorComponents/IFeedbackSensor.h"
 
-class IEncoderWrapper : public virtual ISensorWrapper
+class IEncoderWrapper : public virtual ISensorWrapper, public virtual IFeedbackSensor
 {
 public:
     virtual void Reset() = 0;

@@ -248,8 +248,3 @@ gradle-app.setting
 
 venv
 .idea/
-
-# SnobotSim things
-**/logs/snobot_sim
-*/test_output
-**/simulator_config

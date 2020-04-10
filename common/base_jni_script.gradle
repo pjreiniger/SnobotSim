@@ -16,9 +16,6 @@ apply from: "${rootDir}/common/base_java_script.gradle"
 model {
     components {
         "${nativeName}Base"(NativeLibrarySpec) {
-            if (project.hasProperty('setBaseName')) {
-                baseName = setBaseName
-            }
             sources {
                 cpp {
                     source {
@@ -34,20 +31,49 @@ model {
                     }
                 }
             }
-            binaries.all {
-                if (it instanceof SharedLibraryBinarySpec) {
-                    it.buildable = false
-                    return
+            if(project.hasProperty("additional_local_libraries"))
+            {
+                binaries.all {
+                    for (List lib_tuple : additional_local_libraries)
+                    {
+                        lib project: lib_tuple[0],  library: lib_tuple[1], linkage: lib_tuple[2]
+                    }
                 }
             }
-            nativeUtils.useRequiredLibrary(it, "hal_shared", "wpiutil_shared")
+
+            nativeUtils.useRequiredLibrary(it, *wpi_deps)
+        }
+        "${nativeName}"(NativeLibrarySpec) {
+            if (project.hasProperty('setBaseName')) {
+                baseName = setBaseName
+            }
+            sources {
+                cpp {
+                    source {
+                        srcDirs "${rootDir}/common/dummy_cpp"
+                        include '**/*.cpp'
+                    }
+                    exportedHeaders {
+                        srcDir 'src/main/native/include'
+                        if (project.hasProperty('generatedHeaders')) {
+                            srcDir generatedHeaders
+                        }
+                    }
+                }
+            }
+            if(project.hasProperty("additional_local_libraries"))
+            {
+                binaries.all {
+                    for (List lib_tuple : additional_local_libraries)
+                    {
+                        lib project: lib_tuple[0],  library: lib_tuple[1], linkage: lib_tuple[2]
+                    }
+                }
+            }
+            appendDebugPathToBinaries(binaries)
         }
         "${nativeName}JNIShared"(JniNativeLibrarySpec) {
-            if (project.hasProperty('setBaseName')) {
-                baseName = setBaseName + 'jni'
-            } else {
-                baseName = nativeName + 'jni'
-            }
+            baseName = nativeName + 'jni'
 
             enableCheckTask true
             javaCompileTasks << compileJava
@@ -80,7 +106,54 @@ model {
                     jniSplitSetup(it)
                 }
             }
-            nativeUtils.useRequiredLibrary(it, "hal_shared", "wpiutil_shared")
+            nativeUtils.useRequiredLibrary(it, *wpi_deps)
+        }
+        "${nativeName}JNI"(JniNativeLibrarySpec) {
+            if (project.hasProperty('setBaseName')) {
+                baseName = setBaseName + 'jni'
+            } else {
+                baseName = nativeName + 'jni'
+            }
+
+            enableCheckTask true
+            javaCompileTasks << compileJava
+            jniCrossCompileOptions << JniCrossCompileOptions(nativeUtils.wpi.platforms.roborio)
+            jniCrossCompileOptions << JniCrossCompileOptions(nativeUtils.wpi.platforms.raspbian)
+            jniCrossCompileOptions << JniCrossCompileOptions(nativeUtils.wpi.platforms.aarch64bionic)
+            sources {
+                cpp {
+                    source {
+                        srcDirs 'src/main/native/jni'
+                        include '**/*.cpp'
+                    }
+                    exportedHeaders {
+                        srcDir 'src/main/native/include'
+                        if (project.hasProperty('generatedHeaders')) {
+                            srcDir generatedHeaders
+                        }
+                        include '**/*.h'
+                    }
+
+                }
+            }
+            binaries.all {
+                if (it instanceof StaticLibraryBinarySpec) {
+                    it.buildable = false
+                    return
+                }
+                lib library: "${nativeName}Base", linkage: 'static'
+            }
+            if(project.hasProperty("additional_local_libraries"))
+            {
+                binaries.all {
+                    for (List lib_tuple : additional_local_libraries)
+                    {
+                        lib project: lib_tuple[0],  library: lib_tuple[1], linkage: lib_tuple[2]
+                    }
+                }
+            }
+
+            nativeUtils.useRequiredLibrary(it, *wpi_deps)
         }
         // By default, a development executable will be generated. This is to help the case of
         // testing specific functionality of the library.
@@ -105,7 +178,7 @@ model {
                 lib library: "${nativeName}Base", linkage: 'shared'
                 lib library: "${nativeName}JNIShared", linkage: 'shared'
             }
-            nativeUtils.useRequiredLibrary(it, "hal_shared", "wpiutil_shared")
+            nativeUtils.useRequiredLibrary(it, *wpi_deps)
         }
     }
     binaries {
@@ -152,3 +225,6 @@ tasks.withType(RunTestExecutable) {
     args "--gtest_output=xml:test_detail.xml"
     outputs.dir outputDir
 }
+
+
+apply from: "${rootDir}/common/base_jni_publish.gradle"

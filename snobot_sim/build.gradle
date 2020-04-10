@@ -8,6 +8,10 @@ repositories {
 
 ext {
     nativeName = "snobotSimCpp"
+    baseArtifactId = "XXX"
+    artifactGroupId = "YYY"
+    wpi_deps = ["hal_shared", "wpiutil_shared", "snobot_sim_ctre_shared", "snobot_sim_rev_shared"]
+    include_snobot_sim_cpp = []
     generatedSources = "$buildDir/generated/cpp"
 }
 
@@ -23,6 +27,8 @@ dependencies {
     compile 'edu.wpi.first.cscore:cscore-java:' + getCsCoreVersion()
     compile 'edu.wpi.first.cameraserver:cameraserver-java:' + allwpilibVersion()
     compile project(":snobot_sim_utilities")
+    compile 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion()
+    compile 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion()
 
 
     testCompile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
@@ -30,6 +36,7 @@ dependencies {
     testCompile "com.ctre.phoenix:api-java:" + getCtreVersion()
     testCompile "com.ctre.phoenix:wpiapi-java:" + getCtreVersion()
     testCompile "com.kauailabs.navx.frc:navx-java:" + getNavxVersion()
+    testCompile "com.revrobotics.frc:SparkMax-java:" + getRevRoboticsVersion()
 
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.5.1'
@@ -46,8 +53,31 @@ dependencies {
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':' + getCurrentOsArch()
     testRuntime 'edu.wpi.first.thirdparty.frc2020.opencv:opencv-java:' + getWpilibOpencvVersion()
     testRuntime 'edu.wpi.first.thirdparty.frc2020.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':' + getCurrentOsArch()
+    testRuntime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':' + getCurrentOsArch()
+    testRuntime 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion() + ':' + getCurrentOsArch()
 }
 
+nativeUtils {
+
+  dependencyConfigs {
+    snobot_sim_ctre {
+      groupId = "com.snobot.simulator"
+      artifactId = "ctre_sim_override"
+      headerClassifier = 'headers'
+      ext = "zip"
+      version = getCtreSimVersion()
+      sharedPlatforms << nativeUtils.wpi.platforms.windowsx64
+    }
+    snobot_sim_rev {
+      groupId = "com.snobot.simulator"
+      artifactId = "rev_simulator"
+      headerClassifier = 'headers'
+      ext = "zip"
+      version = getRevRoboticsSimVersion()
+      sharedPlatforms << nativeUtils.wpi.platforms.windowsx64
+    }
+  }
+}
 
 nativeUtils.exportsConfigs {
     snobotSimCpp {
@@ -60,12 +90,16 @@ nativeUtils.exportsConfigs {
                             '_TI5?AVfailure', '_CT??_R0?AVout_of_range', '_CTA3?AVout_of_range',
                             '_TI3?AVout_of_range', '_CT??_R0?AVbad_cast']
     }
+    snobotSimCppBase {
+        x86ExcludeSymbols = ['_CT??_R0?AV_System_error', '_CT??_R0?AVexception', '_CT??_R0?AVfailure',
+                            '_CT??_R0?AVruntime_error', '_CT??_R0?AVsystem_error', '_CTA5?AVfailure',
+                            '_TI5?AVfailure', '_CT??_R0?AVout_of_range', '_CTA3?AVout_of_range',
+                            '_TI3?AVout_of_range', '_CT??_R0?AVbad_cast']
+        x64ExcludeSymbols = ['_CT??_R0?AV_System_error', '_CT??_R0?AVexception', '_CT??_R0?AVfailure',
+                            '_CT??_R0?AVruntime_error', '_CT??_R0?AVsystem_error', '_CTA5?AVfailure',
+                            '_TI5?AVfailure', '_CT??_R0?AVout_of_range', '_CTA3?AVout_of_range',
+                            '_TI3?AVout_of_range', '_CT??_R0?AVbad_cast']
+    }
     snobotSimCppJNI {
-        x86SymbolFilter = { symbols ->
-            symbols.removeIf({ !it.startsWith('HAL_') && !it.startsWith('HALSIM_') })
-        }
-        x64SymbolFilter = { symbols ->
-            symbols.removeIf({ !it.startsWith('HAL_') && !it.startsWith('HALSIM_') })
-        }
     }
 }

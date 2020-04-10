@@ -130,11 +130,11 @@ Java_com_snobot_simulator_jni_SimulationConnectorJni_connectTankDriveSimulator
   (JNIEnv*, jclass, jint aLeftEncHandle, jint aRightEncHandle, jint aGyroHandle,
    jdouble aTurnKp)
 {
-    std::shared_ptr<IEncoderWrapper> leftEncoder = GetIEncoderWrapper(aLeftEncHandle);
-    std::shared_ptr<IEncoderWrapper> rightEncoder = GetIEncoderWrapper(aRightEncHandle);
+    std::shared_ptr<ISpeedControllerWrapper> leftEncoder = GetISpeedControllerWrapper(aLeftEncHandle);
+    std::shared_ptr<ISpeedControllerWrapper> rightEncoder = GetISpeedControllerWrapper(aRightEncHandle);
     std::shared_ptr<IGyroWrapper> gyro = GetIGyroWrapper(aGyroHandle);
 
-    std::shared_ptr<TankDriveSimulator> simulator(new TankDriveSimulator(leftEncoder, rightEncoder, gyro, aTurnKp));
+    std::shared_ptr<TankDriveSimulator> simulator(new TankDriveSimulator(leftEncoder, rightEncoder, gyro, -aTurnKp));
 
     SensorActuatorRegistry::Get().AddSimulatorComponent(simulator);
 
