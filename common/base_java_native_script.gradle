@@ -14,6 +14,9 @@ nativeUtils {
       ext = "zip"
       version = getCtreSimVersion()
       sharedPlatforms << nativeUtils.wpi.platforms.windowsx64
+      sharedPlatforms << nativeUtils.wpi.platforms.windowsx86
+      sharedPlatforms << nativeUtils.wpi.platforms.osxx64
+      sharedPlatforms << nativeUtils.wpi.platforms.linuxx64
     }
     snobot_sim_rev {
       groupId = "com.snobot.simulator"
@@ -22,6 +25,9 @@ nativeUtils {
       ext = "zip"
       version = getRevRoboticsSimVersion()
       sharedPlatforms << nativeUtils.wpi.platforms.windowsx64
+      sharedPlatforms << nativeUtils.wpi.platforms.windowsx86
+      sharedPlatforms << nativeUtils.wpi.platforms.osxx64
+      sharedPlatforms << nativeUtils.wpi.platforms.linuxx64
     }
   }
 }
