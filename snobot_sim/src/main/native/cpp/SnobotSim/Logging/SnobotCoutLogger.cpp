@@ -58,6 +58,25 @@ void EndColor(std::ostream& stream, LogLevel aLogLevel)
 
 #else
 
+std::map<LogLevel, std::string> gColorLookup = {
+    { LOG_LEVEL_DEBUG, "\033[1;36m" },
+    { LOG_LEVEL_INFO, "\033[1;32m" },
+    { LOG_LEVEL_WARN, "\033[1;33m" },
+    { LOG_LEVEL_CRITICAL, "\033[1;31m" },
+    { LOG_LEVEL_NONE, "\033[1;31m" },
+};
+
+
+void StartColor(std::ostream& stream, LogLevel aLogLevel)
+{
+    stream << gColorLookup[aLogLevel];
+}
+
+void EndColor(std::ostream& stream, LogLevel aLogLevel)
+{
+    stream << "\033[0m";
+}
+
 #endif
 
 } // namespace
