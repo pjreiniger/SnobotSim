@@ -19,7 +19,7 @@ SimpleMotorSimulator::~SimpleMotorSimulator()
 {
 }
 
-const std::string& SimpleMotorSimulator::GetSimulatorType()
+std::string SimpleMotorSimulator::GetSimulatorType()
 {
     return GetType();
 }

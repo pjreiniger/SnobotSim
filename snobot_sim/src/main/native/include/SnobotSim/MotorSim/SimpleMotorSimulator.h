@@ -25,7 +25,7 @@ public:
     explicit SimpleMotorSimulator(double aMaxSpeed);
     virtual ~SimpleMotorSimulator();
 
-    const std::string& GetSimulatorType() override;
+    std::string GetSimulatorType() override;
 
     void SetVoltagePercentage(double aSpeed) override;
 

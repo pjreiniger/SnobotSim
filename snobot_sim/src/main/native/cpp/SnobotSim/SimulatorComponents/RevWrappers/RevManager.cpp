@@ -14,7 +14,7 @@ template <typename Type>
 Type Extract(uint8_t* buffer, size_t& aBufferPos)
 {
     Type output;
-    std::memcpy(&output, &buffer[aBufferPos], sizeof(Type));
+    memcpy(&output, &buffer[aBufferPos], sizeof(Type));
     aBufferPos += sizeof(Type);
 
     return output;
@@ -23,7 +23,7 @@ Type Extract(uint8_t* buffer, size_t& aBufferPos)
 template <typename Type>
 void Write(uint8_t* buffer, size_t& aBufferPos, const Type& value)
 {
-    std::memcpy(&buffer[aBufferPos], &value, sizeof(Type));
+    memcpy(&buffer[aBufferPos], &value, sizeof(Type));
     aBufferPos += sizeof(Type);
 }
 

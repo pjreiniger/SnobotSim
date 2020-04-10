@@ -21,7 +21,7 @@ public:
             double aConversionFactor = 1);
     virtual ~BaseDcMotorSimulator();
 
-    const std::string& GetSimulatorType() override;
+    std::string GetSimulatorType() override;
 
     void SetVoltagePercentage(double aSpeed) override;
 

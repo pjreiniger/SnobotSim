@@ -23,7 +23,7 @@ BaseDcMotorSimulator::~BaseDcMotorSimulator()
 {
 }
 
-const std::string& BaseDcMotorSimulator::GetSimulatorType()
+std::string BaseDcMotorSimulator::GetSimulatorType()
 {
     return mSimulatorType;
 }
