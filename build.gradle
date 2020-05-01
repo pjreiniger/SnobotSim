@@ -30,7 +30,7 @@ plugins {
     id 'idea'
     id 'visual-studio'
     id 'net.ltgt.errorprone' version '1.1.1' apply false
-    id "com.diffplug.gradle.spotless" version "3.27.0"
+    id "com.diffplug.gradle.spotless" version "3.28.1"
     id "com.github.spotbugs" version "3.0.0"
 }
 apply plugin: 'nebula-aggregate-javadocs'
