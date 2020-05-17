@@ -15,6 +15,7 @@ public:
     void handleMotorControllerMessage(const std::string& aCallback, int aCanPort, uint8_t* aBuffer, int aLength);
     void handlePigeonMessage(const std::string& aCallback, int aCanPort, uint8_t* aBuffer, int aLength);
     void handleCanifierMessage(const std::string& aCallback, int aCanPort, uint8_t* aBuffer, int aLength);
+    void handleCanCoderMessage(const std::string& aCallback, int aCanPort, uint8_t* aBuffer, int aLength);
     void handleBuffTrajPointStreamMessage(const std::string& aCallback, int aCanPort, uint8_t* aBuffer, int aLength);
 
     std::shared_ptr<CtrePigeonImuSim> createPigeon(int aPort);

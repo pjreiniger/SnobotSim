@@ -1,13 +1,13 @@
 
 #include "SnobotSim/SimulatorComponents/CtreWrappers/CtreManager.h"
 
+#include <cstring>
+
 #include "SnobotSim/GetSensorActuatorHelper.h"
 #include "SnobotSim/Logging/SnobotLogger.h"
 #include "SnobotSim/ModuleWrapper/Factories/FactoryContainer.h"
 #include "SnobotSim/SimulatorComponents/CtreWrappers/CtreTalonSRXSpeedControllerSim.h"
 #include "SnobotSim/SimulatorComponents/SmartSC/CanIdOffset.h"
-
-#include <cstring>
 
 namespace
 {
@@ -27,7 +27,7 @@ template <typename Type>
 Type Extract(uint8_t* buffer, size_t& aBufferPos)
 {
     Type output;
-    memcpy(&output, &buffer[aBufferPos], sizeof(Type));
+    std::memcpy(&output, &buffer[aBufferPos], sizeof(Type));
     aBufferPos += sizeof(Type);
 
     return output;
@@ -36,7 +36,7 @@ Type Extract(uint8_t* buffer, size_t& aBufferPos)
 template <typename Type>
 void Write(uint8_t* buffer, size_t& aBufferPos, const Type& value)
 {
-    memcpy(&buffer[aBufferPos], &value, sizeof(Type));
+    std::memcpy(&buffer[aBufferPos], &value, sizeof(Type));
     aBufferPos += sizeof(Type);
 }
 
@@ -503,6 +503,11 @@ void CtreManager::handlePigeonMessage(const std::string& aCallback, int aCanPort
 void CtreManager::handleCanifierMessage(const std::string& aCallback, int aCanPort, uint8_t* aBuffer, int aLength)
 {
     SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Getting Canifier Message " << aCallback << " on port " << aCanPort << "(" << aLength << " bytes)");
+}
+
+void CtreManager::handleCanCoderMessage(const std::string& aCallback, int aCanPort, uint8_t* aBuffer, int aLength)
+{
+    SNOBOT_LOG(SnobotLogging::LOG_LEVEL_CRITICAL, "Getting CanCoder Message " << aCallback << " on port " << aCanPort << "(" << aLength << " bytes)");
 }
 
 void CtreManager::handleBuffTrajPointStreamMessage(const std::string& aCallback, int aCanPort, uint8_t* aBuffer, int aLength)

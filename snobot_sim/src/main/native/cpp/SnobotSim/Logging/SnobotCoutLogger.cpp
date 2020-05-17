@@ -66,7 +66,6 @@ std::map<LogLevel, std::string> gColorLookup = {
     { LOG_LEVEL_NONE, "\033[1;31m" },
 };
 
-
 void StartColor(std::ostream& stream, LogLevel aLogLevel)
 {
     stream << gColorLookup[aLogLevel];

@@ -20,7 +20,6 @@ public:
     virtual ~BaseAdxAccelWrapper();
 
 protected:
-
     class AccelerometerWrapper : public AModuleWrapper, public IAccelerometerWrapper
     {
     public:

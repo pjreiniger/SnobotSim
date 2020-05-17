@@ -53,8 +53,6 @@ dependencies {
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':' + getCurrentOsArch()
     testRuntime 'edu.wpi.first.thirdparty.frc2020.opencv:opencv-java:' + getWpilibOpencvVersion()
     testRuntime 'edu.wpi.first.thirdparty.frc2020.opencv:opencv-jni:' + getWpilibOpencvVersion() + ':' + getCurrentOsArch()
-    testRuntime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':' + getCurrentOsArch()
-    testRuntime 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion() + ':' + getCurrentOsArch()
 }
 
 nativeUtils {

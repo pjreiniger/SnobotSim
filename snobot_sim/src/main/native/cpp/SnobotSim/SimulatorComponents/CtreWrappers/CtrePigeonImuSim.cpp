@@ -6,7 +6,6 @@
 namespace
 {
 
-
 class PigeonGyroWrapper : public AModuleWrapper, public IGyroWrapper
 {
 public:

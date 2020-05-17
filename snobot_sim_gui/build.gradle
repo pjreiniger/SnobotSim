@@ -65,8 +65,6 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.5.1'
-    runtime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':' + getCurrentOsArch()
-    runtime 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion() + ':' + getCurrentOsArch()
 }
 
 eclipse.classpath.file {
