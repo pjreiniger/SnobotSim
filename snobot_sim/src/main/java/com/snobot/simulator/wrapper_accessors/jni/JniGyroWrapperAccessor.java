@@ -6,14 +6,15 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.snobot.simulator.jni.module_wrapper.GyroWrapperJni;
+import com.snobot.simulator.module_wrappers.GyroWrapper;
 import com.snobot.simulator.wrapper_accessors.GyroWrapperAccessor;
 
-public class JniGyroWrapperAccessor implements GyroWrapperAccessor
+public class JniGyroWrapperAccessor extends BaseWrapperAccessor<GyroWrapper> implements GyroWrapperAccessor
 {
     @Override
     public boolean isInitialized(int aPort)
     {
-        return GyroWrapperJni.isInitialized(aPort);
+        return getWrapper(aPort).isInitialized();
     }
 
     @Override
@@ -25,43 +26,49 @@ public class JniGyroWrapperAccessor implements GyroWrapperAccessor
     @Override
     public void removeSimulator(int aPort)
     {
-        GyroWrapperJni.removeSimluator(aPort);
+        getWrapper(aPort).removeSimluator(aPort);
     }
 
     @Override
     public void setName(int aPort, String aName)
     {
-        GyroWrapperJni.setName(aPort, aName);
+        getWrapper(aPort).setName(aName);
     }
 
     @Override
     public String getName(int aPort)
     {
-        return GyroWrapperJni.getName(aPort);
+        return getWrapper(aPort).getName();
     }
 
     @Override
     public boolean getWantsHidden(int aPort)
     {
-        return GyroWrapperJni.getWantsHidden(aPort);
+        return getWrapper(aPort).getWantsHidden();
     }
 
     @Override
     public double getAngle(int aPort)
     {
-        return GyroWrapperJni.getAngle(aPort);
+        return getWrapper(aPort).getAngle();
     }
 
     @Override
     public void setAngle(int aPort, double aAngle)
     {
-        GyroWrapperJni.setAngle(aPort, aAngle);
+        getWrapper(aPort).setAngle(aAngle);
     }
 
     @Override
     public void reset(int aPort)
     {
-        GyroWrapperJni.reset(aPort);
+        getWrapper(aPort).reset();
+    }
+
+    @Override
+    protected GyroWrapper createWrapperForExistingType(int aHandle)
+    {
+        return new GyroWrapper(aHandle);
     }
 
     @Override

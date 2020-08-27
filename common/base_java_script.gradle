@@ -23,6 +23,7 @@ jacoco {
     toolVersion = "0.8.4"
 }
 jacocoTestReport {
+    dependsOn test
     reports {
         xml.enabled true
         html.enabled true
@@ -30,6 +31,8 @@ jacocoTestReport {
 }
 
 test {
+    finalizedBy jacocoTestReport
+
     useJUnitPlatform()
     testLogging {
         events TestLogEvent.FAILED,

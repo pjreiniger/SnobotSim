@@ -6,14 +6,15 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.snobot.simulator.jni.module_wrapper.RelayWrapperJni;
+import com.snobot.simulator.module_wrappers.RelayWrapper;
 import com.snobot.simulator.wrapper_accessors.RelayWrapperAccessor;
 
-public class JniRelayWrapperAccessor implements RelayWrapperAccessor
+public class JniRelayWrapperAccessor extends BaseWrapperAccessor<RelayWrapper> implements RelayWrapperAccessor
 {
     @Override
     public boolean isInitialized(int aPort)
     {
-        return RelayWrapperJni.isInitialized(aPort);
+        return getWrapper(aPort).isInitialized();
     }
 
     @Override
@@ -25,37 +26,43 @@ public class JniRelayWrapperAccessor implements RelayWrapperAccessor
     @Override
     public void removeSimulator(int aPort)
     {
-        RelayWrapperJni.removeSimluator(aPort);
+        getWrapper(aPort).removeSimluator();
     }
 
     @Override
     public void setName(int aPort, String aName)
     {
-        RelayWrapperJni.setName(aPort, aName);
+        getWrapper(aPort).setName(aName);
     }
 
     @Override
     public String getName(int aPort)
     {
-        return RelayWrapperJni.getName(aPort);
+        return getWrapper(aPort).getName();
     }
 
     @Override
     public boolean getWantsHidden(int aPort)
     {
-        return RelayWrapperJni.getWantsHidden(aPort);
+        return getWrapper(aPort).getWantsHidden();
     }
 
     @Override
     public boolean getFowardValue(int aPort)
     {
-        return RelayWrapperJni.getFowardValue(aPort);
+        return getWrapper(aPort).getFowardValue();
     }
 
     @Override
     public boolean getReverseValue(int aPort)
     {
-        return RelayWrapperJni.getReverseValue(aPort);
+        return getWrapper(aPort).getReverseValue();
+    }
+
+    @Override
+    protected RelayWrapper createWrapperForExistingType(int aHandle)
+    {
+        return new RelayWrapper(aHandle);
     }
 
     @Override

@@ -6,56 +6,65 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.snobot.simulator.jni.module_wrapper.AccelerometerWrapperJni;
+import com.snobot.simulator.module_wrappers.AccelerometerWrapper;
 import com.snobot.simulator.wrapper_accessors.AccelerometerWrapperAccessor;
 
-public class JniAccelerometerWrapperAccessor implements AccelerometerWrapperAccessor
+public class JniAccelerometerWrapperAccessor extends BaseWrapperAccessor<AccelerometerWrapper> implements AccelerometerWrapperAccessor
 {
     @Override
     public boolean isInitialized(int aPort)
     {
-        return AccelerometerWrapperJni.isInitialized(aPort);
+        return getWrapper(aPort).isInitialized();
     }
 
     @Override
     public boolean createSimulator(int aPort, String aType)
     {
-        return AccelerometerWrapperJni.createSimulator(aPort, aType);
+        AccelerometerWrapper wrapper = new AccelerometerWrapper(aPort, aType);
+        return register(aPort, wrapper);
     }
 
     @Override
     public void removeSimulator(int aPort)
     {
-        AccelerometerWrapperJni.removeSimluator(aPort);
+        getWrapper(aPort).removeSimulator();
+        removeWrapper(aPort);
     }
 
     @Override
     public void setName(int aPort, String aName)
     {
-        AccelerometerWrapperJni.setName(aPort, aName);
+        getWrapper(aPort).setName(aName);
     }
 
     @Override
     public String getName(int aPort)
     {
-        return AccelerometerWrapperJni.getName(aPort);
+        return getWrapper(aPort).getName();
     }
 
     @Override
     public boolean getWantsHidden(int aPort)
     {
-        return AccelerometerWrapperJni.getWantsHidden(aPort);
+        return getWrapper(aPort).getWantsHidden();
     }
 
     @Override
     public double getAcceleration(int aPort)
     {
-        return AccelerometerWrapperJni.getAcceleration(aPort);
+        return getWrapper(aPort).getAcceleration();
     }
 
     @Override
     public void setAcceleration(int aPort, double aAcceleration)
     {
-        AccelerometerWrapperJni.setAcceleration(aPort, aAcceleration);
+        getWrapper(aPort).setAcceleration(aAcceleration);
+    }
+
+    @Override
+    protected AccelerometerWrapper createWrapperForExistingType(int aHandle)
+    {
+        return new AccelerometerWrapper(aHandle);
     }
 
     @Override

@@ -6,14 +6,15 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.snobot.simulator.jni.module_wrapper.EncoderWrapperJni;
+import com.snobot.simulator.module_wrappers.EncoderWrapper;
 import com.snobot.simulator.wrapper_accessors.EncoderWrapperAccessor;
 
-public class JniEncoderWrapperAccessor implements EncoderWrapperAccessor
+public class JniEncoderWrapperAccessor extends BaseWrapperAccessor<EncoderWrapper> implements EncoderWrapperAccessor
 {
     @Override
     public boolean isInitialized(int aPort)
     {
-        return EncoderWrapperJni.isInitialized(aPort);
+        return getWrapper(aPort).isInitialized();
     }
 
     @Override
@@ -25,49 +26,60 @@ public class JniEncoderWrapperAccessor implements EncoderWrapperAccessor
     @Override
     public void removeSimulator(int aPort)
     {
-        EncoderWrapperJni.removeSimluator(aPort);
+        getWrapper(aPort).removeSimluator(aPort);
     }
 
     @Override
     public void setName(int aPort, String aName)
     {
-        EncoderWrapperJni.setName(aPort, aName);
+        getWrapper(aPort).setName(aName);
     }
 
     @Override
     public String getName(int aPort)
     {
-        return EncoderWrapperJni.getName(aPort);
+        return getWrapper(aPort).getName();
     }
 
     @Override
     public boolean getWantsHidden(int aPort)
     {
-        return EncoderWrapperJni.getWantsHidden(aPort);
+        return getWrapper(aPort).getWantsHidden();
     }
 
     @Override
     public boolean connectSpeedController(int aEncoderHandle, int aSpeedControllerHandle)
     {
-        return EncoderWrapperJni.connectSpeedController(aEncoderHandle, aSpeedControllerHandle);
+        EncoderWrapper wrapper = getWrapper(aEncoderHandle);
+        if (wrapper == null)
+        {
+            return false;
+        }
+        return wrapper.connectSpeedController(aSpeedControllerHandle);
     }
 
     @Override
     public boolean isHookedUp(int aPort)
     {
-        return EncoderWrapperJni.isHookedUp(aPort);
+        return getWrapper(aPort).isHookedUp();
     }
 
     @Override
     public int getHookedUpId(int aPort)
     {
-        return EncoderWrapperJni.getHookedUpId(aPort);
+        return getWrapper(aPort).getHookedUpId();
     }
 
     @Override
     public double getDistance(int aPort)
     {
-        return EncoderWrapperJni.getDistance(aPort);
+        return getWrapper(aPort).getDistance();
+    }
+
+    @Override
+    protected EncoderWrapper createWrapperForExistingType(int aHandle)
+    {
+        return new EncoderWrapper(aHandle);
     }
 
     @Override

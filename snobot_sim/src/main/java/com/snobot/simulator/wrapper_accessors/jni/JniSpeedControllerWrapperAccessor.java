@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.snobot.simulator.jni.LocalDcMotorModelConfig;
 import com.snobot.simulator.jni.module_wrapper.SpeedControllerWrapperJni;
+import com.snobot.simulator.module_wrappers.SpeedControllerWrapper;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.GravityLoadMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.RotationalLoadMotorSimulationConfig;
@@ -14,14 +14,14 @@ import com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor;
 
-public class JniSpeedControllerWrapperAccessor implements SpeedControllerWrapperAccessor
+public class JniSpeedControllerWrapperAccessor extends BaseWrapperAccessor<SpeedControllerWrapper> implements SpeedControllerWrapperAccessor
 {
     public static final int sCAN_SC_OFFSET = 100;
 
     @Override
     public boolean isInitialized(int aPort)
     {
-        return SpeedControllerWrapperJni.isInitialized(aPort);
+        return getWrapper(aPort).isInitialized();
     }
 
     @Override
@@ -33,31 +33,37 @@ public class JniSpeedControllerWrapperAccessor implements SpeedControllerWrapper
     @Override
     public void removeSimulator(int aPort)
     {
-        SpeedControllerWrapperJni.removeSimluator(aPort);
+        getWrapper(aPort).removeSimluator(aPort);
     }
 
     @Override
     public void setName(int aPort, String aName)
     {
-        SpeedControllerWrapperJni.setName(aPort, aName);
+        getWrapper(aPort).setName(aName);
     }
 
     @Override
     public String getName(int aPort)
     {
-        return SpeedControllerWrapperJni.getName(aPort);
+        return getWrapper(aPort).getName();
     }
 
     @Override
     public boolean getWantsHidden(int aPort)
     {
-        return SpeedControllerWrapperJni.getWantsHidden(aPort);
+        return getWrapper(aPort).getWantsHidden();
     }
 
     @Override
     public double getVoltagePercentage(int aPort)
     {
-        return SpeedControllerWrapperJni.getVoltagePercentage(aPort);
+        return getWrapper(aPort).getVoltagePercentage();
+    }
+
+    @Override
+    protected SpeedControllerWrapper createWrapperForExistingType(int aHandle)
+    {
+        return new SpeedControllerWrapper(aHandle);
     }
 
     @Override
@@ -69,75 +75,67 @@ public class JniSpeedControllerWrapperAccessor implements SpeedControllerWrapper
     @Override
     public DcMotorModelConfig getMotorConfig(int aPort)
     {
-        LocalDcMotorModelConfig config = SpeedControllerWrapperJni.getMotorConfig(aPort);
-        return config == null ? null : config.getConfig();
+        return getWrapper(aPort).getMotorConfig();
     }
 
     @Override
     public SimpleMotorSimulationConfig getMotorSimSimpleModelConfig(int aPort)
     {
-        double maxSpeed = SpeedControllerWrapperJni.getMotorSimSimpleModelConfig(aPort);
-        return new SimpleMotorSimulationConfig(maxSpeed);
+        return getWrapper(aPort).getMotorSimSimpleModelConfig();
     }
 
     @Override
     public StaticLoadMotorSimulationConfig getMotorSimStaticModelConfig(int aPort)
     {
-        double load = SpeedControllerWrapperJni.getMotorSimStaticModelConfig_load(aPort);
-        double conversionFactor = SpeedControllerWrapperJni.getMotorSimStaticModelConfig_conversionFactor(aPort);
-        return new StaticLoadMotorSimulationConfig(load, conversionFactor);
+        return getWrapper(aPort).getMotorSimStaticModelConfig();
     }
 
     @Override
     public GravityLoadMotorSimulationConfig getMotorSimGravitationalModelConfig(int aPort)
     {
-        double load = SpeedControllerWrapperJni.getMotorSimGravitationalModelConfig(aPort);
-        return new GravityLoadMotorSimulationConfig(load);
+        return getWrapper(aPort).getMotorSimGravitationalModelConfig();
     }
 
     @Override
     public RotationalLoadMotorSimulationConfig getMotorSimRotationalModelConfig(int aPort)
     {
-        double armCOM = SpeedControllerWrapperJni.getMotorSimRotationalModelConfig_armCenterOfMass(aPort);
-        double armMass = SpeedControllerWrapperJni.getMotorSimRotationalModelConfig_armMass(aPort);
-        return new RotationalLoadMotorSimulationConfig(armCOM, armMass);
+        return getWrapper(aPort).getMotorSimRotationalModelConfig();
     }
 
     @Override
     public MotorSimType getMotorSimType(int aHandle)
     {
-        int rawType = SpeedControllerWrapperJni.getMotorSimTypeNative(aHandle);
-        return MotorSimType.values()[rawType];
+        return getWrapper(aHandle).getMotorSimType();
     }
 
     @Override
     public double getPosition(int aHandle)
     {
-        return SpeedControllerWrapperJni.getPosition(aHandle);
+        return getWrapper(aHandle).getPosition();
     }
 
     @Override
     public double getVelocity(int aHandle)
     {
-        return SpeedControllerWrapperJni.getVelocity(aHandle);
+        return getWrapper(aHandle).getVelocity();
     }
 
     @Override
     public double getCurrent(int aHandle)
     {
-        return SpeedControllerWrapperJni.getCurrent(aHandle);
+        return getWrapper(aHandle).getCurrent();
     }
 
     @Override
     public double getAcceleration(int aHandle)
     {
-        return SpeedControllerWrapperJni.getAcceleration(aHandle);
+        return getWrapper(aHandle).getAcceleration();
     }
 
     @Override
     public void reset(int aHandle, double aPosition, double aVelocity, double aCurrent)
     {
-        SpeedControllerWrapperJni.reset(aHandle, aPosition, aVelocity, aCurrent);
+        getWrapper(aHandle).reset(aPosition, aVelocity, aCurrent);
     }
 
     @Override

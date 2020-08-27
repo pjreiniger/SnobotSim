@@ -6,14 +6,15 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.snobot.simulator.jni.module_wrapper.AnalogOutWrapperJni;
+import com.snobot.simulator.module_wrappers.AnalogOutWrapper;
 import com.snobot.simulator.wrapper_accessors.AnalogOutputWrapperAccessor;
 
-public class JniAnalogOutWrapperAccessor implements AnalogOutputWrapperAccessor
+public class JniAnalogOutWrapperAccessor extends BaseWrapperAccessor<AnalogOutWrapper> implements AnalogOutputWrapperAccessor
 {
     @Override
     public boolean isInitialized(int aPort)
     {
-        return AnalogOutWrapperJni.isInitialized(aPort);
+        return getWrapper(aPort).isInitialized();
     }
 
     @Override
@@ -25,37 +26,43 @@ public class JniAnalogOutWrapperAccessor implements AnalogOutputWrapperAccessor
     @Override
     public void removeSimulator(int aPort)
     {
-        AnalogOutWrapperJni.removeSimluator(aPort);
+        getWrapper(aPort).removeSimluator();
     }
 
     @Override
     public void setName(int aPort, String aName)
     {
-        AnalogOutWrapperJni.setName(aPort, aName);
+        getWrapper(aPort).setName(aName);
     }
 
     @Override
     public String getName(int aPort)
     {
-        return AnalogOutWrapperJni.getName(aPort);
+        return getWrapper(aPort).getName();
     }
 
     @Override
     public boolean getWantsHidden(int aPort)
     {
-        return AnalogOutWrapperJni.getWantsHidden(aPort);
+        return getWrapper(aPort).getWantsHidden();
     }
 
     @Override
     public double getVoltage(int aPort)
     {
-        return AnalogOutWrapperJni.getVoltage(aPort);
+        return getWrapper(aPort).getVoltage();
     }
 
     @Override
     public void setVoltage(int aPort, double aVoltage)
     {
         // nothing to do
+    }
+
+    @Override
+    protected AnalogOutWrapper createWrapperForExistingType(int aHandle)
+    {
+        return new AnalogOutWrapper(aHandle);
     }
 
     @Override

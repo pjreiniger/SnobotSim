@@ -6,14 +6,15 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.snobot.simulator.jni.module_wrapper.DigitalSourceWrapperJni;
+import com.snobot.simulator.module_wrappers.DigitalSourceWrapper;
 import com.snobot.simulator.wrapper_accessors.DigitalSourceWrapperAccessor;
 
-public class JniDigitalSourceWrapperAccessor implements DigitalSourceWrapperAccessor
+public class JniDigitalSourceWrapperAccessor extends BaseWrapperAccessor<DigitalSourceWrapper> implements DigitalSourceWrapperAccessor
 {
     @Override
     public boolean isInitialized(int aPort)
     {
-        return DigitalSourceWrapperJni.isInitialized(aPort);
+        return getWrapper(aPort).isInitialized();
     }
 
     @Override
@@ -25,37 +26,43 @@ public class JniDigitalSourceWrapperAccessor implements DigitalSourceWrapperAcce
     @Override
     public void removeSimulator(int aPort)
     {
-        DigitalSourceWrapperJni.removeSimluator(aPort);
+        getWrapper(aPort).removeSimluator(aPort);
     }
 
     @Override
     public void setName(int aPort, String aName)
     {
-        DigitalSourceWrapperJni.setName(aPort, aName);
+        getWrapper(aPort).setName(aName);
     }
 
     @Override
     public String getName(int aPort)
     {
-        return DigitalSourceWrapperJni.getName(aPort);
+        return getWrapper(aPort).getName();
     }
 
     @Override
     public boolean getWantsHidden(int aPort)
     {
-        return DigitalSourceWrapperJni.getWantsHidden(aPort);
+        return getWrapper(aPort).getWantsHidden();
     }
 
     @Override
     public boolean getState(int aPort)
     {
-        return DigitalSourceWrapperJni.getState(aPort);
+        return getWrapper(aPort).getState();
     }
 
     @Override
     public void setState(int aPort, boolean aValue)
     {
-        DigitalSourceWrapperJni.setState(aPort, aValue);
+        getWrapper(aPort).setState(aValue);
+    }
+
+    @Override
+    protected DigitalSourceWrapper createWrapperForExistingType(int aHandle)
+    {
+        return new DigitalSourceWrapper(aHandle);
     }
 
     @Override
