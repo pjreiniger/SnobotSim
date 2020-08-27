@@ -8,9 +8,9 @@ import org.apache.logging.log4j.LogManager;
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.factories.DefaultAnalogOutWrapperFactory;
 import com.snobot.simulator.module_wrapper.interfaces.IAnalogOutWrapper;
-import com.snobot.simulator.wrapper_accessors.AnalogSourceWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.AnalogOutputWrapperAccessor;
 
-public class JavaAnalogOutWrapperAccessor extends BaseWrapperAccessor<IAnalogOutWrapper> implements AnalogSourceWrapperAccessor
+public class JavaAnalogOutWrapperAccessor extends BaseWrapperAccessor<IAnalogOutWrapper> implements AnalogOutputWrapperAccessor
 {
     private final DefaultAnalogOutWrapperFactory mFactory;
 

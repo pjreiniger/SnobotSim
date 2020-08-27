@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.snobot.simulator.jni.module_wrapper.AnalogOutWrapperJni;
-import com.snobot.simulator.wrapper_accessors.AnalogSourceWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.AnalogOutputWrapperAccessor;
 
-public class JniAnalogOutWrapperAccessor implements AnalogSourceWrapperAccessor
+public class JniAnalogOutWrapperAccessor implements AnalogOutputWrapperAccessor
 {
     @Override
     public boolean isInitialized(int aPort)

@@ -16,7 +16,7 @@
 // import com.snobot.simulator.motor_sim.DcMotorModel;
 // import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 // import com.snobot.simulator.motor_sim.GravityLoadDcMotorSim;
-// import com.snobot.simulator.motor_sim.IMotorSimulator;
+// import com.snobot.simulator.module_wrapper.interfaces.IMotorSimulator;
 // import com.snobot.simulator.motor_sim.motors.MakeTransmission;
 // import com.snobot.simulator.motor_sim.motors.VexMotorFactory;
 //

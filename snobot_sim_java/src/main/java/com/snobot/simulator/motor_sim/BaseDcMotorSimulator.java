@@ -1,5 +1,7 @@
 package com.snobot.simulator.motor_sim;
 
+import com.snobot.simulator.module_wrapper.interfaces.IMotorSimulator;
+
 public abstract class BaseDcMotorSimulator implements IMotorSimulator
 {
     protected final DcMotorModel mMotorModel;

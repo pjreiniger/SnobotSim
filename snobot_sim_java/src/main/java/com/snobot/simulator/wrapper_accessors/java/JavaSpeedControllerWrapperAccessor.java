@@ -13,7 +13,7 @@ import com.snobot.simulator.motor_sim.BaseDcMotorSimulator;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.GravityLoadDcMotorSim;
 import com.snobot.simulator.motor_sim.GravityLoadMotorSimulationConfig;
-import com.snobot.simulator.motor_sim.IMotorSimulator;
+import com.snobot.simulator.module_wrapper.interfaces.IMotorSimulator;
 import com.snobot.simulator.motor_sim.RotationalLoadDcMotorSim;
 import com.snobot.simulator.motor_sim.RotationalLoadMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig;

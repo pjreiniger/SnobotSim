@@ -1,4 +1,4 @@
-package com.snobot.simulator.motor_sim;
+package com.snobot.simulator.module_wrapper.interfaces;
 
 public interface IMotorSimulator
 {

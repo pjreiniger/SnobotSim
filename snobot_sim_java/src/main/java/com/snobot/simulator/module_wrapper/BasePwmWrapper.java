@@ -1,8 +1,8 @@
 package com.snobot.simulator.module_wrapper;
 
 import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
-import com.snobot.simulator.motor_sim.IMotorSimulator;
-import com.snobot.simulator.simulator_components.IMotorFeedbackSensor;
+import com.snobot.simulator.module_wrapper.interfaces.IMotorSimulator;
+import com.snobot.simulator.module_wrapper.interfaces.IMotorFeedbackSensor;
 
 public abstract class BasePwmWrapper extends ASensorWrapper implements IPwmWrapper
 {

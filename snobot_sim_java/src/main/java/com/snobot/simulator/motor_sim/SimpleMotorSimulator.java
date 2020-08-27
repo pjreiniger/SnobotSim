@@ -1,5 +1,7 @@
 package com.snobot.simulator.motor_sim;
 
+import com.snobot.simulator.module_wrapper.interfaces.IMotorSimulator;
+
 public class SimpleMotorSimulator implements IMotorSimulator
 {
     private final SimpleMotorSimulationConfig mConfig;

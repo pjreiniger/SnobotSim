@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper;
-import com.snobot.simulator.simulator_components.IMotorFeedbackSensor;
+import com.snobot.simulator.module_wrapper.interfaces.IMotorFeedbackSensor;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 

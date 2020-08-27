@@ -43,7 +43,7 @@ ext.use_simulator_java = true
 // Specify WPI Versions
 
 ext.allwpilibVersion = {
-    return '2020.1.2'
+    return '2020.3.2'
 }
 
 ext.getWpiUtilVersion = {
@@ -75,8 +75,8 @@ ext.getNavxVersion = {
     return '3.1.403'
 }
 ext.getWpiRepo = {
-    return "https://frcmaven.wpi.edu/artifactory/development/"
-    //return "http://first.wpi.edu/FRC/roborio/maven/development/"
+    return "https://frcmaven.wpi.edu/artifactory/release/"
+//    return "https://frcmaven.wpi.edu/artifactory/development/"
 }
 
 ext.getNavxRepo = {
