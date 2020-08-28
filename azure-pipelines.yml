@@ -5,8 +5,8 @@
 
 resources:
   containers:
-  - container: wpilib2019
-    image: wpilib/roborio-cross-ubuntu:2019-18.04
+  - container: wpilib2020
+    image: wpilib/roborio-cross-ubuntu:2020-18.04
   - container: ubuntu18
     image: ubuntu:18.04
     options: "--name ci-container -v /usr/bin/docker:/tmp/docker:ro"
@@ -46,7 +46,7 @@ stages:
      pool:
        vmImage: 'Ubuntu 16.04'
 
-     container: wpilib2019
+     container: wpilib2020
 
      steps:
      - task: Gradle@2
@@ -56,8 +56,8 @@ stages:
          gradleOptions: '-Xmx3072m'
          publishJUnitResults: true
          testResultsFiles: '**/TEST-*.xml'
-         tasks: 'build publish -x :snobot_sim_gui:test'
-         options: '-PciBuild --info'
+         tasks: 'build publish'
+         options: '-PciBuild'
          # checkStyleRunAnalysis: true
          # pmdRunAnalysis: true
 
@@ -69,24 +69,14 @@ stages:
 
    - job: Windows_64_Bit
      pool:
-       vmImage: 'vs2017-win2016'
+        vmImage: 'windows-2019'
      steps:
-      - powershell: |
-          mkdir build
-          $ProgressPreference = 'SilentlyContinue'
-          wget "https://download.java.net/java/ga/jdk11/openjdk-11_windows-x64_bin.zip" -O "build\jdk.zip"
-        displayName: 'Download JDK'
-      - task: JavaToolInstaller@0
-        inputs:
-          jdkSourceOption: localDirectory
-          jdkFile: 'build/jdk.zip'
-          jdkDestinationDirectory: 'build/jdkinst'
-          jdkArchitectureOption: x64
       - task: Gradle@2
         inputs:
           workingDirectory: ''
           gradleWrapperFile: 'gradlew'
           gradleOptions: '-Xmx3072m'
+          jdkVersionOption: '1.11'
           publishJUnitResults: true
           testResultsFiles: '**/TEST-*.xml'
           tasks: 'build publish'
@@ -106,10 +96,11 @@ stages:
       - powershell: |
           mkdir build
           $ProgressPreference = 'SilentlyContinue'
-          wget "https://github.com/wpilibsuite/frc-openjdk-windows/releases/download/v11.0.0u28-1/jdk-x86-11.0.0u28-1.zip" -O "build\jdk.zip"
+          wget "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.4%2B11/OpenJDK11U-jdk_x86-32_windows_hotspot_11.0.4_11.zip" -O "build\jdk.zip"
         displayName: 'Download JDK'
       - task: JavaToolInstaller@0
         inputs:
+          versionSpec: '11'
           jdkSourceOption: localDirectory
           jdkFile: 'build/jdk.zip'
           jdkDestinationDirectory: 'build/jdkinst'
@@ -122,7 +113,7 @@ stages:
           publishJUnitResults: true
           testResultsFiles: '**/TEST-*.xml'
           tasks: 'build publish'
-          options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000 --info'
+          options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Artifact: maven repo'
@@ -136,21 +127,18 @@ stages:
      steps:
       - script: |
           mkdir build
-          wget "https://download.java.net/java/ga/jdk11/openjdk-11_osx-x64_bin.tar.gz" -O "build/jdk.tar.gz"
-          sudo tar xvzf build/jdk.tar.gz -C /Library/Java/JavaVirtualMachines/
-          export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/
+          export JAVA_HOME=`/usr/libexec/java_home -v 11`
         displayName: 'Setup JDK'
       - task: Gradle@2
         inputs:
           workingDirectory: ''
           gradleWrapperFile: 'gradlew'
           gradleOptions: '-Xmx3072m'
-          javaHomeOption: 'path'
-          jdkDirectory: '/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/'
+          jdkVersionOption: '1.11'
           publishJUnitResults: true
           testResultsFiles: '**/TEST-*.xml'
           tasks: 'build publish'
-          options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000 --info'
+          options: '-PciBuild -Dhttp.socketTimeout=60000 -Dhttp.connectionTimeout=60000'
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Artifact: maven repo'
