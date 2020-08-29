@@ -21,12 +21,6 @@ public class JavaAnalogInWrapperAccessor extends BaseWrapperAccessor<IAnalogInWr
     }
 
     @Override
-    public boolean isInitialized(int aPort)
-    {
-        return getValue(aPort).isInitialized();
-    }
-
-    @Override
     public boolean createSimulator(int aPort, String aType)
     {
         return mFactory.create(aPort, aType);
@@ -38,7 +32,7 @@ public class JavaAnalogInWrapperAccessor extends BaseWrapperAccessor<IAnalogInWr
     {
         try
         {
-            getValue(aPort).close();
+            getWrapper(aPort).close();
         }
         catch (Exception ex)
         {
@@ -51,17 +45,5 @@ public class JavaAnalogInWrapperAccessor extends BaseWrapperAccessor<IAnalogInWr
     protected Map<Integer, IAnalogInWrapper> getMap()
     {
         return SensorActuatorRegistry.get().getAnalogIn();
-    }
-
-    @Override
-    public double getVoltage(int aPort)
-    {
-        return getValue(aPort).getVoltage();
-    }
-
-    @Override
-    public void setVoltage(int aPort, double aVoltage)
-    {
-        getValue(aPort).setVoltage(aVoltage);
     }
 }

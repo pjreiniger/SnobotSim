@@ -26,7 +26,7 @@ public class DigitalSourceGraphicDisplay extends BaseWidgetDisplay<Integer, Digi
     {
         for (Entry<Integer, DigitalSourceWrapperDisplay> pair : mWidgetMap.entrySet())
         {
-            boolean value = DataAccessorFactory.getInstance().getDigitalAccessor().getState(pair.getKey());
+            boolean value = DataAccessorFactory.getInstance().getDigitalAccessor().getWrapper(pair.getKey()).get();
             pair.getValue().updateDisplay(value);
         }
     }
@@ -34,7 +34,7 @@ public class DigitalSourceGraphicDisplay extends BaseWidgetDisplay<Integer, Digi
     @Override
     protected DigitalSourceWrapperDisplay createWidget(Integer aKey)
     {
-        if (DataAccessorFactory.getInstance().getDigitalAccessor().getWantsHidden(aKey))
+        if (DataAccessorFactory.getInstance().getDigitalAccessor().getWrapper(aKey).getWantsHidden())
         {
             return null;
         }
@@ -49,7 +49,7 @@ public class DigitalSourceGraphicDisplay extends BaseWidgetDisplay<Integer, Digi
             @Override
             protected void onSubmit()
             {
-                DataAccessorFactory.getInstance().getDigitalAccessor().setName(aKey, getComponentName());
+                DataAccessorFactory.getInstance().getDigitalAccessor().getWrapper(aKey).setName(getComponentName());
                 mLabelMap.get(aKey).setText(getComponentName());
             }
         };
@@ -62,7 +62,7 @@ public class DigitalSourceGraphicDisplay extends BaseWidgetDisplay<Integer, Digi
     @Override
     protected String getName(Integer aKey)
     {
-        return DataAccessorFactory.getInstance().getDigitalAccessor().getName(aKey);
+        return DataAccessorFactory.getInstance().getDigitalAccessor().getWrapper(aKey).getName();
     }
 }
 

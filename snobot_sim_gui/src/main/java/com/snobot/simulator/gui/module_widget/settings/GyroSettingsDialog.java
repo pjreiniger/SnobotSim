@@ -23,7 +23,7 @@ public class GyroSettingsDialog extends SimpleSettingsDialog
         List<Integer> speedControllers = DataAccessorFactory.getInstance().getGyroAccessor().getPortList();
         for (int handle : speedControllers)
         {
-            SensorHandleOption option = new SensorHandleOption(handle, DataAccessorFactory.getInstance().getGyroAccessor().getName(handle));
+            SensorHandleOption option = new SensorHandleOption(handle, DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(handle).getName());
             mSpeedControllerSelection.addItem(option);
         }
 

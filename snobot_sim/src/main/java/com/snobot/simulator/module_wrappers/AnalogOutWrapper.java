@@ -2,8 +2,9 @@ package com.snobot.simulator.module_wrappers;
 
 import com.snobot.simulator.jni.module_wrapper.AnalogInWrapperJni;
 import com.snobot.simulator.jni.module_wrapper.AnalogOutWrapperJni;
+import com.snobot.simulator.module_wrapper.interfaces.IAnalogOutWrapper;
 
-public class AnalogOutWrapper
+public class AnalogOutWrapper implements IAnalogOutWrapper
 {
     private final int mHandle;
 
@@ -18,37 +19,62 @@ public class AnalogOutWrapper
         mHandle = aHandle;
     }
 
+    @Override
     public boolean isInitialized()
     {
         return AnalogOutWrapperJni.isInitialized(mHandle);
     }
 
-    public void removeSimulator()
+    @Override
+    public void setInitialized(boolean aInitialized)
     {
-        AnalogOutWrapperJni.removeSimluator(mHandle);
+        throw new UnsupportedOperationException();
     }
 
+    @Override
     public void setName(String aName)
     {
         AnalogOutWrapperJni.setName(mHandle, aName);
     }
 
+    @Override
     public String getName()
     {
         return AnalogOutWrapperJni.getName(mHandle);
     }
 
+    @Override
     public boolean getWantsHidden()
     {
         return AnalogOutWrapperJni.getWantsHidden(mHandle);
     }
 
+    @Override
+    public void setWantsHidden(boolean aVisible)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String getType()
+    {
+        return null;
+    }
+
+    @Override
+    public void setVoltage(double aVoltage)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public double getVoltage()
     {
         return AnalogOutWrapperJni.getVoltage(mHandle);
     }
 
-    public void removeSimluator()
+    @Override
+    public void close()
     {
         AnalogInWrapperJni.removeSimluator(mHandle);
     }

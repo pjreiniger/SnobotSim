@@ -1,7 +1,9 @@
 
 package com.snobot.simulator.wrapper_accessors;
 
-public interface EncoderWrapperAccessor extends IBasicSensorActuatorWrapperAccessor
+import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
+
+public interface EncoderWrapperAccessor extends IBasicSensorActuatorWrapperAccessor<IEncoderWrapper>
 {
     public boolean connectSpeedController(int aEncoderHandle, int aSpeedControllerHandle);
 

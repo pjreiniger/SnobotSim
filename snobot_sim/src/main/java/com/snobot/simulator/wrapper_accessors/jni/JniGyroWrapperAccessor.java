@@ -12,57 +12,9 @@ import com.snobot.simulator.wrapper_accessors.GyroWrapperAccessor;
 public class JniGyroWrapperAccessor extends BaseWrapperAccessor<GyroWrapper> implements GyroWrapperAccessor
 {
     @Override
-    public boolean isInitialized(int aPort)
-    {
-        return getWrapper(aPort).isInitialized();
-    }
-
-    @Override
     public boolean createSimulator(int aPort, String aType)
     {
         return GyroWrapperJni.createSimulator(aPort, aType);
-    }
-
-    @Override
-    public void removeSimulator(int aPort)
-    {
-        getWrapper(aPort).removeSimluator(aPort);
-    }
-
-    @Override
-    public void setName(int aPort, String aName)
-    {
-        getWrapper(aPort).setName(aName);
-    }
-
-    @Override
-    public String getName(int aPort)
-    {
-        return getWrapper(aPort).getName();
-    }
-
-    @Override
-    public boolean getWantsHidden(int aPort)
-    {
-        return getWrapper(aPort).getWantsHidden();
-    }
-
-    @Override
-    public double getAngle(int aPort)
-    {
-        return getWrapper(aPort).getAngle();
-    }
-
-    @Override
-    public void setAngle(int aPort, double aAngle)
-    {
-        getWrapper(aPort).setAngle(aAngle);
-    }
-
-    @Override
-    public void reset(int aPort)
-    {
-        getWrapper(aPort).reset();
     }
 
     @Override
@@ -75,11 +27,5 @@ public class JniGyroWrapperAccessor extends BaseWrapperAccessor<GyroWrapper> imp
     public List<Integer> getPortList()
     {
         return IntStream.of(GyroWrapperJni.getPortList()).boxed().collect(Collectors.toList());
-    }
-
-    @Override
-    public String getType(int aPort)
-    {
-        return null;
     }
 }

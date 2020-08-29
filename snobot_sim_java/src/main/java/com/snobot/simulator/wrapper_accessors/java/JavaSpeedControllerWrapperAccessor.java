@@ -36,12 +36,6 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
     }
 
     @Override
-    public boolean isInitialized(int aPort)
-    {
-        return getValue(aPort).isInitialized();
-    }
-
-    @Override
     public boolean createSimulator(int aPort, String aType)
     {
         return mFactory.create(aPort, aType);
@@ -53,7 +47,7 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
     {
         try
         {
-            getValue(aPort).close();
+            getWrapper(aPort).close();
         }
         catch (Exception ex)
         {
@@ -71,16 +65,16 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
     @Override
     public double getVoltagePercentage(int aPort)
     {
-        return getValue(aPort).get();
+        return getWrapper(aPort).get();
     }
 
     @Override
     public SimpleMotorSimulationConfig getMotorSimSimpleModelConfig(int aPort)
     {
-        IMotorSimulator baseMotorSim = getValue(aPort).getMotorSimulator();
+        IMotorSimulator baseMotorSim = getWrapper(aPort).getMotorSimulator();
         if (baseMotorSim instanceof SimpleMotorSimulator)
         {
-            SimpleMotorSimulator simulator = (SimpleMotorSimulator) getValue(aPort).getMotorSimulator();
+            SimpleMotorSimulator simulator = (SimpleMotorSimulator) getWrapper(aPort).getMotorSimulator();
             return simulator.getConfig();
         }
 
@@ -91,10 +85,10 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
     @Override
     public StaticLoadMotorSimulationConfig getMotorSimStaticModelConfig(int aPort)
     {
-        IMotorSimulator baseMotorSim = getValue(aPort).getMotorSimulator();
+        IMotorSimulator baseMotorSim = getWrapper(aPort).getMotorSimulator();
         if (baseMotorSim instanceof StaticLoadDcMotorSim)
         {
-            StaticLoadDcMotorSim simulator = (StaticLoadDcMotorSim) getValue(aPort).getMotorSimulator();
+            StaticLoadDcMotorSim simulator = (StaticLoadDcMotorSim) getWrapper(aPort).getMotorSimulator();
             return simulator.getConfig();
         }
 
@@ -105,10 +99,10 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
     @Override
     public GravityLoadMotorSimulationConfig getMotorSimGravitationalModelConfig(int aPort)
     {
-        IMotorSimulator baseMotorSim = getValue(aPort).getMotorSimulator();
+        IMotorSimulator baseMotorSim = getWrapper(aPort).getMotorSimulator();
         if (baseMotorSim instanceof GravityLoadDcMotorSim)
         {
-            GravityLoadDcMotorSim simulator = (GravityLoadDcMotorSim) getValue(aPort).getMotorSimulator();
+            GravityLoadDcMotorSim simulator = (GravityLoadDcMotorSim) getWrapper(aPort).getMotorSimulator();
             return simulator.getConfig();
         }
 
@@ -119,10 +113,10 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
     @Override
     public RotationalLoadMotorSimulationConfig getMotorSimRotationalModelConfig(int aPort)
     {
-        IMotorSimulator baseMotorSim = getValue(aPort).getMotorSimulator();
+        IMotorSimulator baseMotorSim = getWrapper(aPort).getMotorSimulator();
         if (baseMotorSim instanceof RotationalLoadDcMotorSim)
         {
-            RotationalLoadDcMotorSim simulator = (RotationalLoadDcMotorSim) getValue(aPort).getMotorSimulator();
+            RotationalLoadDcMotorSim simulator = (RotationalLoadDcMotorSim) getWrapper(aPort).getMotorSimulator();
             return simulator.getConfig();
         }
 
@@ -133,7 +127,7 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
     @Override
     public MotorSimType getMotorSimType(int aHandle)
     {
-        IMotorSimulator simulator = getValue(aHandle).getMotorSimulator();
+        IMotorSimulator simulator = getWrapper(aHandle).getMotorSimulator();
 
         if (simulator instanceof SimpleMotorSimulator)
         {
@@ -157,7 +151,7 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
     @Override
     public DcMotorModelConfig getMotorConfig(int aPort)
     {
-        IMotorSimulator simulator = getValue(aPort).getMotorSimulator();
+        IMotorSimulator simulator = getWrapper(aPort).getMotorSimulator();
         if (simulator instanceof BaseDcMotorSimulator)
         {
             BaseDcMotorSimulator castSim = (BaseDcMotorSimulator) simulator;

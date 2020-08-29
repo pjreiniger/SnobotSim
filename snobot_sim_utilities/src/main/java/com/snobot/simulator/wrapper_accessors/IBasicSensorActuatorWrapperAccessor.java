@@ -1,20 +1,14 @@
 package com.snobot.simulator.wrapper_accessors;
 
+import com.snobot.simulator.module_wrapper.interfaces.ISensorWrapper;
+
 import java.util.List;
 
-public interface IBasicSensorActuatorWrapperAccessor
+public interface IBasicSensorActuatorWrapperAccessor<WrapperType extends ISensorWrapper>
 {
-    boolean isInitialized(int aPort);
+    WrapperType getWrapper(int aHandle);
 
-    void setName(int aPort, String aName);
-
-    String getName(int aPort);
-
-    String getType(int aPort);
-
-    boolean getWantsHidden(int aPort);
-
-    public List<Integer> getPortList();
+    List<Integer> getPortList();
 
     boolean createSimulator(int aPort, String aType);
 

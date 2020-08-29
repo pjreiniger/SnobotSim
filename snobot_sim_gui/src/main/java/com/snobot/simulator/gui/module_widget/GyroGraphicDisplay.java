@@ -25,7 +25,7 @@ public class GyroGraphicDisplay extends BaseWidgetDisplay<Integer, GyroWrapperDi
         for (Entry<Integer, GyroWrapperDisplay> pair : mWidgetMap.entrySet())
         {
             int key = pair.getKey();
-            double angle = DataAccessorFactory.getInstance().getGyroAccessor().getAngle(key);
+            double angle = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(key).getAngle();
 
             pair.getValue().updateDisplay(angle);
         }
@@ -47,7 +47,7 @@ public class GyroGraphicDisplay extends BaseWidgetDisplay<Integer, GyroWrapperDi
             {
                 super.onSubmit();
 
-                DataAccessorFactory.getInstance().getGyroAccessor().setName(aKey, getComponentName());
+                DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(aKey).setName(getComponentName());
                 mLabelMap.get(aKey).setText(getComponentName());
             }
         };
@@ -60,7 +60,7 @@ public class GyroGraphicDisplay extends BaseWidgetDisplay<Integer, GyroWrapperDi
     @Override
     protected String getName(Integer aKey)
     {
-        return DataAccessorFactory.getInstance().getGyroAccessor().getName(aKey);
+        return DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(aKey).getName();
     }
 }
 

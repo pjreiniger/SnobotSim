@@ -28,7 +28,7 @@ public class AccelerometerOutputDisplay extends BaseWidgetDisplay<Integer, Accel
         {
             if (pair.getValue().isVisible())
             {
-                double accel = DataAccessorFactory.getInstance().getAccelerometerAccessor().getAcceleration(pair.getKey());
+                double accel = DataAccessorFactory.getInstance().getAccelerometerAccessor().getWrapper(pair.getKey()).getAcceleration();
                 pair.getValue().updateDisplay(accel);
             }
         }
@@ -49,7 +49,7 @@ public class AccelerometerOutputDisplay extends BaseWidgetDisplay<Integer, Accel
             @Override
             protected void onSubmit()
             {
-                DataAccessorFactory.getInstance().getAccelerometerAccessor().setName(aKey, getComponentName());
+                DataAccessorFactory.getInstance().getAccelerometerAccessor().getWrapper(aKey).setName(getComponentName());
                 mLabelMap.get(aKey).setText(getComponentName());
             }
         };
@@ -62,7 +62,7 @@ public class AccelerometerOutputDisplay extends BaseWidgetDisplay<Integer, Accel
     @Override
     protected String getName(Integer aKey)
     {
-        return DataAccessorFactory.getInstance().getAccelerometerAccessor().getName(aKey);
+        return DataAccessorFactory.getInstance().getAccelerometerAccessor().getWrapper(aKey).getName();
     }
 }
 

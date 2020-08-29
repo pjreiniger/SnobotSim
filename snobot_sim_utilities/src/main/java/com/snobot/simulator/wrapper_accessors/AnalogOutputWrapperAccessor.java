@@ -1,9 +1,8 @@
 
 package com.snobot.simulator.wrapper_accessors;
 
-public interface AnalogOutputWrapperAccessor extends IBasicSensorActuatorWrapperAccessor
-{
-    public double getVoltage(int aPort);
+import com.snobot.simulator.module_wrapper.interfaces.IAnalogOutWrapper;
 
-    public void setVoltage(int aPort, double aVoltage);
+public interface AnalogOutputWrapperAccessor extends IBasicSensorActuatorWrapperAccessor<IAnalogOutWrapper>
+{
 }

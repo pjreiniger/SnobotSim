@@ -1,9 +1,8 @@
 
 package com.snobot.simulator.wrapper_accessors;
 
-public interface RelayWrapperAccessor extends IBasicSensorActuatorWrapperAccessor
-{
-    public boolean getFowardValue(int aPort);
+import com.snobot.simulator.module_wrapper.interfaces.IRelayWrapper;
 
-    public boolean getReverseValue(int aPort);
+public interface RelayWrapperAccessor extends IBasicSensorActuatorWrapperAccessor<IRelayWrapper>
+{
 }

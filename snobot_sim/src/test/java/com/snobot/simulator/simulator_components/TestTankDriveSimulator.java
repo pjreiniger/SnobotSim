@@ -1,5 +1,6 @@
 package com.snobot.simulator.simulator_components;
 
+import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,8 @@ public class TestTankDriveSimulator extends BaseSimulatorJniTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getSimulatorDataAccessor().setSpeedControllerModel_Simple(1, new SimpleMotorSimulationConfig(1)));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getSimulatorDataAccessor().connectTankDriveSimulator(1, 0, 0, 180 / Math.PI));
 
+        IGyroWrapper gyroWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(0);
+
         // Turn Left
         simulateForTime(90, () ->
         {
@@ -39,7 +42,7 @@ public class TestTankDriveSimulator extends BaseSimulatorJniTest
         Assertions.assertEquals(-180, gyro.getAngle(), DOUBLE_EPSILON);
         Assertions.assertEquals(89, rightEnc.getDistance(), DOUBLE_EPSILON);
         Assertions.assertEquals(-89, leftEnc.getDistance(), DOUBLE_EPSILON);
-        Assertions.assertEquals(-180, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(-180, gyroWrapper.getAngle(), DOUBLE_EPSILON);
         Assertions.assertEquals(90, DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(0), DOUBLE_EPSILON);
         Assertions.assertEquals(-90, DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(1), DOUBLE_EPSILON);
 
@@ -52,7 +55,7 @@ public class TestTankDriveSimulator extends BaseSimulatorJniTest
         Assertions.assertEquals(-90, gyro.getAngle(), DOUBLE_EPSILON);
         Assertions.assertEquals(45, rightEnc.getDistance(), DOUBLE_EPSILON);
         Assertions.assertEquals(-45, leftEnc.getDistance(), DOUBLE_EPSILON);
-        Assertions.assertEquals(-90, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(-90, gyroWrapper.getAngle(), DOUBLE_EPSILON);
         Assertions.assertEquals(45, DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(0), DOUBLE_EPSILON);
         Assertions.assertEquals(-45, DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(1), DOUBLE_EPSILON);
     }

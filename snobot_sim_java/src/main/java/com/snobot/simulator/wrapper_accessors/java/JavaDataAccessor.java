@@ -2,6 +2,7 @@ package com.snobot.simulator.wrapper_accessors.java;
 
 import com.snobot.simulator.LogConfigurator;
 import com.snobot.simulator.jni.RegisterCallbacksJni;
+import com.snobot.simulator.module_wrapper.interfaces.ISensorWrapper;
 import com.snobot.simulator.wrapper_accessors.AccelerometerWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.AnalogInWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.AnalogOutputWrapperAccessor;
@@ -148,13 +149,15 @@ public class JavaDataAccessor implements IDataAccessor
         return mSimulator;
     }
 
-    private String getInitializationError(String aName, IBasicSensorActuatorWrapperAccessor aAccessor)
+    private String getInitializationError(String aName, IBasicSensorActuatorWrapperAccessor<?> aAccessor)
     {
         StringBuilder errorMessage = new StringBuilder(64);
 
+
         for (int port : aAccessor.getPortList())
         {
-            if (!aAccessor.isInitialized(port))
+            ISensorWrapper wrapper = aAccessor.getWrapper(port);
+            if (!wrapper.isInitialized())
             {
                 aAccessor.removeSimulator(port);
                 errorMessage.append("  <li>").append(aName).append(port).append("</li>\n");

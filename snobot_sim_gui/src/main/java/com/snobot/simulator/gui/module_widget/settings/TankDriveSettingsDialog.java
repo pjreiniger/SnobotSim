@@ -148,7 +148,7 @@ public class TankDriveSettingsDialog extends JDialog
             for (int handle : speedControllers)
             {
                 SensorHandleOption option = new SensorHandleOption(handle,
-                        DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(handle));
+                        DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(handle).getName());
                 mLeftMotorSelection.addItem(option);
                 mRightMotorSelection.addItem(option);
 
@@ -165,7 +165,7 @@ public class TankDriveSettingsDialog extends JDialog
             List<Integer> gyros = DataAccessorFactory.getInstance().getGyroAccessor().getPortList();
             for (int handle : gyros)
             {
-                SensorHandleOption option = new SensorHandleOption(handle, DataAccessorFactory.getInstance().getGyroAccessor().getName(handle));
+                SensorHandleOption option = new SensorHandleOption(handle, DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(handle).getName());
                 mGyroSelection.addItem(option);
 
                 if (option.mHandle == aComp.getmGyroHandle())

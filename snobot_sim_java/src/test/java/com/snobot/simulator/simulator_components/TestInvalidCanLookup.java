@@ -21,11 +21,11 @@ public class TestInvalidCanLookup extends BaseSimulatorJavaTest
         int simId = canId + 100;
 
         DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(simId, CtreTalonSrxSpeedControllerSim.class.getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(simId));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(simId).isInitialized());
 
         CANSparkMax spark = new CANSparkMax(canId, CANSparkMaxLowLevel.MotorType.kBrushed);
         spark.set(1.0);
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(simId));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(simId).isInitialized());
         Assertions.assertEquals(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(simId), 1.0, 1e-6);
 
     }
@@ -37,11 +37,11 @@ public class TestInvalidCanLookup extends BaseSimulatorJavaTest
         int simId = canId + 100;
 
         DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(simId, RevSpeedControllerSimWrapper.class.getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(simId));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(simId).isInitialized());
 
         TalonSRX talon = new TalonSRX(canId);
         talon.set(ControlMode.PercentOutput, 1.0);
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(simId));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(simId).isInitialized());
         Assertions.assertEquals(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(simId), 1.0, 1e-6);
 
     }

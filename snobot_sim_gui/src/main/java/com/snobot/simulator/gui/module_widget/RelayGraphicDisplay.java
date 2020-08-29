@@ -29,8 +29,8 @@ public class RelayGraphicDisplay extends BaseWidgetDisplay<Integer, RelayDisplay
         for (Entry<Integer, RelayDisplay> pair : mWidgetMap.entrySet())
         {
             int key = pair.getKey();
-            boolean forward = DataAccessorFactory.getInstance().getRelayAccessor().getFowardValue(key);
-            boolean reverse = DataAccessorFactory.getInstance().getRelayAccessor().getReverseValue(key);
+            boolean forward = DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(key).getRelayForwards();
+            boolean reverse = DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(key).getRelayReverse();
 
             pair.getValue().updateDisplay(convertValue(forward, reverse));
         }
@@ -71,7 +71,7 @@ public class RelayGraphicDisplay extends BaseWidgetDisplay<Integer, RelayDisplay
             @Override
             protected void onSubmit()
             {
-                DataAccessorFactory.getInstance().getRelayAccessor().setName(aKey, getComponentName());
+                DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(aKey).setName(getComponentName());
                 mLabelMap.get(aKey).setText(getComponentName());
             }
 
@@ -85,7 +85,7 @@ public class RelayGraphicDisplay extends BaseWidgetDisplay<Integer, RelayDisplay
     @Override
     protected String getName(Integer aKey)
     {
-        return DataAccessorFactory.getInstance().getRelayAccessor().getName(aKey);
+        return DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(aKey).getName();
     }
 }
 

@@ -51,7 +51,7 @@ public class EncoderGraphicDisplay extends BaseWidgetDisplay<Integer, EncoderWra
             {
                 super.onSubmit();
 
-                DataAccessorFactory.getInstance().getEncoderAccessor().setName(aKey, getComponentName());
+                DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(aKey).setName(getComponentName());
                 mLabelMap.get(aKey).setText(getComponentName());
             }
 
@@ -65,7 +65,7 @@ public class EncoderGraphicDisplay extends BaseWidgetDisplay<Integer, EncoderWra
     @Override
     protected String getName(Integer aKey)
     {
-        return DataAccessorFactory.getInstance().getEncoderAccessor().getName(aKey);
+        return DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(aKey).getName();
     }
 }
 

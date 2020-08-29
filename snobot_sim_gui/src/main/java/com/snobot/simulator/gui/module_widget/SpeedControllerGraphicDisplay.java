@@ -48,7 +48,7 @@ public class SpeedControllerGraphicDisplay extends BaseWidgetDisplay<Integer, Mo
             {
                 super.onSubmit();
 
-                DataAccessorFactory.getInstance().getSpeedControllerAccessor().setName(aKey, getComponentName());
+                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(aKey).setName(getComponentName());
                 mLabelMap.get(aKey).setText(getComponentName());
             }
 
@@ -62,7 +62,7 @@ public class SpeedControllerGraphicDisplay extends BaseWidgetDisplay<Integer, Mo
     @Override
     protected String getName(Integer aKey)
     {
-        return DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(aKey);
+        return DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(aKey).getName();
     }
 }
 

@@ -24,12 +24,6 @@ public class JavaEncoderWrapperAccessor extends BaseWrapperAccessor<IEncoderWrap
     }
 
     @Override
-    public boolean isInitialized(int aPort)
-    {
-        return getValue(aPort).isInitialized();
-    }
-
-    @Override
     public boolean createSimulator(int aPort, String aType)
     {
         return mFactory.create(aPort, aType);
@@ -41,7 +35,7 @@ public class JavaEncoderWrapperAccessor extends BaseWrapperAccessor<IEncoderWrap
     {
         try
         {
-            getValue(aPort).close();
+            getWrapper(aPort).close();
         }
         catch (Exception ex)
         {
@@ -78,7 +72,7 @@ public class JavaEncoderWrapperAccessor extends BaseWrapperAccessor<IEncoderWrap
 
     private IPwmWrapper getConnectedPwm(int aPort)
     {
-        IEncoderWrapper encWrapper = getValue(aPort);
+        IEncoderWrapper encWrapper = getWrapper(aPort);
         for (IPwmWrapper pwmWrapper : SensorActuatorRegistry.get().getSpeedControllers().values())
         {
             if (pwmWrapper.getFeedbackSensor().equals(encWrapper))
@@ -109,6 +103,6 @@ public class JavaEncoderWrapperAccessor extends BaseWrapperAccessor<IEncoderWrap
     @Override
     public double getDistance(int aPort)
     {
-        return getValue(aPort).getPosition();
+        return getWrapper(aPort).getPosition();
     }
 }

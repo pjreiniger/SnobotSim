@@ -20,12 +20,6 @@ public class JavaSolenoidWrapperAccessor extends BaseWrapperAccessor<ISolenoidWr
     }
 
     @Override
-    public boolean isInitialized(int aPort)
-    {
-        return getValue(aPort).isInitialized();
-    }
-
-    @Override
     public boolean createSimulator(int aPort, String aType)
     {
         return mFactory.create(aPort, aType);
@@ -37,7 +31,7 @@ public class JavaSolenoidWrapperAccessor extends BaseWrapperAccessor<ISolenoidWr
     {
         try
         {
-            getValue(aPort).close();
+            getWrapper(aPort).close();
         }
         catch (Exception ex)
         {
@@ -50,11 +44,5 @@ public class JavaSolenoidWrapperAccessor extends BaseWrapperAccessor<ISolenoidWr
     protected Map<Integer, ISolenoidWrapper> getMap()
     {
         return SensorActuatorRegistry.get().getSolenoids();
-    }
-
-    @Override
-    public boolean get(int aPort)
-    {
-        return getValue(aPort).get();
     }
 }

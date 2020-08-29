@@ -27,7 +27,7 @@ public class SolenoidGraphicDisplay extends BaseWidgetDisplay<Integer, SolenoidD
         {
             if (pair.getValue().isVisible())
             {
-                boolean state = DataAccessorFactory.getInstance().getSolenoidAccessor().get(pair.getKey());
+                boolean state = DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(pair.getKey()).get();
                 pair.getValue().updateDisplay(state);
             }
         }
@@ -48,7 +48,7 @@ public class SolenoidGraphicDisplay extends BaseWidgetDisplay<Integer, SolenoidD
             @Override
             protected void onSubmit()
             {
-                DataAccessorFactory.getInstance().getSolenoidAccessor().setName(aKey, getComponentName());
+                DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(aKey).setName(getComponentName());
                 mLabelMap.get(aKey).setText(getComponentName());
             }
         };
@@ -61,7 +61,7 @@ public class SolenoidGraphicDisplay extends BaseWidgetDisplay<Integer, SolenoidD
     @Override
     protected String getName(Integer aKey)
     {
-        return DataAccessorFactory.getInstance().getSolenoidAccessor().getName(aKey);
+        return DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(aKey).getName();
     }
 }
 

@@ -1,5 +1,6 @@
 package com.snobot.simulator.module_wrapper;
 
+import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -18,12 +19,14 @@ public class TestAnalogGyroJni extends BaseSimulatorJavaTest
 
         int gyroHandle = 0;
         Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(gyroHandle));
+        IGyroWrapper gyroWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(gyroHandle);
 
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(gyroHandle), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, gyroWrapper.getAngle(), DOUBLE_EPSILON);
         Assertions.assertEquals(0, gyro.getAngle(), DOUBLE_EPSILON);
 
-        DataAccessorFactory.getInstance().getGyroAccessor().setAngle(gyroHandle, 90);
-        Assertions.assertEquals(90, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(gyroHandle), DOUBLE_EPSILON);
+
+        gyroWrapper.setAngle(90);
+        Assertions.assertEquals(90, gyroWrapper.getAngle(), DOUBLE_EPSILON);
         Assertions.assertEquals(90, gyro.getAngle(), DOUBLE_EPSILON);
     }
 
@@ -33,10 +36,10 @@ public class TestAnalogGyroJni extends BaseSimulatorJavaTest
         int gyroHandle = 1;
 
         DataAccessorFactory.getInstance().getGyroAccessor().createSimulator(gyroHandle, WpiAnalogGyroWrapper.class.getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getGyroAccessor().isInitialized(gyroHandle));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(gyroHandle).isInitialized());
 
         new AnalogGyro(gyroHandle);
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().isInitialized(gyroHandle));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(gyroHandle).isInitialized());
 
     }
 

@@ -49,7 +49,7 @@ public class TestPotentiometerSimulator extends BaseSimulatorJavaTest
 
         Assertions.assertEquals(73, potentiometer.get(), DOUBLE_EPSILON);
         Assertions.assertEquals(73, pwmWrapper.getPosition(), DOUBLE_EPSILON);
-        Assertions.assertEquals(4.39759, DataAccessorFactory.getInstance().getAnalogInAccessor().getVoltage(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(4.39759, DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(0).getVoltage(), DOUBLE_EPSILON);
     }
 
     @Test

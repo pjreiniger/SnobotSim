@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
+import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.ISensorWrapper;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -96,11 +99,12 @@ public class SimulatorConfigWriter
     }
 
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    protected void dumpBasicConfig(IBasicSensorActuatorWrapperAccessor aAccessor, List<BasicModuleConfig> aOutputList)
+    protected void dumpBasicConfig(IBasicSensorActuatorWrapperAccessor<?> aAccessor, List<BasicModuleConfig> aOutputList)
     {
         for (int portHandle : aAccessor.getPortList())
         {
-            BasicModuleConfig config = new BasicModuleConfig(portHandle, aAccessor.getName(portHandle), aAccessor.getType(portHandle));
+            ISensorWrapper wrapper = aAccessor.getWrapper(portHandle);
+            BasicModuleConfig config = new BasicModuleConfig(portHandle, wrapper.getName(), wrapper.getType());
             aOutputList.add(config);
         }
     }
@@ -110,7 +114,8 @@ public class SimulatorConfigWriter
     {
         for (int portHandle : aAccessor.getPortList())
         {
-            EncoderConfig config = new EncoderConfig(portHandle, aAccessor.getName(portHandle), aAccessor.getType(portHandle),
+            IEncoderWrapper wrapper = aAccessor.getWrapper(portHandle);
+            EncoderConfig config = new EncoderConfig(portHandle, wrapper.getName(), wrapper.getType(),
                     aAccessor.getHookedUpId(portHandle));
             aOutputList.add(config);
         }
@@ -121,7 +126,8 @@ public class SimulatorConfigWriter
     {
         for (int portHandle : aAccessor.getPortList())
         {
-            PwmConfig config = new PwmConfig(portHandle, aAccessor.getName(portHandle), aAccessor.getType(portHandle),
+            IPwmWrapper wrapper = aAccessor.getWrapper(portHandle);
+            PwmConfig config = new PwmConfig(portHandle, wrapper.getName(), wrapper.getType(),
                     getMotorSimConfig(aAccessor, portHandle),
                     getMotorModel(aAccessor, portHandle));
             aOutputList.add(config);

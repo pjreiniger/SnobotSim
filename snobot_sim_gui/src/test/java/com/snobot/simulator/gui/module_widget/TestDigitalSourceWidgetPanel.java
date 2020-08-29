@@ -24,7 +24,7 @@ public class TestDigitalSourceWidgetPanel extends BaseGuiSimulatorTest
 
         sleepForVisualDebugging();
 
-        DataAccessorFactory.getInstance().getDigitalAccessor().setState(1, true);
+        DataAccessorFactory.getInstance().getDigitalAccessor().getWrapper(1).set(true);
         panel.update();
         panel.repaint();
         sleepForVisualDebugging();

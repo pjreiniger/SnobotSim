@@ -19,45 +19,15 @@ public class JniSpeedControllerWrapperAccessor extends BaseWrapperAccessor<Speed
     public static final int sCAN_SC_OFFSET = 100;
 
     @Override
-    public boolean isInitialized(int aPort)
-    {
-        return getWrapper(aPort).isInitialized();
-    }
-
-    @Override
     public boolean createSimulator(int aPort, String aType)
     {
         return SpeedControllerWrapperJni.createSimulator(aPort, aType);
     }
 
     @Override
-    public void removeSimulator(int aPort)
-    {
-        getWrapper(aPort).removeSimluator(aPort);
-    }
-
-    @Override
-    public void setName(int aPort, String aName)
-    {
-        getWrapper(aPort).setName(aName);
-    }
-
-    @Override
-    public String getName(int aPort)
-    {
-        return getWrapper(aPort).getName();
-    }
-
-    @Override
-    public boolean getWantsHidden(int aPort)
-    {
-        return getWrapper(aPort).getWantsHidden();
-    }
-
-    @Override
     public double getVoltagePercentage(int aPort)
     {
-        return getWrapper(aPort).getVoltagePercentage();
+        return getWrapper(aPort).get();
     }
 
     @Override
@@ -136,11 +106,5 @@ public class JniSpeedControllerWrapperAccessor extends BaseWrapperAccessor<Speed
     public void reset(int aHandle, double aPosition, double aVelocity, double aCurrent)
     {
         getWrapper(aHandle).reset(aPosition, aVelocity, aCurrent);
-    }
-
-    @Override
-    public String getType(int aPort)
-    {
-        return null;
     }
 }

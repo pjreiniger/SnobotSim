@@ -24,7 +24,7 @@ public class TestGyroWidgetPanel extends BaseGuiSimulatorTest
 
         sleepForVisualDebugging();
 
-        DataAccessorFactory.getInstance().getGyroAccessor().setAngle(1, 200);
+        DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(1).setAngle(200);
         panel.update();
         panel.repaint();
         sleepForVisualDebugging();

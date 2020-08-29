@@ -24,7 +24,7 @@ public class EncoderSettingsDialog extends SimpleSettingsDialog
         for (int handle : speedControllers)
         {
             SensorHandleOption option = new SensorHandleOption(handle,
-                    DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(handle));
+                    DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(handle).getName());
             mSpeedControllerSelection.addItem(option);
         }
 
@@ -61,7 +61,7 @@ public class EncoderSettingsDialog extends SimpleSettingsDialog
             }
             if (option.mHandle != -1)
             {
-                option.mName = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(option.mHandle);
+                option.mName = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(option.mHandle).getName();
             }
         }
     }

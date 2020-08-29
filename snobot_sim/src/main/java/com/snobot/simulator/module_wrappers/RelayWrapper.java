@@ -1,8 +1,9 @@
 package com.snobot.simulator.module_wrappers;
 
 import com.snobot.simulator.jni.module_wrapper.RelayWrapperJni;
+import com.snobot.simulator.module_wrapper.interfaces.IRelayWrapper;
 
-public class RelayWrapper
+public class RelayWrapper implements IRelayWrapper
 {
     private final int mHandle;
 
@@ -17,43 +18,76 @@ public class RelayWrapper
         mHandle = aHandle;
     }
 
+    @Override
     public boolean isInitialized()
     {
         return RelayWrapperJni.isInitialized(mHandle);
     }
 
-    public void removeSimulator()
+    @Override
+    public void setInitialized(boolean aInitialized)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void close()
     {
         RelayWrapperJni.removeSimluator(mHandle);
     }
 
+    @Override
     public void setName(String aName)
     {
         RelayWrapperJni.setName(mHandle, aName);
     }
 
+    @Override
     public String getName()
     {
         return RelayWrapperJni.getName(mHandle);
     }
 
+    @Override
     public boolean getWantsHidden()
     {
         return RelayWrapperJni.getWantsHidden(mHandle);
     }
 
-    public boolean getFowardValue()
+    @Override
+    public boolean getRelayForwards()
     {
         return RelayWrapperJni.getFowardValue(mHandle);
     }
 
-    public boolean getReverseValue()
+    @Override
+    public void setRelayReverse(boolean aReverse)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setRelayForwards(boolean aForwards)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean getRelayReverse()
     {
         return RelayWrapperJni.getReverseValue(mHandle);
     }
 
-    public void removeSimluator()
+    @Override
+    public void setWantsHidden(boolean aVisible)
     {
-        RelayWrapperJni.removeSimluator(mHandle);
+        throw new UnsupportedOperationException();
     }
+
+    @Override
+    public String getType()
+    {
+        return null;
+    }
+
 }

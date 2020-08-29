@@ -24,7 +24,7 @@ public class TestRevControlAppliedThrottle extends BaseSimulatorJniTest
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, CANSparkMaxLowLevel.MotorType.kBrushless);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
         Assertions.assertEquals("Rev SC " + aCanHandle,
-                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(rawHandle));
+                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle).getName());
 
         sparksMax.set(-1.0);
         Assertions.assertEquals(-1.0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(rawHandle), sDOUBLE_EPSILON);

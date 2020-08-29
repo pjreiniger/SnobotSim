@@ -1,8 +1,9 @@
 package com.snobot.simulator.module_wrappers;
 
 import com.snobot.simulator.jni.module_wrapper.DigitalSourceWrapperJni;
+import com.snobot.simulator.module_wrapper.interfaces.IDigitalIoWrapper;
 
-public class DigitalSourceWrapper
+public class DigitalSourceWrapper implements IDigitalIoWrapper
 {
     private final int mHandle;
 
@@ -17,43 +18,63 @@ public class DigitalSourceWrapper
         mHandle = aPort;
     }
 
+    @Override
     public boolean isInitialized()
     {
         return DigitalSourceWrapperJni.isInitialized(mHandle);
     }
 
-    public void removeSimulator()
+    @Override
+    public void setInitialized(boolean aInitialized)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void close()
     {
         DigitalSourceWrapperJni.removeSimluator(mHandle);
     }
 
+    @Override
     public void setName(String aName)
     {
         DigitalSourceWrapperJni.setName(mHandle, aName);
     }
 
+    @Override
     public String getName()
     {
         return DigitalSourceWrapperJni.getName(mHandle);
     }
 
+    @Override
     public boolean getWantsHidden()
     {
         return DigitalSourceWrapperJni.getWantsHidden(mHandle);
     }
 
-    public boolean getState()
+    @Override
+    public void setWantsHidden(boolean aVisible)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String getType()
+    {
+        return null;
+    }
+
+    @Override
+    public boolean get()
     {
         return DigitalSourceWrapperJni.getState(mHandle);
     }
 
-    public void setState(boolean aValue)
+    @Override
+    public void set(boolean aValue)
     {
         DigitalSourceWrapperJni.setState(mHandle, aValue);
-    }
-
-    public void removeSimluator(int aPort)
-    {
-        DigitalSourceWrapperJni.removeSimluator(aPort);
     }
 }

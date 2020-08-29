@@ -10,14 +10,14 @@ public abstract class BaseWrapperAccessor<Type extends ISensorWrapper>
 {
     protected abstract Map<Integer, Type> getMap();
 
-    protected Type getValue(int aPort)
+    public Type getWrapper(int aPort)
     {
         return getMap().get(aPort);
     }
 
     public void setName(int aPort, String aName)
     {
-        Type object = getValue(aPort);
+        Type object = getWrapper(aPort);
         if (object != null)
         {
             object.setName(aName);
@@ -26,7 +26,7 @@ public abstract class BaseWrapperAccessor<Type extends ISensorWrapper>
 
     public String getName(int aPort)
     {
-        return getValue(aPort).getName();
+        return getWrapper(aPort).getName();
     }
 
     public boolean getWantsHidden(int aPort)
@@ -43,4 +43,5 @@ public abstract class BaseWrapperAccessor<Type extends ISensorWrapper>
     {
         return getMap().get(aPort).getClass().getName();
     }
+
 }

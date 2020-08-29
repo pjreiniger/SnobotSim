@@ -15,4 +15,5 @@ public interface ISensorWrapper extends AutoCloseable
 
     void setWantsHidden(boolean aVisible);
 
+    String getType();
 }

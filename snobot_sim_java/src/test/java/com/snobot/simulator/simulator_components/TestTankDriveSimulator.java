@@ -2,6 +2,7 @@ package com.snobot.simulator.simulator_components;
 
 import java.util.Collection;
 
+import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +29,8 @@ public class TestTankDriveSimulator extends BaseSimulatorJavaTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getSimulatorDataAccessor().setSpeedControllerModel_Simple(1, new SimpleMotorSimulationConfig(1)));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getSimulatorDataAccessor().connectTankDriveSimulator(1, 0, 0, 180 / Math.PI));
 
+        IGyroWrapper gyroWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(0);
+
         // Turn Left
         simulateForTime(90, () ->
         {
@@ -35,7 +38,7 @@ public class TestTankDriveSimulator extends BaseSimulatorJavaTest
             leftSC.set(-1);
         });
         Assertions.assertEquals(-180, gyro.getAngle(), DOUBLE_EPSILON);
-        Assertions.assertEquals(-180, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(-180, gyroWrapper.getAngle(), DOUBLE_EPSILON);
 
         // Turn right
         simulateForTime(45, () ->
@@ -44,7 +47,7 @@ public class TestTankDriveSimulator extends BaseSimulatorJavaTest
             leftSC.set(1);
         });
         Assertions.assertEquals(-90, gyro.getAngle(), DOUBLE_EPSILON);
-        Assertions.assertEquals(-90, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(-90, gyroWrapper.getAngle(), DOUBLE_EPSILON);
     }
 
     @Test

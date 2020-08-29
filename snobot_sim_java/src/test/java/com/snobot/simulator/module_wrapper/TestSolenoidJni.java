@@ -21,31 +21,31 @@ public class TestSolenoidJni extends BaseSimulatorJavaTest
 
         new Solenoid(0);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
-        Assertions.assertEquals("Solenoid 0", DataAccessorFactory.getInstance().getSolenoidAccessor().getName(0));
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWantsHidden(0));
+        Assertions.assertEquals("Solenoid 0", DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(0).getName());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(0).getWantsHidden());
 
         new Solenoid(3);
         Assertions.assertEquals(2, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
-        Assertions.assertEquals("Solenoid 3", DataAccessorFactory.getInstance().getSolenoidAccessor().getName(3));
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWantsHidden(3));
+        Assertions.assertEquals("Solenoid 3", DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(3).getName());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(3).getWantsHidden());
 
         new Solenoid(1, 6);
         Assertions.assertEquals(3, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
-        Assertions.assertEquals("Solenoid 14", DataAccessorFactory.getInstance().getSolenoidAccessor().getName(14));
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWantsHidden(14));
+        Assertions.assertEquals("Solenoid 14", DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(14).getName());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(14).getWantsHidden());
 
-        DataAccessorFactory.getInstance().getSolenoidAccessor().setName(0, "NewNameFor0");
-        Assertions.assertEquals("NewNameFor0", DataAccessorFactory.getInstance().getSolenoidAccessor().getName(0));
+        DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(0).setName("NewNameFor0");
+        Assertions.assertEquals("NewNameFor0", DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(0).getName());
     }
 
     @Test
     public void testCreateSolenoidWithSetup()
     {
         DataAccessorFactory.getInstance().getSolenoidAccessor().createSimulator(3, WpiSolenoidWrapper.class.getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().isInitialized(3));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(3).isInitialized());
 
         new Solenoid(3);
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getSolenoidAccessor().isInitialized(3));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(3).isInitialized());
     }
 
     @Test
@@ -72,24 +72,24 @@ public class TestSolenoidJni extends BaseSimulatorJavaTest
 
         solenoid.set(true);
         Assertions.assertTrue(solenoid.get());
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getSolenoidAccessor().get(0));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(0).get());
 
         solenoid.set(false);
         Assertions.assertFalse(solenoid.get());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().get(0));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(0).get());
 
         DoubleSolenoid doubleSolenoid = new DoubleSolenoid(1, 2);
 
         doubleSolenoid.set(Value.kForward);
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getSolenoidAccessor().get(1));
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().get(2));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(1).get());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(2).get());
 
         doubleSolenoid.set(Value.kReverse);
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().get(1));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getSolenoidAccessor().get(2));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(1).get());
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(2).get());
 
         doubleSolenoid.set(Value.kOff);
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().get(1));
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().get(2));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(1).get());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(2).get());
     }
 }

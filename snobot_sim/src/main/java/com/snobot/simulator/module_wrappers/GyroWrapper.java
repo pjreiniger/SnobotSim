@@ -1,8 +1,9 @@
 package com.snobot.simulator.module_wrappers;
 
 import com.snobot.simulator.jni.module_wrapper.GyroWrapperJni;
+import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 
-public class GyroWrapper
+public class GyroWrapper implements IGyroWrapper
 {
     private final int mHandle;
 
@@ -17,36 +18,49 @@ public class GyroWrapper
         mHandle = aHandle;
     }
 
+    @Override
     public boolean isInitialized()
     {
         return GyroWrapperJni.isInitialized(mHandle);
     }
 
-    public void removeSimulator()
+    @Override
+    public void setInitialized(boolean aInitialized)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void close()
     {
         GyroWrapperJni.removeSimluator(mHandle);
     }
 
+    @Override
     public void setName(String aName)
     {
         GyroWrapperJni.setName(mHandle, aName);
     }
 
+    @Override
     public String getName()
     {
         return GyroWrapperJni.getName(mHandle);
     }
 
+    @Override
     public boolean getWantsHidden()
     {
         return GyroWrapperJni.getWantsHidden(mHandle);
     }
 
+    @Override
     public double getAngle()
     {
         return GyroWrapperJni.getAngle(mHandle);
     }
 
+    @Override
     public void setAngle(double aAngle)
     {
         GyroWrapperJni.setAngle(mHandle, aAngle);
@@ -57,8 +71,16 @@ public class GyroWrapper
         GyroWrapperJni.reset(mHandle);
     }
 
-    public void removeSimluator(int aPort)
+    @Override
+    public void setWantsHidden(boolean aVisible)
     {
-        GyroWrapperJni.removeSimluator(aPort);
+        throw new UnsupportedOperationException();
     }
+
+    @Override
+    public String getType()
+    {
+        return null;
+    }
+
 }

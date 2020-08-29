@@ -1,11 +1,8 @@
 
 package com.snobot.simulator.wrapper_accessors;
 
-public interface GyroWrapperAccessor extends IBasicSensorActuatorWrapperAccessor
+import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
+
+public interface GyroWrapperAccessor extends IBasicSensorActuatorWrapperAccessor<IGyroWrapper>
 {
-    public double getAngle(int aPort);
-
-    public void setAngle(int aPort, double aAngle);
-
-    public void reset(int aPort);
 }

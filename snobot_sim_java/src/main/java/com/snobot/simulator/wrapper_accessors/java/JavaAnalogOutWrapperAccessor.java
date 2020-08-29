@@ -2,13 +2,13 @@ package com.snobot.simulator.wrapper_accessors.java;
 
 import java.util.Map;
 
+import com.snobot.simulator.wrapper_accessors.AnalogOutputWrapperAccessor;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
 import com.snobot.simulator.SensorActuatorRegistry;
 import com.snobot.simulator.module_wrapper.factories.DefaultAnalogOutWrapperFactory;
 import com.snobot.simulator.module_wrapper.interfaces.IAnalogOutWrapper;
-import com.snobot.simulator.wrapper_accessors.AnalogOutputWrapperAccessor;
 
 public class JavaAnalogOutWrapperAccessor extends BaseWrapperAccessor<IAnalogOutWrapper> implements AnalogOutputWrapperAccessor
 {
@@ -17,12 +17,6 @@ public class JavaAnalogOutWrapperAccessor extends BaseWrapperAccessor<IAnalogOut
     public JavaAnalogOutWrapperAccessor()
     {
         mFactory = new DefaultAnalogOutWrapperFactory();
-    }
-
-    @Override
-    public boolean isInitialized(int aPort)
-    {
-        return getValue(aPort).isInitialized();
     }
 
     @Override
@@ -37,7 +31,7 @@ public class JavaAnalogOutWrapperAccessor extends BaseWrapperAccessor<IAnalogOut
     {
         try
         {
-            getValue(aPort).close();
+            getWrapper(aPort).close();
         }
         catch (Exception ex)
         {
@@ -50,17 +44,5 @@ public class JavaAnalogOutWrapperAccessor extends BaseWrapperAccessor<IAnalogOut
     protected Map<Integer, IAnalogOutWrapper> getMap()
     {
         return SensorActuatorRegistry.get().getAnalogOut();
-    }
-
-    @Override
-    public double getVoltage(int aPort)
-    {
-        return getValue(aPort).getVoltage();
-    }
-
-    @Override
-    public void setVoltage(int aPort, double aVoltage)
-    {
-        getValue(aPort).setVoltage(aVoltage);
     }
 }

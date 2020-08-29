@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.snobot.simulator.module_wrapper.interfaces.ISensorWrapper;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -144,13 +145,14 @@ public class SimulatorConfigReaderV1
         }
     }
 
-    protected int createBasicSimulatorComponent(IBasicSensorActuatorWrapperAccessor aAccessor, BasicModuleConfig aConfig)
+    protected int createBasicSimulatorComponent(IBasicSensorActuatorWrapperAccessor<?> aAccessor, BasicModuleConfig aConfig)
     {
         int handle = aConfig.getmHandle();
         aAccessor.createSimulator(handle, aConfig.getmType());
         if (handle != -1 && aConfig.getmName() != null)
         {
-            aAccessor.setName(handle, aConfig.getmName());
+            ISensorWrapper wrapper = aAccessor.getWrapper(handle);
+            wrapper.setName(aConfig.getmName());
         }
 
         return handle;

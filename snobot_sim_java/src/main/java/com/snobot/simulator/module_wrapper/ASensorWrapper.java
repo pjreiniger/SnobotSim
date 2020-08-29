@@ -54,4 +54,10 @@ public class ASensorWrapper implements ISensorWrapper
     {
         // Nothing to do
     }
+
+    @Override
+    public String getType()
+    {
+        return getClass().getName();
+    }
 }

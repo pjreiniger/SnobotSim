@@ -27,7 +27,7 @@ public class TestRevControlSmartMotion extends BaseSimulatorJniTest
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, CANSparkMaxLowLevel.MotorType.kBrushless);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
         Assertions.assertEquals("Rev SC " + aCanHandle,
-                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(rawHandle));
+                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle).getName());
 
         // Simulate CIM drivetrain
         DcMotorModelConfig motorConfig = DataAccessorFactory.getInstance().getSimulatorDataAccessor().createMotor("CIM", 1, 10, 1);

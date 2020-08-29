@@ -28,16 +28,16 @@ public class TestCtreCanTalon extends BaseSimulatorJniTest
         talon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(101));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().isInitialized(101));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(101).isInitialized());
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(101).isInitialized());
 
         DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(102, "com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim");
         DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(102, "com.snobot.simulator.simulator_components.smart_sc.SmartScEncoder");
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(102));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(102).isInitialized());
         TalonSRX talon2 = new TalonSRX(2);
         talon2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().isInitialized(102));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().isInitialized(102));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(102).isInitialized());
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(102).isInitialized());
     }
 
     @ParameterizedTest
@@ -50,7 +50,7 @@ public class TestCtreCanTalon extends BaseSimulatorJniTest
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
 
         Assertions.assertEquals("CTRE SC " + aCanHandle,
-                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getName(aCanHandle + JniSpeedControllerWrapperAccessor.sCAN_SC_OFFSET));
+                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(aCanHandle + JniSpeedControllerWrapperAccessor.sCAN_SC_OFFSET).getName());
 
         talon.config_kP(0, 0, 0);
 //        //////////////////
@@ -101,11 +101,11 @@ public class TestCtreCanTalon extends BaseSimulatorJniTest
 
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
         Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(simId, "com.snobot.simulator.simulator_components.smart_sc.SmartScEncoder"));
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().isInitialized(simId));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(simId).isInitialized());
 
         talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().isInitialized(simId));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(simId).isInitialized());
     }
 
     @Test
@@ -117,11 +117,11 @@ public class TestCtreCanTalon extends BaseSimulatorJniTest
 
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
         Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(simId, "com.snobot.simulator.simulator_components.smart_sc.SmartScAnalogIn"));
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().isInitialized(simId));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(simId).isInitialized());
 
         talon.configSelectedFeedbackSensor(FeedbackDevice.Analog);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().isInitialized(simId));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(simId).isInitialized());
     }
 
     @Test

@@ -20,12 +20,6 @@ public class JavaDigitalSourceWrapperAccessor extends BaseWrapperAccessor<IDigit
     }
 
     @Override
-    public boolean isInitialized(int aPort)
-    {
-        return getValue(aPort).isInitialized();
-    }
-
-    @Override
     public boolean createSimulator(int aPort, String aType)
     {
         return mFactory.create(aPort, aType);
@@ -37,7 +31,7 @@ public class JavaDigitalSourceWrapperAccessor extends BaseWrapperAccessor<IDigit
     {
         try
         {
-            getValue(aPort).close();
+            getWrapper(aPort).close();
         }
         catch (Exception ex)
         {
@@ -50,17 +44,5 @@ public class JavaDigitalSourceWrapperAccessor extends BaseWrapperAccessor<IDigit
     protected Map<Integer, IDigitalIoWrapper> getMap()
     {
         return SensorActuatorRegistry.get().getDigitalSources();
-    }
-
-    @Override
-    public boolean getState(int aPort)
-    {
-        return getValue(aPort).get();
-    }
-
-    @Override
-    public void setState(int aPort, boolean aValue)
-    {
-        getValue(aPort).set(aValue);
     }
 }

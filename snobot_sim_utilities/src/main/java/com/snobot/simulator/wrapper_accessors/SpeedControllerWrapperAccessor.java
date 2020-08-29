@@ -1,13 +1,14 @@
 
 package com.snobot.simulator.wrapper_accessors;
 
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.GravityLoadMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.RotationalLoadMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.SimpleMotorSimulationConfig;
 import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 
-public interface SpeedControllerWrapperAccessor extends IBasicSensorActuatorWrapperAccessor
+public interface SpeedControllerWrapperAccessor extends IBasicSensorActuatorWrapperAccessor<IPwmWrapper>
 {
     public enum MotorSimType
     {

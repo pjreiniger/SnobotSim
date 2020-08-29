@@ -1,6 +1,7 @@
 package com.snobot.simulator.wrapper_accessors;
 
-public interface AddressableLedWrapperAccessor extends IBasicSensorActuatorWrapperAccessor
+import com.snobot.simulator.module_wrapper.interfaces.IAddressableLedWrapper;
+
+public interface AddressableLedWrapperAccessor extends IBasicSensorActuatorWrapperAccessor<IAddressableLedWrapper>
 {
-    byte[] getData(int aPort);
 }

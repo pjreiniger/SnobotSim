@@ -35,7 +35,7 @@ public class AnalogInputDisplay extends BaseWidgetDisplay<Integer, AnalogInDispl
     {
         for (Entry<Integer, AnalogInDisplay> pair : mWidgetMap.entrySet())
         {
-            double value = DataAccessorFactory.getInstance().getAnalogInAccessor().getVoltage(pair.getKey());
+            double value = DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(pair.getKey()).getVoltage();
             pair.getValue().updateDisplay(value);
         }
     }
@@ -43,7 +43,7 @@ public class AnalogInputDisplay extends BaseWidgetDisplay<Integer, AnalogInDispl
     @Override
     protected AnalogInDisplay createWidget(Integer aKey)
     {
-        if (DataAccessorFactory.getInstance().getAnalogInAccessor().getWantsHidden(aKey))
+        if (DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(aKey).getWantsHidden())
         {
             return null;
         }
@@ -59,7 +59,7 @@ public class AnalogInputDisplay extends BaseWidgetDisplay<Integer, AnalogInDispl
             @Override
             protected void onSubmit()
             {
-                DataAccessorFactory.getInstance().getAnalogInAccessor().setName(aKey, getComponentName());
+                DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(aKey).setName(getComponentName());
                 mLabelMap.get(aKey).setText(getComponentName());
             }
 
@@ -73,7 +73,7 @@ public class AnalogInputDisplay extends BaseWidgetDisplay<Integer, AnalogInDispl
     @Override
     protected String getName(Integer aKey)
     {
-        return DataAccessorFactory.getInstance().getAnalogInAccessor().getName(aKey);
+        return DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(aKey).getName();
     }
 }
 
@@ -168,7 +168,7 @@ class AnalogInDisplay extends JPanel
                 newVoltage = 5;
             }
 
-            DataAccessorFactory.getInstance().getAnalogInAccessor().setVoltage(mHandle, newVoltage);
+            DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(mHandle).setVoltage(newVoltage);
         }
         catch (NumberFormatException ex)
         {

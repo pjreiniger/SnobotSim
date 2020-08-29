@@ -20,21 +20,9 @@ public class JavaAddressableWrapperAccessor extends BaseWrapperAccessor<IAddress
     }
 
     @Override
-    public boolean isInitialized(int aPort)
-    {
-        return getValue(aPort).isInitialized();
-    }
-
-    @Override
     public boolean createSimulator(int aPort, String aType)
     {
         return mFactory.create(aPort, aType);
-    }
-
-    @Override
-    public byte[] getData(int aPort)
-    {
-        return getValue(aPort).getData();
     }
 
     @Override
@@ -42,7 +30,7 @@ public class JavaAddressableWrapperAccessor extends BaseWrapperAccessor<IAddress
     {
         try
         {
-            getValue(aPort).close();
+            getWrapper(aPort).close();
         }
         catch (Exception ex)
         {

@@ -27,9 +27,9 @@ public class TestAccelerometerWidgetPanel extends BaseGuiSimulatorTest
 
         sleepForVisualDebugging();
 
-        DataAccessorFactory.getInstance().getAccelerometerAccessor().setAcceleration(53, 1);
-        DataAccessorFactory.getInstance().getAccelerometerAccessor().setAcceleration(54, -1);
-        DataAccessorFactory.getInstance().getAccelerometerAccessor().setAcceleration(55, 0);
+        DataAccessorFactory.getInstance().getAccelerometerAccessor().getWrapper(53).setAcceleration(1);
+        DataAccessorFactory.getInstance().getAccelerometerAccessor().getWrapper(54).setAcceleration(-1);
+        DataAccessorFactory.getInstance().getAccelerometerAccessor().getWrapper(55).setAcceleration(0);
         panel.update();
         panel.repaint();
         sleepForVisualDebugging();

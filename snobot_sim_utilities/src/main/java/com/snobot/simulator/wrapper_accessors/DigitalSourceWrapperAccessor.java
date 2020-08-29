@@ -1,9 +1,8 @@
 
 package com.snobot.simulator.wrapper_accessors;
 
-public interface DigitalSourceWrapperAccessor extends IBasicSensorActuatorWrapperAccessor
-{
-    public boolean getState(int aPort);
+import com.snobot.simulator.module_wrapper.interfaces.IDigitalIoWrapper;
 
-    public void setState(int aPort, boolean aValue);
+public interface DigitalSourceWrapperAccessor extends IBasicSensorActuatorWrapperAccessor<IDigitalIoWrapper>
+{
 }

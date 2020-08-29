@@ -1,5 +1,6 @@
 package com.snobot.simulator.simulator_components.ctre;
 
+import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -53,6 +54,10 @@ public class TestPigeonImu extends BaseSimulatorJavaTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList().contains(yPort));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList().contains(zPort));
 
+        IGyroWrapper yawWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(yawPort);
+        IGyroWrapper pitchWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(pitchPort);
+        IGyroWrapper rollWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(rollPort);
+
         double[] rawAngles = new double[3];
         double[] yawPitchRollAngles = new double[3];
         FusionStatus fusionStatus = new FusionStatus();
@@ -67,13 +72,13 @@ public class TestPigeonImu extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, yawPitchRollAngles[0], ANGLE_EPSILON);
         Assertions.assertEquals(0, yawPitchRollAngles[1], ANGLE_EPSILON);
         Assertions.assertEquals(0, yawPitchRollAngles[2], ANGLE_EPSILON);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(yawPort), ANGLE_EPSILON);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(pitchPort), ANGLE_EPSILON);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(rollPort), ANGLE_EPSILON);
+        Assertions.assertEquals(0, yawWrapper.getAngle(), ANGLE_EPSILON);
+        Assertions.assertEquals(0, pitchWrapper.getAngle(), ANGLE_EPSILON);
+        Assertions.assertEquals(0, rollWrapper.getAngle(), ANGLE_EPSILON);
 
-        DataAccessorFactory.getInstance().getGyroAccessor().setAngle(yawPort, 47);
-        DataAccessorFactory.getInstance().getGyroAccessor().setAngle(pitchPort, -98);
-        DataAccessorFactory.getInstance().getGyroAccessor().setAngle(rollPort, 24);
+        yawWrapper.setAngle(47);
+        pitchWrapper.setAngle(-98);
+        rollWrapper.setAngle(24);
 
         aImu.getRawGyro(rawAngles);
         aImu.getFusedHeading(fusionStatus);
@@ -85,8 +90,8 @@ public class TestPigeonImu extends BaseSimulatorJavaTest
         Assertions.assertEquals(47, yawPitchRollAngles[0], ANGLE_EPSILON);
         Assertions.assertEquals(-98, yawPitchRollAngles[1], ANGLE_EPSILON);
         Assertions.assertEquals(24, yawPitchRollAngles[2], ANGLE_EPSILON);
-        Assertions.assertEquals(47, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(yawPort), ANGLE_EPSILON);
-        Assertions.assertEquals(-98, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(pitchPort), ANGLE_EPSILON);
-        Assertions.assertEquals(24, DataAccessorFactory.getInstance().getGyroAccessor().getAngle(rollPort), ANGLE_EPSILON);
+        Assertions.assertEquals(47, yawWrapper.getAngle(), ANGLE_EPSILON);
+        Assertions.assertEquals(-98, pitchWrapper.getAngle(), ANGLE_EPSILON);
+        Assertions.assertEquals(24, rollWrapper.getAngle(), ANGLE_EPSILON);
     }
 }
