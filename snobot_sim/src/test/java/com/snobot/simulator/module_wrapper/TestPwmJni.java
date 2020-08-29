@@ -18,27 +18,29 @@ public class TestPwmJni extends BaseSimulatorJniTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
 
         new Jaguar(0);
+        IPwmWrapper wrapper0 = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
-        Assertions.assertEquals("Speed Controller 0", DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0).getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0).getWantsHidden());
+        Assertions.assertEquals("Speed Controller 0", wrapper0.getName());
+        Assertions.assertFalse(wrapper0.getWantsHidden());
 
         new Talon(3);
+        IPwmWrapper wrapper3 = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(3);
         Assertions.assertEquals(2, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
-        Assertions.assertEquals("Speed Controller 3", DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(3).getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(3).getWantsHidden());
+        Assertions.assertEquals("Speed Controller 3", wrapper3.getName());
+        Assertions.assertFalse(wrapper3.getWantsHidden());
 
-        DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0).setName("NewNameFor0");
-        Assertions.assertEquals("NewNameFor0", DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0).getName());
+        wrapper0.setName("NewNameFor0");
+        Assertions.assertEquals("NewNameFor0", wrapper0.getName());
     }
 
     @Test
     public void testCreatePwmWithSetup()
     {
-        DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(3, "com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper");
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(3).isInitialized());
+        IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(3, "com.snobot.simulator.module_wrapper.wpi.WpiPwmWrapper");
+        Assertions.assertFalse(wrapper.isInitialized());
 
         new Talon(3);
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(3).isInitialized());
+        Assertions.assertTrue(wrapper.isInitialized());
     }
 
     @Test

@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
+import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.jni.JniSpeedControllerWrapperAccessor;
 import com.snobot.test.utilities.BaseSimulatorJniTest;
 import org.junit.jupiter.api.Assertions;
@@ -20,13 +21,14 @@ public class TestRevControlAppliedThrottle extends BaseSimulatorJniTest
     {
         int rawHandle = aCanHandle + JniSpeedControllerWrapperAccessor.sCAN_SC_OFFSET;
 
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        SpeedControllerWrapperAccessor scAccessor = DataAccessorFactory.getInstance().getSpeedControllerAccessor();
+
+        Assertions.assertEquals(0, scAccessor.getPortList().size());
 
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, CANSparkMaxLowLevel.MotorType.kBrushless);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
-        Assertions.assertEquals("Rev SC " + aCanHandle,
-                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle).getName());
-        IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
+        IPwmWrapper wrapper =  DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
+        Assertions.assertEquals(1, scAccessor.getPortList().size());
+        Assertions.assertEquals("Rev SC " + aCanHandle, wrapper.getName());
 
         sparksMax.set(-1.0);
         Assertions.assertEquals(-1.0, wrapper.getVoltagePercentage(), sDOUBLE_EPSILON);

@@ -1,5 +1,6 @@
 package com.snobot.simulator.simulator_components.ctre;
 
+import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,17 +20,19 @@ public class TestCtreCanTalonControlFollower extends BaseSimulatorJavaTest
     @ArgumentsSource(GetCtreTestIds.GetCtreTestIdsFeedbackDevice.class)
     public void testSetWithFollower(int aCanHandle)
     {
+        SpeedControllerWrapperAccessor scAccessor = DataAccessorFactory.getInstance().getSpeedControllerAccessor();
+
         int leadTalonId = 5;
         if (aCanHandle == leadTalonId)
         {
             return;
         }
 
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(0, scAccessor.getPortList().size());
         TalonSRX leadTalon = new TalonSRX(leadTalonId);
         TalonSRX talon = new TalonSRX(aCanHandle);
         talon.follow(leadTalon);
-        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(2, scAccessor.getPortList().size());
 
         leadTalon.set(ControlMode.PercentOutput, .5);
 

@@ -25,27 +25,30 @@ public class TestEncoderJni extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
 
         new Encoder(0, 1);
+        IEncoderWrapper wrapper0 = DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
-        Assertions.assertEquals("Encoder 0", DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0).getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0).getWantsHidden());
+        Assertions.assertEquals("Encoder 0", wrapper0.getName());
+        Assertions.assertFalse(wrapper0.getWantsHidden());
 
         new Encoder(2, 3);
+        IEncoderWrapper wrapper1 = DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(1);
         Assertions.assertEquals(2, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
-        Assertions.assertEquals("Encoder 1", DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(1).getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0).getWantsHidden());
+        Assertions.assertEquals("Encoder 1", wrapper1.getName());
+        Assertions.assertFalse(wrapper1.getWantsHidden());
 
-        DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(1).setName("NewNameFor1");
-        Assertions.assertEquals("NewNameFor1", DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(1).getName());
+        wrapper1.setName("NewNameFor1");
+        Assertions.assertEquals("NewNameFor1", wrapper1.getName());
     }
 
     @Test
     public void testCreateEncoderWithSetup()
     {
-        DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(0, WpiEncoderWrapper.class.getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0).isInitialized());
+        IEncoderWrapper wrapper = DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(0, WpiEncoderWrapper.class.getName());
+        Assertions.assertNotNull(wrapper);
+        Assertions.assertFalse(wrapper.isInitialized());
 
         new Encoder(1, 2);
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0).isInitialized());
+        Assertions.assertTrue(wrapper.isInitialized());
     }
 
     @Test

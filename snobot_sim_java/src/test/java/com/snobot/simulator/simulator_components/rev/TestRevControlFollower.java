@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMaxLowLevel;
 import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
+import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,7 +13,6 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 public class TestRevControlFollower extends BaseSimulatorJavaTest
 {
-
     private static final double sDOUBLE_EPSILON = 1.0 / 1023;
     private static final int sFOLLOWER_ID = 11;
 
@@ -24,18 +24,20 @@ public class TestRevControlFollower extends BaseSimulatorJavaTest
         {
             return;
         }
+        SpeedControllerWrapperAccessor scAccessor = DataAccessorFactory.getInstance().getSpeedControllerAccessor();
+
 
         int rawHandle = aCanHandle + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
         int followerRawHandle = sFOLLOWER_ID + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
 
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(0, scAccessor.getPortList().size());
 
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, CANSparkMaxLowLevel.MotorType.kBrushless);
         CANSparkMax follower = new CANSparkMax(sFOLLOWER_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
-        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(2, scAccessor.getPortList().size());
 
-        IPwmWrapper leadWrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
-        IPwmWrapper followerWrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(followerRawHandle);
+        IPwmWrapper leadWrapper = scAccessor.getWrapper(rawHandle);
+        IPwmWrapper followerWrapper = scAccessor.getWrapper(followerRawHandle);
 
         follower.follow(sparksMax);
 

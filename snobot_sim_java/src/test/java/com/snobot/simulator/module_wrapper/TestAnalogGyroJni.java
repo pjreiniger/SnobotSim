@@ -35,11 +35,11 @@ public class TestAnalogGyroJni extends BaseSimulatorJavaTest
     {
         int gyroHandle = 1;
 
-        DataAccessorFactory.getInstance().getGyroAccessor().createSimulator(gyroHandle, WpiAnalogGyroWrapper.class.getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(gyroHandle).isInitialized());
+        IGyroWrapper wrapper = DataAccessorFactory.getInstance().getGyroAccessor().createSimulator(gyroHandle, WpiAnalogGyroWrapper.class.getName());
+        Assertions.assertFalse(wrapper.isInitialized());
 
         new AnalogGyro(gyroHandle);
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(gyroHandle).isInitialized());
+        Assertions.assertTrue(wrapper.isInitialized());
 
     }
 

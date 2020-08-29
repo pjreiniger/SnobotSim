@@ -1,5 +1,7 @@
 package com.snobot.simulator.module_wrapper;
 
+import com.snobot.simulator.module_wrapper.interfaces.IAnalogInWrapper;
+import com.snobot.simulator.module_wrapper.interfaces.IAnalogOutWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -17,27 +19,29 @@ public class TestAnalogIOJni extends BaseSimulatorJniTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
 
         new AnalogInput(0);
+        IAnalogInWrapper wrapper0 = DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(0);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
-        Assertions.assertEquals("Analog In 0", DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(0).getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(0).getWantsHidden());
+        Assertions.assertEquals("Analog In 0", wrapper0.getName());
+        Assertions.assertFalse(wrapper0.getWantsHidden());
 
         new AnalogInput(3);
+        IAnalogInWrapper wrapper3 = DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(3);
         Assertions.assertEquals(2, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
-        Assertions.assertEquals("Analog In 3", DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(3).getName());
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(3).getWantsHidden());
+        Assertions.assertEquals("Analog In 3", wrapper3.getName());
+        Assertions.assertFalse(wrapper3.getWantsHidden());
 
-        DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(3).setName("NewNameFor3");
-        Assertions.assertEquals("NewNameFor3", DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(3).getName());
+        wrapper3.setName("NewNameFor3");
+        Assertions.assertEquals("NewNameFor3", wrapper3.getName());
     }
 
     @Test
     public void testCreateAnalogInWithSetup()
     {
-        DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(3, "com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper");
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(3).isInitialized());
+        IAnalogInWrapper wrapper = DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(3, "com.snobot.simulator.module_wrapper.wpi.WpiAnalogInWrapper");
+        Assertions.assertFalse(wrapper.isInitialized());
 
         new AnalogInput(3);
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(3).isInitialized());
+        Assertions.assertTrue(wrapper.isInitialized());
     }
 
     @Test
@@ -55,11 +59,11 @@ public class TestAnalogIOJni extends BaseSimulatorJniTest
     @Test
     public void testCreateAnalogOutWithSetup()
     {
-        DataAccessorFactory.getInstance().getAnalogOutAccessor().createSimulator(1, "com.snobot.simulator.module_wrapper.wpi.WpiAnalogOutWrapper");
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogOutAccessor().getWrapper(1).isInitialized());
+        IAnalogOutWrapper wrapper = DataAccessorFactory.getInstance().getAnalogOutAccessor().createSimulator(1, "com.snobot.simulator.module_wrapper.wpi.WpiAnalogOutWrapper");
+        Assertions.assertFalse(wrapper.isInitialized());
 
         new AnalogOutput(1);
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogOutAccessor().getWrapper(1).isInitialized());
+        Assertions.assertTrue(wrapper.isInitialized());
     }
 
     @Test

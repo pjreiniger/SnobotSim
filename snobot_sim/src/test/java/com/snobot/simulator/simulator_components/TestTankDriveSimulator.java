@@ -3,6 +3,9 @@ package com.snobot.simulator.simulator_components;
 import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
+import com.snobot.simulator.wrapper_accessors.EncoderWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.GyroWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -21,16 +24,20 @@ public class TestTankDriveSimulator extends BaseSimulatorJniTest
     @Test
     public void testTankDrive()
     {
+        SpeedControllerWrapperAccessor scAccessor = DataAccessorFactory.getInstance().getSpeedControllerAccessor();
+        EncoderWrapperAccessor encoderAccessor = DataAccessorFactory.getInstance().getEncoderAccessor();
+        GyroWrapperAccessor gyroAccessor = DataAccessorFactory.getInstance().getGyroAccessor();
+
         final SpeedController rightSC = new Talon(0);
         final SpeedController leftSC = new Talon(1);
         final Encoder rightEnc = new Encoder(0, 1);
         final Encoder leftEnc = new Encoder(2, 3);
         final Gyro gyro = new AnalogGyro(0);
 
-        IPwmWrapper rightScWrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0);
-        IPwmWrapper leftScWrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(1);
-        IEncoderWrapper rightEncWrapper = DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0);
-        IEncoderWrapper leftEncWrapper = DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(1);
+        IPwmWrapper rightScWrapper = scAccessor.getWrapper(0);
+        IPwmWrapper leftScWrapper = scAccessor.getWrapper(1);
+        IEncoderWrapper rightEncWrapper = encoderAccessor.getWrapper(0);
+        IEncoderWrapper leftEncWrapper = encoderAccessor.getWrapper(1);
 
         Assertions.assertTrue(rightEncWrapper.connectSpeedController(rightScWrapper));
         Assertions.assertTrue(leftEncWrapper.connectSpeedController(leftScWrapper));
@@ -38,7 +45,7 @@ public class TestTankDriveSimulator extends BaseSimulatorJniTest
         Assertions.assertTrue(DataAccessorFactory.getInstance().getSimulatorDataAccessor().setSpeedControllerModel_Simple(1, new SimpleMotorSimulationConfig(1)));
         Assertions.assertTrue(DataAccessorFactory.getInstance().getSimulatorDataAccessor().connectTankDriveSimulator(1, 0, 0, 180 / Math.PI));
 
-        IGyroWrapper gyroWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(0);
+        IGyroWrapper gyroWrapper = gyroAccessor.getWrapper(0);
 
         // Turn Left
         simulateForTime(90, () ->

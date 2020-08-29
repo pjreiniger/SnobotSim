@@ -1,6 +1,8 @@
 package com.snobot.simulator.simulator_components.ctre;
 
 import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
+import com.snobot.simulator.wrapper_accessors.AccelerometerWrapperAccessor;
+import com.snobot.simulator.wrapper_accessors.GyroWrapperAccessor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,6 +36,8 @@ public class TestPigeonImu extends BaseSimulatorJavaTest
 
     private void testImu(PigeonIMU aImu, int aDeviceId)
     {
+        GyroWrapperAccessor gyroAccessor = DataAccessorFactory.getInstance().getGyroAccessor();
+        AccelerometerWrapperAccessor accelerometerAccessor = DataAccessorFactory.getInstance().getAccelerometerAccessor();
         final double ANGLE_EPSILON = 1 / 16.0;
 
         int basePort = 400 + aDeviceId * 3;
@@ -45,22 +49,22 @@ public class TestPigeonImu extends BaseSimulatorJavaTest
         int yPort = basePort + 1;
         int zPort = basePort + 2;
 
-        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
-        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList().size());
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(yawPort));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(pitchPort));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(rollPort));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList().contains(xPort));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList().contains(yPort));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList().contains(zPort));
-
-        IGyroWrapper yawWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(yawPort);
-        IGyroWrapper pitchWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(pitchPort);
-        IGyroWrapper rollWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(rollPort);
+        Assertions.assertEquals(3, gyroAccessor.getPortList().size());
+        Assertions.assertEquals(3, accelerometerAccessor.getPortList().size());
+        Assertions.assertTrue(gyroAccessor.getPortList().contains(yawPort));
+        Assertions.assertTrue(gyroAccessor.getPortList().contains(pitchPort));
+        Assertions.assertTrue(gyroAccessor.getPortList().contains(rollPort));
+        Assertions.assertTrue(accelerometerAccessor.getPortList().contains(xPort));
+        Assertions.assertTrue(accelerometerAccessor.getPortList().contains(yPort));
+        Assertions.assertTrue(accelerometerAccessor.getPortList().contains(zPort));
 
         double[] rawAngles = new double[3];
         double[] yawPitchRollAngles = new double[3];
         FusionStatus fusionStatus = new FusionStatus();
+
+        IGyroWrapper yawWrapper = gyroAccessor.getWrapper(yawPort);
+        IGyroWrapper pitchWrapper = gyroAccessor.getWrapper(pitchPort);
+        IGyroWrapper rollWrapper = gyroAccessor.getWrapper(rollPort);
 
         aImu.getRawGyro(rawAngles);
         aImu.getFusedHeading(fusionStatus);

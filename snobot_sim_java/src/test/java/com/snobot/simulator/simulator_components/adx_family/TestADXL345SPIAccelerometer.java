@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.snobot.simulator.module_wrapper.interfaces.IAccelerometerWrapper;
+import com.snobot.simulator.wrapper_accessors.AccelerometerWrapperAccessor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,6 +39,8 @@ public class TestADXL345SPIAccelerometer extends BaseSimulatorJavaTest
     @MethodSource("getData")
     public void testADXL345_SPI(SPI.Port aPort, Range aRange)
     {
+        AccelerometerWrapperAccessor accelAccessor = DataAccessorFactory.getInstance().getAccelerometerAccessor();
+
         final double DOUBLE_EPSILON = 1 / 256.0; // Resoultion isn't as good as
                                                  // normal sensors
         DataAccessorFactory.getInstance().getSpiAccessor().createSpiSimulator(aPort.value, "ADXL345");
@@ -48,14 +51,14 @@ public class TestADXL345SPIAccelerometer extends BaseSimulatorJavaTest
         int yHandle = 101 + aPort.value * 3;
         int zHandle = 102 + aPort.value * 3;
 
-        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList().size());
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList().contains(xHandle));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList().contains(yHandle));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList().contains(zHandle));
+        Assertions.assertEquals(3, accelAccessor.getPortList().size());
+        Assertions.assertTrue(accelAccessor.getPortList().contains(xHandle));
+        Assertions.assertTrue(accelAccessor.getPortList().contains(yHandle));
+        Assertions.assertTrue(accelAccessor.getPortList().contains(zHandle));
 
-        IAccelerometerWrapper xWrapper = DataAccessorFactory.getInstance().getAccelerometerAccessor().getWrapper(xHandle);
-        IAccelerometerWrapper yWrapper = DataAccessorFactory.getInstance().getAccelerometerAccessor().getWrapper(yHandle);
-        IAccelerometerWrapper zWrapper = DataAccessorFactory.getInstance().getAccelerometerAccessor().getWrapper(zHandle);
+        IAccelerometerWrapper xWrapper = accelAccessor.getWrapper(xHandle);
+        IAccelerometerWrapper yWrapper = accelAccessor.getWrapper(yHandle);
+        IAccelerometerWrapper zWrapper = accelAccessor.getWrapper(zHandle);
 
         // Initial State
         Assertions.assertEquals(0, xWrapper.getAcceleration(), DOUBLE_EPSILON);

@@ -30,7 +30,7 @@ public class StaticLoadDcMotorSimTest extends BaseSimulatorJniTest
         });
 
         IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0);
-        
+
         Assertions.assertEquals(.5, wrapper.getVoltagePercentage(), DOUBLE_EPSILON);
 
         // We expect negligible final current, and a final velocity of ~68.04
@@ -63,7 +63,7 @@ public class StaticLoadDcMotorSimTest extends BaseSimulatorJniTest
         });
 
         IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0);
-        
+
         Assertions.assertEquals(1, wrapper.getVoltagePercentage(), DOUBLE_EPSILON);
 
         // We expect negligible final current, and a final velocity of ~2 *

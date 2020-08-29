@@ -85,7 +85,7 @@ public class TestCtreCanTalonControlMotionProfile extends BaseSimulatorJavaTest
 
         double pos = 0.0;
         double vel = 0.0;
-        
+
         int duration = (int) (aDt * 1e3);
 
         for (double t = 0; t < aT1; t += aDt)

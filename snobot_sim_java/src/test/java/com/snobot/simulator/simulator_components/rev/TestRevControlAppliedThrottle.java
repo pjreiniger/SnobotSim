@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMaxLowLevel;
 import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import com.snobot.simulator.simulator_components.ctre.CtreTalonSrxSpeedControllerSim;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
+import com.snobot.simulator.wrapper_accessors.SpeedControllerWrapperAccessor;
 import com.snobot.test.utilities.BaseSimulatorJavaTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,7 +13,6 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 public class TestRevControlAppliedThrottle extends BaseSimulatorJavaTest
 {
-
     private static final double sDOUBLE_EPSILON = 1.0 / 1023;
 
     @ParameterizedTest
@@ -21,14 +21,14 @@ public class TestRevControlAppliedThrottle extends BaseSimulatorJavaTest
     {
         int rawHandle = aCanHandle + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
 
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        SpeedControllerWrapperAccessor scAccessor = DataAccessorFactory.getInstance().getSpeedControllerAccessor();
+
+        Assertions.assertEquals(0, scAccessor.getPortList().size());
 
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, CANSparkMaxLowLevel.MotorType.kBrushless);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
-        Assertions.assertEquals("Rev SC " + aCanHandle,
-                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle).getName());
-
-        IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
+        IPwmWrapper wrapper =  DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
+        Assertions.assertEquals(1, scAccessor.getPortList().size());
+        Assertions.assertEquals("Rev SC " + aCanHandle, wrapper.getName());
 
         sparksMax.set(-1.0);
         Assertions.assertEquals(-1.0, wrapper.getVoltagePercentage(), sDOUBLE_EPSILON);
