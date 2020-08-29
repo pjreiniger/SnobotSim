@@ -2,6 +2,7 @@ package com.snobot.simulator.simulator_components.rev;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 import com.snobot.simulator.wrapper_accessors.jni.JniSpeedControllerWrapperAccessor;
 import com.snobot.test.utilities.BaseSimulatorJniTest;
@@ -25,14 +26,15 @@ public class TestRevControlAppliedThrottle extends BaseSimulatorJniTest
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
         Assertions.assertEquals("Rev SC " + aCanHandle,
                 DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle).getName());
+        IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
 
         sparksMax.set(-1.0);
-        Assertions.assertEquals(-1.0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(rawHandle), sDOUBLE_EPSILON);
+        Assertions.assertEquals(-1.0, wrapper.getVoltagePercentage(), sDOUBLE_EPSILON);
         Assertions.assertEquals(-1.0, sparksMax.get(), sDOUBLE_EPSILON);
         Assertions.assertEquals(-1.0, sparksMax.getAppliedOutput(), sDOUBLE_EPSILON);
 
         sparksMax.set(0.5);
-        Assertions.assertEquals(0.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(rawHandle), sDOUBLE_EPSILON);
+        Assertions.assertEquals(0.5, wrapper.getVoltagePercentage(), sDOUBLE_EPSILON);
         Assertions.assertEquals(0.5, sparksMax.get(), sDOUBLE_EPSILON);
         Assertions.assertEquals(0.5, sparksMax.getAppliedOutput(), sDOUBLE_EPSILON);
 

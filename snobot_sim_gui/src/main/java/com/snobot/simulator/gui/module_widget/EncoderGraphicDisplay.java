@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import com.snobot.simulator.gui.module_widget.settings.EncoderSettingsDialog;
+import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 public class EncoderGraphicDisplay extends BaseWidgetDisplay<Integer, EncoderWrapperDisplay>
@@ -26,8 +27,9 @@ public class EncoderGraphicDisplay extends BaseWidgetDisplay<Integer, EncoderWra
         for (Entry<Integer, EncoderWrapperDisplay> pair : mWidgetMap.entrySet())
         {
             int key = pair.getKey();
-            boolean isConnected = DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(key);
-            double distance = DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(key);
+            IEncoderWrapper wrapper = DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(key);
+            boolean isConnected = wrapper.isHookedUp();
+            double distance = wrapper.getPosition();
 
             pair.getValue().updateDisplay(isConnected, distance);
         }

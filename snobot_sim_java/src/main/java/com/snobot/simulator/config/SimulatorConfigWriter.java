@@ -116,7 +116,7 @@ public class SimulatorConfigWriter
         {
             IEncoderWrapper wrapper = aAccessor.getWrapper(portHandle);
             EncoderConfig config = new EncoderConfig(portHandle, wrapper.getName(), wrapper.getType(),
-                    aAccessor.getHookedUpId(portHandle));
+                wrapper.getHookedUpId());
             aOutputList.add(config);
         }
     }

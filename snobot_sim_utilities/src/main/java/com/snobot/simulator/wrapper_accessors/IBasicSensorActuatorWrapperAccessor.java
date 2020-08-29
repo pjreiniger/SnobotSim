@@ -10,7 +10,7 @@ public interface IBasicSensorActuatorWrapperAccessor<WrapperType extends ISensor
 
     List<Integer> getPortList();
 
-    boolean createSimulator(int aPort, String aType);
+    WrapperType createSimulator(int aPort, String aType);
 
     void removeSimulator(int aPort);
 }

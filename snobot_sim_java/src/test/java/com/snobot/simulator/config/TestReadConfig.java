@@ -106,10 +106,10 @@ public class TestReadConfig extends BaseSimulatorJavaTest
         Assertions.assertEquals("Encoder 0", DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0).getName());
         Assertions.assertEquals("Encoder 1", DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(1).getName());
         Assertions.assertEquals("Encoder 2", DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(2).getName());
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(0));
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(1));
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(2));
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getEncoderAccessor().getHookedUpId(0));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0).isHookedUp());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(1).isHookedUp());
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(2).isHookedUp());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0).getHookedUpId());
 
         Assertions.assertEquals("Analog Gyro", DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(1).getName());
 

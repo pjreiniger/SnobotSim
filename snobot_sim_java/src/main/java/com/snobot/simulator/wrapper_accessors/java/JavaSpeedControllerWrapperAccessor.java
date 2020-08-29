@@ -28,44 +28,15 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
 
     private static final String sWRONG_SIMULATOR_TYPE_ERROR = "Wrong simulator type, returning default";
 
-    private final DefaultPwmWrapperFactory mFactory;
-
     public JavaSpeedControllerWrapperAccessor()
     {
-        mFactory = new DefaultPwmWrapperFactory();
-    }
-
-    @Override
-    public boolean createSimulator(int aPort, String aType)
-    {
-        return mFactory.create(aPort, aType);
-    }
-
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    @Override
-    public void removeSimulator(int aPort)
-    {
-        try
-        {
-            getWrapper(aPort).close();
-        }
-        catch (Exception ex)
-        {
-            LogManager.getLogger().log(Level.WARN, "Could not close simulator", ex);
-        }
-        SensorActuatorRegistry.get().getSpeedControllers().remove(aPort);
+        super(new DefaultPwmWrapperFactory());
     }
 
     @Override
     protected Map<Integer, IPwmWrapper> getMap()
     {
         return SensorActuatorRegistry.get().getSpeedControllers();
-    }
-
-    @Override
-    public double getVoltagePercentage(int aPort)
-    {
-        return getWrapper(aPort).get();
     }
 
     @Override
@@ -159,37 +130,4 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
         }
         return null;
     }
-
-    @Override
-    public double getPosition(int aPort)
-    {
-        return SensorActuatorRegistry.get().getSpeedControllers().get(aPort).getPosition();
-    }
-
-    @Override
-    public double getVelocity(int aPort)
-    {
-        return SensorActuatorRegistry.get().getSpeedControllers().get(aPort).getVelocity();
-    }
-
-    @Override
-    public double getCurrent(int aPort)
-    {
-        return SensorActuatorRegistry.get().getSpeedControllers().get(aPort).getCurrent();
-    }
-
-    @Override
-    public double getAcceleration(int aPort)
-    {
-        return SensorActuatorRegistry.get().getSpeedControllers().get(aPort).getAcceleration();
-    }
-
-    @Override
-    public void reset(int aHandle, double aPosition, double aVelocity, double aCurrent)
-    {
-        IPwmWrapper wrapper = SensorActuatorRegistry.get().getSpeedControllers().get(aHandle);
-        wrapper.reset(aPosition, aVelocity, aCurrent);
-
-    }
-
 }

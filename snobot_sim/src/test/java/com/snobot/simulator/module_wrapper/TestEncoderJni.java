@@ -2,6 +2,7 @@ package com.snobot.simulator.module_wrapper;
 
 
 
+import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -64,17 +65,18 @@ public class TestEncoderJni extends BaseSimulatorJniTest
     {
         SpeedController sc = new Talon(0);
         final Encoder encoder = new Encoder(1, 2);
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(0));
-        Assertions.assertEquals(-1, DataAccessorFactory.getInstance().getEncoderAccessor().getHookedUpId(0));
+        IEncoderWrapper wrapper = DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0);
+        Assertions.assertFalse(wrapper.isHookedUp());
+        Assertions.assertEquals(-1, wrapper.getHookedUpId());
 
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(0));
-        Assertions.assertEquals(-1, DataAccessorFactory.getInstance().getEncoderAccessor().getHookedUpId(0));
+        Assertions.assertFalse(wrapper.isHookedUp());
+        Assertions.assertEquals(-1, wrapper.getHookedUpId());
 
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(0, 0));
+        Assertions.assertTrue(wrapper.connectSpeedController(0));
         Assertions.assertTrue(
                 DataAccessorFactory.getInstance().getSimulatorDataAccessor().setSpeedControllerModel_Simple(0, new SimpleMotorSimulationConfig(12)));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(0));
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getEncoderAccessor().getHookedUpId(0));
+        Assertions.assertTrue(wrapper.isHookedUp());
+        Assertions.assertEquals(0, wrapper.getHookedUpId());
 
         simulateForTime(1, () ->
         {
@@ -83,7 +85,7 @@ public class TestEncoderJni extends BaseSimulatorJniTest
 
         Assertions.assertEquals(12.0, encoder.getDistance(), DOUBLE_EPSILON);
         Assertions.assertEquals(12.0, encoder.getRate(), DOUBLE_EPSILON);
-        Assertions.assertEquals(12.0, DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(12.0, wrapper.getPosition(), DOUBLE_EPSILON);
 
         encoder.reset();
         Assertions.assertEquals(0.0, encoder.getDistance(), DOUBLE_EPSILON);
@@ -95,19 +97,20 @@ public class TestEncoderJni extends BaseSimulatorJniTest
     public void testSpeedControllerFeedbackWithDistancePerTick()
     {
         SpeedController sc = new Talon(0);
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(0));
-        Assertions.assertEquals(-1, DataAccessorFactory.getInstance().getEncoderAccessor().getHookedUpId(0));
+        IEncoderWrapper wrapper = DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0);
+        Assertions.assertFalse(wrapper.isHookedUp());
+        Assertions.assertEquals(-1, wrapper.getHookedUpId());
 
         Encoder encoder = new Encoder(1, 2);
         encoder.setDistancePerPulse(.0002);
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(0));
-        Assertions.assertEquals(-1, DataAccessorFactory.getInstance().getEncoderAccessor().getHookedUpId(0));
+        Assertions.assertFalse(wrapper.isHookedUp());
+        Assertions.assertEquals(-1, wrapper.getHookedUpId());
 
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(0, 0));
+        Assertions.assertTrue(wrapper.connectSpeedController(0));
         Assertions.assertTrue(
                 DataAccessorFactory.getInstance().getSimulatorDataAccessor().setSpeedControllerModel_Simple(0, new SimpleMotorSimulationConfig(12)));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(0));
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getEncoderAccessor().getHookedUpId(0));
+        Assertions.assertTrue(wrapper.isHookedUp());
+        Assertions.assertEquals(0, wrapper.getHookedUpId());
 
         simulateForTime(1, () ->
         {
@@ -116,12 +119,12 @@ public class TestEncoderJni extends BaseSimulatorJniTest
 
         Assertions.assertEquals(12.0, encoder.getDistance(), DOUBLE_EPSILON);
         Assertions.assertEquals(12.0, encoder.getRate(), DOUBLE_EPSILON);
-        Assertions.assertEquals(12.0, DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(12.0, wrapper.getPosition(), DOUBLE_EPSILON);
 
         encoder.reset();
         Assertions.assertEquals(0.0, encoder.getDistance(), DOUBLE_EPSILON);
         Assertions.assertEquals(0.0, encoder.getRate(), DOUBLE_EPSILON);
-        Assertions.assertEquals(0.0, DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(0.0, wrapper.getPosition(), DOUBLE_EPSILON);
 
         simulateForTime(1, () ->
         {
@@ -132,15 +135,13 @@ public class TestEncoderJni extends BaseSimulatorJniTest
         // Try another reset
         encoder.reset();
         Assertions.assertEquals(0.0, encoder.getDistance(), DOUBLE_EPSILON);
-        Assertions.assertEquals(0.0, DataAccessorFactory.getInstance().getEncoderAccessor().getDistance(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(0.0, wrapper.getPosition(), DOUBLE_EPSILON);
     }
 
     @Test
     public void testInvalidSpeedControllerFeedback()
     {
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(0, 0));
-
         new Encoder(1, 2);
-        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(0, 0));
+        Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0).connectSpeedController(0));
     }
 }

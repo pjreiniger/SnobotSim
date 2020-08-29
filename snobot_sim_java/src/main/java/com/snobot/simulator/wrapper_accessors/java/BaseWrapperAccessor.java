@@ -4,11 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.snobot.simulator.module_wrapper.factories.BaseWrapperFactory;
 import com.snobot.simulator.module_wrapper.interfaces.ISensorWrapper;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 
 public abstract class BaseWrapperAccessor<Type extends ISensorWrapper>
 {
-    protected abstract Map<Integer, Type> getMap();
+    protected final BaseWrapperFactory mFactory;
+
+    public BaseWrapperAccessor(BaseWrapperFactory aFactory)
+    {
+        mFactory = aFactory;
+    }
+
+    public final Type createSimulator(int aPort, String aType)
+    {
+        if (mFactory.create(aPort, aType))
+        {
+            return getWrapper(aPort);
+        }
+
+        return null;
+    }
+
+    public final void removeSimulator(int aPort)
+    {
+        try
+        {
+            getWrapper(aPort).close();
+        }
+        catch (Exception ex)
+        {
+            LogManager.getLogger().log(Level.WARN, "Could not close simulator", ex);
+        }
+        getMap().remove(aPort);
+    }
 
     public Type getWrapper(int aPort)
     {
@@ -44,4 +75,5 @@ public abstract class BaseWrapperAccessor<Type extends ISensorWrapper>
         return getMap().get(aPort).getClass().getName();
     }
 
+    protected abstract Map<Integer, Type> getMap();
 }

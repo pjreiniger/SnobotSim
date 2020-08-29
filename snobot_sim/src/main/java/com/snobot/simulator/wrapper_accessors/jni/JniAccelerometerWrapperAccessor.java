@@ -13,10 +13,11 @@ import com.snobot.simulator.wrapper_accessors.AccelerometerWrapperAccessor;
 public class JniAccelerometerWrapperAccessor extends BaseWrapperAccessor<IAccelerometerWrapper> implements AccelerometerWrapperAccessor
 {
     @Override
-    public boolean createSimulator(int aPort, String aType)
+    public IAccelerometerWrapper createSimulator(int aPort, String aType)
     {
         AccelerometerWrapper wrapper = new AccelerometerWrapper(aPort, aType);
-        return register(aPort, wrapper);
+        register(aPort, wrapper);
+        return wrapper;
     }
 
     @Override

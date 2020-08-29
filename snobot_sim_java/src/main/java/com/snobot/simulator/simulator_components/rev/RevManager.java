@@ -150,7 +150,7 @@ public class RevManager
         {
             RevSpeedControllerSimWrapper wrapper = getMotorControllerWrapper(aCanPort);
 
-            float speed = (float) wrapper.get();
+            float speed = (float) wrapper.getVoltagePercentage();
             aData.putFloat(0, speed);
             break;
 

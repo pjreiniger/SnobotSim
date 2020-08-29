@@ -19,9 +19,9 @@ public interface IPwmWrapper extends ISensorWrapper
 
     double getCurrent();
 
-    void set(double aSpeed);
+    void setVoltagePercentage(double aSpeed);
 
-    double get();
+    double getVoltagePercentage();
 
     void update(double aWaitTime);
 

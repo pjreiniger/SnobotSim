@@ -1,6 +1,7 @@
 package com.snobot.simulator.simulator_components.ctre;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 import org.junit.jupiter.api.Assertions;
@@ -100,7 +101,7 @@ public class TestCtreCanTalon extends BaseSimulatorJniTest
         TalonSRX talon = new TalonSRX(canId);
 
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(simId, "com.snobot.simulator.simulator_components.smart_sc.SmartScEncoder"));
+        Assertions.assertNotNull(DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(simId, "com.snobot.simulator.simulator_components.smart_sc.SmartScEncoder"));
         Assertions.assertFalse(DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(simId).isInitialized());
 
         talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
@@ -116,7 +117,7 @@ public class TestCtreCanTalon extends BaseSimulatorJniTest
         TalonSRX talon = new TalonSRX(canId);
 
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(simId, "com.snobot.simulator.simulator_components.smart_sc.SmartScAnalogIn"));
+        Assertions.assertNotNull(DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(simId, "com.snobot.simulator.simulator_components.smart_sc.SmartScAnalogIn"));
         Assertions.assertFalse(DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(simId).isInitialized());
 
         talon.configSelectedFeedbackSensor(FeedbackDevice.Analog);
@@ -146,16 +147,18 @@ public class TestCtreCanTalon extends BaseSimulatorJniTest
         {
         });
 
-        Assertions.assertEquals(40, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVelocity(simId), 1);
+        IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(simId);
+
+        Assertions.assertEquals(40, wrapper.getVelocity(), 1);
         Assertions.assertEquals(40, talon.getSelectedSensorVelocity(0) / 600.0, 1);
-        Assertions.assertEquals(0.720454097, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(simId), .0001);
+        Assertions.assertEquals(0.720454097, wrapper.getVoltagePercentage(), .0001);
         Assertions.assertEquals(0.720454097, talon.getMotorOutputPercent(), .0001);
 
         talon.set(ControlMode.PercentOutput, .5);
         simulateForTime(1, () ->
         {
         });
-        Assertions.assertEquals(.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(simId), .0001);
+        Assertions.assertEquals(.5, wrapper.getVoltagePercentage(), .0001);
         Assertions.assertEquals(.5, talon.getMotorOutputPercent(), .0001);
 
     }

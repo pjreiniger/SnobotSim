@@ -70,7 +70,7 @@ public class SpeedControllerWrapper implements IPwmWrapper
     }
 
     @Override
-    public double get()
+    public double getVoltagePercentage()
     {
         return SpeedControllerWrapperJni.getVoltagePercentage(mHandle);
     }
@@ -132,7 +132,7 @@ public class SpeedControllerWrapper implements IPwmWrapper
     }
 
     @Override
-    public void set(double aSpeed)
+    public void setVoltagePercentage(double aSpeed)
     {
         throw new UnsupportedOperationException();
     }
@@ -158,7 +158,7 @@ public class SpeedControllerWrapper implements IPwmWrapper
     @Override
     public int getHandle()
     {
-        throw new UnsupportedOperationException();
+        return mHandle;
     }
 
     @Override
@@ -188,7 +188,7 @@ public class SpeedControllerWrapper implements IPwmWrapper
     @Override
     public void reset()
     {
-        throw new UnsupportedOperationException();
+        reset(0, 0, 0);
     }
 
     @Override

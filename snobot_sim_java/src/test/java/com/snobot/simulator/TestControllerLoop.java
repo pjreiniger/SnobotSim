@@ -119,7 +119,7 @@ public class TestControllerLoop extends BaseSimulatorJavaTest
         Assertions.assertFalse(robot.mSolenoid.get());
         Assertions.assertFalse(DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(0).getRelayForwards());
         Assertions.assertFalse(DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(0).getRelayReverse());
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0).getVoltagePercentage(), DOUBLE_EPSILON);
 
         // Move to enabled+teleop
         DataAccessorFactory.getInstance().getDriverStationAccessor().setDisabled(false);
@@ -135,7 +135,7 @@ public class TestControllerLoop extends BaseSimulatorJavaTest
         Assertions.assertFalse(robot.mSolenoid.get());
         Assertions.assertTrue(DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(0).getRelayForwards());
         Assertions.assertFalse(DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(0).getRelayReverse());
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0).getVoltagePercentage(), DOUBLE_EPSILON);
 
         // Move to enabled+auton
         DataAccessorFactory.getInstance().getDriverStationAccessor().setAutonomous(true);
@@ -151,7 +151,7 @@ public class TestControllerLoop extends BaseSimulatorJavaTest
         Assertions.assertFalse(robot.mSolenoid.get());
         Assertions.assertFalse(DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(0).getRelayForwards());
         Assertions.assertFalse(DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(0).getRelayReverse());
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0).getVoltagePercentage(), DOUBLE_EPSILON);
 
         // Back to teleop for joystick testing
         DataAccessorFactory.getInstance().getDriverStationAccessor().setAutonomous(false);

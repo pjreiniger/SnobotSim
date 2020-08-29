@@ -6,15 +6,18 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.snobot.simulator.jni.module_wrapper.SolenoidWrapperJni;
+import com.snobot.simulator.module_wrapper.interfaces.ISolenoidWrapper;
 import com.snobot.simulator.module_wrappers.SolenoidWrapper;
 import com.snobot.simulator.wrapper_accessors.SolenoidWrapperAccessor;
 
 public class JniSolenoidWrapperAccessor extends BaseWrapperAccessor<SolenoidWrapper> implements SolenoidWrapperAccessor
 {
     @Override
-    public boolean createSimulator(int aPort, String aType)
+    public ISolenoidWrapper createSimulator(int aPort, String aType)
     {
-        return SolenoidWrapperJni.createSimulator(aPort, aType);
+        SolenoidWrapper wrapper = new SolenoidWrapper(aPort, aType);
+        register(aPort, wrapper);
+        return wrapper;
     }
 
     @Override

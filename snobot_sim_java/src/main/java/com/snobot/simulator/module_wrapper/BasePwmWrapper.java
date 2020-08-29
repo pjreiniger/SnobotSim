@@ -34,13 +34,13 @@ public abstract class BasePwmWrapper extends ASensorWrapper implements IPwmWrapp
     }
 
     @Override
-    public double get()
+    public double getVoltagePercentage()
     {
         return mMotorSimulator.getVoltagePercentage();
     }
 
     @Override
-    public void set(double aSpeed)
+    public void setVoltagePercentage(double aSpeed)
     {
         mMotorSimulator.setVoltagePercentage(aSpeed);
     }

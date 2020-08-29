@@ -13,9 +13,11 @@ import com.snobot.simulator.wrapper_accessors.AnalogInWrapperAccessor;
 public class JniAnalogInWrapperAccessor extends BaseWrapperAccessor<IAnalogInWrapper> implements AnalogInWrapperAccessor
 {
     @Override
-    public boolean createSimulator(int aPort, String aType)
+    public IAnalogInWrapper createSimulator(int aPort, String aType)
     {
-        return AnalogInWrapperJni.createSimulator(aPort, aType);
+        AnalogInWrapper wrapper = new AnalogInWrapper(aPort, aType);
+        register(aPort, wrapper);
+        return wrapper;
     }
 
     @Override

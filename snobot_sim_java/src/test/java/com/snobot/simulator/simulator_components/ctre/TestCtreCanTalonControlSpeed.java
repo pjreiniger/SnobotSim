@@ -45,7 +45,7 @@ public class TestCtreCanTalonControlSpeed extends BaseSimulatorJavaTest
         {
         });
 
-        Assertions.assertEquals(40, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVelocity(rawHandle), 1);
+        Assertions.assertEquals(40, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle).getVelocity(), 1);
         Assertions.assertEquals(40, talon.getSelectedSensorVelocity(0) / 600.0, 1);
     }
 

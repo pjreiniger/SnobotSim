@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.snobot.simulator.jni.module_wrapper.SpeedControllerWrapperJni;
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import com.snobot.simulator.module_wrappers.SpeedControllerWrapper;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.GravityLoadMotorSimulationConfig;
@@ -19,15 +20,11 @@ public class JniSpeedControllerWrapperAccessor extends BaseWrapperAccessor<Speed
     public static final int sCAN_SC_OFFSET = 100;
 
     @Override
-    public boolean createSimulator(int aPort, String aType)
+    public IPwmWrapper createSimulator(int aPort, String aType)
     {
-        return SpeedControllerWrapperJni.createSimulator(aPort, aType);
-    }
-
-    @Override
-    public double getVoltagePercentage(int aPort)
-    {
-        return getWrapper(aPort).get();
+        SpeedControllerWrapper wrapper = new SpeedControllerWrapper(aPort, aType);
+        register(aPort, wrapper);
+        return wrapper;
     }
 
     @Override
@@ -76,35 +73,5 @@ public class JniSpeedControllerWrapperAccessor extends BaseWrapperAccessor<Speed
     public MotorSimType getMotorSimType(int aHandle)
     {
         return getWrapper(aHandle).getMotorSimType();
-    }
-
-    @Override
-    public double getPosition(int aHandle)
-    {
-        return getWrapper(aHandle).getPosition();
-    }
-
-    @Override
-    public double getVelocity(int aHandle)
-    {
-        return getWrapper(aHandle).getVelocity();
-    }
-
-    @Override
-    public double getCurrent(int aHandle)
-    {
-        return getWrapper(aHandle).getCurrent();
-    }
-
-    @Override
-    public double getAcceleration(int aHandle)
-    {
-        return getWrapper(aHandle).getAcceleration();
-    }
-
-    @Override
-    public void reset(int aHandle, double aPosition, double aVelocity, double aCurrent)
-    {
-        getWrapper(aHandle).reset(aPosition, aVelocity, aCurrent);
     }
 }

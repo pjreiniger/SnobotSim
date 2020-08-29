@@ -6,44 +6,18 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.snobot.simulator.jni.module_wrapper.EncoderWrapperJni;
+import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
 import com.snobot.simulator.module_wrappers.EncoderWrapper;
 import com.snobot.simulator.wrapper_accessors.EncoderWrapperAccessor;
 
 public class JniEncoderWrapperAccessor extends BaseWrapperAccessor<EncoderWrapper> implements EncoderWrapperAccessor
 {
     @Override
-    public boolean createSimulator(int aPort, String aType)
+    public IEncoderWrapper createSimulator(int aPort, String aType)
     {
-        return EncoderWrapperJni.createSimulator(aPort, aType);
-    }
-
-    @Override
-    public boolean connectSpeedController(int aEncoderHandle, int aSpeedControllerHandle)
-    {
-        EncoderWrapper wrapper = getWrapper(aEncoderHandle);
-        if (wrapper == null)
-        {
-            return false;
-        }
-        return wrapper.connectSpeedController(aSpeedControllerHandle);
-    }
-
-    @Override
-    public boolean isHookedUp(int aPort)
-    {
-        return getWrapper(aPort).isHookedUp();
-    }
-
-    @Override
-    public int getHookedUpId(int aPort)
-    {
-        return getWrapper(aPort).getHookedUpId();
-    }
-
-    @Override
-    public double getDistance(int aPort)
-    {
-        return getWrapper(aPort).getDistance();
+        EncoderWrapper wrapper = new EncoderWrapper(aPort, aType);
+        register(aPort, wrapper);
+        return wrapper;
     }
 
     @Override

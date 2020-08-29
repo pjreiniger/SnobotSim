@@ -44,7 +44,7 @@ public class TestCtreCanTalonControlPosition extends BaseSimulatorJavaTest
         {
         });
 
-        Assertions.assertEquals(36, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPosition(rawHandle), .5);
+        Assertions.assertEquals(36, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle).getPosition(), .5);
         Assertions.assertEquals(36, talon.getSelectedSensorPosition(0) / 4096.0, .5);
 
         talon.setSelectedSensorPosition(0, 0, 0);

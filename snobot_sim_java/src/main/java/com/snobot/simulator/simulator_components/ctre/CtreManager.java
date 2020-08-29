@@ -69,7 +69,7 @@ public class CtreManager
             switch (mode)
             {
             case 0:
-                wrapper.set(param0 / 1023.0);
+                wrapper.setVoltagePercentage(param0 / 1023.0);
                 break;
             case 1:
                 wrapper.setPositionGoal(param0);
@@ -89,7 +89,7 @@ public class CtreManager
                 wrapper.setMotionMagicGoal(param0);
                 break;
             case 15:
-                wrapper.set(0);
+                wrapper.setVoltagePercentage(0);
                 break;
             default:
                 sLOGGER.log(Level.ERROR, String.format("Unknown demand mode %d", mode));
@@ -129,7 +129,7 @@ public class CtreManager
                 wrapper.setMotionMagicGoal(demand0);
                 break;
             case 15:
-                wrapper.set(0);
+                wrapper.setVoltagePercentage(0);
                 break;
             default:
                 sLOGGER.log(Level.ERROR, String.format("Unknown demand mode %d", mode));
@@ -239,7 +239,7 @@ public class CtreManager
         {
             CtreTalonSrxSpeedControllerSim wrapper = getMotorControllerWrapper(aCanPort);
 
-            float speed = (float) wrapper.get();
+            float speed = (float) wrapper.getVoltagePercentage();
             aData.putDouble(0, speed);
 
         }

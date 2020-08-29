@@ -26,7 +26,7 @@ public class SpeedControllerGraphicDisplay extends BaseWidgetDisplay<Integer, Mo
     {
         for (Entry<Integer, MotorDisplay> pair : mWidgetMap.entrySet())
         {
-            double value = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(pair.getKey());
+            double value = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(pair.getKey()).getVoltagePercentage();
             pair.getValue().updateDisplay(value);
         }
     }

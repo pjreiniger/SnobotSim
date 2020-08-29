@@ -1,5 +1,6 @@
 package com.snobot.simulator.module_wrapper;
 
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -62,24 +63,25 @@ public class TestPwmJni extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
 
         Talon talon = new Talon(1);
+        IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(1);
         Assertions.assertEquals(0, talon.get(), DOUBLE_EPSILON);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(1), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, wrapper.getVoltagePercentage(), DOUBLE_EPSILON);
 
         talon.set(.5);
         Assertions.assertEquals(.5, talon.get(), DOUBLE_EPSILON);
-        Assertions.assertEquals(.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(1), DOUBLE_EPSILON);
+        Assertions.assertEquals(.5, wrapper.getVoltagePercentage(), DOUBLE_EPSILON);
 
         talon.set(-.5);
         Assertions.assertEquals(-.5, talon.get(), DOUBLE_EPSILON);
-        Assertions.assertEquals(-.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(1), DOUBLE_EPSILON);
+        Assertions.assertEquals(-.5, wrapper.getVoltagePercentage(), DOUBLE_EPSILON);
 
         talon.set(1.1);
         Assertions.assertEquals(1.0, talon.get(), DOUBLE_EPSILON);
-        Assertions.assertEquals(1.0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(1), DOUBLE_EPSILON);
+        Assertions.assertEquals(1.0, wrapper.getVoltagePercentage(), DOUBLE_EPSILON);
 
         talon.set(-2.1);
         Assertions.assertEquals(-1.0, talon.get(), DOUBLE_EPSILON);
-        Assertions.assertEquals(-1.0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(1), DOUBLE_EPSILON);
+        Assertions.assertEquals(-1.0, wrapper.getVoltagePercentage(), DOUBLE_EPSILON);
     }
 
     @Test

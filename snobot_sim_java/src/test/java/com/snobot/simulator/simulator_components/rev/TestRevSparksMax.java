@@ -4,6 +4,7 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.ControlType;
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import com.snobot.simulator.motor_sim.DcMotorModelConfig;
 import com.snobot.simulator.motor_sim.StaticLoadMotorSimulationConfig;
 import org.junit.jupiter.api.Assertions;
@@ -33,17 +34,18 @@ public class TestRevSparksMax extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
 
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, MotorType.kBrushless);
+        IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
         Assertions.assertEquals("Rev SC " + aCanHandle,
                 DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle).getName());
         
         sparksMax.set(-1.0);
-        Assertions.assertEquals(-1.0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(rawHandle), sDOUBLE_EPSILON);
+        Assertions.assertEquals(-1.0, wrapper.getVoltagePercentage(), sDOUBLE_EPSILON);
         Assertions.assertEquals(-1.0, sparksMax.get(), sDOUBLE_EPSILON);
         Assertions.assertEquals(-1.0, sparksMax.getAppliedOutput(), sDOUBLE_EPSILON);
 
         sparksMax.set(0.5);
-        Assertions.assertEquals(0.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(rawHandle), sDOUBLE_EPSILON);
+        Assertions.assertEquals(0.5, wrapper.getVoltagePercentage(), sDOUBLE_EPSILON);
         Assertions.assertEquals(0.5, sparksMax.get(), sDOUBLE_EPSILON);
         Assertions.assertEquals(0.5, sparksMax.getAppliedOutput(), sDOUBLE_EPSILON);
 
@@ -66,16 +68,18 @@ public class TestRevSparksMax extends BaseSimulatorJavaTest
 
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, MotorType.kBrushless);
         CANSparkMax follower = new CANSparkMax(sFOLLOWER_ID, MotorType.kBrushless);
+        IPwmWrapper leadWrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
+        IPwmWrapper followerWrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(followerRawHandle);
         Assertions.assertEquals(2, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
 
         follower.follow(sparksMax);
 
         sparksMax.set(-0.5);
-        Assertions.assertEquals(-0.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(rawHandle), sDOUBLE_EPSILON);
+        Assertions.assertEquals(-0.5, leadWrapper.getVoltagePercentage(), sDOUBLE_EPSILON);
         Assertions.assertEquals(-0.5, sparksMax.get(), sDOUBLE_EPSILON);
         Assertions.assertEquals(-0.5, sparksMax.getAppliedOutput(), sDOUBLE_EPSILON);
 
-        Assertions.assertEquals(-0.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(followerRawHandle), sDOUBLE_EPSILON);
+        Assertions.assertEquals(-0.5, followerWrapper.getVoltagePercentage(), sDOUBLE_EPSILON);
 //        Assertions.assertEquals(0.5, follower.get(), sDOUBLE_EPSILON); // TODO: Doesn't work, vendor issue
         Assertions.assertEquals(-0.5, sparksMax.getAppliedOutput(), sDOUBLE_EPSILON);
 
@@ -93,9 +97,9 @@ public class TestRevSparksMax extends BaseSimulatorJavaTest
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
 
         CANSparkMax sparksMax = new CANSparkMax(canHandle, CANSparkMaxLowLevel.MotorType.kBrushless);
+        IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(simHandle);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
-        Assertions.assertEquals("Rev SC " + canHandle,
-            DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(simHandle).getName());
+        Assertions.assertEquals("Rev SC " + canHandle, wrapper.getName());
 
         // Simulate CIM drivetrain
         DcMotorModelConfig motorConfig = DataAccessorFactory.getInstance().getSimulatorDataAccessor().createMotor("CIM", 1, 10, 1);
@@ -114,14 +118,14 @@ public class TestRevSparksMax extends BaseSimulatorJavaTest
         });
 
         Assertions.assertEquals(40, encoder.getVelocity(), 1);
-        Assertions.assertEquals(40, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVelocity(simHandle), 1);
-        Assertions.assertEquals(0.7342491156153788, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(simHandle), .0001);
+        Assertions.assertEquals(40, wrapper.getVelocity(), 1);
+        Assertions.assertEquals(0.7342491156153788, wrapper.getVoltagePercentage(), .0001);
 
         sparksMax.set(.5);
         simulateForTime(1, () ->
         {
         });
-        Assertions.assertEquals(.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(simHandle), .0001);
+        Assertions.assertEquals(.5, wrapper.getVoltagePercentage(), .0001);
         Assertions.assertEquals(.5, sparksMax.get());
     }
 

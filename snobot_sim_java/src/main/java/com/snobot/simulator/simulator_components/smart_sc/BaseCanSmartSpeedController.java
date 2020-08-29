@@ -143,7 +143,7 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
     public void setRawGoal(double aRawOutput)
     {
         mControlType = ControlType.Raw;
-        set(aRawOutput);
+        setVoltagePercentage(aRawOutput);
     }
 
     public void setMotionMagicGoal(double aDemand)
@@ -167,25 +167,25 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
         case Position:
         {
             double output = calculateFeedbackOutput(getPosition(), mControlGoal);
-            super.set(output);
+            super.setVoltagePercentage(output);
             break;
         }
         case Speed:
         {
             double output = calculateFeedbackOutput(getVelocity(), mControlGoal);
-            super.set(output);
+            super.setVoltagePercentage(output);
             break;
         }
         case MotionMagic:
         {
             double output = calculateMotionMagicOutput(getPosition(), getVelocity(), mControlGoal);
-            super.set(output);
+            super.setVoltagePercentage(output);
             break;
         }
         case MotionProfile:
         {
             double output = calculateMotionProfileOutput(getPosition(), getVelocity(), (int) mControlGoal);
-            super.set(output);
+            super.setVoltagePercentage(output);
             break;
         }
         // Just use normal update
@@ -245,12 +245,12 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
     }
 
     @Override
-    public void set(double aVoltagePercentage)
+    public void setVoltagePercentage(double aVoltagePercentage)
     {
         // followers will have their own inverted flag
         for (BaseCanSmartSpeedController follower : mFollowers)
         {
-            follower.set(aVoltagePercentage);
+            follower.setVoltagePercentage(aVoltagePercentage);
         }
 
         if (mInverted)
@@ -258,7 +258,7 @@ public abstract class BaseCanSmartSpeedController extends BasePwmWrapper
             aVoltagePercentage = -aVoltagePercentage;
         }
 
-        super.set(aVoltagePercentage);
+        super.setVoltagePercentage(aVoltagePercentage);
     }
 
     protected double calculateFeedbackOutput(double aCurrent, double aGoal)

@@ -1,5 +1,6 @@
 package com.snobot.simulator.motor_sim;
 
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -23,32 +24,34 @@ public class SimpleMotorSimulatorTest extends BaseSimulatorJavaTest
         {
             sc.set(.5);
         });
-        Assertions.assertEquals(.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(19.5, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPosition(0), DOUBLE_EPSILON);
+
+        IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0);
+        Assertions.assertEquals(.5, wrapper.getVoltagePercentage(), DOUBLE_EPSILON);
+        Assertions.assertEquals(19.5, wrapper.getPosition(), DOUBLE_EPSILON);
 
         simulateForTime(3, () ->
         {
             sc.set(-1);
         });
-        Assertions.assertEquals(-1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(-3.9, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPosition(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(-1, wrapper.getVoltagePercentage(), DOUBLE_EPSILON);
+        Assertions.assertEquals(-3.9, wrapper.getPosition(), DOUBLE_EPSILON);
 
-        Assertions.assertEquals(-3.9, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPosition(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(-7.8, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVelocity(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getCurrent(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getAcceleration(0), DOUBLE_EPSILON);
+        Assertions.assertEquals(-3.9, wrapper.getPosition(), DOUBLE_EPSILON);
+        Assertions.assertEquals(-7.8, wrapper.getVelocity(), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, wrapper.getCurrent(), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, wrapper.getAcceleration(), DOUBLE_EPSILON);
 
-        DataAccessorFactory.getInstance().getSpeedControllerAccessor().reset(0);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPosition(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVelocity(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getCurrent(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getAcceleration(0), DOUBLE_EPSILON);
+        wrapper.reset();
+        Assertions.assertEquals(0, wrapper.getPosition(), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, wrapper.getVelocity(), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, wrapper.getCurrent(), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, wrapper.getAcceleration(), DOUBLE_EPSILON);
 
-        DataAccessorFactory.getInstance().getSpeedControllerAccessor().reset(0, 4, 6, 10);
-        Assertions.assertEquals(4, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPosition(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(6, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVelocity(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getCurrent(0), DOUBLE_EPSILON);
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getAcceleration(0), DOUBLE_EPSILON);
+        wrapper.reset(4, 6, 10);
+        Assertions.assertEquals(4, wrapper.getPosition(), DOUBLE_EPSILON);
+        Assertions.assertEquals(6, wrapper.getVelocity(), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, wrapper.getCurrent(), DOUBLE_EPSILON);
+        Assertions.assertEquals(0, wrapper.getAcceleration(), DOUBLE_EPSILON);
 
         Assertions.assertEquals(MotorSimType.Simple, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getMotorSimType(0));
         SimpleMotorSimulationConfig simConfig = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getMotorSimSimpleModelConfig(0);

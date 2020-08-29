@@ -27,7 +27,7 @@ public class TestWriteConfig extends BaseSimulatorJavaTest
         // Used to create some components
         MockRobot robot = new MockRobot();
 
-        DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(0, 1);
+        DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0).connectSpeedController(0);
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().setSpeedControllerModel_Simple(0, new SimpleMotorSimulationConfig(12));
 
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().connectTankDriveSimulator(0, 1, 1, .5);

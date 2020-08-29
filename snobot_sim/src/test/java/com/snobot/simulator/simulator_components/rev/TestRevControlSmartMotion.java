@@ -52,6 +52,6 @@ public class TestRevControlSmartMotion extends BaseSimulatorJniTest
         });
 
         Assertions.assertEquals(36, encoder.getPosition(), .5);
-        Assertions.assertEquals(36, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPosition(rawHandle), .5);
+        Assertions.assertEquals(36, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle).getPosition(), .5);
     }
 }

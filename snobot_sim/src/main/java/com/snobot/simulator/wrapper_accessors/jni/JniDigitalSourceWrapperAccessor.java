@@ -6,15 +6,18 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.snobot.simulator.jni.module_wrapper.DigitalSourceWrapperJni;
+import com.snobot.simulator.module_wrapper.interfaces.IDigitalIoWrapper;
 import com.snobot.simulator.module_wrappers.DigitalSourceWrapper;
 import com.snobot.simulator.wrapper_accessors.DigitalSourceWrapperAccessor;
 
 public class JniDigitalSourceWrapperAccessor extends BaseWrapperAccessor<DigitalSourceWrapper> implements DigitalSourceWrapperAccessor
 {
     @Override
-    public boolean createSimulator(int aPort, String aType)
+    public IDigitalIoWrapper createSimulator(int aPort, String aType)
     {
-        return DigitalSourceWrapperJni.createSimulator(aPort, aType);
+        DigitalSourceWrapper wrapper = new DigitalSourceWrapper(aPort, aType);
+        register(aPort, wrapper);
+        return wrapper;
     }
 
     @Override

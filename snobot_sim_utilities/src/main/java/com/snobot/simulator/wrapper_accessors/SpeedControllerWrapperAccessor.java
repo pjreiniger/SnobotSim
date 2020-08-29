@@ -28,32 +28,16 @@ public interface SpeedControllerWrapperAccessor extends IBasicSensorActuatorWrap
         }
     }
 
-    public double getVoltagePercentage(int aPort);
+    DcMotorModelConfig getMotorConfig(int aPort);
 
-    public DcMotorModelConfig getMotorConfig(int aPort);
+    SimpleMotorSimulationConfig getMotorSimSimpleModelConfig(int aPort);
 
-    public SimpleMotorSimulationConfig getMotorSimSimpleModelConfig(int aPort);
+    StaticLoadMotorSimulationConfig getMotorSimStaticModelConfig(int aPort);
 
-    public StaticLoadMotorSimulationConfig getMotorSimStaticModelConfig(int aPort);
+    GravityLoadMotorSimulationConfig getMotorSimGravitationalModelConfig(int aPort);
 
-    public GravityLoadMotorSimulationConfig getMotorSimGravitationalModelConfig(int aPort);
+    RotationalLoadMotorSimulationConfig getMotorSimRotationalModelConfig(int aPort);
 
-    public RotationalLoadMotorSimulationConfig getMotorSimRotationalModelConfig(int aPort);
+    MotorSimType getMotorSimType(int aHandle);
 
-    public MotorSimType getMotorSimType(int aHandle);
-
-    public double getPosition(int aHandle);
-
-    public double getVelocity(int aHandle);
-
-    public double getCurrent(int aHandle);
-
-    public double getAcceleration(int aHandle);
-
-    public default void reset(int aHandle)
-    {
-        reset(aHandle, 0, 0, 0);
-    }
-
-    public void reset(int aHandle, double aPosition, double aVelocity, double aCurrent);
 }

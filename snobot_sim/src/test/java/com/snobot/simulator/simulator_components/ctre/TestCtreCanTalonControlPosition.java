@@ -1,5 +1,6 @@
 package com.snobot.simulator.simulator_components.ctre;
 
+import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,6 +27,8 @@ public class TestCtreCanTalonControlPosition extends BaseSimulatorJniTest
         TalonSRX talon = new TalonSRX(aCanHandle);
         Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
 
+        IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
+
         talon.configSelectedFeedbackSensor(aFeedbackDevice, 0, 5);
         checkForFeedbackDevice(aCanHandle, rawHandle, aFeedbackDevice);
 
@@ -44,7 +47,7 @@ public class TestCtreCanTalonControlPosition extends BaseSimulatorJniTest
         {
         });
 
-        Assertions.assertEquals(36, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPosition(rawHandle), .5);
+        Assertions.assertEquals(36, wrapper.getPosition(), .5);
         Assertions.assertEquals(36, talon.getSelectedSensorPosition(0) / 4096.0, .5);
 
         talon.setSelectedSensorPosition(0, 0, 0);

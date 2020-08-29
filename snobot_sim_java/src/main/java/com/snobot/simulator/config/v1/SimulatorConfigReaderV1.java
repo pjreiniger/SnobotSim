@@ -165,7 +165,7 @@ public class SimulatorConfigReaderV1
             int handle = createBasicSimulatorComponent(aAccessor, config);
             if (handle != -1 && config.getmConnectedSpeedControllerHandle() != -1)
             {
-                aAccessor.connectSpeedController(handle, config.getmConnectedSpeedControllerHandle());
+                aAccessor.getWrapper(handle).connectSpeedController(config.getmConnectedSpeedControllerHandle());
             }
         }
     }

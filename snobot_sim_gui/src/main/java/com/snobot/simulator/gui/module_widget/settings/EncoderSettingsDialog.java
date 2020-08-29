@@ -7,15 +7,18 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
 import com.snobot.simulator.wrapper_accessors.DataAccessorFactory;
 
 public class EncoderSettingsDialog extends SimpleSettingsDialog
 {
     protected JComboBox<SensorHandleOption> mSpeedControllerSelection;
+    private final IEncoderWrapper mWrapper;
 
     public EncoderSettingsDialog(String aTitle, int aKey, String aName)
     {
         super(aTitle, aKey, aName);
+        mWrapper = DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(aKey);
 
         mSpeedControllerSelection = new JComboBox<>();
         mSpeedControllerSelection.addItem(new SensorHandleOption(-1, "None"));
@@ -46,9 +49,9 @@ public class EncoderSettingsDialog extends SimpleSettingsDialog
     private void selectAttachedControllerAndRefreshNames()
     {
         int connectedSc = -1;
-        if (DataAccessorFactory.getInstance().getEncoderAccessor().isHookedUp(mHandle))
+        if (mWrapper.isHookedUp())
         {
-            connectedSc = DataAccessorFactory.getInstance().getEncoderAccessor().getHookedUpId(mHandle);
+            connectedSc = mWrapper.getHookedUpId();
         }
 
         for (int i = 0; i < mSpeedControllerSelection.getItemCount(); ++i)
@@ -72,7 +75,7 @@ public class EncoderSettingsDialog extends SimpleSettingsDialog
         SensorHandleOption option = (SensorHandleOption) mSpeedControllerSelection.getSelectedItem();
         int scId = option == null ? -1 : option.mHandle;
 
-        DataAccessorFactory.getInstance().getEncoderAccessor().connectSpeedController(mHandle, scId);
+        mWrapper.connectSpeedController(scId);
     }
 
 }

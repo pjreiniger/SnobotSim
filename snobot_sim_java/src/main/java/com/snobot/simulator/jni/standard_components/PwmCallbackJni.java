@@ -42,7 +42,7 @@ public final class PwmCallbackJni
             }
             else if ("Speed".equals(aCallbackType))
             {
-                SensorActuatorRegistry.get().getSpeedControllers().get(mPort).set(aHalValue.getDouble());
+                SensorActuatorRegistry.get().getSpeedControllers().get(mPort).setVoltagePercentage(aHalValue.getDouble());
             }
             else if ("ZeroLatch".equals(aCallbackType))
             {
