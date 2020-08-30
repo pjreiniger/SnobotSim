@@ -3,6 +3,7 @@ package com.snobot.simulator.joysticks;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
@@ -21,7 +22,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 public class TestJoystickFactory extends BaseSimulatorTest
 {
     @Test
-    public void testJoystickFactory() throws Exception
+    public void testJoystickFactory()
     {
         File configFile = new File(JoystickFactory.sJOYSTICK_CONFIG_FILE);
         if (configFile.exists())
@@ -59,10 +60,16 @@ public class TestJoystickFactory extends BaseSimulatorTest
         Assertions.assertTrue(factory.get(4) instanceof NullJoystick);
         Assertions.assertTrue(factory.get(5) instanceof KeyboardJoystick);
 
-        InputStream inputStream = new FileInputStream(JoystickFactory.sJOYSTICK_CONFIG_FILE);
         Properties properties = new Properties();
-        properties.load(inputStream);
-        inputStream.close();
+        try (InputStream inputStream = new FileInputStream(JoystickFactory.sJOYSTICK_CONFIG_FILE))
+        {
+            properties.load(inputStream);
+        }
+        catch (IOException e)
+        {
+            Assertions.fail(e.getMessage());
+        }
+
 
         Assertions.assertEquals("X---com.snobot.simulator.joysticks.joystick_specializations.XboxJoystick", properties.getProperty("Joystick_0"));
         Assertions.assertEquals("Null Joystick---null", properties.getProperty("Joystick_1"));

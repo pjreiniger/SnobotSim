@@ -27,15 +27,15 @@ public final class SimDeviceDumpHelper
         {
             builder.append("Got a device: \n");
             Field privateStringField;
-            try 
+            try
             {
                 privateStringField = SimDeviceInfo.class.getDeclaredField("name");
-            
+
                 privateStringField.setAccessible(true);
-                
+
                 builder.append("  ").append(privateStringField.get(x)).append('\n');
-            } 
-            catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) 
+            }
+            catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex)
             {
                 sLOGGER.log(Level.ERROR, "Failed to get sim device", ex);
             }

@@ -51,7 +51,6 @@ public class LogitechDualAction extends BaseJoystick
     public float[] getAxisValues()
     {
         float[] output = super.getAxisValues();
-        float triggerValue = output[2];
 
         output[2] = mController.getComponent(Component.Identifier.Button._6).getPollData();
         output[3] = mController.getComponent(Component.Identifier.Button._7).getPollData();

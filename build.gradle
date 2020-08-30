@@ -30,8 +30,8 @@ plugins {
     id 'idea'
     id 'visual-studio'
     id 'net.ltgt.errorprone' version '1.1.1' apply false
-    id "com.diffplug.gradle.spotless" version "3.24.2"
-    id "com.github.spotbugs" version "2.0.0"
+    id "com.diffplug.spotless" version "5.1.0"
+    id "com.github.spotbugs" version "4.4.5"
 }
 apply plugin: 'nebula-aggregate-javadocs'
 
@@ -114,9 +114,6 @@ repositories {
 }
 
 /////////////////////////////////////////
-ext {
-    SpotBugsTask = com.github.spotbugs.SpotBugsTask
-}
 
 // Publshing Information
 ext.maven_publishing_path = "$rootDir/build/maven_repo/"

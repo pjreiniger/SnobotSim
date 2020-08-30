@@ -76,6 +76,7 @@
         <exclude name="FinalizeDoesNotCallSuperFinalize" />
         <exclude name="NullAssignment" />
         <exclude name="MissingSerialVersionUID" />
+        <exclude name="CloseResource"/>
     </rule>
 
     <rule ref="category/java/multithreading.xml">

@@ -158,7 +158,7 @@ public final class JoystickFactory
 
     public void setJoysticks(int aJoystickIndex, String aControllerName, boolean aAutoSave)
     {
-        IMockJoystick joystick = null;
+        IMockJoystick joystick;
 
         if (aControllerName.equals(NullJoystick.sNAME))
         {

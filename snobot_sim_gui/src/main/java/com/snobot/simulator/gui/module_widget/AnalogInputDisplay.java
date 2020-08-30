@@ -97,7 +97,7 @@ class AnalogInDisplay extends JPanel
         }
     }
 
-    private final FocusListener mFocusListener = new FocusListener()
+    private final transient FocusListener mFocusListener = new FocusListener()
     {
 
         @Override
@@ -114,7 +114,7 @@ class AnalogInDisplay extends JPanel
         }
     };
 
-    private final ActionListener mActionListener = new ActionListener()
+    private final transient ActionListener mActionListener = new ActionListener()
     {
 
         @Override

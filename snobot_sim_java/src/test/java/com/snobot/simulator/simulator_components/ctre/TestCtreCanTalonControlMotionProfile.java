@@ -83,8 +83,8 @@ public class TestCtreCanTalonControlMotionProfile extends BaseSimulatorJavaTest
     {
         List<TrajectoryPoint> output = new ArrayList<>();
 
-        double pos = 0.0;
-        double vel = 0.0;
+        double pos;
+        double vel;
 
         int duration = (int) (aDt * 1e3);
 

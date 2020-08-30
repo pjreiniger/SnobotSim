@@ -3,6 +3,7 @@ package com.snobot.test.utilities;
 import java.io.File;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -15,6 +16,7 @@ public class BaseSimulatorTest
     protected final void delete(File aPath)
     {
         File[] l = aPath.listFiles();
+        Assertions.assertNotNull(l);
         for (File f : l)
         {
             if (f.isDirectory())
@@ -23,10 +25,10 @@ public class BaseSimulatorTest
             }
             else
             {
-                f.delete();
+                Assertions.assertTrue(f.delete());
             }
         }
-        aPath.delete();
+        Assertions.assertTrue(aPath.delete());
     }
 
     @BeforeEach

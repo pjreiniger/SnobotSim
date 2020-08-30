@@ -148,7 +148,7 @@ public class Simulator
     private void printAsciiArt(String aResourceFile)
     {
         StringBuilder builder = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(aResourceFile))))
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(aResourceFile), StandardCharsets.UTF_8)))
         {
             String line;
             while ((line = br.readLine()) != null)

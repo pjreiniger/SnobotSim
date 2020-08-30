@@ -23,19 +23,19 @@ dependencies {
     compile 'edu.wpi.first.cameraserver:cameraserver-java:' + allwpilibVersion()
     compile 'edu.wpi.first.hal:hal-java:' + allwpilibVersion()
     compile 'edu.wpi.first.wpilibj:wpilibj-java:' + allwpilibVersion()
-    compile 'org.apache.logging.log4j:log4j-api:2.12.0'
-    compile 'org.apache.logging.log4j:log4j-core:2.12.0'
-    compile 'org.yaml:snakeyaml:1.25'
+    compile 'org.apache.logging.log4j:log4j-api:2.13.3'
+    compile 'org.apache.logging.log4j:log4j-core:2.13.3'
+    compile 'org.yaml:snakeyaml:1.26'
     compile project(":snobot_sim_utilities")
     compile 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion()
     compile 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion()
     testRuntime 'com.snobot.simulator:ctre_sim_override:' + getCtreSimVersion() + ':' + getCurrentOsArch()
     testRuntime 'com.snobot.simulator:rev_simulator:' + getRevRoboticsSimVersion() + ':' + getCurrentOsArch()
     
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
-    testCompile 'org.junit.jupiter:junit-jupiter-params:5.5.1'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
-    testRuntime 'org.junit.platform:junit-platform-launcher:1.5.1'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testCompile 'org.junit.jupiter:junit-jupiter-params:5.6.2'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+    testRuntime 'org.junit.platform:junit-platform-launcher:1.6.2'
     testRuntime 'edu.wpi.first.wpiutil:wpiutil-java:' + getWpiUtilVersion()
     testRuntime 'edu.wpi.first.ntcore:ntcore-jni:' + getNtCoreVersion() + ':' + getCurrentOsArch()
     testRuntime 'edu.wpi.first.cscore:cscore-jni:' + getCsCoreVersion() + ':' + getCurrentOsArch()

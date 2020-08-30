@@ -20,7 +20,7 @@ repositories {
 }
 
 jacoco {
-    toolVersion = "0.8.4"
+    toolVersion = "0.8.5"
 }
 jacocoTestReport {
     dependsOn test
@@ -56,13 +56,13 @@ task run(type: JavaExec) {
 /////////////////////////////////////////////////////////////////////////////////
 // Style/Formatting stuff
 checkstyle {
-    toolVersion = "8.21"
+    toolVersion = "8.36"
     configDir = file("${project.rootDir}/styleguide")
     config = resources.text.fromFile(new File(configDir, "checkstyle.xml"))
 }
 
 pmd {
-    toolVersion = '6.15.0'
+    toolVersion = '6.26.0'
     consoleOutput  = true
     reportsDir = file("${project.buildDir}/reports/pmd")
     ruleSetFiles = files(file("$rootDir/styleguide/pmd-ruleset.xml"))
@@ -70,17 +70,26 @@ pmd {
 }
 
 spotbugs {
-  toolVersion = '3.1.8'
+  toolVersion = '4.1.1'
   excludeFilter = file("$rootDir/styleguide/findbugs_suppressions.xml")
   effort = "max"
 }
 
-tasks.withType(SpotBugsTask) {
+spotbugsMain {
     reports {
-        xml.enabled false
-        html.enabled true
+        html {
+            enabled = true
+        }
     }
 }
+spotbugsTest {
+    reports {
+        html {
+            enabled = true
+        }
+    }
+}
+
 /////////////////////////////////////////////////////////////////////////////////
 
 apply from: "${rootDir}/common/base_java_publish.gradle"
