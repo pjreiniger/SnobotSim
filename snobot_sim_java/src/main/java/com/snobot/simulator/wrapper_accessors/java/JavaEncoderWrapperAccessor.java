@@ -15,7 +15,7 @@ public class JavaEncoderWrapperAccessor extends BaseWrapperAccessor<IEncoderWrap
     }
 
     @Override
-    protected Map<Integer, IEncoderWrapper> getMap()
+    public Map<Integer, IEncoderWrapper> getWrappers()
     {
         return SensorActuatorRegistry.get().getEncoders();
     }

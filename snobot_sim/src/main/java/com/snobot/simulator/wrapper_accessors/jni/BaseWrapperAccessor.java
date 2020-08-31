@@ -5,8 +5,11 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public abstract class BaseWrapperAccessor<WrapperType extends ISensorWrapper>
 {
@@ -38,7 +41,7 @@ public abstract class BaseWrapperAccessor<WrapperType extends ISensorWrapper>
 
     public WrapperType getWrapper(int aHandle)
     {
-        if (!mWrapperMap.containsKey(aHandle) && getPortList().contains(aHandle))
+        if (!mWrapperMap.containsKey(aHandle) && getPorts().contains(aHandle))
         {
             register(aHandle, createWrapperForExistingType(aHandle));
         }
@@ -47,5 +50,30 @@ public abstract class BaseWrapperAccessor<WrapperType extends ISensorWrapper>
 
     protected abstract WrapperType createWrapperForExistingType(int aHandle);
 
-    protected abstract List<Integer> getPortList();
+    public Map<Integer, WrapperType> getWrappers()
+    {
+        Set<Integer> newPorts = new HashSet<>(getPorts());
+        newPorts.removeAll(mWrapperMap.keySet());
+        for (Integer port : newPorts)
+        {
+            getWrapper(port);
+        }
+
+        Set<Integer> removedPorts = new HashSet<>(mWrapperMap.keySet());
+        removedPorts.removeAll(getPorts());
+
+        for (Integer port : removedPorts)
+        {
+            removeSimulator(port);
+        }
+
+        return mWrapperMap;
+    }
+
+    private Set<Integer> getPorts()
+    {
+        return IntStream.of(getPortList()).boxed().collect(Collectors.toSet());
+    }
+
+    protected abstract int[] getPortList();
 }

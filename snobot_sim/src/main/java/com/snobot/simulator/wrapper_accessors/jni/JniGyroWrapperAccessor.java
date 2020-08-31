@@ -1,16 +1,12 @@
 
 package com.snobot.simulator.wrapper_accessors.jni;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 import com.snobot.simulator.jni.module_wrapper.GyroWrapperJni;
 import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 import com.snobot.simulator.module_wrappers.GyroWrapper;
 import com.snobot.simulator.wrapper_accessors.GyroWrapperAccessor;
 
-public class JniGyroWrapperAccessor extends BaseWrapperAccessor<GyroWrapper> implements GyroWrapperAccessor
+public class JniGyroWrapperAccessor extends BaseWrapperAccessor<IGyroWrapper> implements GyroWrapperAccessor
 {
     @Override
     public IGyroWrapper createSimulator(int aPort, String aType)
@@ -27,8 +23,8 @@ public class JniGyroWrapperAccessor extends BaseWrapperAccessor<GyroWrapper> imp
     }
 
     @Override
-    public List<Integer> getPortList()
+    public int[] getPortList()
     {
-        return IntStream.of(GyroWrapperJni.getPortList()).boxed().collect(Collectors.toList());
+        return GyroWrapperJni.getPortList();
     }
 }

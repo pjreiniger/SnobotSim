@@ -19,17 +19,17 @@ public class TestAnalogIOJni extends BaseSimulatorJavaTest
     @Test
     public void testCreateAnalogIn()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().size());
 
         new AnalogInput(0);
         IAnalogInWrapper wrapper0 = DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().size());
         Assertions.assertEquals("Analog In 0", wrapper0.getName());
         Assertions.assertFalse(wrapper0.getWantsHidden());
 
         new AnalogInput(3);
         IAnalogInWrapper wrapper3 = DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(3);
-        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().size());
         Assertions.assertEquals("Analog In 3", wrapper3.getName());
         Assertions.assertFalse(wrapper3.getWantsHidden());
 
@@ -50,13 +50,13 @@ public class TestAnalogIOJni extends BaseSimulatorJavaTest
     @Test
     public void testCreateAnalogOut()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogOutAccessor().getWrappers().size());
 
         new AnalogOutput(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogOutAccessor().getWrappers().size());
 
         new AnalogOutput(1);
-        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getAnalogOutAccessor().getWrappers().size());
     }
 
     @Test
@@ -72,10 +72,10 @@ public class TestAnalogIOJni extends BaseSimulatorJavaTest
     @Test
     public void testReuseInPort()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().size());
 
         new AnalogInput(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().size());
 
         Assertions.assertThrows(RuntimeException.class, () ->
         {
@@ -86,10 +86,10 @@ public class TestAnalogIOJni extends BaseSimulatorJavaTest
     @Test
     public void testReuseOutPort()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogOutAccessor().getWrappers().size());
 
         new AnalogOutput(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogOutAccessor().getWrappers().size());
 
         Assertions.assertThrows(RuntimeException.class, () ->
         {
@@ -100,9 +100,9 @@ public class TestAnalogIOJni extends BaseSimulatorJavaTest
     @Test
     public void testAnalogIn()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().size());
         AnalogInput input = new AnalogInput(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().size());
 
         Assertions.assertEquals(0, input.getVoltage(), DOUBLE_EPSILON);
         Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(0).getVoltage(), DOUBLE_EPSILON);

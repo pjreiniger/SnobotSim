@@ -16,7 +16,7 @@ public class TestAddressableLedJni extends BaseSimulatorJavaTest
     {
         int port = 4;
 
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAddressableLedAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getAddressableLedAccessor().getWrappers().size());
 
         AddressableLED leds = new AddressableLED(port);
         AddressableLEDBuffer buffer = new AddressableLEDBuffer(60);
@@ -24,7 +24,7 @@ public class TestAddressableLedJni extends BaseSimulatorJavaTest
         leds.setData(buffer);
         leds.start();
 
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAddressableLedAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getAddressableLedAccessor().getWrappers().size());
         Assertions.assertEquals("Addressable LED 0", DataAccessorFactory.getInstance().getAddressableLedAccessor().getWrapper(0).getName());
 
 

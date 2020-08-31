@@ -15,7 +15,7 @@ public class TestDigitalSourceWidgetPanel extends BaseGuiSimulatorTest
     public void testPanel()
     {
         DigitalInput dio = new DigitalInput(1);
-        DigitalSourceGraphicDisplay panel = new DigitalSourceGraphicDisplay(DataAccessorFactory.getInstance().getDigitalAccessor().getPortList());
+        DigitalSourceGraphicDisplay panel = new DigitalSourceGraphicDisplay(DataAccessorFactory.getInstance().getDigitalAccessor().getWrappers().keySet());
 
         JFrame frame = getFrame();
         frame.getContentPane().add(panel);

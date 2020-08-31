@@ -22,9 +22,9 @@ public class TestCtreCanTalonControlAppliedThrottle extends BaseSimulatorJavaTes
     {
         int rawHandle = aCanHandle + 100;
 
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
         TalonSRX canTalon1 = new TalonSRX(aCanHandle);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
 
         IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
 

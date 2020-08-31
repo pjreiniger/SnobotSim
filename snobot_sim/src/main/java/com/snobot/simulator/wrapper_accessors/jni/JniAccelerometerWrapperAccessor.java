@@ -1,10 +1,6 @@
 
 package com.snobot.simulator.wrapper_accessors.jni;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 import com.snobot.simulator.jni.module_wrapper.AccelerometerWrapperJni;
 import com.snobot.simulator.module_wrapper.interfaces.IAccelerometerWrapper;
 import com.snobot.simulator.module_wrappers.AccelerometerWrapper;
@@ -27,8 +23,8 @@ public class JniAccelerometerWrapperAccessor extends BaseWrapperAccessor<IAccele
     }
 
     @Override
-    public List<Integer> getPortList()
+    public int[] getPortList()
     {
-        return IntStream.of(AccelerometerWrapperJni.getPortList()).boxed().collect(Collectors.toList());
+        return AccelerometerWrapperJni.getPortList();
     }
 }

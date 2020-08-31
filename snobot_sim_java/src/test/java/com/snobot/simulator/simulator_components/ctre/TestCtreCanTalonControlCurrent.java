@@ -17,9 +17,9 @@ public class TestCtreCanTalonControlCurrent extends BaseSimulatorJavaTest
     @ArgumentsSource(GetCtreTestIds.GetCtreTestIdsFeedbackDevice.class)
     public void testSetWithCurrent(int aCanHandle)
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
         TalonSRX talon = new TalonSRX(aCanHandle);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
 
         talon.set(ControlMode.Current, 5);
     }

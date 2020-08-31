@@ -39,9 +39,9 @@ public class TestSpiGyro extends BaseSimulatorJavaTest
         SimDeviceDumpHelper.dumpSimDevices();
 
         int gyroHandle = 100 + aPort.value;
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(gyroHandle));
 
         IGyroWrapper gyroWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(gyroHandle);
+        Assertions.assertNotNull(gyroWrapper);
 
         Assertions.assertEquals(0, gyroWrapper.getAngle(), DOUBLE_EPSILON);
         Assertions.assertEquals(0, gyro.getAngle(), DOUBLE_EPSILON);

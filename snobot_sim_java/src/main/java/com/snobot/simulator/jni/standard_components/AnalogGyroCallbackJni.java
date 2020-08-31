@@ -32,7 +32,7 @@ public final class AnalogGyroCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                if (!DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(mPort))
+                if (!DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().containsKey(mPort))
                 {
                     DataAccessorFactory.getInstance().getGyroAccessor().createSimulator(mPort, WpiAnalogGyroWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");

@@ -33,11 +33,11 @@ public class TestRevSparksMax extends BaseSimulatorJavaTest
         SpeedControllerWrapperAccessor accessor = DataAccessorFactory.getInstance().getSpeedControllerAccessor();
         int rawHandle = aCanHandle + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
 
-        Assertions.assertEquals(0, accessor.getPortList().size());
+        Assertions.assertEquals(0, accessor.getWrappers().size());
 
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, MotorType.kBrushless);
         IPwmWrapper wrapper = accessor.getWrapper(rawHandle);
-        Assertions.assertEquals(1, accessor.getPortList().size());
+        Assertions.assertEquals(1, accessor.getWrappers().size());
         Assertions.assertEquals("Rev SC " + aCanHandle, wrapper.getName());
 
         sparksMax.set(-1.0);
@@ -66,13 +66,13 @@ public class TestRevSparksMax extends BaseSimulatorJavaTest
         int followerRawHandle = sFOLLOWER_ID + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
 
         SpeedControllerWrapperAccessor accessor = DataAccessorFactory.getInstance().getSpeedControllerAccessor();
-        Assertions.assertEquals(0, accessor.getPortList().size());
+        Assertions.assertEquals(0, accessor.getWrappers().size());
 
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, MotorType.kBrushless);
         CANSparkMax follower = new CANSparkMax(sFOLLOWER_ID, MotorType.kBrushless);
         IPwmWrapper leadWrapper = accessor.getWrapper(rawHandle);
         IPwmWrapper followerWrapper = accessor.getWrapper(followerRawHandle);
-        Assertions.assertEquals(2, accessor.getPortList().size());
+        Assertions.assertEquals(2, accessor.getWrappers().size());
 
         follower.follow(sparksMax);
 
@@ -97,11 +97,11 @@ public class TestRevSparksMax extends BaseSimulatorJavaTest
         int simHandle = canHandle + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
 
         SpeedControllerWrapperAccessor accessor = DataAccessorFactory.getInstance().getSpeedControllerAccessor();
-        Assertions.assertEquals(0, accessor.getPortList().size());
+        Assertions.assertEquals(0, accessor.getWrappers().size());
 
         CANSparkMax sparksMax = new CANSparkMax(canHandle, CANSparkMaxLowLevel.MotorType.kBrushless);
         IPwmWrapper wrapper = accessor.getWrapper(simHandle);
-        Assertions.assertEquals(1, accessor.getPortList().size());
+        Assertions.assertEquals(1, accessor.getWrappers().size());
         Assertions.assertEquals("Rev SC " + canHandle, wrapper.getName());
 
         // Simulate CIM drivetrain

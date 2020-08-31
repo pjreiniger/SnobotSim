@@ -38,15 +38,15 @@ public class GraphicalSensorDisplayPanel extends JPanel
     {
         mDisplayPanels = new ArrayList<>();
 
-        mDisplayPanels.add(new SpeedControllerGraphicDisplay(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList()));
-        mDisplayPanels.add(new SolenoidGraphicDisplay(DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList()));
-        mDisplayPanels.add(new DigitalSourceGraphicDisplay(DataAccessorFactory.getInstance().getDigitalAccessor().getPortList()));
-        mDisplayPanels.add(new RelayGraphicDisplay(DataAccessorFactory.getInstance().getRelayAccessor().getPortList()));
-        mDisplayPanels.add(new AnalogInputDisplay(DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList()));
-        mDisplayPanels.add(new AnalogOutputDisplay(DataAccessorFactory.getInstance().getAnalogOutAccessor().getPortList()));
-        mDisplayPanels.add(new EncoderGraphicDisplay(DataAccessorFactory.getInstance().getEncoderAccessor().getPortList()));
-        mDisplayPanels.add(new GyroGraphicDisplay(DataAccessorFactory.getInstance().getGyroAccessor().getPortList()));
-        mDisplayPanels.add(new AccelerometerOutputDisplay(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList()));
+        mDisplayPanels.add(new SpeedControllerGraphicDisplay(DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().keySet()));
+        mDisplayPanels.add(new SolenoidGraphicDisplay(DataAccessorFactory.getInstance().getSolenoidAccessor().getWrappers().keySet()));
+        mDisplayPanels.add(new DigitalSourceGraphicDisplay(DataAccessorFactory.getInstance().getDigitalAccessor().getWrappers().keySet()));
+        mDisplayPanels.add(new RelayGraphicDisplay(DataAccessorFactory.getInstance().getRelayAccessor().getWrappers().keySet()));
+        mDisplayPanels.add(new AnalogInputDisplay(DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().keySet()));
+        mDisplayPanels.add(new AnalogOutputDisplay(DataAccessorFactory.getInstance().getAnalogOutAccessor().getWrappers().keySet()));
+        mDisplayPanels.add(new EncoderGraphicDisplay(DataAccessorFactory.getInstance().getEncoderAccessor().getWrappers().keySet()));
+        mDisplayPanels.add(new GyroGraphicDisplay(DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().keySet()));
+        mDisplayPanels.add(new AccelerometerOutputDisplay(DataAccessorFactory.getInstance().getAccelerometerAccessor().getWrappers().keySet()));
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

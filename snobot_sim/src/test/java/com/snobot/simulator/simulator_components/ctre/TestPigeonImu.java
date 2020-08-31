@@ -1,5 +1,6 @@
 package com.snobot.simulator.simulator_components.ctre;
 
+import com.snobot.simulator.module_wrapper.interfaces.IAccelerometerWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IGyroWrapper;
 import com.snobot.simulator.wrapper_accessors.AccelerometerWrapperAccessor;
 import com.snobot.simulator.wrapper_accessors.GyroWrapperAccessor;
@@ -49,14 +50,8 @@ public class TestPigeonImu extends BaseSimulatorJniTest
         int yPort = basePort + 1;
         int zPort = basePort + 2;
 
-        Assertions.assertEquals(3, gyroAccessor.getPortList().size());
-        Assertions.assertEquals(3, accelerometerAccessor.getPortList().size());
-        Assertions.assertTrue(gyroAccessor.getPortList().contains(yawPort));
-        Assertions.assertTrue(gyroAccessor.getPortList().contains(pitchPort));
-        Assertions.assertTrue(gyroAccessor.getPortList().contains(rollPort));
-        Assertions.assertTrue(accelerometerAccessor.getPortList().contains(xPort));
-        Assertions.assertTrue(accelerometerAccessor.getPortList().contains(yPort));
-        Assertions.assertTrue(accelerometerAccessor.getPortList().contains(zPort));
+        Assertions.assertEquals(3, gyroAccessor.getWrappers().size());
+        Assertions.assertEquals(3, accelerometerAccessor.getWrappers().size());
 
         double[] rawAngles = new double[3];
         double[] yawPitchRollAngles = new double[3];
@@ -65,6 +60,17 @@ public class TestPigeonImu extends BaseSimulatorJniTest
         IGyroWrapper yawWrapper = gyroAccessor.getWrapper(yawPort);
         IGyroWrapper pitchWrapper = gyroAccessor.getWrapper(pitchPort);
         IGyroWrapper rollWrapper = gyroAccessor.getWrapper(rollPort);
+
+        IAccelerometerWrapper xWrapper = accelerometerAccessor.getWrapper(xPort);
+        IAccelerometerWrapper yWrapper = accelerometerAccessor.getWrapper(yPort);
+        IAccelerometerWrapper zWrapper = accelerometerAccessor.getWrapper(zPort);
+
+        Assertions.assertNotNull(yawWrapper);
+        Assertions.assertNotNull(pitchWrapper);
+        Assertions.assertNotNull(rollWrapper);
+        Assertions.assertNotNull(xWrapper);
+        Assertions.assertNotNull(yWrapper);
+        Assertions.assertNotNull(zWrapper);
 
         aImu.getRawGyro(rawAngles);
         aImu.getFusedHeading(fusionStatus);

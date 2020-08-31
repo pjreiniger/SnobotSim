@@ -22,17 +22,17 @@ public class TestEncoderJni extends BaseSimulatorJavaTest
     @Test
     public void testCreateEncoder()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getEncoderAccessor().getWrappers().size());
 
         new Encoder(0, 1);
         IEncoderWrapper wrapper0 = DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getEncoderAccessor().getWrappers().size());
         Assertions.assertEquals("Encoder 0", wrapper0.getName());
         Assertions.assertFalse(wrapper0.getWantsHidden());
 
         new Encoder(2, 3);
         IEncoderWrapper wrapper1 = DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(1);
-        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
+        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getEncoderAccessor().getWrappers().size());
         Assertions.assertEquals("Encoder 1", wrapper1.getName());
         Assertions.assertFalse(wrapper1.getWantsHidden());
 
@@ -54,10 +54,10 @@ public class TestEncoderJni extends BaseSimulatorJavaTest
     @Test
     public void testReusePort()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getEncoderAccessor().getWrappers().size());
 
         new Encoder(0, 1);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getEncoderAccessor().getWrappers().size());
 
         Assertions.assertThrows(RuntimeException.class, () ->
         {

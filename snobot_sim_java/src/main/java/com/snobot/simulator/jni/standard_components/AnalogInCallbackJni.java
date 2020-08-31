@@ -33,7 +33,7 @@ public final class AnalogInCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                if (!DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(mPort))
+                if (!DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().containsKey(mPort))
                 {
                     DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mPort, WpiAnalogInWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");

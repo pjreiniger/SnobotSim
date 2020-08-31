@@ -32,7 +32,7 @@ public class AddressableLedCallbackJni
             System.out.println("Getting callback:" + aCallbackType);
             if ("Initialized".equals(aCallbackType))
             {
-                if (!DataAccessorFactory.getInstance().getAddressableLedAccessor().getPortList().contains(mPort))
+                if (!DataAccessorFactory.getInstance().getAddressableLedAccessor().getWrappers().containsKey(mPort))
                 {
                     DataAccessorFactory.getInstance().getAddressableLedAccessor().createSimulator(mPort, WpiAddressableLedWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registered before starting the robot");

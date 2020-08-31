@@ -15,17 +15,17 @@ public class TestRelayJni extends BaseSimulatorJniTest
     @Test
     public void testCreateRelays()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getRelayAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getRelayAccessor().getWrappers().size());
 
         new Relay(0);
         IRelayWrapper wrapper0 = DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getRelayAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getRelayAccessor().getWrappers().size());
         Assertions.assertEquals("Relay 0", wrapper0.getName());
         Assertions.assertFalse(wrapper0.getWantsHidden());
 
         new Relay(1);
         IRelayWrapper wrapper1 = DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(1);
-        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getRelayAccessor().getPortList().size());
+        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getRelayAccessor().getWrappers().size());
         Assertions.assertEquals("Relay 1", wrapper1.getName());
         Assertions.assertFalse(wrapper1.getWantsHidden());
 
@@ -46,10 +46,10 @@ public class TestRelayJni extends BaseSimulatorJniTest
     @Test
     public void testReusePort()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getRelayAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getRelayAccessor().getWrappers().size());
 
         new Relay(2);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getRelayAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getRelayAccessor().getWrappers().size());
 
         Assertions.assertThrows(RuntimeException.class, () ->
         {
@@ -60,7 +60,7 @@ public class TestRelayJni extends BaseSimulatorJniTest
     @Test
     public void testSetRelay()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getRelayAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getRelayAccessor().getWrappers().size());
 
         Relay relay = new Relay(1);
         IRelayWrapper relayWrapper = DataAccessorFactory.getInstance().getRelayAccessor().getWrapper(1);

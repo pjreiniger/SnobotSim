@@ -51,14 +51,15 @@ public class TestADXL345SPIAccelerometer extends BaseSimulatorJavaTest
         int yHandle = 101 + aPort.value * 3;
         int zHandle = 102 + aPort.value * 3;
 
-        Assertions.assertEquals(3, accelAccessor.getPortList().size());
-        Assertions.assertTrue(accelAccessor.getPortList().contains(xHandle));
-        Assertions.assertTrue(accelAccessor.getPortList().contains(yHandle));
-        Assertions.assertTrue(accelAccessor.getPortList().contains(zHandle));
+        Assertions.assertEquals(3, accelAccessor.getWrappers().size());
 
         IAccelerometerWrapper xWrapper = accelAccessor.getWrapper(xHandle);
         IAccelerometerWrapper yWrapper = accelAccessor.getWrapper(yHandle);
         IAccelerometerWrapper zWrapper = accelAccessor.getWrapper(zHandle);
+
+        Assertions.assertNotNull(xWrapper);
+        Assertions.assertNotNull(yWrapper);
+        Assertions.assertNotNull(zWrapper);
 
         // Initial State
         Assertions.assertEquals(0, xWrapper.getAcceleration(), DOUBLE_EPSILON);

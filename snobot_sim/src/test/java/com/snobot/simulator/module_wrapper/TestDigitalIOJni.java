@@ -15,17 +15,17 @@ public class TestDigitalIOJni extends BaseSimulatorJniTest
     @Test
     public void testCreateDigitalIn()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getDigitalAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getDigitalAccessor().getWrappers().size());
 
         new DigitalInput(0);
         IDigitalIoWrapper wrapper0 = DataAccessorFactory.getInstance().getDigitalAccessor().getWrapper(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getDigitalAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getDigitalAccessor().getWrappers().size());
         Assertions.assertEquals("Digital IO 0", wrapper0.getName());
         Assertions.assertFalse(wrapper0.getWantsHidden());
 
         new DigitalInput(3);
         IDigitalIoWrapper wrapper3 = DataAccessorFactory.getInstance().getDigitalAccessor().getWrapper(3);
-        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getDigitalAccessor().getPortList().size());
+        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getDigitalAccessor().getWrappers().size());
         Assertions.assertEquals("Digital IO 3", wrapper3.getName());
         Assertions.assertFalse(wrapper3.getWantsHidden());
 
@@ -46,13 +46,13 @@ public class TestDigitalIOJni extends BaseSimulatorJniTest
     @Test
     public void testCreateDigitalOut()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getDigitalAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getDigitalAccessor().getWrappers().size());
 
         new DigitalOutput(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getDigitalAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getDigitalAccessor().getWrappers().size());
 
         new DigitalOutput(3);
-        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getDigitalAccessor().getPortList().size());
+        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getDigitalAccessor().getWrappers().size());
     }
 
     @Test

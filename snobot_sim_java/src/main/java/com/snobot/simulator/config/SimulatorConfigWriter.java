@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
+import java.util.Map;
 
 import com.snobot.simulator.module_wrapper.interfaces.IEncoderWrapper;
 import com.snobot.simulator.module_wrapper.interfaces.IPwmWrapper;
@@ -99,11 +100,12 @@ public class SimulatorConfigWriter
     }
 
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    protected void dumpBasicConfig(IBasicSensorActuatorWrapperAccessor<?> aAccessor, List<BasicModuleConfig> aOutputList)
+    protected void dumpBasicConfig(IBasicSensorActuatorWrapperAccessor<? extends ISensorWrapper> aAccessor, List<BasicModuleConfig> aOutputList)
     {
-        for (int portHandle : aAccessor.getPortList())
+        for (Map.Entry<Integer, ? extends ISensorWrapper> pair : aAccessor.getWrappers().entrySet())
         {
-            ISensorWrapper wrapper = aAccessor.getWrapper(portHandle);
+            ISensorWrapper wrapper = pair.getValue();
+            int portHandle = pair.getKey();
             BasicModuleConfig config = new BasicModuleConfig(portHandle, wrapper.getName(), wrapper.getType());
             aOutputList.add(config);
         }
@@ -112,9 +114,10 @@ public class SimulatorConfigWriter
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     protected void dumpEncoderConfig(EncoderWrapperAccessor aAccessor, List<EncoderConfig> aOutputList)
     {
-        for (int portHandle : aAccessor.getPortList())
+        for (Map.Entry<Integer, IEncoderWrapper> pair : aAccessor.getWrappers().entrySet())
         {
-            IEncoderWrapper wrapper = aAccessor.getWrapper(portHandle);
+            IEncoderWrapper wrapper = pair.getValue();
+            int portHandle = pair.getKey();
             EncoderConfig config = new EncoderConfig(portHandle, wrapper.getName(), wrapper.getType(),
                 wrapper.getHookedUpId());
             aOutputList.add(config);
@@ -124,9 +127,10 @@ public class SimulatorConfigWriter
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     protected void dumpPwmConfig(SpeedControllerWrapperAccessor aAccessor, List<PwmConfig> aOutputList)
     {
-        for (int portHandle : aAccessor.getPortList())
+        for (Map.Entry<Integer, IPwmWrapper> pair : aAccessor.getWrappers().entrySet())
         {
-            IPwmWrapper wrapper = aAccessor.getWrapper(portHandle);
+            IPwmWrapper wrapper = pair.getValue();
+            int portHandle = pair.getKey();
             PwmConfig config = new PwmConfig(portHandle, wrapper.getName(), wrapper.getType(),
                     getMotorSimConfig(aAccessor, portHandle),
                     getMotorModel(aAccessor, portHandle));

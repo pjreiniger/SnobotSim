@@ -38,12 +38,12 @@ public abstract class BaseWrapperAccessor<Type extends ISensorWrapper>
         {
             LogManager.getLogger().log(Level.WARN, "Could not close simulator", ex);
         }
-        getMap().remove(aPort);
+        getWrappers().remove(aPort);
     }
 
     public Type getWrapper(int aPort)
     {
-        return getMap().get(aPort);
+        return getWrappers().get(aPort);
     }
 
     public void setName(int aPort, String aName)
@@ -62,18 +62,18 @@ public abstract class BaseWrapperAccessor<Type extends ISensorWrapper>
 
     public boolean getWantsHidden(int aPort)
     {
-        return getMap().get(aPort).getWantsHidden();
+        return getWrappers().get(aPort).getWantsHidden();
     }
 
     public List<Integer> getPortList()
     {
-        return new ArrayList<>(getMap().keySet());
+        return new ArrayList<>(getWrappers().keySet());
     }
 
     public String getType(int aPort)
     {
-        return getMap().get(aPort).getClass().getName();
+        return getWrappers().get(aPort).getClass().getName();
     }
 
-    protected abstract Map<Integer, Type> getMap();
+    protected abstract Map<Integer, Type> getWrappers();
 }

@@ -18,7 +18,7 @@ public class TestAccelerometerWidgetPanel extends BaseGuiSimulatorTest
     {
         DataAccessorFactory.getInstance().getI2CAccessor().createI2CSimulator(Port.kMXP.value, "ADXL345");
         ADXL345_I2C accel = new ADXL345_I2C(Port.kMXP, Range.k2G);
-        AccelerometerOutputDisplay panel = new AccelerometerOutputDisplay(DataAccessorFactory.getInstance().getAccelerometerAccessor().getPortList());
+        AccelerometerOutputDisplay panel = new AccelerometerOutputDisplay(DataAccessorFactory.getInstance().getAccelerometerAccessor().getWrappers().keySet());
 
         JFrame frame = getFrame();
         frame.getContentPane().add(panel);

@@ -1,16 +1,12 @@
 
 package com.snobot.simulator.wrapper_accessors.jni;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 import com.snobot.simulator.jni.module_wrapper.AnalogOutWrapperJni;
 import com.snobot.simulator.module_wrapper.interfaces.IAnalogOutWrapper;
 import com.snobot.simulator.module_wrappers.AnalogOutWrapper;
 import com.snobot.simulator.wrapper_accessors.AnalogOutputWrapperAccessor;
 
-public class JniAnalogOutWrapperAccessor extends BaseWrapperAccessor<AnalogOutWrapper> implements AnalogOutputWrapperAccessor
+public class JniAnalogOutWrapperAccessor extends BaseWrapperAccessor<IAnalogOutWrapper> implements AnalogOutputWrapperAccessor
 {
     @Override
     public IAnalogOutWrapper createSimulator(int aPort, String aType)
@@ -27,8 +23,8 @@ public class JniAnalogOutWrapperAccessor extends BaseWrapperAccessor<AnalogOutWr
     }
 
     @Override
-    public List<Integer> getPortList()
+    public int[] getPortList()
     {
-        return IntStream.of(AnalogOutWrapperJni.getPortList()).boxed().collect(Collectors.toList());
+        return AnalogOutWrapperJni.getPortList();
     }
 }

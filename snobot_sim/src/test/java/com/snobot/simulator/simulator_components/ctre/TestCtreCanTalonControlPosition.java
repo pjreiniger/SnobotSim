@@ -23,9 +23,9 @@ public class TestCtreCanTalonControlPosition extends BaseSimulatorJniTest
     {
         final int rawHandle = aCanHandle + 100;
 
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
         TalonSRX talon = new TalonSRX(aCanHandle);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
 
         IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
 
@@ -61,11 +61,11 @@ public class TestCtreCanTalonControlPosition extends BaseSimulatorJniTest
         case QuadEncoder:
         case CTRE_MagEncoder_Absolute:
         case CTRE_MagEncoder_Relative:
-            Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(aRawHandle));
+            Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().getWrappers().containsKey(aRawHandle));
             Assertions.assertEquals("CAN Encoder (" + aCanHandle + ")", DataAccessorFactory.getInstance().getEncoderAccessor().getWrapper(aRawHandle).getName());
             break;
         case Analog:
-            Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(aRawHandle));
+            Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().containsKey(aRawHandle));
             Assertions.assertEquals("CAN Analog (" + aCanHandle + ")", DataAccessorFactory.getInstance().getAnalogInAccessor().getWrapper(aRawHandle).getName());
             break;
         default:

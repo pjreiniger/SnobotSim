@@ -353,7 +353,7 @@ public class CtreManager
     public void createMotorController(int aCanPort)
     {
         int simPort = aCanPort + BaseCanSmartSpeedController.sCAN_SC_OFFSET;
-        if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().contains(simPort))
+        if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().containsKey(simPort))
         {
             sLOGGER.log(Level.WARN, "CTRE Motor Controller is being created dynamically instead of in the config file for port " + aCanPort);
 

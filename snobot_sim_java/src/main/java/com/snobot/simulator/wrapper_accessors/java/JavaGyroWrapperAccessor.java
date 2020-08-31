@@ -15,7 +15,7 @@ public class JavaGyroWrapperAccessor extends BaseWrapperAccessor<IGyroWrapper> i
     }
 
     @Override
-    protected Map<Integer, IGyroWrapper> getMap()
+    public Map<Integer, IGyroWrapper> getWrappers()
     {
         return SensorActuatorRegistry.get().getGyros();
     }

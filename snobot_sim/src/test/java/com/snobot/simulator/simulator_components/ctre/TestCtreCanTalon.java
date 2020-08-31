@@ -30,13 +30,13 @@ public class TestCtreCanTalon extends BaseSimulatorJniTest
         SpeedControllerWrapperAccessor scAccessor = DataAccessorFactory.getInstance().getSpeedControllerAccessor();
         EncoderWrapperAccessor encoderAccessor = DataAccessorFactory.getInstance().getEncoderAccessor();
 
-        Assertions.assertEquals(0, scAccessor.getPortList().size());
-        Assertions.assertEquals(0, encoderAccessor.getPortList().size());
+        Assertions.assertEquals(0, scAccessor.getWrappers().size());
+        Assertions.assertEquals(0, encoderAccessor.getWrappers().size());
 
         TalonSRX talon1 = new TalonSRX(1);
         talon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-        Assertions.assertEquals(1, scAccessor.getPortList().size());
-        Assertions.assertEquals(1, encoderAccessor.getPortList().size());
+        Assertions.assertEquals(1, scAccessor.getWrappers().size());
+        Assertions.assertEquals(1, encoderAccessor.getWrappers().size());
         Assertions.assertTrue(scAccessor.getWrapper(101).isInitialized());
         Assertions.assertTrue(encoderAccessor.getWrapper(101).isInitialized());
 
@@ -55,10 +55,10 @@ public class TestCtreCanTalon extends BaseSimulatorJniTest
     {
         SpeedControllerWrapperAccessor scAccessor = DataAccessorFactory.getInstance().getSpeedControllerAccessor();
 
-        Assertions.assertEquals(0, scAccessor.getPortList().size());
+        Assertions.assertEquals(0, scAccessor.getWrappers().size());
 
         TalonSRX talon = new TalonSRX(aCanHandle);
-        Assertions.assertEquals(1, scAccessor.getPortList().size());
+        Assertions.assertEquals(1, scAccessor.getWrappers().size());
 
         IPwmWrapper scWrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(aCanHandle + JniSpeedControllerWrapperAccessor.sCAN_SC_OFFSET);
         Assertions.assertEquals("CTRE SC " + aCanHandle, scWrapper.getName());
@@ -112,13 +112,13 @@ public class TestCtreCanTalon extends BaseSimulatorJniTest
         int simId = canId + 100;
         TalonSRX talon = new TalonSRX(canId);
 
-        Assertions.assertEquals(0, encoderAccessor.getPortList().size());
+        Assertions.assertEquals(0, encoderAccessor.getWrappers().size());
         IEncoderWrapper encoderWrapper = encoderAccessor.createSimulator(simId, "com.snobot.simulator.simulator_components.smart_sc.SmartScEncoder");
         Assertions.assertNotNull(encoderWrapper);
         Assertions.assertFalse(encoderWrapper.isInitialized());
 
         talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        Assertions.assertEquals(1, encoderAccessor.getPortList().size());
+        Assertions.assertEquals(1, encoderAccessor.getWrappers().size());
         Assertions.assertTrue(encoderWrapper.isInitialized());
     }
 
@@ -132,13 +132,13 @@ public class TestCtreCanTalon extends BaseSimulatorJniTest
         int simId = canId + 100;
         TalonSRX talon = new TalonSRX(canId);
 
-        Assertions.assertEquals(0, analogAccessor.getPortList().size());
+        Assertions.assertEquals(0, analogAccessor.getWrappers().size());
         IAnalogInWrapper wrapper = analogAccessor.createSimulator(simId, "com.snobot.simulator.simulator_components.smart_sc.SmartScAnalogIn");
         Assertions.assertNotNull(wrapper);
         Assertions.assertFalse(wrapper.isInitialized());
 
         talon.configSelectedFeedbackSensor(FeedbackDevice.Analog);
-        Assertions.assertEquals(1, analogAccessor.getPortList().size());
+        Assertions.assertEquals(1, analogAccessor.getWrappers().size());
         Assertions.assertTrue(wrapper.isInitialized());
     }
 

@@ -1,7 +1,7 @@
 package com.snobot.simulator.gui.module_widget.settings;
 
 import java.awt.BorderLayout;
-import java.util.List;
+import java.util.Collection;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -23,7 +23,7 @@ public class EncoderSettingsDialog extends SimpleSettingsDialog
         mSpeedControllerSelection = new JComboBox<>();
         mSpeedControllerSelection.addItem(new SensorHandleOption(-1, "None"));
 
-        List<Integer> speedControllers = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList();
+        Collection<Integer> speedControllers = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().keySet();
         for (int handle : speedControllers)
         {
             SensorHandleOption option = new SensorHandleOption(handle,

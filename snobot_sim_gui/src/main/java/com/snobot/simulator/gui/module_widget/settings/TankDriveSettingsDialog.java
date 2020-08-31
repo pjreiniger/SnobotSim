@@ -144,7 +144,7 @@ public class TankDriveSettingsDialog extends JDialog
             mKpField = new JTextField(Double.toString(aComp.getmTurnKp()), 10);
             mRemoveButton = new JButton("Remove");
 
-            List<Integer> speedControllers = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList();
+            Collection<Integer> speedControllers = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().keySet();
             for (int handle : speedControllers)
             {
                 SensorHandleOption option = new SensorHandleOption(handle,
@@ -162,7 +162,7 @@ public class TankDriveSettingsDialog extends JDialog
                     mRightMotorSelection.setSelectedItem(option);
                 }
             }
-            List<Integer> gyros = DataAccessorFactory.getInstance().getGyroAccessor().getPortList();
+            Collection<Integer> gyros = DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().keySet();
             for (int handle : gyros)
             {
                 SensorHandleOption option = new SensorHandleOption(handle, DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(handle).getName());

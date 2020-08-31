@@ -25,27 +25,27 @@ public class TestI2CNavx extends BaseSimulatorJniTest
     {
         // Port = 0
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().size());
         DataAccessorFactory.getInstance().getI2CAccessor().createI2CSimulator(0, sNAVX_TYPE);
 
         final AHRS navxOnboard = new AHRS(I2C.Port.kOnboard);
         SimDeviceDumpHelper.dumpSimDevices();
-        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(250));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(251));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(252));
+        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().size());
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().containsKey(250));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().containsKey(251));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().containsKey(252));
         navxOnboard.close();
 
         // Port = 1
         DataAccessorFactory.getInstance().getSimulatorDataAccessor().reset();
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().size());
         DataAccessorFactory.getInstance().getI2CAccessor().createI2CSimulator(1, sNAVX_TYPE);
 
         final AHRS navxMxp = new AHRS(I2C.Port.kMXP);
-        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(253));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(254));
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(255));
+        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().size());
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().containsKey(253));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().containsKey(254));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().containsKey(255));
         navxMxp.close();
     }
 
@@ -65,7 +65,7 @@ public class TestI2CNavx extends BaseSimulatorJniTest
         AHRS navx = new AHRS(I2C.Port.kOnboard);
         navx.enableLogging(true);
 
-        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getPortList().size());
+        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().size());
         Thread.sleep(500);
 
         int yawHandle = 250;

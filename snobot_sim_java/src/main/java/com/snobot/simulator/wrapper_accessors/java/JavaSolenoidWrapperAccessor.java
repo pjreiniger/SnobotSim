@@ -15,7 +15,7 @@ public class JavaSolenoidWrapperAccessor extends BaseWrapperAccessor<ISolenoidWr
     }
 
     @Override
-    protected Map<Integer, ISolenoidWrapper> getMap()
+    public Map<Integer, ISolenoidWrapper> getWrappers()
     {
         return SensorActuatorRegistry.get().getSolenoids();
     }

@@ -26,10 +26,10 @@ public class TestRevControlPosition extends BaseSimulatorJavaTest
 
         int rawHandle = aCanHandle + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
 
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
 
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, CANSparkMaxLowLevel.MotorType.kBrushless);
-        Assertions.assertEquals(1, scAccessor.getPortList().size());
+        Assertions.assertEquals(1, scAccessor.getWrappers().size());
 
         IPwmWrapper wrapper = scAccessor.getWrapper(rawHandle);
         Assertions.assertEquals("Rev SC " + aCanHandle, wrapper.getName());

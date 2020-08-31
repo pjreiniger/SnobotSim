@@ -26,7 +26,7 @@ public class RevSpeedControllerSimWrapper extends BaseCanSmartSpeedController
         switch (mFeedbackDevice)
         {
         case Encoder:
-            if (!DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(mHandle))
+            if (!DataAccessorFactory.getInstance().getEncoderAccessor().getWrappers().containsKey(mHandle))
             {
                 IEncoderWrapper wrapper = DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mHandle, SmartScEncoder.class.getName());
                 wrapper.connectSpeedController(getHandle());
@@ -35,7 +35,7 @@ public class RevSpeedControllerSimWrapper extends BaseCanSmartSpeedController
             SensorActuatorRegistry.get().getEncoders().get(getHandle()).setInitialized(true);
             break;
         case Analog:
-            if (!DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(mHandle))
+            if (!DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().containsKey(mHandle))
             {
                 DataAccessorFactory.getInstance().getAnalogInAccessor().createSimulator(mHandle, SmartScAnalogIn.class.getName());
                 sLOGGER.log(Level.WARN, "REV Analog on port " + mCanHandle + " was not registerd before starting the robot");

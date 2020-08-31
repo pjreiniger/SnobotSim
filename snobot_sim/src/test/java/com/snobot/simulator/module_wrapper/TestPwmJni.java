@@ -15,17 +15,17 @@ public class TestPwmJni extends BaseSimulatorJniTest
     @Test
     public void testCreatePwm()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
 
         new Jaguar(0);
         IPwmWrapper wrapper0 = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
         Assertions.assertEquals("Speed Controller 0", wrapper0.getName());
         Assertions.assertFalse(wrapper0.getWantsHidden());
 
         new Talon(3);
         IPwmWrapper wrapper3 = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(3);
-        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
         Assertions.assertEquals("Speed Controller 3", wrapper3.getName());
         Assertions.assertFalse(wrapper3.getWantsHidden());
 
@@ -46,10 +46,10 @@ public class TestPwmJni extends BaseSimulatorJniTest
     @Test
     public void testReusePort()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
 
         new Talon(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
 
         Assertions.assertThrows(RuntimeException.class, () ->
         {
@@ -60,7 +60,7 @@ public class TestPwmJni extends BaseSimulatorJniTest
     @Test
     public void testSet()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
 
         Talon talon = new Talon(1);
         IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(1);

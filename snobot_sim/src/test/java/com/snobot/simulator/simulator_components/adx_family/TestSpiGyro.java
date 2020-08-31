@@ -34,9 +34,9 @@ public class TestSpiGyro extends BaseSimulatorJniTest
         ADXRS450_Gyro gyro = new ADXRS450_Gyro(aPort);
 
         int gyroHandle = 100 + aPort.value;
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(gyroHandle));
 
         IGyroWrapper gyroWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(gyroHandle);
+        Assertions.assertNotNull(gyroWrapper);
 
         Assertions.assertEquals(0, gyroWrapper.getAngle(), DOUBLE_EPSILON);
         Assertions.assertEquals(0, gyro.getAngle(), DOUBLE_EPSILON);

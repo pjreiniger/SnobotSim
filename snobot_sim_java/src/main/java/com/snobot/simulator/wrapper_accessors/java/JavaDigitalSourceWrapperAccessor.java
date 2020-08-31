@@ -15,7 +15,7 @@ public class JavaDigitalSourceWrapperAccessor extends BaseWrapperAccessor<IDigit
     }
 
     @Override
-    protected Map<Integer, IDigitalIoWrapper> getMap()
+    public Map<Integer, IDigitalIoWrapper> getWrappers()
     {
         return SensorActuatorRegistry.get().getDigitalSources();
     }

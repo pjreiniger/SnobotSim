@@ -45,9 +45,9 @@ package com.snobot.simulator.simulator_components.ctre;
 //    {
 //        double DOUBLE_EPSILON = .01;
 //
-//        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+//        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
 //        TalonSRX talon = new TalonSRX(mCanHandle);
-//        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+//        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
 //
 //        talon.set(ControlMode.10.8);
 //        Assertions.assertEquals(0.9, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getVoltagePercentage(mRawHandle), DOUBLE_EPSILON);

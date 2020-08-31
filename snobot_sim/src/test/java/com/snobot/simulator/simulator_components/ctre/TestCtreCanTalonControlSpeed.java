@@ -23,9 +23,9 @@ public class TestCtreCanTalonControlSpeed extends BaseSimulatorJniTest
     {
         final int rawHandle = aCanHandle + 100;
 
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
         TalonSRX talon = new TalonSRX(aCanHandle);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().size());
 
         IPwmWrapper wrapper = DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
 
@@ -57,10 +57,10 @@ public class TestCtreCanTalonControlSpeed extends BaseSimulatorJniTest
         switch (aFeedbackDevice)
         {
         case QuadEncoder:
-            Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(aRawHandle));
+            Assertions.assertTrue(DataAccessorFactory.getInstance().getEncoderAccessor().getWrappers().containsKey(aRawHandle));
             break;
         case Analog:
-            Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList().contains(aRawHandle));
+            Assertions.assertTrue(DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().containsKey(aRawHandle));
             break;
         default:
             Assertions.assertTrue(false);

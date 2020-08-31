@@ -17,7 +17,7 @@ public class TestAnalogGyroJni extends BaseSimulatorJniTest
         AnalogGyro gyro = new AnalogGyro(0);
 
         int gyroHandle = 0;
-        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getPortList().contains(gyroHandle));
+        Assertions.assertTrue(DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().containsKey(gyroHandle));
         IGyroWrapper gyroWrapper = DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(gyroHandle);
 
         Assertions.assertEquals(0, gyroWrapper.getAngle(), DOUBLE_EPSILON);

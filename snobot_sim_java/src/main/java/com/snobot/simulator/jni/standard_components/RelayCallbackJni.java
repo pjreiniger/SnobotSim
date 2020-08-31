@@ -33,7 +33,7 @@ public final class RelayCallbackJni
         {
             if ("InitializedForward".equals(aCallbackType))
             {
-                if (!DataAccessorFactory.getInstance().getRelayAccessor().getPortList().contains(mPort))
+                if (!DataAccessorFactory.getInstance().getRelayAccessor().getWrappers().containsKey(mPort))
                 {
                     DataAccessorFactory.getInstance().getRelayAccessor().createSimulator(mPort, WpiRelayWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");

@@ -15,7 +15,7 @@ public class TestGyroWidgetPanel extends BaseGuiSimulatorTest
     public void testPanel()
     {
         AnalogGyro gyro = new AnalogGyro(1);
-        GyroGraphicDisplay panel = new GyroGraphicDisplay(DataAccessorFactory.getInstance().getGyroAccessor().getPortList());
+        GyroGraphicDisplay panel = new GyroGraphicDisplay(DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().keySet());
 
         JFrame frame = getFrame();
         frame.getContentPane().add(panel);

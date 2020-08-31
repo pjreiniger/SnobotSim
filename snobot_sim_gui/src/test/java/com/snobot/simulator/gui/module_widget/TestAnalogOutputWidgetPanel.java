@@ -15,7 +15,7 @@ public class TestAnalogOutputWidgetPanel extends BaseGuiSimulatorTest
     public void testPanel()
     {
         AnalogInput accel = new AnalogInput(1);
-        AnalogOutputDisplay panel = new AnalogOutputDisplay(DataAccessorFactory.getInstance().getAnalogInAccessor().getPortList());
+        AnalogOutputDisplay panel = new AnalogOutputDisplay(DataAccessorFactory.getInstance().getAnalogInAccessor().getWrappers().keySet());
 
         JFrame frame = getFrame();
         frame.getContentPane().add(panel);

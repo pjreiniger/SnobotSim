@@ -15,7 +15,7 @@ public class JavaRelayWrapperAccessor extends BaseWrapperAccessor<IRelayWrapper>
     }
 
     @Override
-    protected Map<Integer, IRelayWrapper> getMap()
+    public Map<Integer, IRelayWrapper> getWrappers()
     {
         return SensorActuatorRegistry.get().getRelays();
     }

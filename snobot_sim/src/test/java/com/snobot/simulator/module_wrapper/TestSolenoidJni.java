@@ -16,23 +16,23 @@ public class TestSolenoidJni extends BaseSimulatorJniTest
     @Test
     public void testCreateSolenoid()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSolenoidAccessor().getWrappers().size());
 
         new Solenoid(0);
         ISolenoidWrapper wrapper0 = DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(0);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSolenoidAccessor().getWrappers().size());
         Assertions.assertEquals("Solenoid 0", wrapper0.getName());
         Assertions.assertFalse(wrapper0.getWantsHidden());
 
         new Solenoid(3);
         ISolenoidWrapper wrapper3 = DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(3);
-        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
+        Assertions.assertEquals(2, DataAccessorFactory.getInstance().getSolenoidAccessor().getWrappers().size());
         Assertions.assertEquals("Solenoid 3", wrapper3.getName());
         Assertions.assertFalse(wrapper3.getWantsHidden());
 
         new Solenoid(1, 6);
         ISolenoidWrapper wrapper14 = DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(14);
-        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
+        Assertions.assertEquals(3, DataAccessorFactory.getInstance().getSolenoidAccessor().getWrappers().size());
         Assertions.assertEquals("Solenoid 14", wrapper14.getName());
         Assertions.assertFalse(wrapper14.getWantsHidden());
 
@@ -53,10 +53,10 @@ public class TestSolenoidJni extends BaseSimulatorJniTest
     @Test
     public void testReusePort()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSolenoidAccessor().getWrappers().size());
 
         new Solenoid(1);
-        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
+        Assertions.assertEquals(1, DataAccessorFactory.getInstance().getSolenoidAccessor().getWrappers().size());
 
         Assertions.assertThrows(RuntimeException.class, () ->
         {
@@ -67,7 +67,7 @@ public class TestSolenoidJni extends BaseSimulatorJniTest
     @Test
     public void testSet()
     {
-        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().size());
+        Assertions.assertEquals(0, DataAccessorFactory.getInstance().getSolenoidAccessor().getWrappers().size());
 
         Solenoid solenoid = new Solenoid(0);
         ISolenoidWrapper wrapper0 = DataAccessorFactory.getInstance().getSolenoidAccessor().getWrapper(0);

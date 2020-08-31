@@ -39,7 +39,7 @@ public final class PcmCallbackJni
             int fullChannel = mIndex * SensorUtil.kSolenoidChannels + mChannel;
             if ("SolenoidInitialized".equals(aCallbackType))
             {
-                if (!DataAccessorFactory.getInstance().getSolenoidAccessor().getPortList().contains(fullChannel))
+                if (!DataAccessorFactory.getInstance().getSolenoidAccessor().getWrappers().containsKey(fullChannel))
                 {
                     DataAccessorFactory.getInstance().getSolenoidAccessor().createSimulator(fullChannel, WpiSolenoidWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + fullChannel + " was not registerd before starting the robot");

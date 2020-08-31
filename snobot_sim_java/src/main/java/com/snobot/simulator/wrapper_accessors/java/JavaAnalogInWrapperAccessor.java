@@ -16,7 +16,7 @@ public class JavaAnalogInWrapperAccessor extends BaseWrapperAccessor<IAnalogInWr
     }
 
     @Override
-    protected Map<Integer, IAnalogInWrapper> getMap()
+    public Map<Integer, IAnalogInWrapper> getWrappers()
     {
         return SensorActuatorRegistry.get().getAnalogIn();
     }

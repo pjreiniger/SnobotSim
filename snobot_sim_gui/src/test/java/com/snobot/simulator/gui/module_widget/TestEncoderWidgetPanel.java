@@ -15,7 +15,7 @@ public class TestEncoderWidgetPanel extends BaseGuiSimulatorTest
     public void testPanel()
     {
         Encoder encoder = new Encoder(1, 2);
-        EncoderGraphicDisplay panel = new EncoderGraphicDisplay(DataAccessorFactory.getInstance().getEncoderAccessor().getPortList());
+        EncoderGraphicDisplay panel = new EncoderGraphicDisplay(DataAccessorFactory.getInstance().getEncoderAccessor().getWrappers().keySet());
 
         JFrame frame = getFrame();
         frame.getContentPane().add(panel);

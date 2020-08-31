@@ -17,7 +17,7 @@ public class TestSpeedControllerWidgetPanel extends BaseGuiSimulatorTest
     {
         final SpeedController sc = new Victor(1);
         SpeedControllerGraphicDisplay panel = new SpeedControllerGraphicDisplay(
-                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList());
+                DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().keySet());
 
         JFrame frame = getFrame();
         frame.getContentPane().add(panel);

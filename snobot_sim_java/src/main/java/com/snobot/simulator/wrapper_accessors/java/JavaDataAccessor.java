@@ -154,7 +154,7 @@ public class JavaDataAccessor implements IDataAccessor
         StringBuilder errorMessage = new StringBuilder(64);
 
 
-        for (int port : aAccessor.getPortList())
+        for (int port : aAccessor.getWrappers().keySet())
         {
             ISensorWrapper wrapper = aAccessor.getWrapper(port);
             if (!wrapper.isInitialized())

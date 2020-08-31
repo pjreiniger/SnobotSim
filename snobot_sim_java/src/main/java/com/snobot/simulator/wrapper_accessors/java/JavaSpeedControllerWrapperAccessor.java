@@ -34,7 +34,7 @@ public class JavaSpeedControllerWrapperAccessor extends BaseWrapperAccessor<IPwm
     }
 
     @Override
-    protected Map<Integer, IPwmWrapper> getMap()
+    public Map<Integer, IPwmWrapper> getWrappers()
     {
         return SensorActuatorRegistry.get().getSpeedControllers();
     }

@@ -1,7 +1,7 @@
 package com.snobot.simulator.gui.module_widget.settings;
 
 import java.awt.BorderLayout;
-import java.util.List;
+import java.util.Collection;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -20,7 +20,7 @@ public class GyroSettingsDialog extends SimpleSettingsDialog
         mSpeedControllerSelection = new JComboBox<>();
         mSpeedControllerSelection.addItem(new SensorHandleOption(-1, "None"));
 
-        List<Integer> speedControllers = DataAccessorFactory.getInstance().getGyroAccessor().getPortList();
+        Collection<Integer> speedControllers = DataAccessorFactory.getInstance().getGyroAccessor().getWrappers().keySet();
         for (int handle : speedControllers)
         {
             SensorHandleOption option = new SensorHandleOption(handle, DataAccessorFactory.getInstance().getGyroAccessor().getWrapper(handle).getName());

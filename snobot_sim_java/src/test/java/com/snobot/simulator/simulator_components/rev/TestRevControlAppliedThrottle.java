@@ -23,11 +23,11 @@ public class TestRevControlAppliedThrottle extends BaseSimulatorJavaTest
 
         SpeedControllerWrapperAccessor scAccessor = DataAccessorFactory.getInstance().getSpeedControllerAccessor();
 
-        Assertions.assertEquals(0, scAccessor.getPortList().size());
+        Assertions.assertEquals(0, scAccessor.getWrappers().size());
 
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, CANSparkMaxLowLevel.MotorType.kBrushless);
         IPwmWrapper wrapper =  DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrapper(rawHandle);
-        Assertions.assertEquals(1, scAccessor.getPortList().size());
+        Assertions.assertEquals(1, scAccessor.getWrappers().size());
         Assertions.assertEquals("Rev SC " + aCanHandle, wrapper.getName());
 
         sparksMax.set(-1.0);

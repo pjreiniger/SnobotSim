@@ -14,7 +14,7 @@ public class JavaAccelerometerWrapperAccessor extends BaseWrapperAccessor<IAccel
     }
 
     @Override
-    protected Map<Integer, IAccelerometerWrapper> getMap()
+    public Map<Integer, IAccelerometerWrapper> getWrappers()
     {
         return SensorActuatorRegistry.get().getAccelerometers();
     }

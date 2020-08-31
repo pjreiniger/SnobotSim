@@ -30,11 +30,11 @@ public class TestRevControlFollower extends BaseSimulatorJavaTest
         int rawHandle = aCanHandle + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
         int followerRawHandle = sFOLLOWER_ID + CtreTalonSrxSpeedControllerSim.sCAN_SC_OFFSET;
 
-        Assertions.assertEquals(0, scAccessor.getPortList().size());
+        Assertions.assertEquals(0, scAccessor.getWrappers().size());
 
         CANSparkMax sparksMax = new CANSparkMax(aCanHandle, CANSparkMaxLowLevel.MotorType.kBrushless);
         CANSparkMax follower = new CANSparkMax(sFOLLOWER_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
-        Assertions.assertEquals(2, scAccessor.getPortList().size());
+        Assertions.assertEquals(2, scAccessor.getWrappers().size());
 
         IPwmWrapper leadWrapper = scAccessor.getWrapper(rawHandle);
         IPwmWrapper followerWrapper = scAccessor.getWrapper(followerRawHandle);

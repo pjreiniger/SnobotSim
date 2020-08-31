@@ -32,7 +32,7 @@ public final class EncoderCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                if (!DataAccessorFactory.getInstance().getEncoderAccessor().getPortList().contains(mPort))
+                if (!DataAccessorFactory.getInstance().getEncoderAccessor().getWrappers().containsKey(mPort))
                 {
                     DataAccessorFactory.getInstance().getEncoderAccessor().createSimulator(mPort, WpiEncoderWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");

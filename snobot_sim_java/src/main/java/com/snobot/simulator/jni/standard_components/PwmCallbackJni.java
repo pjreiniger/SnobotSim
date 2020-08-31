@@ -33,7 +33,7 @@ public final class PwmCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().contains(mPort))
+                if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().containsKey(mPort))
                 {
                     DataAccessorFactory.getInstance().getSpeedControllerAccessor().createSimulator(mPort, WpiPwmWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");

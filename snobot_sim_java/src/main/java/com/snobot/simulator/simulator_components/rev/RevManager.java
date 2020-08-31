@@ -187,7 +187,7 @@ public class RevManager
     protected void createSim(int aCanPort)
     {
         int simPort = aCanPort + BaseCanSmartSpeedController.sCAN_SC_OFFSET;
-        if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getPortList().contains(simPort))
+        if (!DataAccessorFactory.getInstance().getSpeedControllerAccessor().getWrappers().containsKey(simPort))
         {
             sLOGGER.log(Level.WARN, "REV Motor Controller is being created dynamically instead of in the config file for port " + aCanPort);
 

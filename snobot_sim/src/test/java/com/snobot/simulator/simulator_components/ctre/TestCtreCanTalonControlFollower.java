@@ -28,11 +28,11 @@ public class TestCtreCanTalonControlFollower extends BaseSimulatorJniTest
             return;
         }
 
-        Assertions.assertEquals(0, scAccessor.getPortList().size());
+        Assertions.assertEquals(0, scAccessor.getWrappers().size());
         TalonSRX leadTalon = new TalonSRX(leadTalonId);
         TalonSRX talon = new TalonSRX(aCanHandle);
         talon.follow(leadTalon);
-        Assertions.assertEquals(2, scAccessor.getPortList().size());
+        Assertions.assertEquals(2, scAccessor.getWrappers().size());
 
         leadTalon.set(ControlMode.PercentOutput, .5);
 

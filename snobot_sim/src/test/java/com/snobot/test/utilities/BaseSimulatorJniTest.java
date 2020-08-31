@@ -52,7 +52,7 @@ public class BaseSimulatorJniTest
         if (!INITIALIZED)
         {
             DataAccessorFactory.setAccessor(new JniDataAccessor());
-            SnobotSimulatorJni.initializeLogging(1);
+            SnobotSimulatorJni.initializeLogging(4);
 
             File directory = new File("test_output");
             if (directory.exists())

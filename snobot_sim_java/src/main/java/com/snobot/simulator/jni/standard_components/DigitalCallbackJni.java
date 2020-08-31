@@ -33,7 +33,7 @@ public final class DigitalCallbackJni
         {
             if ("Initialized".equals(aCallbackType))
             {
-                if (!DataAccessorFactory.getInstance().getDigitalAccessor().getPortList().contains(mPort))
+                if (!DataAccessorFactory.getInstance().getDigitalAccessor().getWrappers().containsKey(mPort))
                 {
                     DataAccessorFactory.getInstance().getDigitalAccessor().createSimulator(mPort, WpiDigitalIoWrapper.class.getName());
                     sLOGGER.log(Level.WARN, "Simulator on port " + mPort + " was not registerd before starting the robot");

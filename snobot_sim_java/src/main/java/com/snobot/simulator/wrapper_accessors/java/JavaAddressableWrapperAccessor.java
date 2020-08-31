@@ -15,7 +15,7 @@ public class JavaAddressableWrapperAccessor extends BaseWrapperAccessor<IAddress
     }
 
     @Override
-    protected Map<Integer, IAddressableLedWrapper> getMap()
+    public Map<Integer, IAddressableLedWrapper> getWrappers()
     {
         return SensorActuatorRegistry.get().getLeds();
     }
