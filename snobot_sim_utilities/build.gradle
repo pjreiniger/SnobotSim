@@ -10,7 +10,7 @@ dependencies {
     compile 'org.apache.logging.log4j:log4j-api:' + getLog4jVersion()
     compile 'org.apache.logging.log4j:log4j-core:' + getLog4jVersion()
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.5.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.0'
 }
 
 jar {

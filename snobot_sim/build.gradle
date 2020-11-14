@@ -39,12 +39,12 @@ dependencies {
     testCompile "com.revrobotics.frc:SparkMax-java:" + getRevRoboticsVersion()
 
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-    testCompile 'org.junit.jupiter:junit-jupiter-params:5.6.2'
+    testCompile 'org.junit.jupiter:junit-jupiter-params:5.7.0'
 
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
     testRuntime 'org.junit.platform:junit-platform-launcher:1.6.2'
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-    testCompile 'org.junit.jupiter:junit-jupiter-params:5.6.2'
+    testCompile 'org.junit.jupiter:junit-jupiter-params:5.7.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
 
     testRuntime 'edu.wpi.first.hal:hal-jni:' + allwpilibVersion() + ':' + getCurrentOsArch()
