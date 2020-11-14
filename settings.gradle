@@ -16,6 +16,8 @@ include 'snobot_sim_utilities'
 include 'snobot_sim_gui'
 include 'snobot_sim_joysticks'
 include 'snobot_sim_example_robot'
+include 'dependabot_helper'
 
 
 rootProject.name = 'CppSimulator'
+

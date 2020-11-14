@@ -1,0 +1,25 @@
+
+ext {
+    baseId = "dependabot_helper"
+    additional_external_libraries = []
+}
+
+apply from: "${rootDir}/common/base_java_script.gradle"
+
+dependencies {
+    compile 'edu.wpi.first.ntcore:ntcore-java:2020.3.2'
+    compile 'org.apache.logging.log4j:log4j-api:2.13.3'
+    compile 'org.apache.logging.log4j:log4j-core:2.13.3'
+    compile 'org.yaml:snakeyaml:1.27'
+    compile 'net.java.jinput:jinput:2.0.9'
+    compile 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    compile 'org.junit.platform:junit-platform-launcher:1.6.2'
+    compile 'edu.wpi.first.thirdparty.frc2020.opencv:opencv-java:3.4.7-2'
+
+    compile "com.ctre.phoenix:api-java:5.17.2"
+    compile "com.kauailabs.navx.frc:navx-java:3.1.403"
+    compile "com.revrobotics.frc:SparkMax-java:1.5.0"
+
+    compile 'com.snobot.simulator:ctre_sim_override:5.17.2_V1:windowsx86-64'
+    compile 'com.snobot.simulator:rev_simulator:1.5.0_V1:windowsx86-64'
+}

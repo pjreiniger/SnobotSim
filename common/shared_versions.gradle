@@ -1,0 +1,57 @@
+
+
+
+ext.allwpilibVersion = {
+    return '2020.3.2'
+}
+
+ext.getWpiUtilVersion = {
+    return allwpilibVersion()
+}
+ext.getNtCoreVersion = {
+    return allwpilibVersion()
+}
+ext.getCsCoreVersion = {
+    return allwpilibVersion()
+}
+
+ext.getWpilibOpencvVersion = {
+    return '3.4.7-2'
+}
+ext.getCtreVersion = {
+    return '5.17.2'
+}
+ext.getCtreSimVersion = {
+    return getCtreVersion() + "_V0_RC"
+}
+ext.getRevRoboticsVersion = {
+    return '1.5.0'
+}
+ext.getRevRoboticsSimVersion = {
+    return getRevRoboticsVersion() + "_V1"
+}
+ext.getNavxVersion = {
+    return '3.1.403'
+}
+
+////////////////////////////////
+// Third Party
+ext.getLog4jVersion = {
+    return "2.13.3"
+}
+
+ext.getSnakeYamlVersion = {
+    return "1.27"
+}
+
+ext.getJunitJupiterVersion = {
+    return "5.6.2"
+}
+
+ext.getJunitPlatformVersion = {
+    return "1.7.0"
+}
+
+ext.getJinputVersion = {
+    return "2.0.9"
+}
