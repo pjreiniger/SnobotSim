@@ -8,7 +8,7 @@ apply from: "${rootDir}/common/base_java_script.gradle"
 
 dependencies {
     compile 'edu.wpi.first.ntcore:ntcore-java:2020.3.2'
-    compile 'org.apache.logging.log4j:log4j-api:2.13.3'
+    compile 'org.apache.logging.log4j:log4j-api:2.14.0'
     compile 'org.apache.logging.log4j:log4j-core:2.13.3'
     compile 'org.yaml:snakeyaml:1.27'
     compile 'net.java.jinput:jinput:2.0.9'
